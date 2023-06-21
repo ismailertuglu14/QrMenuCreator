@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/page_padding.dart';
+import '../../../../product/widget/custom_tab_indicator.dart';
 
 class DarkThemeData {
   static DarkThemeData? _instance;
@@ -14,7 +15,6 @@ class DarkThemeData {
 
   DarkThemeData._();
 
-  
   ThemeData get theme => ThemeData(
       fontFamily: "SFPRO",
       colorScheme: const ColorScheme(
@@ -38,13 +38,13 @@ class DarkThemeData {
         thickness: MaterialStateProperty.all<double>(2),
       ),
       timePickerTheme:
-          const TimePickerThemeData(backgroundColor: Color(0xFF282c2c)),
-      drawerTheme: const DrawerThemeData(backgroundColor: Color(0xFF282c2c)),
+          const TimePickerThemeData(backgroundColor: Color(0xFF292929)),
+      drawerTheme: const DrawerThemeData(backgroundColor: Color(0xFF292929)),
       progressIndicatorTheme:
           const ProgressIndicatorThemeData(color: Color(0xFF3AB86F)),
       scaffoldBackgroundColor: const Color(0xFF292929),
       cardTheme: CardTheme(
-        color: const Color(0xFF282c2c).withOpacity(0.5),
+        color: const Color(0xFF292929).withOpacity(0.5),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
       snackBarTheme: const SnackBarThemeData(
@@ -57,8 +57,8 @@ class DarkThemeData {
       expansionTileTheme: const ExpansionTileThemeData(
         textColor: Colors.white70,
         collapsedTextColor: Colors.white70,
-        backgroundColor: Colors.black12,
-        collapsedBackgroundColor: Color(0xFF282c2c),
+        backgroundColor: Color(0xFF292929),
+        collapsedBackgroundColor: Color(0xFF292929),
         childrenPadding: PagePadding.allDefault(),
         tilePadding: PagePadding.allDefault(),
         collapsedShape:
@@ -69,15 +69,16 @@ class DarkThemeData {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
       bottomSheetTheme: const BottomSheetThemeData(
-          backgroundColor: Color(0xFF282c2c),
+          backgroundColor: Color(0xFF292929),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10)))),
-      tabBarTheme: const TabBarTheme(
+      tabBarTheme: TabBarTheme(
         labelColor: Colors.white70,
-        overlayColor: MaterialStatePropertyAll(Colors.transparent),
-        indicatorColor: Color(0xFF3AB86F),
+        unselectedLabelColor: Colors.white30,
+        overlayColor: MaterialStateProperty.all<Color>(Colors.transparent),
+        indicator: CustomTabIndicator(),
       ),
       radioTheme: RadioThemeData(
           fillColor: MaterialStateProperty.all<Color>(const Color(0xFF3AB86F))),
@@ -97,6 +98,8 @@ class DarkThemeData {
       )),
       textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
+               textStyle: MaterialStateProperty.all<TextStyle>(
+            TextStyle(color: Colors.white70)),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
         backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:qrmenu/core/extension/context_extension.dart';
 
 class RequestTimeoutTimer extends StatefulWidget {
   final int seconds;
@@ -35,7 +36,7 @@ class _RequestTimeoutTimerState extends State<RequestTimeoutTimer> {
         children: [
           TextSpan(
               text: seconds == "00" ? "" : ' $minutes:$seconds',
-              style: TextStyle(color: Theme.of(context).colorScheme.primary)),
+              style: TextStyle(color: context.colorScheme.primary)),
         ],
       ),
     );

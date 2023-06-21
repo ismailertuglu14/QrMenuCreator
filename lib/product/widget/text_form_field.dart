@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:qrmenu/core/init/provider/theme_provider.dart';
 import '../utility/border_radius.dart';
 
 class CommonTextFormField extends StatelessWidget {
@@ -16,7 +18,7 @@ class CommonTextFormField extends StatelessWidget {
     this.label,
     this.validator,
     this.hintText,
-    this.errorText,
+    this.errorText, this.autovalidateMode,
   });
   final String? hintText;
   final String? label;
@@ -31,6 +33,7 @@ class CommonTextFormField extends StatelessWidget {
   final TextEditingController textController;
   final String? Function(String?)? validator;
   final String? errorText;
+  final AutovalidateMode? autovalidateMode;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +42,13 @@ class CommonTextFormField extends StatelessWidget {
       onChanged: onChanged,
       validator: validator,
       focusNode: focusNode,
+      keyboardAppearance:
+          context.watch<ThemeProvider>().themeMode == ThemeMode.dark
+              ? Brightness.dark
+              : Brightness.light,
       keyboardType: keyboardType,
+      autovalidateMode: autovalidateMode,
+      
       controller: textController,
       textInputAction: textInputAction,
       obscureText: obscureText ?? false,

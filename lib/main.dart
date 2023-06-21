@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ResponsiveSizer(
-      
         builder: (context, orientation, screenType) => MaterialApp.router(
               builder: FToastBuilder(),
               title: AppConstants.APP_NAME,

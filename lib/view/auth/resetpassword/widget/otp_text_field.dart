@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
+import 'package:qrmenu/core/extension/context_extension.dart';
 
 import '../../../../product/utility/border_radius.dart';
 
@@ -30,7 +31,7 @@ class _OtpCodeTextFieldState extends State<OtpCodeTextField> {
   @override
   Widget build(BuildContext context) {
     const length = 6;
-    final borderColor = Theme.of(context).colorScheme.primary;
+    final borderColor = context.colorScheme.primary;
     const fillColor = Colors.transparent;
     final defaultPinTheme = PinTheme(
       width: 56,

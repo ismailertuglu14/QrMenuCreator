@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:qrmenu/core/extension/context_extension.dart';
+import 'package:qrmenu/product/widget/text_form_field.dart';
 
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/elevation_button.dart';
 
-
-class ResetPasswordSubmitChangeStep extends StatefulWidget {
+class ResetPasswordSubmitChangeStep extends StatelessWidget {
   const ResetPasswordSubmitChangeStep(
       {super.key,
       required this.resetPassword,
@@ -16,24 +17,19 @@ class ResetPasswordSubmitChangeStep extends StatefulWidget {
   final TextEditingController passwordTextController;
 
   @override
-  State<ResetPasswordSubmitChangeStep> createState() =>
-      _ResetPasswordSubmitChangeStepState();
-}
-
-class _ResetPasswordSubmitChangeStepState
-    extends State<ResetPasswordSubmitChangeStep> {
-  @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text("Şifreniz en az 6 karakter uzunluğunda olmalıdır.",
-            style: TextStyle(
-                fontSize: Theme.of(context).textTheme.titleMedium?.fontSize)),
-       /* RegisterPasswordFormField(
-            passwordTextController: widget.passwordTextController),
-        RegisterPasswordFormField(
-            passwordTextController: widget.passwordConfirmTextController),*/
+            style: TextStyle(fontSize: context.text.titleMedium?.fontSize)),
+        Form(
+            child: Column(
+          children: [
+            CommonTextFormField(textController: passwordTextController),
+            CommonTextFormField(textController: passwordConfirmTextController),
+          ],
+        )),
         Row(
           children: [
             Expanded(
@@ -42,7 +38,7 @@ class _ResetPasswordSubmitChangeStepState
                   padding: PagePadding.allHeight(),
                   child: Text("Change password"),
                 ),
-                onPressed: () => widget.resetPassword(),
+                onPressed: () => resetPassword(),
               ),
             ),
           ],

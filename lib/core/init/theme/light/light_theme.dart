@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/page_padding.dart';
-
+import '../../../../product/widget/custom_tab_indicator.dart';
 
 class LightThemeData {
   static LightThemeData? _instance;
@@ -53,8 +53,8 @@ class LightThemeData {
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10)))),
       expansionTileTheme: ExpansionTileThemeData(
-        textColor: Colors.black,
-        collapsedTextColor: Colors.black,
+        textColor: Color(0xFF292929),
+        collapsedTextColor: Color(0xFF292929),
         backgroundColor: Colors.grey.shade100,
         collapsedBackgroundColor: Colors.white,
         childrenPadding: const PagePadding.allDefault(),
@@ -73,15 +73,17 @@ class LightThemeData {
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10)))),
       listTileTheme: const ListTileThemeData(
-          textColor: Colors.black,
+          textColor: Color(0xFF292929),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)))),
       outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
+        textStyle: MaterialStateProperty.all<TextStyle>(
+            TextStyle(color: Color(0xFF292929).withOpacity(0.5))),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
         backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-        foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+        foregroundColor: MaterialStateProperty.all<Color>(Color(0xFF292929)),
         side: MaterialStateProperty.all<BorderSide>(
             const BorderSide(color: Colors.black12)),
       )),
@@ -93,31 +95,39 @@ class LightThemeData {
       dialogTheme: const DialogTheme(
           titleTextStyle: TextStyle(
               fontWeight: FontWeight.bold,
-              color: Color(0xFF282c2c),
+              color: Color(0xFF292929),
               fontSize: 24)),
-      tabBarTheme: const TabBarTheme(
-        indicatorColor: Color(0xFF3AB86F),
-        labelColor: Color(0xFF282c2c),
-        overlayColor: MaterialStatePropertyAll(Colors.transparent),
+      tabBarTheme: TabBarTheme(
+        labelColor: Color(0xFF292929),
+        unselectedLabelColor: Color(0xFF292929).withOpacity(0.5),
+        overlayColor: MaterialStateProperty.all<Color>(Colors.transparent),
+        indicator: CustomTabIndicator(),
       ),
       radioTheme: RadioThemeData(
           fillColor: MaterialStateProperty.all<Color>(const Color(0xFF3AB86F))),
       cardColor: Colors.white70,
       textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
+        textStyle: MaterialStateProperty.all<TextStyle>(
+            TextStyle(color: Color(0xFF292929).withOpacity(0.5))),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
         backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-        foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+        foregroundColor: MaterialStateProperty.all<Color>(
+          Color(0xFF292929),
+        ),
       )),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
+              textStyle: MaterialStateProperty.all<TextStyle>(
+                  TextStyle(color: Color(0xFF292929).withOpacity(0.5))),
               elevation: MaterialStateProperty.all<double>(0),
               shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
               overlayColor:
                   MaterialStateProperty.all<Color>(Colors.transparent),
-              backgroundColor: MaterialStateProperty.all(const Color(0xFF3AB86F)),
+              backgroundColor:
+                  MaterialStateProperty.all(const Color(0xFF3AB86F)),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10))))),
@@ -125,17 +135,17 @@ class LightThemeData {
         elevation: 0,
         backgroundColor: Colors.transparent,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
-        actionsIconTheme: IconThemeData(color: Colors.black),
+        actionsIconTheme: IconThemeData(color: Color(0xFF292929)),
       ),
       popupMenuTheme: PopupMenuThemeData(
           color: Colors.white,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
           showUnselectedLabels: false,
           showSelectedLabels: true,
           backgroundColor: Colors.white,
           selectedItemColor: Color(0xFF3AB86F),
-          unselectedItemColor: Colors.black45,
+          unselectedItemColor: Color(0xFF292929).withOpacity(0.5),
           type: BottomNavigationBarType.fixed));
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qrmenu/core/extension/context_extension.dart';
 
 class CommonElevationButton extends StatelessWidget {
   const CommonElevationButton(
@@ -10,7 +11,7 @@ class CommonElevationButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.primary),
+            backgroundColor: context.colorScheme.primary),
         onPressed: onPressed,
         child: child);
   }

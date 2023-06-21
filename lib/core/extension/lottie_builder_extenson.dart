@@ -11,9 +11,6 @@ extension LottieBuilderExtenison on LottieKeys {
 
       case LottieKeys.LOADING:
         return "loading";
-
-      case LottieKeys.error:
-        return "error";
     }
   }
 
