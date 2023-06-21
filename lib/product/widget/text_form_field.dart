@@ -1,0 +1,76 @@
+import 'package:flutter/material.dart';
+import '../utility/border_radius.dart';
+
+class CommonTextFormField extends StatelessWidget {
+  const CommonTextFormField({
+    super.key,
+    required this.textController,
+    this.keyboardType,
+    this.textInputAction,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.focusNode,
+    this.onTap,
+    this.onChanged,
+    this.obscureText,
+    this.label,
+    this.validator,
+    this.hintText,
+    this.errorText,
+  });
+  final String? hintText;
+  final String? label;
+  final bool? obscureText;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final FocusNode? focusNode;
+  final void Function()? onTap;
+  final void Function(String)? onChanged;
+  final TextEditingController textController;
+  final String? Function(String?)? validator;
+  final String? errorText;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      onTap: onTap,
+      onChanged: onChanged,
+      validator: validator,
+      focusNode: focusNode,
+      keyboardType: keyboardType,
+      controller: textController,
+      textInputAction: textInputAction,
+      obscureText: obscureText ?? false,
+      cursorRadius: const Radius.circular(20),
+      cursorColor: Theme.of(context).colorScheme.onSurface,
+      decoration: InputDecoration(
+          errorMaxLines: 1,
+          errorText: errorText,
+          hintText: hintText,
+          filled: true,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
+          label: Text(label ?? ""),
+          errorBorder: OutlineInputBorder(
+              borderRadius: const PageBorderRadius.allMedium(),
+              borderSide:
+                  BorderSide(color: Theme.of(context).colorScheme.error)),
+          hintStyle: TextStyle(
+              color: Theme.of(context).colorScheme.surface.withOpacity(0.5)),
+          fillColor: Theme.of(context).colorScheme.onSecondary,
+          focusedBorder: OutlineInputBorder(
+              borderRadius: const PageBorderRadius.allMedium(),
+              borderSide:
+                  BorderSide(color: Theme.of(context).colorScheme.secondary)),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: const PageBorderRadius.allMedium(),
+              borderSide:
+                  BorderSide(color: Theme.of(context).colorScheme.secondary))),
+      style: TextStyle(
+          color: Theme.of(context).colorScheme.onSurface,
+          fontSize: Theme.of(context).textTheme.titleMedium?.fontSize),
+    );
+  }
+}

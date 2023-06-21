@@ -1,0 +1,73 @@
+name: qrmenu
+description: qrmenu
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.19.0 <3.0.0"
+
+dependencies:
+  
+  flutter:
+    sdk: flutter
+    
+  #Services
+  dio: ^5.0.1
+  app_version_update: ^3.1.0
+  image_picker: ^0.8.7
+  url_launcher: ^6.1.10
+  flutter_udid: ^2.0.1 # Device unique id
+  get_ip_address: ^0.0.5 # Device ip address
+  device_marketing_names: ^0.6.2 # Device model name
+  image_cropper: ^3.0.3
+  connectivity_plus: ^4.0.0
+  fluttertoast: ^8.2.1
+  camera: ^0.10.5+2
+  #DeepLink
+  uni_links: ^0.5.1
+  #Router
+  go_router: ^6.2.0
+  #Animations
+  lottie: ^2.2.0
+  #Cache
+  shared_preferences: ^2.0.18
+  #State Managment
+  provider: ^6.0.5
+  #Localization
+  easy_localization: ^3.0.1
+  #UI
+  shimmer: ^2.0.0
+  pinput: ^2.2.31
+  #Social Login
+  sign_in_with_apple: ^4.3.0
+  flutter_login_facebook: ^1.8.0
+  google_sign_in: ^6.1.0
+  file_picker: ^5.2.10
+  qr_code_scanner: ^1.0.1
+  permission_handler: ^10.3.0
+  flutter_secure_storage: ^8.0.0
+  responsive_sizer: ^3.1.1
+
+  
+ 
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/languages/
+    - assets/lotties/
+
+  fonts:
+    - family: SFPRO
+      fonts:
+        - asset: assets/fonts/SFPRO.ttf

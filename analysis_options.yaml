@@ -1,0 +1,24 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+
+  
+
+analyzer:
+  errors:
+    # Sarı uyarılar
+    unused_import: ignore
+    unused_local_variable: ignore
+    camel_case_types: ignore
+    # Diğer uyarılar
+    unrelated_type_equality_checks: error
+    # Hata mesajları
+    prefer_final_locals: ignore
+    prefer_single_quotes: ignore
+    prefer_const_constructors: ignore
+    avoid_empty_else: ignore
+    unused_element: ignore
+    unused_field: ignore
+    
+
