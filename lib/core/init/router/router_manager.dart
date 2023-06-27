@@ -29,7 +29,7 @@ class RouterManager with ChangeNotifier {
       GoRoute(
           name: RouterKeys.ONBOARD.name,
           path: RouterKeys.ONBOARD.route,
-          pageBuilder: (context, state) => buildPageWithDefaultTransition(
+          pageBuilder: (context, state) => buildPageWithSlideTransition(
               context: context, state: state, child: const OnboardView())),
       GoRoute(
           name: RouterKeys.HOME.name,
@@ -76,4 +76,24 @@ CustomTransitionPage buildPageWithDefaultTransition<T>({
           child: child,
         );
       });
+}
+
+CustomTransitionPage buildPageWithSlideTransition<T>({
+  required BuildContext context,
+  required GoRouterState state,
+  required Widget child,
+}) {
+  return CustomTransitionPage<T>(
+    key: state.pageKey,
+    child: child,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      return SlideTransition(
+        position: Tween<Offset>(
+          begin: Offset(0, 1),
+          end: Offset.zero,
+        ).animate(animation),
+        child: child,
+      );
+    },
+  );
 }

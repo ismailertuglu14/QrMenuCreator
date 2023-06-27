@@ -23,9 +23,10 @@ abstract class SplashViewModels extends State<SplashView> with CacheInit {
   void _changeAnimationInit() => setState(() => _isFirstInit = true);
 
   void navigateToOnboardOrLogin() {
-    LocaleStorage.instance.getBoolValue(LocaleKeys.IS_FIRST)
+    context.go(RouterKeys.ONBOARD.route);
+    /*LocaleStorage.instance.getBoolValue(LocaleKeys.IS_FIRST)
         ? context.go(RouterKeys.ONBOARD.route)
-        : context.go(RouterKeys.LOGIN.route);
+        : context.go(RouterKeys.LOGIN.route);*/
 
     /*_updateService.checkAppUpdate().then((result) async {
       if (result.canUpdate!) {

@@ -31,16 +31,21 @@ class _SplashViewState extends SplashViewModels {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Lottie.asset(
+        body: Stack(
+      fit: StackFit.expand,
+      alignment: Alignment.center,
+      children: [
+        Positioned(
+          top: context.height / 3.5,
+          child: Lottie.asset(
             LottieKeys.SPLASH.path,
             height: context.height / 3,
             width: context.width / 1.2,
           ),
-          AnimatedOpacity(
+        ),
+        Positioned(
+          bottom: context.height / 3.5,
+          child: AnimatedOpacity(
               opacity: _isFirstInit ? 1 : 0,
               duration: const PageDurations.normal(),
               child: Column(
@@ -58,8 +63,19 @@ class _SplashViewState extends SplashViewModels {
                           fontSize: context.text.titleSmall?.fontSize)),
                 ],
               )),
-        ],
-      ),
+        ),
+        Positioned(
+            bottom: context.height / 20,
+            child: AnimatedOpacity(
+              opacity: _isFirstInit ? 1 : 0,
+              duration: const PageDurations.normal(),
+              child: Text(
+                "Build version ${AppConstants.APP_VERSION}",
+                style: TextStyle(
+                    color: context.colorScheme.surface.withOpacity(0.5)),
+              ),
+            ))
+      ],
     ));
   }
 }

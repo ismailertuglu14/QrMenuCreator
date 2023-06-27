@@ -36,7 +36,7 @@ class _LoginViewState extends LoginViewModels {
         child: Column(children: [
           Expanded(flex: 3, child: ImageKeys.login.assetImage()),
           Expanded(
-              flex: 4,
+              flex: 3,
               child: Form(
                 key: _loginProvider.formKey,
                 child: Column(

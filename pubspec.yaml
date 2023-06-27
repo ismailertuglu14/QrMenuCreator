@@ -44,7 +44,6 @@ dependencies:
   sign_in_with_apple: ^4.3.0
   flutter_login_facebook: ^1.8.0
   google_sign_in: ^6.1.0
-  file_picker: ^5.2.10
   qr_code_scanner: ^1.0.1
   permission_handler: ^10.3.0
   flutter_secure_storage: ^8.0.0

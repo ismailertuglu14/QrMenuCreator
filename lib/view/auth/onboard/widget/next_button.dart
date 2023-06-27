@@ -8,32 +8,38 @@ import '../model/onboard_model.dart';
 class OnBoardNextButton extends StatelessWidget {
   const OnBoardNextButton({
     Key? key,
-    required this.currentPage,
-    required this.pageController,
+    required int currentPage,
+    required PageController pageController,
     required this.navigateToLogin,
-  }) : super(key: key);
+  })  : _currentPage = currentPage,
+        _pageController = pageController,
+        super(key: key);
 
-  final int currentPage;
-  final String nextText = "Next";
-  final String doneText = "Done";
-  final PageController pageController;
+  final int _currentPage;
+  final String _nextText = "Next";
+  final String _doneText = "Done";
+  final String _getStarted = "Get Started";
+
+  final PageController _pageController;
   final void Function(BuildContext context) navigateToLogin;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const PagePadding.verticalDefault(),
+      padding: PagePadding.horizontalMedium(),
       child: ElevatedButton(
           onPressed: () =>
-              _pageButtonState(context, currentPage, pageController),
+              _pageButtonState(context, _currentPage, _pageController),
           style: ButtonStyle(
               minimumSize:
                   MaterialStatePropertyAll(Size(context.width / 2, 50))),
           child: Text(
-              OnboardModels.items.length != (currentPage + 1)
-                  ? nextText
-                  : doneText,
-              style: TextStyle(fontSize: context.text.titleLarge!.fontSize))),
+              _currentPage == 0
+                  ? _getStarted
+                  : OnboardModels.items.length != (_currentPage + 1)
+                      ? _nextText
+                      : _doneText,
+              style: TextStyle(fontSize: context.text.titleMedium!.fontSize))),
     );
   }
 

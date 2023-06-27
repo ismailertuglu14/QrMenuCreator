@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:go_router/go_router.dart';
+import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
+import 'package:qrmenu/product/widget/elevation_button.dart';
 import '../../../../core/constans/cache/locale_keys_enum.dart';
 import '../../../../core/constans/enum/route_keys.dart';
 import '../../../../core/init/cache/local_storage.dart';
@@ -27,12 +29,6 @@ class _OnboardViewState extends OnboardViewModel {
         padding: const PagePadding.verticalHight(),
         child: Column(children: [
           Expanded(
-              flex: 1,
-              child: Align(
-                  alignment: Alignment.centerRight,
-                  child: OnboardSkipButton(
-                      index: _currentPage, navigateToLogin: navigateToLogin))),
-          Expanded(
               flex: 7,
               child: PageView.builder(
                   controller: _pageController,
@@ -44,14 +40,24 @@ class _OnboardViewState extends OnboardViewModel {
               flex: 1,
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children:
-                      pageIndicator(_currentPage, OnboardModels.items.length))),
+                  children: pageIndicator(
+                      context, _currentPage, OnboardModels.items.length,
+                      navigateToLogin: navigateToLogin))),
           Expanded(
               flex: 1,
-              child: OnBoardNextButton(
-                  currentPage: _currentPage,
-                  pageController: _pageController,
-                  navigateToLogin: navigateToLogin))
+              child: Row(
+                children: [
+                  Expanded(
+                      child:
+                          OnboardSkipButton(navigateToLogin: navigateToLogin)),
+                  Expanded(
+                    child: OnBoardNextButton(
+                        currentPage: _currentPage,
+                        pageController: _pageController,
+                        navigateToLogin: navigateToLogin),
+                  ),
+                ],
+              )),
         ]),
       ),
     );

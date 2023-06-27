@@ -42,7 +42,7 @@ class DarkThemeData {
       drawerTheme: const DrawerThemeData(backgroundColor: Color(0xFF292929)),
       progressIndicatorTheme:
           const ProgressIndicatorThemeData(color: Color(0xFF3AB86F)),
-      scaffoldBackgroundColor: const Color(0xFF292929),
+      scaffoldBackgroundColor: const Color(0xFF161618),
       cardTheme: CardTheme(
         color: const Color(0xFF292929).withOpacity(0.5),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -98,7 +98,7 @@ class DarkThemeData {
       )),
       textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
-               textStyle: MaterialStateProperty.all<TextStyle>(
+        textStyle: MaterialStateProperty.all<TextStyle>(
             TextStyle(color: Colors.white70)),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),

@@ -11,36 +11,39 @@ class PageViewItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-            flex: 7,
-            child: Padding(
-              padding: const PagePadding.spesificAuth(),
-              child: OnboardModels.items[index].imagePath.assetImage(),
-            )),
-        Expanded(
-            flex: 2,
-            child: Padding(
-                padding: const PagePadding.horizontalHeight(),
-                child: Text(OnboardModels.items[index].title,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: context.text.headlineSmall!.fontSize,
-                        color: context.colorScheme.surface)))),
-        Expanded(
-            flex: 2,
-            child: Padding(
-                padding: const PagePadding.horizontalHeight(),
-                child: Text(OnboardModels.items[index].description,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: context.text.titleMedium!.fontSize,
-                        color: Theme.of(context)
-                            .colorScheme
-                            .surface
-                            .withOpacity(0.5)))))
-      ],
+    return Padding(
+      padding: const PagePadding.allHeight(),
+      child: Column(
+        children: [
+          Expanded(
+              flex: 8,
+              child: Padding(
+                padding: const PagePadding.spesificAuth(),
+                child: OnboardModels.items[index].imagePath.assetImage(),
+              )),
+          Expanded(
+              flex: 1,
+              child: Padding(
+                  padding: const PagePadding.horizontalHeight(),
+                  child: Text(OnboardModels.items[index].title,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: context.text.headlineSmall!.fontSize,
+                          color: context.colorScheme.surface)))),
+          Expanded(
+              flex: 2,
+              child: Padding(
+                  padding: const PagePadding.horizontalHeight(),
+                  child: Text(OnboardModels.items[index].description,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: context.text.titleMedium!.fontSize,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .surface
+                              .withOpacity(0.5)))))
+        ],
+      ),
     );
   }
 }

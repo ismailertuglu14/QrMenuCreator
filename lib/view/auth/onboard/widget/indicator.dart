@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:qrmenu/core/extension/context_extension.dart';
 
 import '../../../../product/utility/durations.dart';
 
-List<Widget> pageIndicator(int currentPage, int length) {
+pageIndicator(BuildContext context, int currentPage, int length,
+    {required void Function(BuildContext) navigateToLogin}) {
   return List<Widget>.generate(
       length,
       (index) => AnimatedContainer(
-          height: 10,
+          height: 4,
           duration: const PageDurations.min(),
           width: (index == currentPage) ? 30 : 10,
           margin: const EdgeInsets.symmetric(horizontal: 5),

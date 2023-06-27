@@ -22,3 +22,4 @@ abstract class OnboardViewModel extends State<OnboardView> {
     context.go(RouterKeys.LOGIN.route);
   }
 }
+
