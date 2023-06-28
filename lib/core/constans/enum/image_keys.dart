@@ -13,4 +13,10 @@ enum ImageKeys {
   login,
   register,
   reset_password,
+  default_cover,
+  default_banner,
+  light_theme,
+  dark_theme,
+  system_theme,
+  premium
 }

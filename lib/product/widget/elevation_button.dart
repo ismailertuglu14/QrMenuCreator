@@ -9,10 +9,6 @@ class CommonElevationButton extends StatelessWidget {
   final ButtonStyle? style;
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            backgroundColor: context.colorScheme.primary),
-        onPressed: onPressed,
-        child: child);
+    return ElevatedButton(style: style, onPressed: onPressed, child: child);
   }
 }

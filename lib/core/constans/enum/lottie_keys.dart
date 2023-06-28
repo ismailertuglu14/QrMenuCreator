@@ -1,2 +1,2 @@
 // ignore: constant_identifier_names
-enum LottieKeys { SPLASH, ERROR, LOADING }
+enum LottieKeys { splash, error, loading,empty_notification,premium }

@@ -19,7 +19,7 @@ class PageViewItems extends StatelessWidget {
               flex: 8,
               child: Padding(
                 padding: const PagePadding.spesificAuth(),
-                child: OnboardModels.items[index].imagePath.assetImage(),
+                child: OnboardModels.items[index].imagePath.imageAsset(),
               )),
           Expanded(
               flex: 1,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-
 import '../../constans/cache/locale_keys_enum.dart';
+import '../../constans/enum/theme_mode_keys.dart';
 import '../cache/local_storage.dart';
 
 class ThemeProvider extends ChangeNotifier {
@@ -13,27 +13,30 @@ class ThemeProvider extends ChangeNotifier {
   }
 
   ThemeProvider._() {
-    _isDark = LocaleStorage.instance.getBoolValue(LocaleKeys.THEME_MODE);
+    _themeMode = ThemeModekeys
+        .values[LocaleStorage.instance.getIntValue(LocaleKeys.THEME_MODE)];
   }
 
-  bool? _isDark;
-  bool? get isDark => _isDark;
-  void changeTheme(bool value) {
-    _isDark = value;
-    LocaleStorage.instance.setBoolValue(LocaleKeys.THEME_MODE, value);
+  ThemeModekeys? _themeMode;
+  ThemeModekeys? get themeMode => _themeMode;
+  ThemeMode get getThemeMode => _getThemeMode();
+  void changeTheme(ThemeModekeys value) {
+    _themeMode = value;
+
+    LocaleStorage.instance.setIntValue(LocaleKeys.THEME_MODE, value.index);
     notifyListeners();
   }
 
-  ThemeMode get themeMode => _getThemeMode();
-
   ThemeMode _getThemeMode() {
-    switch (_isDark) {
-      case true:
-        return ThemeMode.dark;
-
-      case false:
+    switch (_themeMode) {
+      case ThemeModekeys.LIGHT:
         return ThemeMode.light;
 
+      case ThemeModekeys.DARK:
+        return ThemeMode.dark;
+
+      case ThemeModekeys.SYSTEM:
+        return ThemeMode.system;
       default:
         return ThemeMode.system;
     }

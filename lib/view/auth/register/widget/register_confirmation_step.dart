@@ -35,7 +35,7 @@ class RegisterConfirmationStep extends StatelessWidget {
         )),
         Expanded(
             child: registerProvider.isLoading
-                ? Lottie.asset(LottieKeys.LOADING.path, height: 50)
+                ? LottieKeys.loading.path(height: 50)
                 : Padding(
                     padding: const PagePadding.allDefault(),
                     child: CommonElevationButton(

@@ -34,7 +34,12 @@ class _LoginViewState extends LoginViewModels {
       body: Padding(
         padding: PagePadding.spesificAuth(),
         child: Column(children: [
-          Expanded(flex: 3, child: ImageKeys.login.assetImage()),
+          Expanded(
+              flex: 3,
+              child: Padding(
+                padding: PagePadding.allHeight(),
+                child: ImageKeys.login.imageAsset(),
+              )),
           Expanded(
               flex: 3,
               child: Form(
@@ -45,7 +50,7 @@ class _LoginViewState extends LoginViewModels {
                     LoginPasswordTextField(
                         passwordController: _passwordController),
                     LoginButton(),
-                    Expanded(flex: 1, child: DoYouNeedHelpButtons())
+                    Expanded(flex: 2, child: DoYouNeedHelpButtons())
                   ],
                 ),
               )),

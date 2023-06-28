@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qrmenu/core/extension/context_extension.dart';
 
 import '../utility/border_radius.dart';
 
@@ -45,31 +46,28 @@ class CommonTextField extends StatelessWidget {
       autofocus: autofocus ?? false,
       textInputAction: textInputAction,
       cursorRadius: const Radius.circular(20),
-      cursorColor: Theme.of(context).colorScheme.onSurface,
+      cursorColor: context.colorScheme.onSurface,
       decoration: InputDecoration(
           errorBorder: OutlineInputBorder(
               borderRadius: const PageBorderRadius.allMedium(),
-              borderSide:
-                  BorderSide(color: Theme.of(context).colorScheme.error)),
+              borderSide: BorderSide(color: context.colorScheme.error)),
           filled: true,
           label: label,
           suffixIcon: suffixIcon,
           hintText: hintText,
           prefixIcon: prefixIcon,
-          hintStyle: TextStyle(
-              color: Theme.of(context).colorScheme.surface.withOpacity(0.5)),
-          fillColor: Theme.of(context).colorScheme.onSecondary,
+          hintStyle:
+              TextStyle(color: context.colorScheme.surface.withOpacity(0.5)),
+          fillColor: context.colorScheme.onSecondary,
           focusedBorder: OutlineInputBorder(
               borderRadius: const PageBorderRadius.allMedium(),
-              borderSide:
-                  BorderSide(color: Theme.of(context).colorScheme.secondary)),
+              borderSide: BorderSide(color: context.colorScheme.secondary)),
           enabledBorder: OutlineInputBorder(
               borderRadius: const PageBorderRadius.allMedium(),
-              borderSide:
-                  BorderSide(color: Theme.of(context).colorScheme.secondary))),
+              borderSide: BorderSide(color: context.colorScheme.secondary))),
       style: TextStyle(
-          color: Theme.of(context).colorScheme.onSurface,
-          fontSize: Theme.of(context).textTheme.titleMedium?.fontSize),
+          color: context.colorScheme.onSurface,
+          fontSize: context.text.titleMedium?.fontSize),
     );
   }
 }

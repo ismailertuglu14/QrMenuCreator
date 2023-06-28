@@ -21,14 +21,14 @@ class LightThemeData {
         secondary: Color(0xFF3AB86F), //const orange
         primary: Color(0xFF3AB86F), ////const orange
 
-        background: Color(0xFF292929), //const dark
+        background: Color(0xFF161618), //const dark
         onSecondary: Colors.white, //opposite
 
-        onPrimary: Color(0xFF292929), //same dark
+        onPrimary: Color(0xFF161618), //same dark
         onBackground: Colors.white, //same light
 
-        surface: Color(0xFF292929), //opposite
-        onSurface: Color(0xFF292929), //opposite
+        surface: Color(0xFF161618), //opposite
+        onSurface: Color(0xFF161618), //opposite
         error: Colors.redAccent, //const error
         onError: Colors.redAccent, //const error
       ),
@@ -36,7 +36,13 @@ class LightThemeData {
         radius: const Radius.circular(20),
         thickness: MaterialStateProperty.all<double>(2),
       ),
-      drawerTheme: const DrawerThemeData(backgroundColor: Colors.white),
+      drawerTheme: const DrawerThemeData(
+          scrimColor: Colors.transparent,
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(15),
+                  bottomRight: Radius.circular(15)))),
       progressIndicatorTheme:
           const ProgressIndicatorThemeData(color: Color(0xFF2ecc71)),
       scaffoldBackgroundColor: Colors.white,
@@ -53,8 +59,8 @@ class LightThemeData {
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10)))),
       expansionTileTheme: ExpansionTileThemeData(
-        textColor: Color(0xFF292929),
-        collapsedTextColor: Color(0xFF292929),
+        textColor: Color(0xFF161618),
+        collapsedTextColor: Color(0xFF161618),
         backgroundColor: Colors.grey.shade100,
         collapsedBackgroundColor: Colors.white,
         childrenPadding: const PagePadding.allDefault(),
@@ -66,24 +72,32 @@ class LightThemeData {
           fillColor: MaterialStateProperty.all<Color>(const Color(0xFF2ecc71)),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
+      dropdownMenuTheme: DropdownMenuThemeData(
+        menuStyle: MenuStyle(
+            shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10)))),
+      ),
       bottomSheetTheme: const BottomSheetThemeData(
+          elevation: 0,
+          shadowColor: Colors.transparent,
+          surfaceTintColor: Colors.transparent,
           backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10)))),
       listTileTheme: const ListTileThemeData(
-          textColor: Color(0xFF292929),
+          textColor: Color(0xFF161618),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)))),
       outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
         textStyle: MaterialStateProperty.all<TextStyle>(
-            TextStyle(color: Color(0xFF292929).withOpacity(0.5))),
+            TextStyle(color: Color(0xFF161618).withOpacity(0.5))),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
         backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-        foregroundColor: MaterialStateProperty.all<Color>(Color(0xFF292929)),
+        foregroundColor: MaterialStateProperty.all<Color>(Color(0xFF161618)),
         side: MaterialStateProperty.all<BorderSide>(
             const BorderSide(color: Colors.black12)),
       )),
@@ -93,13 +107,17 @@ class LightThemeData {
         backgroundColor: Color(0xFF3AB86F),
       ),
       dialogTheme: const DialogTheme(
+          elevation: 0,
+          shadowColor: Colors.transparent,
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: Colors.white,
           titleTextStyle: TextStyle(
               fontWeight: FontWeight.bold,
-              color: Color(0xFF292929),
+              color: Color(0xFF161618),
               fontSize: 24)),
       tabBarTheme: TabBarTheme(
-        labelColor: Color(0xFF292929),
-        unselectedLabelColor: Color(0xFF292929).withOpacity(0.5),
+        labelColor: Color(0xFF161618),
+        unselectedLabelColor: Color(0xFF161618).withOpacity(0.5),
         overlayColor: MaterialStateProperty.all<Color>(Colors.transparent),
         indicator: CustomTabIndicator(),
       ),
@@ -109,18 +127,18 @@ class LightThemeData {
       textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
         textStyle: MaterialStateProperty.all<TextStyle>(
-            TextStyle(color: Color(0xFF292929).withOpacity(0.5))),
+            TextStyle(color: Color(0xFF161618).withOpacity(0.5))),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
         backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
         foregroundColor: MaterialStateProperty.all<Color>(
-          Color(0xFF292929),
+          Color(0xFF161618),
         ),
       )),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
               textStyle: MaterialStateProperty.all<TextStyle>(
-                  TextStyle(color: Color(0xFF292929).withOpacity(0.5))),
+                  TextStyle(color: Color(0xFF161618).withOpacity(0.5))),
               elevation: MaterialStateProperty.all<double>(0),
               shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
@@ -135,17 +153,10 @@ class LightThemeData {
         elevation: 0,
         backgroundColor: Colors.transparent,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
-        actionsIconTheme: IconThemeData(color: Color(0xFF292929)),
+        actionsIconTheme: IconThemeData(color: Color(0xFF161618)),
       ),
       popupMenuTheme: PopupMenuThemeData(
           color: Colors.white,
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          showUnselectedLabels: false,
-          showSelectedLabels: true,
-          backgroundColor: Colors.white,
-          selectedItemColor: Color(0xFF3AB86F),
-          unselectedItemColor: Color(0xFF292929).withOpacity(0.5),
-          type: BottomNavigationBarType.fixed));
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))));
 }

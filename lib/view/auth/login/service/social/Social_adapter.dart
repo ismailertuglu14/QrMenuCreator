@@ -56,7 +56,7 @@ class SocialAdapterModel {
       required this.onPressed,
       required this.icon});
   static Image iconPath(ImageKeys icon) {
-    return icon.assetImage(height: 30);
+    return icon.imageAsset(height: 30);
   }
 
   factory SocialAdapterModel.facebook() => SocialAdapterModel(

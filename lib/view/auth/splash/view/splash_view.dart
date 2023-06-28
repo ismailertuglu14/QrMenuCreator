@@ -36,13 +36,11 @@ class _SplashViewState extends SplashViewModels {
       alignment: Alignment.center,
       children: [
         Positioned(
-          top: context.height / 3.5,
-          child: Lottie.asset(
-            LottieKeys.SPLASH.path,
-            height: context.height / 3,
-            width: context.width / 1.2,
-          ),
-        ),
+            top: context.height / 3.5,
+            child: LottieKeys.splash.path(
+              height: context.height / 3,
+              width: context.width / 1.2,
+            )),
         Positioned(
           bottom: context.height / 3.5,
           child: AnimatedOpacity(

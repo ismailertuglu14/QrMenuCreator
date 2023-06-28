@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 
-
 import '../../core/constans/enum/image_keys.dart';
 import '../utility/page_padding.dart';
 
@@ -17,7 +16,7 @@ emptyPageWidgetBuilder(BuildContext context, ImageKeys image, String text) {
           Flexible(
             child: Padding(
               padding: const PagePadding.allLow(),
-              child: ImageKeys.values[image.index].assetImage(
+              child: ImageKeys.values[image.index].imageAsset(
                   height: context.height / 5, width: context.width / 2),
             ),
           ),

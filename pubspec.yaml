@@ -48,6 +48,11 @@ dependencies:
   permission_handler: ^10.3.0
   flutter_secure_storage: ^8.0.0
   responsive_sizer: ^3.1.1
+  google_nav_bar: ^5.0.6
+  wiredash: ^1.7.0
+  smooth_page_indicator: ^1.1.0
+  fl_country_code_picker: ^0.1.4
+  animate_icons: ^2.0.0
 
   
  

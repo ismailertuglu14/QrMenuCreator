@@ -11,6 +11,7 @@ import 'core/init/router/router_manager.dart';
 import 'core/init/theme/dark/dark_theme.dart';
 import 'core/init/theme/light/light_theme.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:wiredash/wiredash.dart';
 
 Future<void> main() async {
   await InitApp.initApp();
@@ -22,17 +23,35 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveSizer(
-        builder: (context, orientation, screenType) => MaterialApp.router(
-              builder: FToastBuilder(),
-              title: AppConstants.APP_NAME,
-              routerConfig: RouterManager.routes,
-              debugShowCheckedModeBanner: false,
-              theme: LightThemeData.instance.theme,
-              scrollBehavior: CustomScrollBehavior(),
-              darkTheme: DarkThemeData.instance.theme,
-              themeMode: context.watch<ThemeProvider>().themeMode,
-            ));
+    return Wiredash(
+      feedbackOptions: WiredashFeedbackOptions(labels: [
+        Label(
+          id: '',
+          title: 'Bug',
+        ),
+        Label(
+          id: '',
+          title: 'Feature Request',
+        ),
+        Label(
+          id: '',
+          title: 'Praise',
+        ),
+      ]),
+      projectId: "",
+      secret: "",
+      child: ResponsiveSizer(
+          builder: (context, orientation, screenType) => MaterialApp.router(
+                builder: FToastBuilder(),
+                title: AppConstants.APP_NAME,
+                routerConfig: RouterManager.routes,
+                debugShowCheckedModeBanner: false,
+                theme: LightThemeData.instance.theme,
+                scrollBehavior: CustomScrollBehavior(),
+                darkTheme: DarkThemeData.instance.theme,
+                themeMode: context.watch<ThemeProvider>().getThemeMode,
+              )),
+    );
   }
 }
 

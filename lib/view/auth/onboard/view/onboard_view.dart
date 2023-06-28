@@ -8,7 +8,7 @@ import '../../../../core/constans/enum/route_keys.dart';
 import '../../../../core/init/cache/local_storage.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../model/onboard_model.dart';
-import '../widget/indicator.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../widget/next_button.dart';
 import '../widget/page_view_items.dart';
 import '../widget/skip_button.dart';
@@ -37,12 +37,15 @@ class _OnboardViewState extends OnboardViewModel {
                   itemBuilder: (context, index) =>
                       PageViewItems(index: index))),
           Expanded(
-              flex: 1,
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: pageIndicator(
-                      context, _currentPage, OnboardModels.items.length,
-                      navigateToLogin: navigateToLogin))),
+            flex: 1,
+            child: AnimatedSmoothIndicator(
+                effect: WormEffect(
+                    dotHeight: 10,
+                    dotWidth: 10,
+                    activeDotColor: context.colorScheme.primary),
+                activeIndex: _currentPage,
+                count: OnboardModels.items.length),
+          ),
           Expanded(
               flex: 1,
               child: Row(

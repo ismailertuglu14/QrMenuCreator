@@ -50,12 +50,12 @@ class _ResetPasswordViewState extends ResetPasswordViewModel {
                 child: Column(
                   children: [
                     Expanded(
-                      flex: 8,
+                      flex: 7,
                       child: ImageKeys.reset_password
-                          .assetImage(width: context.width / 2),
+                          .imageAsset(width: context.width / 2),
                     ),
                     Expanded(
-                      flex: 2,
+                      flex: 3,
                       child: Text(
                         "Reset Password",
                         style: context.text.headlineSmall,

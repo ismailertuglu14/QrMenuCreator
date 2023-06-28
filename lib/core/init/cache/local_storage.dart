@@ -34,6 +34,10 @@ class LocaleStorage {
     }
   }
 
+  Future<void> setIntValue(LocaleKeys key, int value) async {
+    await _preferences!.setInt(key.toString(), value);
+  }
+
   Future<void> setStringValue(LocaleKeys key, String value) async {
     await _preferences!.setString(key.toString(), value);
   }
@@ -45,6 +49,8 @@ class LocaleStorage {
   Future<void> setObject(LocaleKeys key, Object value) async {
     await _preferences!.setString(key.toString(), jsonEncode(value));
   }
+
+  int getIntValue(LocaleKeys key) => _preferences?.getInt(key.toString()) ?? 0;
 
   String getStringValue(LocaleKeys key) =>
       _preferences?.getString(key.toString()) ?? '';

@@ -1,18 +1,11 @@
+import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+
 import '../constans/enum/lottie_keys.dart';
 
 extension LottieBuilderExtenison on LottieKeys {
-  String items() {
-    switch (this) {
-      case LottieKeys.SPLASH:
-        return "splash";
-
-      case LottieKeys.ERROR:
-        return "eror";
-
-      case LottieKeys.LOADING:
-        return "loading";
-    }
+  LottieBuilder path({double? width, double? height, BoxFit? fit}) {
+    return Lottie.asset("assets/lotties/lottie_$name.json",
+        width: width, height: height, fit: fit);
   }
-
-  String get path => "assets/lotties/lottie_${items()}.json";
 }

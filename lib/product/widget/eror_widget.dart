@@ -21,8 +21,8 @@ class CommonErrorWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Lottie.asset(LottieKeys.ERROR.path,
-                height: context.height / 4, width: context.width / 3),
+            LottieKeys.error
+                .path(height: context.height / 4, width: context.width / 3),
             Padding(
               padding: const PagePadding.horizontalHeight(),
               child: Text(

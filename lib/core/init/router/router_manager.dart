@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/view/auth/register/view/register_view.dart';
 import 'package:qrmenu/view/auth/resetpassword/view/reset_password_view.dart';
+import 'package:qrmenu/view/pages/editprofile/view/edit_profile_view.dart';
+import 'package:qrmenu/view/pages/feedback/view/feed_back_view.dart';
 import 'package:qrmenu/view/pages/home/view/home_view.dart';
 
 import '../../../view/auth/login/view/login_view.dart';
@@ -54,10 +56,20 @@ class RouterManager with ChangeNotifier {
               state: state,
               child: const ResetPasswordView())),
       GoRoute(
+          name: RouterKeys.FEED_BACK.name,
+          path: RouterKeys.FEED_BACK.route,
+          pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              context: context, state: state, child: const FeedBackView())),
+      GoRoute(
           name: RouterKeys.ERROR.name,
           path: RouterKeys.ERROR.route,
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
               context: context, state: state, child: const CommonErrorView())),
+      GoRoute(
+          name: RouterKeys.EDIT_PROFILE.name,
+          path: RouterKeys.EDIT_PROFILE.route,
+          pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              context: context, state: state, child: const EditProfileView())),
     ],
   );
 }

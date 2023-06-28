@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/init/provider/theme_provider.dart';
 import '../utility/border_radius.dart';
 
@@ -18,7 +19,8 @@ class CommonTextFormField extends StatelessWidget {
     this.label,
     this.validator,
     this.hintText,
-    this.errorText, this.autovalidateMode,
+    this.errorText,
+    this.autovalidateMode,
   });
   final String? hintText;
   final String? label;
@@ -43,17 +45,16 @@ class CommonTextFormField extends StatelessWidget {
       validator: validator,
       focusNode: focusNode,
       keyboardAppearance:
-          context.watch<ThemeProvider>().themeMode == ThemeMode.dark
+          context.watch<ThemeProvider>().getThemeMode == ThemeMode.dark
               ? Brightness.dark
               : Brightness.light,
       keyboardType: keyboardType,
       autovalidateMode: autovalidateMode,
-      
       controller: textController,
       textInputAction: textInputAction,
       obscureText: obscureText ?? false,
       cursorRadius: const Radius.circular(20),
-      cursorColor: Theme.of(context).colorScheme.onSurface,
+      cursorColor: context.colorScheme.onSurface,
       decoration: InputDecoration(
           errorMaxLines: 1,
           errorText: errorText,
@@ -64,22 +65,19 @@ class CommonTextFormField extends StatelessWidget {
           label: Text(label ?? ""),
           errorBorder: OutlineInputBorder(
               borderRadius: const PageBorderRadius.allMedium(),
-              borderSide:
-                  BorderSide(color: Theme.of(context).colorScheme.error)),
-          hintStyle: TextStyle(
-              color: Theme.of(context).colorScheme.surface.withOpacity(0.5)),
-          fillColor: Theme.of(context).colorScheme.onSecondary,
+              borderSide: BorderSide(color: context.colorScheme.error)),
+          hintStyle:
+              TextStyle(color: context.colorScheme.surface.withOpacity(0.5)),
+          fillColor: context.colorScheme.onSecondary,
           focusedBorder: OutlineInputBorder(
               borderRadius: const PageBorderRadius.allMedium(),
-              borderSide:
-                  BorderSide(color: Theme.of(context).colorScheme.secondary)),
+              borderSide: BorderSide(color: context.colorScheme.secondary)),
           enabledBorder: OutlineInputBorder(
               borderRadius: const PageBorderRadius.allMedium(),
-              borderSide:
-                  BorderSide(color: Theme.of(context).colorScheme.secondary))),
+              borderSide: BorderSide(color: context.colorScheme.secondary))),
       style: TextStyle(
-          color: Theme.of(context).colorScheme.onSurface,
-          fontSize: Theme.of(context).textTheme.titleMedium?.fontSize),
+          color: context.colorScheme.onSurface,
+          fontSize: context.text.titleMedium?.fontSize),
     );
   }
 }

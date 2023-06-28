@@ -16,7 +16,12 @@ extension RouteExtension on RouterKeys {
       case RouterKeys.REGISTER:
         return "/register";
       case RouterKeys.RESET_PASSWORD:
-        return "/reset-password";
+        return "/reset_password";
+      case RouterKeys.FEED_BACK:
+        return "/feed_back";
+
+      case RouterKeys.EDIT_PROFILE:
+        return "/edit_profile";
     }
   }
 }

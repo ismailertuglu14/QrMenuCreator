@@ -57,7 +57,7 @@ class _RegisterViewState extends RegisterViewModel {
                   : context.height * 0.3,
               child: Padding(
                 padding: const PagePadding.allHeight(),
-                child: ImageKeys.register.assetImage(),
+                child: ImageKeys.register.imageAsset(),
               ),
             ),
             Expanded(
