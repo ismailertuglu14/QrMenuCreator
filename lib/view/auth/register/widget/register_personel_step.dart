@@ -8,14 +8,14 @@ import '../../../../product/widget/text_form_field.dart';
 class RegisterPersonelStep extends StatelessWidget {
   const RegisterPersonelStep({
     super.key,
-    required this.firstNameTextController,
-    required this.lastNameTextController,
+    required this.businessTextController,
+    
     required this.registerProvider,
     required this.contactNumberTextController,
   });
 
-  final TextEditingController firstNameTextController;
-  final TextEditingController lastNameTextController;
+  final TextEditingController businessTextController;
+ 
   final RegisterProvider registerProvider;
   final TextEditingController contactNumberTextController;
 
@@ -27,24 +27,12 @@ class RegisterPersonelStep extends StatelessWidget {
           padding: const PagePadding.allDefault(),
           child: CommonTextFormField(
             obscureText: false,
-            label: "First Name",
+            label: "Business Name",
             validator: nameRegex,
-            textController: firstNameTextController,
+            textController: businessTextController,
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.name,
             prefixIcon: const Icon(Icons.person_2_rounded),
-          ),
-        ),
-        Padding(
-          padding: const PagePadding.allDefault(),
-          child: CommonTextFormField(
-            obscureText: false,
-            label: "Last Name",
-            validator: nameRegex,
-            textController: lastNameTextController,
-            textInputAction: TextInputAction.next,
-            keyboardType: TextInputType.name,
-            prefixIcon: const Icon(Icons.group_rounded),
           ),
         ),
         Padding(

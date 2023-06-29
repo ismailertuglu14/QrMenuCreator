@@ -4,10 +4,29 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qrmenu/core/constans/network/network_constants.dart';
+import 'package:qrmenu/view/auth/login/model/login_request_model.dart';
+import 'package:qrmenu/view/auth/login/model/login_response_model.dart';
 
 import '../../../../../product/mixin/login_log_mixin.dart';
 import 'ILogin_service.dart';
 
 class LoginService extends ILoginService with LoginLogMixin {
   LoginService(super.dio);
+
+  @override
+  Future<LoginResponseModel> login(
+      {required LoginRequestModel requestModel}) async {
+    try {
+      Response<dynamic> response =
+          await dio.post(NetworkConstants.LOGIN, data: requestModel.toJson());
+      if (response.statusCode == HttpStatus.ok) {
+        return LoginResponseModel.fromJson(response.data);
+      } else {
+        throw Exception("Login Error");
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

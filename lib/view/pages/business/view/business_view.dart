@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:qrmenu/core/constans/enum/image_keys.dart';
 import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
+import 'package:qrmenu/core/extension/image_icon_extenison.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/product/widget/user_circle_avatar.dart';
 import 'package:wiredash/wiredash.dart';
@@ -21,21 +22,21 @@ import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/elevation_button.dart';
 import '../../../../product/widget/email_app_router.dart';
 
-part '../viewmodel/profile_view_model.dart';
+part '../viewmodel/business_view_model.dart';
 
-class ProfileView extends StatefulWidget {
-  const ProfileView({Key? key}) : super(key: key);
+class BusinessView extends StatefulWidget {
+  const BusinessView({Key? key}) : super(key: key);
 
   @override
-  State<ProfileView> createState() => _ProfileViewState();
+  State<BusinessView> createState() => _BusinessViewState();
 }
 
-class _ProfileViewState extends ProfileViewModel {
+class _BusinessViewState extends BusinessViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: [
-        Flexible(
+        Expanded(
           flex: 1,
           child: Stack(
             clipBehavior: Clip.none,
@@ -58,14 +59,16 @@ class _ProfileViewState extends ProfileViewModel {
             ],
           ),
         ),
-        Flexible(
+        Expanded(
+          flex: 2,
           child: Padding(
             padding: PagePadding.allMedium(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: Text(
                     "Ercan Burger",
                     style: TextStyle(
@@ -74,50 +77,11 @@ class _ProfileViewState extends ProfileViewModel {
                   ),
                 ),
                 Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: Text(
                     "ercanburger@gmail.com",
                     style:
                         TextStyle(fontSize: context.text.titleMedium?.fontSize),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Text(
-                    "Current Plan",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: context.text.titleMedium?.fontSize),
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        SubscriptionPlanKeys.Basic.name,
-                        style: TextStyle(
-                            fontSize: context.text.titleMedium?.fontSize),
-                      ),
-                      CommonElevationButton(
-                        child: Row(
-                          children: [
-                            ImageKeys.premium
-                                .imageAsset(width: context.width / 10),
-                            Padding(
-                              padding: PagePadding.allLow(),
-                              child: Text(
-                                "Upgrade plan",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ],
-                        ),
-                        onPressed: () => _homeProvider.changeCurrentIndex(
-                            BottomNaviBarKeys.Subscription.index),
-                      )
-                    ],
                   ),
                 ),
               ],
@@ -125,11 +89,12 @@ class _ProfileViewState extends ProfileViewModel {
           ),
         ),
         ProfileListTileBuilder(
-            title: "Edit Profile",
-            onTap: () => context.push(RouterKeys.EDIT_PROFILE.route),
-            leading: Icon(Icons.edit_outlined)),
+          title: "Edit Business",
+          onTap: () => context.push(RouterKeys.EDIT_BUSINESS.route),
+          leading: ImageKeys.edit_business,
+        ),
         ProfileListTileBuilder(
-          leading: Icon(Icons.color_lens_outlined),
+          leading: ImageKeys.change_theme,
           title: "Theme Mode",
           onTap: () {
             showModalBottomSheet(
@@ -151,23 +116,23 @@ class _ProfileViewState extends ProfileViewModel {
         ),
         ProfileListTileBuilder(
           title: "Language",
-          leading: Icon(Icons.language_rounded),
+          leading: ImageKeys.language,
           onTap: () {},
         ),
         ProfileListTileBuilder(
           title: "Contact Us",
           onTap: () => emailAppRouter(),
-          leading: Icon(Icons.email_outlined),
+          leading: ImageKeys.contact_us,
         ),
         ProfileListTileBuilder(
           title: "App Feedback",
           onTap: () => Wiredash.of(context).show(inheritMaterialTheme: true),
-          leading: Icon(Icons.feedback_outlined),
+          leading: ImageKeys.app_feedback,
         ),
         ProfileListTileBuilder(
           title: "Delete Account",
           onTap: () {},
-          leading: Icon(Icons.delete_outline_outlined),
+          leading: ImageKeys.delete_account,
         ),
         Row(
           children: [
@@ -235,7 +200,7 @@ settingsThemeSwitchBuilder(
     BuildContext context, String title, ThemeModekeys value, ImageKeys image) {
   return Consumer<ThemeProvider>(
       builder: (context, provider, child) => RadioListTile(
-            secondary: image.imageAsset(width: context.width * 0.1),
+            secondary: image.imageAsset(width: context.width / 10),
             controlAffinity: ListTileControlAffinity.trailing,
             groupValue: provider.themeMode,
             title: Text(title,
@@ -253,12 +218,12 @@ class ProfileListTileBuilder extends StatelessWidget {
   const ProfileListTileBuilder({
     super.key,
     required this.title,
-    this.leading,
+    required this.leading,
     this.trailing,
     this.onTap,
   });
   final String title;
-  final Widget? leading;
+  final ImageKeys leading;
   final Widget? trailing;
   final void Function()? onTap;
   @override
@@ -266,7 +231,7 @@ class ProfileListTileBuilder extends StatelessWidget {
     return ListTile(
       onTap: onTap,
       title: Text(title),
-      leading: leading,
+      leading: leading.imageIcon(color: context.colorScheme.surface),
       trailing: trailing,
     );
   }

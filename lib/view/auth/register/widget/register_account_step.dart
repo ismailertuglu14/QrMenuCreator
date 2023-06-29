@@ -16,11 +16,14 @@ class RegisterAccountStep extends StatelessWidget {
     required this.emailTextController,
     required this.passwordTextController,
     required this.registerProvider,
+    required this.passwordConfirmTextController,
   });
   final String userName;
   final TextEditingController emailTextController;
 
   final TextEditingController passwordTextController;
+  final TextEditingController passwordConfirmTextController;
+
   final RegisterProvider registerProvider;
 
   @override
@@ -48,6 +51,25 @@ class RegisterAccountStep extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 validator: passwordRegex,
                 textController: passwordTextController,
+                keyboardType: TextInputType.visiblePassword,
+                prefixIcon: const Icon(Icons.key_outlined),
+                suffixIcon: IconButton(
+                    onPressed: () =>
+                        registerProvider.changePasswordVisibility(),
+                    icon: Icon(value.isPasswordVisible
+                        ? Icons.visibility
+                        : Icons.visibility_off)),
+              ),
+            )),
+        Padding(
+            padding: const PagePadding.allDefault(),
+            child: Consumer<RegisterProvider>(
+              builder: (context, value, child) => CommonTextFormField(
+                label: "Confirm password",
+                obscureText: value.isPasswordVisible,
+                textInputAction: TextInputAction.done,
+                validator: passwordRegex,
+                textController: passwordConfirmTextController,
                 keyboardType: TextInputType.visiblePassword,
                 prefixIcon: const Icon(Icons.key_outlined),
                 suffixIcon: IconButton(

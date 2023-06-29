@@ -32,20 +32,20 @@ import '../model/change_profile_image_response_model.dart';
 import '../model/remove_profile_image_response_model.dart';
 import '../model/update_profile_request_model.dart';
 import '../service/EditProfile_service.dart';
-part '../viewmodel/edit_profile_view_model.dart';
+part '../viewmodel/edit_business_view_model.dart';
 
-class EditProfileView extends StatefulWidget {
-  const EditProfileView({super.key});
+class EditBusinessView extends StatefulWidget {
+  const EditBusinessView({super.key});
 
   @override
-  State<EditProfileView> createState() => _EditProfileViewState();
+  State<EditBusinessView> createState() => _EditBusinessViewState();
 }
 
-class _EditProfileViewState extends EditProfileViewModel {
+class _EditBusinessViewState extends EditBusinessViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CommonAppBar(title: Text("Edit Profile")),
+      appBar: const CommonAppBar(title: Text("Edit Business")),
       body: Column(children: [
         Expanded(
           flex: 1,
@@ -127,21 +127,11 @@ class _EditProfileViewState extends EditProfileViewModel {
                   Expanded(
                     child: CommonTextFormField(
                       validator: firstNameRegex,
-                      textController: _firstNameController,
+                      textController: _businessNameController,
                       keyboardType: TextInputType.name,
-                      label: "First Name",
+                      label: "Business Name",
                       textInputAction: TextInputAction.next,
-                      prefixIcon: Icon(Icons.person_2_rounded),
-                    ),
-                  ),
-                  Expanded(
-                    child: CommonTextFormField(
-                      validator: lastNameRegex,
-                      textController: _lastNameController,
-                      keyboardType: TextInputType.name,
-                      label: "Last Name",
-                      textInputAction: TextInputAction.next,
-                      prefixIcon: Icon(Icons.person_pin_rounded),
+                      prefixIcon: Icon(Icons.business_outlined),
                     ),
                   ),
                   Expanded(

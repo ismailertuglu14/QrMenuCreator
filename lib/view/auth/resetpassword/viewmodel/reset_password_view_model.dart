@@ -12,6 +12,7 @@ abstract class ResetPasswordViewModel extends State<ResetPasswordView>
   late final TextEditingController _resetTargetTextController;
   late final TextEditingController _otpCodeTextController;
   late final ResetPasswordProvider _resetPasswordProvider;
+  late final FlCountryCodePicker _countryPicker;
 
   @override
   void initState() {
@@ -19,6 +20,7 @@ abstract class ResetPasswordViewModel extends State<ResetPasswordView>
     _resetPasswordService = ResetPasswordService(NetworkManager.instance.dio);
     _tabController =
         TabController(length: ResetPasswordTypeKeys.values.length, vsync: this);
+
     _resetPasswordProvider =
         Provider.of<ResetPasswordProvider>(context, listen: false);
     _otpCodeTextController = TextEditingController();
@@ -28,6 +30,33 @@ abstract class ResetPasswordViewModel extends State<ResetPasswordView>
 
     _passwordTextController = TextEditingController();
     _passwordConfirmTextController = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _countryPicker = _countryPicker = FlCountryCodePicker(
+        localize: true,
+        title: Text(""),
+        countryTextStyle: TextStyle(fontWeight: FontWeight.bold),
+        dialCodeTextStyle: TextStyle(fontWeight: FontWeight.bold),
+        searchBarDecoration: InputDecoration(
+            errorBorder: OutlineInputBorder(
+                borderRadius: const PageBorderRadius.allMedium(),
+                borderSide: BorderSide(color: context.colorScheme.error)),
+            filled: true,
+            label: Text("Search Country"),
+            prefixIcon: const Icon(Icons.search_rounded),
+            hintStyle:
+                TextStyle(color: context.colorScheme.surface.withOpacity(0.5)),
+            fillColor: context.colorScheme.onSecondary,
+            focusedBorder: OutlineInputBorder(
+                borderRadius: const PageBorderRadius.allMedium(),
+                borderSide: BorderSide(color: context.colorScheme.secondary)),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: const PageBorderRadius.allMedium(),
+                borderSide: BorderSide(color: context.colorScheme.secondary))),
+        showDialCode: true,
+        showSearchBar: true,
+        showFavoritesIcon: false,
+      );
+    });
   }
 
   @override
@@ -42,90 +71,9 @@ abstract class ResetPasswordViewModel extends State<ResetPasswordView>
     _passwordConfirmTextController.dispose();
   }
 
-  Future<void> checkEmail() async {
-    if (_resetTargetTextController.text.isNotEmpty) {
-      try {
-        _resetPasswordProvider.changeLoading();
+  Future<void> checkEmail() async {}
 
-        ResetPasswordCheckEmailResponseModel response =
-            await _resetPasswordService.checkEmail(
-                requestModel: ResetPasswordCheckRequestModel(
-                    mail: _resetTargetTextController.text));
-        if (response.isSuccess && response.errors.isEmpty) {
-          Fluttertoast.showToast(msg: "Doğrulama kodu gönderildi");
-          _pageController.animateToPage(
-              ResetPasswordStepperKeys.ENTERCODE.index,
-              duration: const PageDurations.low(),
-              curve: Curves.easeInOut);
-        } else {
-          Fluttertoast.showToast(msg: "Lütfen kayıtlı bir mail adresi giriniz");
-        }
-        _resetPasswordProvider.changeLoading();
-      } catch (e) {
-        throw Exception(e);
-      }
-    } else {
-      Fluttertoast.showToast(msg: "Lütfen bir mail adresi giriniz");
-    }
-  }
+  Future<void> checkOtpCode() async {}
 
-  Future<void> checkOtpCode() async {
-    if (_otpCodeTextController.text.isNotEmpty) {
-      try {
-        _resetPasswordProvider.changeLoading();
-
-        ResetPasswordCheckOtpCodeResponseModel response =
-            await _resetPasswordService.checkOtpCode(
-                requestModel: ResetPasswordCheckOtpCodeRequestModel(
-                    mail: _resetTargetTextController.text,
-                    code: _otpCodeTextController.text));
-        if (response.isSuccess && response.errors.isEmpty) {
-          Fluttertoast.showToast(msg: "Doğrulama başarılı");
-
-          _pageController.animateToPage(
-              ResetPasswordStepperKeys.NEWPASSWORD.index,
-              duration: const PageDurations.low(),
-              curve: Curves.easeInOut);
-        } else {
-          Fluttertoast.showToast(msg: "Doğrulama kodu yanlış");
-        }
-        _resetPasswordProvider.changeLoading();
-      } catch (e) {
-        throw Exception(e);
-      }
-    } else {
-      Fluttertoast.showToast(msg: "Lütfen geçerli bir kod giriniz");
-    }
-  }
-
-  Future<void> resetPassword() async {
-    if (_passwordTextController.text.isNotEmpty &&
-        _passwordConfirmTextController.text.isNotEmpty &&
-        _passwordTextController.text == _passwordConfirmTextController.text) {
-      try {
-        _resetPasswordProvider.changeLoading();
-
-        ResetPasswordResponseModel response =
-            await _resetPasswordService.resetPassword(
-                requestModel: ResetPasswordRequestModel(
-                    code: _otpCodeTextController.text,
-                    newPassword: _passwordTextController.text,
-                    newPasswordAgain: _passwordConfirmTextController.text,
-                    mail: _resetTargetTextController.text));
-        _resetPasswordProvider.changeLoading();
-
-        if (response.isSuccess && response.errors.isEmpty) {
-          Fluttertoast.showToast(msg: "Şifreniz başarıyla değiştirildi");
-          context.go(RouterKeys.LOGIN.route);
-        } else {
-          Fluttertoast.showToast(msg: "Şifreniz değiştirilemedi");
-        }
-        _resetPasswordProvider.changeLoading();
-      } catch (e) {
-        throw Exception(e);
-      }
-    } else {
-      Fluttertoast.showToast(msg: "Şifreler boş veya uyuşmuyor");
-    }
-  }
+  Future<void> resetPassword() async {}
 }

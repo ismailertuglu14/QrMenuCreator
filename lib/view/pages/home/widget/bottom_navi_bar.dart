@@ -36,8 +36,8 @@ class BottomNaviBar extends StatelessWidget {
             text: 'Subscription',
           ),
           GButton(
-            icon: Icons.person_outline,
-            text: 'Profile',
+            icon: Icons.business_outlined,
+            text: 'Business',
           ),
         ],
         selectedIndex: value.currentIndex,

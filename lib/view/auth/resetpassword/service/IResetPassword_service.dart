@@ -12,11 +12,5 @@ abstract class IResetPasswordService {
   late final Dio dio;
   IResetPasswordService(this.dio);
 
-  Future<ResetPasswordResponseModel> resetPassword(
-      {required ResetPasswordRequestModel requestModel});
-
-  Future<ResetPasswordCheckEmailResponseModel> checkEmail(
-      {required ResetPasswordCheckRequestModel requestModel});
-  Future<ResetPasswordCheckOtpCodeResponseModel> checkOtpCode(
-      {required ResetPasswordCheckOtpCodeRequestModel requestModel});
+ 
 }

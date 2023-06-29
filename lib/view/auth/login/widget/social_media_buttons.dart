@@ -41,9 +41,6 @@ class LoginWithSocialMedia extends StatelessWidget {
               adapter: FacebookAdapter(),
               onCompleted: (token) {},
             ),
-            IconButton(
-                onPressed: () => context.go(RouterKeys.HOME.route),
-                icon: Icon(Icons.login)),
           ],
         ),
         TextButton(

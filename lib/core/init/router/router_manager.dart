@@ -5,13 +5,17 @@ import 'package:go_router/go_router.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/view/auth/register/view/register_view.dart';
 import 'package:qrmenu/view/auth/resetpassword/view/reset_password_view.dart';
-import 'package:qrmenu/view/pages/editprofile/view/edit_profile_view.dart';
+import 'package:qrmenu/view/pages/brunch/view/brunch_view.dart';
+import 'package:qrmenu/view/pages/createitem/view/create_item_view.dart';
 import 'package:qrmenu/view/pages/feedback/view/feed_back_view.dart';
 import 'package:qrmenu/view/pages/home/view/home_view.dart';
+import 'package:qrmenu/view/pages/qr/view/qr_view.dart';
+import 'package:qrmenu/view/pages/sections/view/sections_view.dart';
 
 import '../../../view/auth/login/view/login_view.dart';
 import '../../../view/auth/onboard/view/onboard_view.dart';
 import '../../../view/auth/splash/view/splash_view.dart';
+import '../../../view/pages/editbusiness/view/edit_business_view.dart';
 import '../../../view/pages/error/eror_view.dart';
 import '../../constans/enum/route_keys.dart';
 
@@ -66,10 +70,30 @@ class RouterManager with ChangeNotifier {
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
               context: context, state: state, child: const CommonErrorView())),
       GoRoute(
-          name: RouterKeys.EDIT_PROFILE.name,
-          path: RouterKeys.EDIT_PROFILE.route,
+          name: RouterKeys.EDIT_BUSINESS.name,
+          path: RouterKeys.EDIT_BUSINESS.route,
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: const EditProfileView())),
+              context: context, state: state, child: const EditBusinessView())),
+      GoRoute(
+          name: RouterKeys.QR.name,
+          path: RouterKeys.QR.route,
+          pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              context: context, state: state, child: const QrView())),
+      GoRoute(
+          name: RouterKeys.SECTIONS.name,
+          path: RouterKeys.SECTIONS.route,
+          pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              context: context, state: state, child: const SectionsView())),
+      GoRoute(
+          name: RouterKeys.BRUNCH.name,
+          path: RouterKeys.BRUNCH.route,
+          pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              context: context, state: state, child: const BrunchView())),
+      GoRoute(
+          name: RouterKeys.CREATE_ITEM.name,
+          path: RouterKeys.CREATE_ITEM.route,
+          pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              context: context, state: state, child: const CreateItemView())),
     ],
   );
 }

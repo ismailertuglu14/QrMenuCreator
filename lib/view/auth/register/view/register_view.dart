@@ -7,6 +7,7 @@ import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import '../../../../../product/widget/elevation_button.dart';
 import '../../../../core/constans/enum/image_keys.dart';
+
 import '../../../../core/constans/enum/lottie_keys.dart';
 import '../../../../core/constans/enum/register_stepper_keys.dart';
 import '../../../../core/constans/enum/route_keys.dart';
@@ -24,6 +25,7 @@ import '../widget/register_account_step.dart';
 import '../widget/register_bottom_button.dart';
 import '../widget/register_confirmation_step.dart';
 import '../widget/register_personel_step.dart';
+
 
 part '../viewmodel/register_view_model.dart';
 
@@ -79,15 +81,15 @@ class _RegisterViewState extends RegisterViewModel {
                               RegisterPersonelStep(
                                   contactNumberTextController:
                                       _contactNumberTextController,
-                                  firstNameTextController:
-                                      _firstNameTextController,
-                                  lastNameTextController:
-                                      _lastNameTextController,
+                                  businessTextController:
+                                      _businessTextController,
                                   registerProvider: _registerProvider)),
                           _registerStepBuilder(
                               _account,
                               RegisterStepKeys.account,
                               RegisterAccountStep(
+                                  passwordConfirmTextController:
+                                      _passwordConfirmTextController,
                                   emailTextController: _emailTextController,
                                   userName: _userName,
                                   passwordTextController:

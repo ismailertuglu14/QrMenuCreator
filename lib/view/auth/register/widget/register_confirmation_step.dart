@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
 import 'package:qrmenu/view/auth/register/widget/privacy_policy_button.dart';
 
@@ -38,12 +39,16 @@ class RegisterConfirmationStep extends StatelessWidget {
                 ? LottieKeys.loading.path(height: 50)
                 : Padding(
                     padding: const PagePadding.allDefault(),
-                    child: CommonElevationButton(
-                        onPressed: () => register(),
-                        child: Padding(
-                          padding: const PagePadding.allMedium(),
-                          child: Text(submit),
-                        )),
+                    child: Consumer<RegisterProvider>(
+                      builder: (context, provider, child) => provider.isLoading
+                          ? LottieKeys.loading.path()
+                          : CommonElevationButton(
+                              onPressed: () => register(),
+                              child: Padding(
+                                padding: const PagePadding.allMedium(),
+                                child: Text(submit),
+                              )),
+                    ),
                   )),
       ])
     ]);

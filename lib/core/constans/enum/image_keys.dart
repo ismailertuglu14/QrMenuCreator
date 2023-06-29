@@ -18,5 +18,13 @@ enum ImageKeys {
   light_theme,
   dark_theme,
   system_theme,
-  premium
+  premium,
+  language,
+  edit_business,
+  change_theme,
+  delete_account,
+  app_feedback,
+  contact_us,
+  web_dashboard,
+
 }

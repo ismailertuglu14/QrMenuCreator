@@ -5,10 +5,8 @@ part of '../view/register_view.dart';
 abstract class RegisterViewModel extends State<RegisterView> {
   late final RegisterService _registerService;
   late final RegisterProvider _registerProvider;
-  late final LoginService _loginService;
   late final TextEditingController _emailTextController;
-  late final TextEditingController _firstNameTextController;
-  late final TextEditingController _lastNameTextController;
+  late final TextEditingController _businessTextController;
   late final TextEditingController _passwordTextController;
   late final TextEditingController _passwordConfirmTextController;
   late final TextEditingController _contactNumberTextController;
@@ -16,71 +14,59 @@ abstract class RegisterViewModel extends State<RegisterView> {
   @override
   void initState() {
     super.initState();
-
-    _loginService = LoginService(NetworkManager.instance.dio);
+    _registerProvider = RegisterProvider.instance;
+    _registerService = RegisterService(NetworkManager.instance.dio);
     _contactNumberTextController = TextEditingController();
-    _passwordConfirmTextController = TextEditingController();
-    _firstNameTextController = TextEditingController();
-    _lastNameTextController = TextEditingController();
+    _businessTextController = TextEditingController();
     _emailTextController = TextEditingController();
     _passwordTextController = TextEditingController();
-    _registerProvider = Provider.of<RegisterProvider>(context, listen: false);
-    _registerService = RegisterService(NetworkManager.instance.dio);
+    _passwordConfirmTextController = TextEditingController();
   }
 
   @override
   void dispose() {
     super.dispose();
-
     _emailTextController.dispose();
+    _businessTextController.dispose();
+    _passwordTextController.dispose();
     _passwordConfirmTextController.dispose();
     _contactNumberTextController.dispose();
-    _firstNameTextController.dispose();
-    _lastNameTextController.dispose();
-    _passwordTextController.dispose();
   }
 
   Future<void> register() async {
-    try {
-      _registerProvider.changeValidateMode(AutovalidateMode.always);
-      if (_registerProvider.registerFormKeys
-              .map((e) => e.currentState!.validate())
-              .every((element) => element) &&
-          _registerProvider.selectedGender != null) {
+    if (_emailTextController.text.isNotEmpty &&
+        _businessTextController.text.isNotEmpty &&
+        _passwordTextController.text.isNotEmpty &&
+        _passwordConfirmTextController.text.isNotEmpty &&
+        _contactNumberTextController.text.isNotEmpty) {
+      try {
+        _registerProvider.changeValidateMode(AutovalidateMode.always);
         _registerProvider.changeLoading();
 
         RegisterResponseModel response = await _registerService.register(
             context,
             requestModel: RegisterRequestModel(
-                firstName: _firstNameTextController.text,
-                lastName: _lastNameTextController.text,
+                restaurantName: _businessTextController.text,
                 email: _emailTextController.text,
                 password: _passwordTextController.text,
-                confirmPassword: _passwordConfirmTextController.text,
-                contactNumber: _contactNumberTextController.text));
+                passwordAgain: _passwordConfirmTextController.text,
+                phone: RegisterPhone(
+                    countryCode: "+90",
+                    phoneNumber: _contactNumberTextController.text)));
         if (response.isSuccess && response.errors.isEmpty) {
-          context.push(RouterKeys.HOME.route);
+          Fluttertoast.showToast(msg: "Register Success");
+
+          context.go(RouterKeys.HOME.route);
+        } else {
+          Fluttertoast.showToast(msg: "Failed to register");
         }
+
         _registerProvider.changeLoading();
-      } else {
-        List<int> findFalseIndexes() {
-          List<int> falseIndexes = [];
-          for (int i = 0; i < _registerProvider.isError.length; i++) {
-            if (!_registerProvider.isError[i]) {
-              falseIndexes.add(i);
-            }
-          }
-          return falseIndexes;
-        }
-
-        Fluttertoast.showToast(msg: "Please fill in the required fields");
-
-        _registerProvider.setError(true, findFalseIndexes());
-        _registerProvider.changeCurrentStep(_registerProvider.registerFormKeys
-            .indexWhere((element) => !element.currentState!.validate()));
+      } catch (e) {
+        throw UnimplementedError(e.toString());
       }
-    } catch (e) {
-      throw UnimplementedError(e.toString());
+    } else {
+      Fluttertoast.showToast(msg: "Please fill in the blanks");
     }
   }
 

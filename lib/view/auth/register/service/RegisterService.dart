@@ -18,14 +18,11 @@ class RegisterService extends IRegisterService {
   Future<RegisterResponseModel> register(BuildContext context,
       {required RegisterRequestModel requestModel}) async {
     try {
-      Response<dynamic> response = await dio
-          .post(NetworkConstants.SIGN_OUT_USER, data: requestModel.toJson());
+      Response<dynamic> response = await dio.post(NetworkConstants.REGISTER,
+          data: requestModel.toJson());
 
-      if (response.statusCode == HttpStatus.ok && response.data != null) {
-        RegisterResponseModel registerResponse =
-            RegisterResponseModel.fromJson(response.data);
-
-        return registerResponse;
+      if (response.statusCode == HttpStatus.ok ) {
+        return RegisterResponseModel.fromJson(response.data);
       } else {
         throw Exception('Failed to register');
       }

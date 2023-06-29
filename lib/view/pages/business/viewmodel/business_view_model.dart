@@ -1,6 +1,6 @@
-part of '../view/profile_view.dart';
+part of '../view/business_view.dart';
 
-abstract class ProfileViewModel extends State<ProfileView> {
+abstract class BusinessViewModel extends State<BusinessView> {
   late final HomeProvider _homeProvider;
 
   @override

@@ -18,7 +18,6 @@ import 'package:qrmenu/product/widget/email_app_router.dart';
 import 'package:qrmenu/product/widget/url_app_router.dart';
 import 'package:qrmenu/product/widget/user_circle_avatar.dart';
 import 'package:qrmenu/view/pages/feedback/view/feed_back_view.dart';
-import 'package:qrmenu/view/pages/profile/view/profile_view.dart';
 import 'package:qrmenu/view/pages/subscription/view/subscription_view.dart';
 
 import '../../../../core/constans/cache/locale_keys_enum.dart';
@@ -28,6 +27,7 @@ import '../../../../core/init/cache/local_storage.dart';
 import '../../../../core/init/provider/theme_provider.dart';
 import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/durations.dart';
+import '../../business/view/business_view.dart';
 import '../../dashboard/view/dashboard_view.dart';
 import '../widget/bottom_navi_bar.dart';
 part '../viewmodel/home_view_model.dart';
@@ -95,5 +95,5 @@ List<Widget> pageViewList = [
   DashboardView(),
   Container(),
   SubscriptionView(),
-  ProfileView(),
+  BusinessView(),
 ];

@@ -1,10 +1,9 @@
 // ignore_for_file: constant_identifier_names
 
 enum LocaleKeys {
-  FIRST_NAME,
-  LAST_NAME,
+  BUSINESS_NAME,
   EMAIL,
-  USERNAME,
+ 
   PASSWORD,
   ACCESS_TOKEN,
   REFRESH_TOKEN,

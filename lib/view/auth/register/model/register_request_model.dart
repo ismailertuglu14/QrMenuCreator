@@ -1,41 +1,54 @@
-class RegisterRequestModel {
-  RegisterRequestModel({
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.password,
-   required this.confirmPassword ,
-    required this.contactNumber ,
-    this.referralCode ,
-  });
 
-  final String firstName;
-  final String lastName;
-  final String confirmPassword;
-  final String contactNumber;
-  final String?  referralCode;
+
+class RegisterRequestModel {
+  final String restaurantName;
   final String email;
   final String password;
+  final String passwordAgain;
+  final RegisterPhone phone;
+
+  RegisterRequestModel({
+    required this.restaurantName,
+    required this.email,
+    required this.password,
+    required this.passwordAgain,
+    required this.phone,
+  });
 
   factory RegisterRequestModel.fromJson(Map<String, dynamic> json) =>
       RegisterRequestModel(
-        firstName: json["firstName"],
-        lastName: json["lastName"],
+        restaurantName: json["restaurantName"],
         email: json["email"],
         password: json["password"],
-        confirmPassword: json["confirmPassword"],
-        contactNumber: json["contactNumber"],
-        referralCode: json["referralCode"],
+        passwordAgain: json["passwordAgain"],
+        phone: RegisterPhone.fromJson(json["phone"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "firstName": firstName,
-        "lastName": lastName,
+        "restaurantName": restaurantName,
         "email": email,
         "password": password,
-        "confirmPassword": confirmPassword,
-        "contactNumber": contactNumber,
-        "referralCode": referralCode,
-        
+        "passwordAgain": passwordAgain,
+        "phone": phone.toJson(),
+      };
+}
+
+class RegisterPhone {
+  final String countryCode;
+  final String phoneNumber;
+
+  RegisterPhone({
+    required this.countryCode,
+    required this.phoneNumber,
+  });
+
+  factory RegisterPhone.fromJson(Map<String, dynamic> json) => RegisterPhone(
+        countryCode: json["countryCode"],
+        phoneNumber: json["phoneNumber"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "countryCode": countryCode,
+        "phoneNumber": phoneNumber,
       };
 }

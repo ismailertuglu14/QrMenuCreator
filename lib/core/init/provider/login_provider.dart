@@ -1,4 +1,9 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
+
+import '../../constans/cache/locale_keys_enum.dart';
+import '../cache/local_storage.dart';
 
 class LoginProvider extends ChangeNotifier {
   static LoginProvider? _instance;
@@ -8,15 +13,61 @@ class LoginProvider extends ChangeNotifier {
     return _instance!;
   }
 
-  LoginProvider._();
+  LoginProvider._() {
+    formKey = GlobalKey<FormState>();
+  }
   bool _visiblePassword = false;
-  GlobalKey<FormState> formKey = GlobalKey();
- 
+  bool _isLoading = false;
+  late final GlobalKey<FormState> formKey;
+
+  bool _isAuthenticated = false;
+  bool get isAuthenticated => _isAuthenticated;
+
   bool get visiblePassword => _visiblePassword;
+
+  bool get isLoading => _isLoading;
+  AutovalidateMode get autovalidateMode => _autovalidateMode;
 
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
 
-  AutovalidateMode get autovalidateMode => _autovalidateMode;
+  Future<bool> isTokenValid() async {
+    String? expiration;
+    expiration = LocaleStorage.instance.getStringValue(LocaleKeys.EXPIRATION);
+    if (expiration.isEmpty || expiration == null) {
+      expiration = DateTime.now().toString();
+      setAuthenticated(false);
+      return false;
+    }
+    if (DateTime.parse(expiration).isBefore(DateTime.now())) {
+      setAuthenticated(false);
+      return true;
+    }
+    setAuthenticated(true);
+    return true;
+  }
+
+  bool logout() {
+    try {
+      LocaleStorage.instance.clearAll();
+
+      _isAuthenticated = false;
+
+      notifyListeners();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  void setAuthenticated(bool value) {
+    _isAuthenticated = value;
+    notifyListeners();
+  }
+
+  void changeIsLoading() {
+    _isLoading = !_isLoading;
+    notifyListeners();
+  }
 
   void changeAutovalidateMode(AutovalidateMode value) {
     _autovalidateMode = value;

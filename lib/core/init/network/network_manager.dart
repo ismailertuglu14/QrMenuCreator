@@ -12,10 +12,13 @@ class NetworkManager {
     return _instance!;
   }
 
-  NetworkManager._();
+  NetworkManager._(); 
+ 
 
-  static const String BASE_IOS_URL = "https://localhost:7149/api";
-  static const String BASE_ANDROID_URL = "https://10.0.2.2:7149/api";
+
+
+  static const String BASE_IOS_URL = "http://localhost:3333/api";
+  static const String BASE_ANDROID_URL = "http://10.0.2.2:3333/api";
 
   static const int CONNECT_TIMEOUT = 5000;
 

@@ -1,3 +1,4 @@
+import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../../constans/enum/gender_keys.dart';
@@ -20,14 +21,16 @@ class RegisterProvider extends ChangeNotifier {
     false,
     false,
   ];
-  GenderKeys? _selectedGender;
-  bool _isPasswordVisible = true;
 
+  bool _isPasswordVisible = true;
+  CountryCode? _selectedCountryCode;
+
+  CountryCode? get selectedCountryCode => _selectedCountryCode;
   bool get isPasswordVisible => _isPasswordVisible;
   int get currentStep => _currentStep;
   bool get isLoading => _isLoading;
   List<bool> get isError => _isError;
-  GenderKeys? get selectedGender => _selectedGender;
+
   bool get isStepActive => _isStepActive(_currentStep);
   AutovalidateMode get autoValidateMode => _autoValidateMode;
   List<GlobalKey<FormState>> get registerFormKeys => _registerFormKeys;
@@ -43,6 +46,11 @@ class RegisterProvider extends ChangeNotifier {
     GlobalKey<FormState>(),
     GlobalKey<FormState>(),
   ];
+
+  void changeSelectedCountryCode(CountryCode? value) {
+    _selectedCountryCode = value;
+    notifyListeners();
+  }
 
   void changePasswordVisibility() {
     _isPasswordVisible = !_isPasswordVisible;
@@ -80,11 +88,6 @@ class RegisterProvider extends ChangeNotifier {
     for (var i in index) {
       _isError[i] = value;
     }
-    notifyListeners();
-  }
-
-  void changeSelectedGender(GenderKeys? value) {
-    _selectedGender = value;
     notifyListeners();
   }
 

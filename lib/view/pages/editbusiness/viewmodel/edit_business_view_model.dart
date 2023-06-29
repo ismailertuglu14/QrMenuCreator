@@ -1,11 +1,11 @@
-part of '../view/edit_profile_view.dart';
+part of '../view/edit_business_view.dart';
 
-abstract class EditProfileViewModel extends State<EditProfileView> {
+abstract class EditBusinessViewModel extends State<EditBusinessView> {
   late final ImagePicker _imagePicker;
   late final EditProfileProvider _editProfileProvider;
   late final TextEditingController _emailController;
-  late final TextEditingController _firstNameController;
-  late final TextEditingController _lastNameController;
+  late final TextEditingController _businessNameController;
+
   late final TextEditingController _countryController;
   late final FlCountryCodePicker _countryPicker;
 
@@ -15,8 +15,8 @@ abstract class EditProfileViewModel extends State<EditProfileView> {
     _editProfileProvider = EditProfileProvider.instance;
     _emailController = TextEditingController();
     _countryController = TextEditingController();
-    _firstNameController = TextEditingController();
-    _lastNameController = TextEditingController();
+    _businessNameController = TextEditingController();
+
     _imagePicker = ImagePicker();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _countryPicker = FlCountryCodePicker(
@@ -52,7 +52,6 @@ abstract class EditProfileViewModel extends State<EditProfileView> {
     super.dispose();
     _countryController.dispose();
     _emailController.dispose();
-    _firstNameController.dispose();
-    _lastNameController.dispose();
+    _businessNameController.dispose();
   }
 }

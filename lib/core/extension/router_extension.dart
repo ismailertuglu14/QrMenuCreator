@@ -20,8 +20,16 @@ extension RouteExtension on RouterKeys {
       case RouterKeys.FEED_BACK:
         return "/feed_back";
 
-      case RouterKeys.EDIT_PROFILE:
-        return "/edit_profile";
+      case RouterKeys.EDIT_BUSINESS:
+        return "/edit_business";
+      case RouterKeys.QR:
+        return "/qr";
+      case RouterKeys.SECTIONS:
+        return "/sections";
+      case RouterKeys.BRUNCH:
+        return "/brunch";
+      case RouterKeys.CREATE_ITEM:
+        return "/create_item";
     }
   }
 }
