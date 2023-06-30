@@ -18,7 +18,7 @@ class NetworkManager {
 
 
   static const String BASE_IOS_URL = "http://localhost:3333/api";
-  static const String BASE_ANDROID_URL = "http://10.0.2.2:3333/api";
+  static const String BASE_ANDROID_URL = "http://10.0.2.2:3333/api/";
 
   static const int CONNECT_TIMEOUT = 5000;
 

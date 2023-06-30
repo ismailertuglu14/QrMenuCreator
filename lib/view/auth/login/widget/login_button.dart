@@ -16,29 +16,26 @@ class LoginButton extends StatelessWidget {
   final Future<void> Function() login;
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 2,
-      child: Row(
-        children: [
-          Expanded(child: Consumer<LoginProvider>(
-            builder: (context, provider, child) {
-              return provider.isLoading
-                  ? LottieKeys.loading.path()
-                  : CommonElevationButton(
-                      onPressed: () => login(),
-                      child: Padding(
-                        padding: const PagePadding.allMedium(),
-                        child: Text("Login",
-                            style: TextStyle(
-                              color: context.colorScheme.onBackground,
-                              fontSize: context.text.titleMedium?.fontSize,
-                            )),
-                      ),
-                    );
-            },
-          )),
-        ],
-      ),
+    return Row(
+      children: [
+        Expanded(child: Consumer<LoginProvider>(
+          builder: (context, provider, child) {
+            return provider.isLoading
+                ? LottieKeys.loading.path()
+                : CommonElevationButton(
+                    onPressed: () => login(),
+                    child: Padding(
+                      padding: const PagePadding.allMedium(),
+                      child: Text("Login",
+                          style: TextStyle(
+                            color: context.colorScheme.onBackground,
+                            fontSize: context.text.titleMedium?.fontSize,
+                          )),
+                    ),
+                  );
+          },
+        )),
+      ],
     );
   }
 }

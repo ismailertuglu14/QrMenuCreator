@@ -14,5 +14,6 @@ enum RouterKeys {
   QR,
   SECTIONS,
   BRUNCH,
-  CREATE_ITEM
+  CREATE_ITEM,
+  ADD_ONS
 }

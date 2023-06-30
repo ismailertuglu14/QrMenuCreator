@@ -16,15 +16,15 @@ class LoginProvider extends ChangeNotifier {
   LoginProvider._() {
     formKey = GlobalKey<FormState>();
   }
-  bool _visiblePassword = false;
+  bool _obscureText = true;
   bool _isLoading = false;
   late final GlobalKey<FormState> formKey;
 
   bool _isAuthenticated = false;
   bool get isAuthenticated => _isAuthenticated;
 
-  bool get visiblePassword => _visiblePassword;
-
+  bool get obscureText => _obscureText;
+  GlobalKey<FormState> get getFormKey => formKey;
   bool get isLoading => _isLoading;
   AutovalidateMode get autovalidateMode => _autovalidateMode;
 
@@ -75,7 +75,7 @@ class LoginProvider extends ChangeNotifier {
   }
 
   void changeVisiblePassword() {
-    _visiblePassword = !_visiblePassword;
+    _obscureText = !_obscureText;
     notifyListeners();
   }
 }

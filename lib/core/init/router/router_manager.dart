@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/view/auth/register/view/register_view.dart';
 import 'package:qrmenu/view/auth/resetpassword/view/reset_password_view.dart';
+import 'package:qrmenu/view/pages/addons/view/add_ons_view.dart';
 import 'package:qrmenu/view/pages/brunch/view/brunch_view.dart';
 import 'package:qrmenu/view/pages/createitem/view/create_item_view.dart';
 import 'package:qrmenu/view/pages/feedback/view/feed_back_view.dart';
@@ -94,6 +95,11 @@ class RouterManager with ChangeNotifier {
           path: RouterKeys.CREATE_ITEM.route,
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
               context: context, state: state, child: const CreateItemView())),
+      GoRoute(
+          name: RouterKeys.ADD_ONS.name,
+          path: RouterKeys.ADD_ONS.route,
+          pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              context: context, state: state, child: const AddOnsView())),
     ],
   );
 }

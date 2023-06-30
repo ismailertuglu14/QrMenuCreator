@@ -30,6 +30,8 @@ extension RouteExtension on RouterKeys {
         return "/brunch";
       case RouterKeys.CREATE_ITEM:
         return "/create_item";
+      case RouterKeys.ADD_ONS:
+        return "/add_ons";
     }
   }
 }

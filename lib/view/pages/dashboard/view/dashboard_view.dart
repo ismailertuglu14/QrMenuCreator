@@ -6,6 +6,7 @@ import 'package:qrmenu/core/constans/enum/lottie_keys.dart';
 import 'package:qrmenu/core/constans/enum/route_keys.dart';
 import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
+import 'package:qrmenu/core/extension/image_icon_extenison.dart';
 import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/product/widget/elevation_button.dart';
@@ -73,6 +74,7 @@ class _DashboardViewState extends DashboardViewModel {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        LottieKeys.click.path(width: context.width / 2.5),
                         Row(
                           children: [
                             Expanded(
@@ -142,8 +144,7 @@ class _DashboardViewState extends DashboardViewModel {
             child: ListTile(
               title: Text("Web Dashboard"),
               onTap: () => urlAppRouter("https://www.instagram.com/"),
-              leading:
-                  ImageKeys.web_dashboard.imageAsset(width: context.width / 15),
+              leading: Icon(Icons.web_outlined),
             ),
           ),
           Expanded(

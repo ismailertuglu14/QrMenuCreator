@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qrmenu/core/constans/enum/route_keys.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
+import 'package:qrmenu/product/utility/border_radius.dart';
 import 'package:qrmenu/product/utility/page_padding.dart';
 import 'package:qrmenu/product/widget/app_bar.dart';
 import 'package:qrmenu/product/widget/elevation_button.dart';
 import 'package:qrmenu/product/widget/text_field.dart';
+
+import '../../../../product/widget/item_count_circle.dart';
 part '../viewmodel/sections_view_model.dart';
 
 class SectionsView extends StatefulWidget {
@@ -76,8 +80,6 @@ class _SectionsViewState extends SectionsViewModel {
                                       child: Padding(
                                           padding: const PagePadding.allMin(),
                                           child: Chip(
-                                            visualDensity:
-                                                VisualDensity.compact,
                                             side: BorderSide(
                                                 style: BorderStyle.solid,
                                                 color: Colors.transparent,
@@ -118,10 +120,15 @@ class _SectionsViewState extends SectionsViewModel {
                                       child: Text("Add"),
                                     ),
                                     onPressed: () {
-                                      _sections.add(_sectionController.text);
-                                      _sectionController.clear();
-                                      context.pop();
-                                      setState(() {});
+                                      if (_sectionController.text.isNotEmpty) {
+                                        _sections.add(_sectionController.text);
+                                        _sectionController.clear();
+                                        context.pop();
+                                        setState(() {});
+                                      } else {
+                                        Fluttertoast.showToast(
+                                            msg: "Please enter a section name");
+                                      }
                                     },
                                   ),
                                 ],
@@ -152,29 +159,27 @@ class _SectionsViewState extends SectionsViewModel {
         ],
       ),
       body: ReorderableListView(
+        header: Padding(
+          padding: PagePadding.allDefault(),
+          child: Text("Add section in your menu",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: context.text.titleMedium?.fontSize)),
+        ),
         padding: PagePadding.allHeight(),
         children: _sections
             .map((item) => Padding(
                   key: Key(item),
-                  padding: PagePadding.verticalMin(),
+                  padding: PagePadding.verticalDefault(),
                   child: ListTile(
-                    tileColor: context.colorScheme.surface.withOpacity(0.5),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: PageBorderRadius.allMedium()),
+                    tileColor: context.colorScheme.surface.withOpacity(0.2),
                     onTap: () => context.push(RouterKeys.BRUNCH.route),
                     title: Text(item),
                     trailing: Wrap(
-                      children: [
-                        Padding(
-                          padding: PagePadding.horizontalLow(),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: context.colorScheme.primary),
-                            child: Padding(
-                              padding: PagePadding.allMin(),
-                              child: Text("5"),
-                            ),
-                          ),
-                        ),
+                      children: const [
+                        ItemCountCircle(count: 5),
                         Icon(Icons.menu),
                       ],
                     ),

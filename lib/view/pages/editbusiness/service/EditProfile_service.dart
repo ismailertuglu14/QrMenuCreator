@@ -12,4 +12,15 @@ import 'IEditProfile_service.dart';
 
 class EditProfileService extends IEditProfileService {
   EditProfileService(super.dio);
+
+  @override
+  Future<void> changeCoverImage({required FormData formData}) async {
+    try {
+      Response<dynamic> response =
+          await dio.post(NetworkConstants.CHANGE_COVER_IMAGE, data: formData);
+      if (response.statusCode == HttpStatus.ok) {}
+    } catch (e) {
+      throw UnimplementedError(e.toString());
+    }
+  }
 }

@@ -13,4 +13,5 @@ import '../model/update_profile_response_model.dart';
 abstract class IEditProfileService {
   late final Dio dio;
   IEditProfileService(this.dio);
+  Future<void> changeCoverImage ({required FormData formData}) ;
 }

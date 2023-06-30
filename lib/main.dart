@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:qrmenu/product/widget/custom_scroll_behavior.dart';
+import 'package:qrmenu/product/widget/wire_dash_feed_back.dart';
 
 import 'core/constans/app/app_constants.dart';
 import 'core/init/app/init_app.dart';
@@ -23,41 +25,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wiredash(
-      feedbackOptions: WiredashFeedbackOptions(labels: [
-        Label(
-          id: '',
-          title: 'Bug',
-        ),
-        Label(
-          id: '',
-          title: 'Feature Request',
-        ),
-        Label(
-          id: '',
-          title: 'Praise',
-        ),
-      ]),
-      projectId: "",
-      secret: "",
-      child: ResponsiveSizer(
-          builder: (context, orientation, screenType) => MaterialApp.router(
-                builder: FToastBuilder(),
-                title: AppConstants.APP_NAME,
-                routerConfig: RouterManager.routes,
-                debugShowCheckedModeBanner: false,
-                theme: LightThemeData.instance.theme,
-                scrollBehavior: CustomScrollBehavior(),
-                darkTheme: DarkThemeData.instance.theme,
-                themeMode: context.watch<ThemeProvider>().getThemeMode,
-              )),
-    );
+    return WiredashFeedBack(
+        child: ResponsiveSizer(
+            builder: (context, orientation, screenType) => MaterialApp.router(
+                  builder: FToastBuilder(),
+                  title: AppConstants.APP_NAME,
+                  routerConfig: RouterManager.routes,
+                  debugShowCheckedModeBanner: false,
+                  theme: LightThemeData.instance.theme,
+                  scrollBehavior: CustomScrollBehavior(),
+                  darkTheme: DarkThemeData.instance.theme,
+                  themeMode: context.watch<ThemeProvider>().getThemeMode,
+                )));
   }
-}
-
-class CustomScrollBehavior extends MaterialScrollBehavior {
-  @override
-  Widget buildOverscrollIndicator(
-          BuildContext context, Widget child, ScrollableDetails details) =>
-      child;
 }

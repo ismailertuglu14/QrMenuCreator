@@ -29,16 +29,16 @@ class _QrViewState extends QrViewModel {
                   alignment: Alignment.center,
                   children: [
                     Positioned(
-                        width: BarReaderSize.width * 0.8,
-                        height: BarReaderSize.height * 0.8,
+                        width: BarReaderSize.width * 1.5,
+                        height: BarReaderSize.height * 1.5,
                         child: Image.network(
                             "https://user-images.githubusercontent.com/4993276/69906263-8d535d00-139f-11ea-8ee8-6f21a41bc60e.jpeg")),
                     Positioned(
                       child: CustomPaint(
                         painter: BorderPainter(),
                         child: SizedBox(
-                          width: BarReaderSize.width,
-                          height: BarReaderSize.height,
+                          width: BarReaderSize.width * 2,
+                          height: BarReaderSize.height * 2,
                         ),
                       ),
                     )

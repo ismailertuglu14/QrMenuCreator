@@ -60,32 +60,33 @@ class _BusinessViewState extends BusinessViewModel {
           ),
         ),
         Expanded(
-          flex: 2,
-          child: Padding(
-            padding: PagePadding.allMedium(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: Text(
-                    "Ercan Burger",
-                    style: TextStyle(
-                        fontSize: context.text.headlineSmall?.fontSize,
-                        fontWeight: FontWeight.bold),
-                  ),
+          flex: 1,
+          child: Row(
+            children: [
+              Padding(
+                padding: PagePadding.allMedium(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        "Ercan Burger",
+                        style: TextStyle(
+                            fontSize: context.text.headlineSmall?.fontSize,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        "ercanburger@gmail.com",
+                        style: TextStyle(
+                            fontSize: context.text.titleMedium?.fontSize),
+                      ),
+                    ),
+                  ],
                 ),
-                Expanded(
-                  flex: 3,
-                  child: Text(
-                    "ercanburger@gmail.com",
-                    style:
-                        TextStyle(fontSize: context.text.titleMedium?.fontSize),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
         ProfileListTileBuilder(

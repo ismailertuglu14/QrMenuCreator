@@ -15,18 +15,16 @@ class LoginEmailTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        flex: 3,
-        child: Consumer<LoginProvider>(
-          builder: (context, value, child) => CommonTextFormField(
-            label: "Email",
-            validator: emailRegex,
-            textController: _emailController,
-            autovalidateMode: value.autovalidateMode,
-            textInputAction: TextInputAction.next,
-            keyboardType: TextInputType.emailAddress,
-            prefixIcon: const Icon(Icons.alternate_email_rounded),
-          ),
-        ));
+    return Consumer<LoginProvider>(
+      builder: (context, value, child) => CommonTextFormField(
+        label: "Email",
+        validator: emailRegex,
+        textController: _emailController,
+        autovalidateMode: value.autovalidateMode,
+        textInputAction: TextInputAction.next,
+        keyboardType: TextInputType.emailAddress,
+        prefixIcon: const Icon(Icons.alternate_email_rounded),
+      ),
+    );
   }
 }

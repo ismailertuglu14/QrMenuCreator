@@ -50,12 +50,11 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
   }
 
   Future<void> initAppState() async {
-    await cacheInit().then((value) => checkUserIsValid());
+    await cacheInit().then((_) => checkUserIsValid());
   }
 
   Future<void> login() async {
-    if (_emailController.text.isNotEmpty &&
-        _passwordController.text.isNotEmpty) {
+    if (_loginProvider.formKey.currentState!.validate()) {
       try {
         _loginProvider.changeIsLoading();
         LoginResponseModel response = await _loginService.login(
@@ -82,7 +81,8 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
         }
         _loginProvider.changeIsLoading();
       } catch (e) {
-        throw Exception(e);
+        _loginProvider.changeIsLoading();
+        Fluttertoast.showToast(msg: "Failed to login");
       }
     } else {
       Fluttertoast.showToast(msg: "Please fill in the blanks");

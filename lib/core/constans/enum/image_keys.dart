@@ -25,6 +25,10 @@ enum ImageKeys {
   delete_account,
   app_feedback,
   contact_us,
-  web_dashboard,
+  vegeterian,
+  vegan,
+  gluten_free,
+  lactose_free,
+  halal,
 
 }

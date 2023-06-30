@@ -18,6 +18,7 @@ class CommonTextField extends StatelessWidget {
     this.autofocus,
     this.label,
     this.onSubmitted,
+   
   }) : super(key: key);
 
   final TextEditingController? textController;
@@ -28,6 +29,7 @@ class CommonTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final Widget? label;
+ 
   final FocusNode? focusNode;
   final void Function()? onTap;
   final void Function(String)? onSubmitted;
@@ -38,6 +40,7 @@ class CommonTextField extends StatelessWidget {
     //readOnly: ,
     return TextField(
       onSubmitted: onSubmitted,
+      textAlign: TextAlign.center,
       onTap: onTap,
       onChanged: onChanged,
       focusNode: focusNode,

@@ -57,10 +57,17 @@ class _LoginViewState extends LoginViewModels {
                 key: _loginProvider.formKey,
                 child: Column(
                   children: [
-                    LoginEmailTextField(emailController: _emailController),
-                    LoginPasswordTextField(
-                        passwordController: _passwordController),
-                    LoginButton(login: login),
+                    Expanded(
+                        flex: 3,
+                        child: LoginEmailTextField(
+                            emailController: _emailController)),
+                    Expanded(
+                      flex: 3,
+                      child: LoginPasswordTextField(
+                        
+                          passwordController: _passwordController),
+                    ),
+                    Expanded(flex: 2, child: LoginButton(login: login)),
                     Expanded(flex: 2, child: DoYouNeedHelpButtons())
                   ],
                 ),
