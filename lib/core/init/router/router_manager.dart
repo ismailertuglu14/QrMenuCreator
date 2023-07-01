@@ -10,6 +10,7 @@ import 'package:qrmenu/view/pages/brunch/view/brunch_view.dart';
 import 'package:qrmenu/view/pages/createitem/view/create_item_view.dart';
 import 'package:qrmenu/view/pages/feedback/view/feed_back_view.dart';
 import 'package:qrmenu/view/pages/home/view/home_view.dart';
+import 'package:qrmenu/view/pages/locationpicker/view/location_picker_view.dart';
 import 'package:qrmenu/view/pages/qr/view/qr_view.dart';
 import 'package:qrmenu/view/pages/sections/view/sections_view.dart';
 
@@ -100,6 +101,11 @@ class RouterManager with ChangeNotifier {
           path: RouterKeys.ADD_ONS.route,
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
               context: context, state: state, child: const AddOnsView())),
+      GoRoute(
+          name: RouterKeys.LOCATION_PICKER.name,
+          path: RouterKeys.LOCATION_PICKER.route,
+          pageBuilder: (context, state) => buildPageWithSlideTransition(
+              context: context, state: state, child: LocationPickerView())),
     ],
   );
 }

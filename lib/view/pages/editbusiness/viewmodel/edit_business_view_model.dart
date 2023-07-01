@@ -37,4 +37,7 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
     _emailController.dispose();
     _businessNameController.dispose();
   }
+
+
+  
 }

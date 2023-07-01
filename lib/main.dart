@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
     return WiredashFeedBack(
         child: ResponsiveSizer(
             builder: (context, orientation, screenType) => MaterialApp.router(
+          
                   builder: FToastBuilder(),
                   title: AppConstants.APP_NAME,
                   routerConfig: RouterManager.routes,

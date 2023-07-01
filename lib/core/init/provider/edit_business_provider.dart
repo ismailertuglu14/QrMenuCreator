@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
 
 import '../../../product/widget/countrycodepicker/country_code.dart';
 import '../../constans/enum/gender_keys.dart';
@@ -17,6 +18,10 @@ class EditBusinessProvider extends ChangeNotifier {
 
   String? _bannerImage;
   bool _isLoading = false;
+  String? _currentLocationName;
+  LatLng? _currentLocation;
+  String? get currentLocationName => _currentLocationName;
+  LatLng? get currentLocation => _currentLocation;
 
   AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
 
@@ -30,6 +35,16 @@ class EditBusinessProvider extends ChangeNotifier {
   String? get bannerImage => _bannerImage;
 
   AutovalidateMode get autoValidateMode => _autoValidateMode;
+
+  void changeCurrentLocationName(String value) {
+    _currentLocationName = value;
+    notifyListeners();
+  }
+
+  void changeCurrentLocation(LatLng value) {
+    _currentLocation = value;
+    notifyListeners();
+  }
 
   void changeSelectedCountryCode(CountryCode value) {
     _selectedCountryCode = value;

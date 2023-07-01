@@ -20,5 +20,12 @@ class NetworkConstants {
   static const String CHANGE_COVER_IMAGE =
       "/v1/restaurant/change-profile-image";
 
+//Map Endpoints
+
+  static const String GET_LOCATION_NAME =
+      "https://api.bigdatacloud.net/data/reverse-geocode-client?";  
+
   static const String CHECK_UPDATE_VERSION = "check-update-version";
 }
+
+

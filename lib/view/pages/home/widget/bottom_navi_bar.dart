@@ -35,7 +35,7 @@ class BottomNaviBar extends StatelessWidget {
             ),
             GButton(
               icon: Icons.spa_outlined,
-              text: 'Likes',
+              text: 'Templates',
             ),
             GButton(
               icon: Icons.wallet_outlined,

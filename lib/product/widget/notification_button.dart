@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
 
 import '../../core/constans/enum/lottie_keys.dart';
@@ -23,7 +24,8 @@ class NotificationButton extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      LottieKeys.empty_notification.path(),
+                      LottieKeys.empty_notification
+                          .path(width: context.width / 2),
                       Text(
                         "Noting to show here",
                         style: TextStyle(fontWeight: FontWeight.bold),

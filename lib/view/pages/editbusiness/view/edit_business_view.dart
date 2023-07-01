@@ -1,10 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+
+import 'package:geolocator/geolocator.dart';
+import 'package:go_router/go_router.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:flutter_map/plugin_api.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:qrmenu/core/constans/enum/route_keys.dart';
 import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
+import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/product/regex/email_regex.dart';
 import 'package:qrmenu/product/regex/first_name_regex.dart';
 import 'package:qrmenu/product/regex/last_name_regex.dart';
@@ -32,6 +40,9 @@ import '../model/change_profile_image_response_model.dart';
 import '../model/remove_profile_image_response_model.dart';
 import '../model/update_profile_request_model.dart';
 import '../service/EditProfile_service.dart';
+
+import 'package:latlong2/spline.dart';
+
 part '../viewmodel/edit_business_view_model.dart';
 
 class EditBusinessView extends StatefulWidget {
@@ -171,6 +182,26 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                       textInputAction: TextInputAction.next,
                       textController: _countryController),
                 ),
+                Expanded(
+                    child: Row(
+                  children: [
+                    Expanded(
+                        child: Text(
+                      (_editBusinessProvider.currentLocation != null &&
+                              _editBusinessProvider.currentLocationName != null)
+                          ? "${_editBusinessProvider.currentLocationName}"
+                          : "No Location Selected",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )),
+                    Expanded(
+                      child: CommonElevationButton(
+                        child: Text("Change location"),
+                        onPressed: () =>
+                            context.push(RouterKeys.LOCATION_PICKER.route),
+                      ),
+                    ),
+                  ],
+                )),
                 Expanded(
                     flex: 1,
                     child: Row(

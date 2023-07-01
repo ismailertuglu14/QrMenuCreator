@@ -15,5 +15,6 @@ enum RouterKeys {
   SECTIONS,
   BRUNCH,
   CREATE_ITEM,
-  ADD_ONS
+  ADD_ONS,
+  LOCATION_PICKER
 }

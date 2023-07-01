@@ -32,6 +32,8 @@ extension RouteExtension on RouterKeys {
         return "/create_item";
       case RouterKeys.ADD_ONS:
         return "/add_ons";
+      case RouterKeys.LOCATION_PICKER:
+        return "/location_picker";
     }
   }
 }
