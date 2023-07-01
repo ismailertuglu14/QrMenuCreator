@@ -21,7 +21,7 @@ import '../../../../core/constans/enum/upload_file_keys.dart';
 import '../../../../core/init/cache/local_storage.dart';
 import '../../../../core/init/network/network_manager.dart';
 
-import '../../../../core/init/provider/edit_profile_provider.dart';
+import '../../../../core/init/provider/edit_business_provider.dart';
 import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/app_bar.dart';
@@ -50,7 +50,6 @@ class _EditBusinessViewState extends EditBusinessViewModel {
         Expanded(
           flex: 1,
           child: Stack(
-            clipBehavior: Clip.none,
             fit: StackFit.expand,
             alignment: Alignment.center,
             children: [
@@ -147,7 +146,7 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                   Expanded(
                     child: Row(
                       children: [
-                        Consumer<EditProfileProvider>(
+                        Consumer<EditBusinessProvider>(
                           builder: (context, provider, child) => Expanded(
                             flex: 3,
                             child: GestureDetector(
@@ -156,7 +155,7 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                                       context: context);
 
                                   if (code != null) {
-                                    provider.changeSelectedCountryCode(code);
+                                    provider;
                                   }
                                 },
                                 child: Padding(

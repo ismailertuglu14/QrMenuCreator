@@ -2,7 +2,7 @@ part of '../view/edit_business_view.dart';
 
 abstract class EditBusinessViewModel extends State<EditBusinessView> {
   late final ImagePicker _imagePicker;
-  late final EditProfileProvider _editProfileProvider;
+  late final EditBusinessProvider _editBusinessProvider;
   late final TextEditingController _emailController;
   late final TextEditingController _businessNameController;
 
@@ -12,7 +12,7 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
   @override
   void initState() {
     super.initState();
-    _editProfileProvider = EditProfileProvider.instance;
+    _editBusinessProvider = EditBusinessProvider.instance;
     _emailController = TextEditingController();
     _countryController = TextEditingController();
     _businessNameController = TextEditingController();
@@ -22,8 +22,10 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
       _countryPicker = FlCountryCodePicker(
         localize: true,
         title: Text(""),
-        countryTextStyle: TextStyle(fontWeight: FontWeight.bold),
-        dialCodeTextStyle: TextStyle(fontWeight: FontWeight.bold),
+        countryTextStyle: TextStyle(
+            fontWeight: FontWeight.bold, color: context.colorScheme.surface),
+        dialCodeTextStyle: TextStyle(
+            fontWeight: FontWeight.bold, color: context.colorScheme.surface),
         searchBarDecoration: InputDecoration(
             errorBorder: OutlineInputBorder(
                 borderRadius: const PageBorderRadius.allMedium(),
@@ -44,6 +46,13 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
         showSearchBar: true,
         showFavoritesIcon: false,
       );
+      _businessNameController.text =
+          LocaleStorage.instance.getStringValue(LocaleKeys.BUSINESS_NAME);
+      _emailController.text =
+          LocaleStorage.instance.getStringValue(LocaleKeys.EMAIL);
+
+      _countryController.text =
+          LocaleStorage.instance.getStringValue(LocaleKeys.PHONE_NUMBER);
     });
   }
 

@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 
 import '../../constans/enum/gender_keys.dart';
 
-class EditProfileProvider extends ChangeNotifier {
-  static EditProfileProvider? _instance;
+class EditBusinessProvider extends ChangeNotifier {
+  static EditBusinessProvider? _instance;
 
-  static EditProfileProvider get instance {
-    _instance ??= EditProfileProvider._init();
+  static EditBusinessProvider get instance {
+    _instance ??= EditBusinessProvider._init();
     return _instance!;
   }
 
-  EditProfileProvider._init();
+  EditBusinessProvider._init();
 
   String? _coverImage;
 
