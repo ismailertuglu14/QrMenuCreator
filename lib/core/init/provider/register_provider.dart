@@ -1,6 +1,7 @@
-import 'package:fl_country_code_picker/fl_country_code_picker.dart';
+
 import 'package:flutter/material.dart';
 
+import '../../../product/widget/countrycodepicker/country_code.dart';
 import '../../constans/enum/gender_keys.dart';
 import '../../constans/enum/register_stepper_keys.dart';
 

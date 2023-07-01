@@ -391,6 +391,7 @@ class _CreateItemViewState extends CreateItemViewModel {
                         Expanded(
                           flex: 8,
                           child: CommonTextField(
+                            textAlign: TextAlign.center,
                             hintText: "Price",
                             textInputAction: TextInputAction.done,
                             keyboardType: TextInputType.number,

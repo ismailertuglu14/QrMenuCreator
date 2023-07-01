@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 
 import '../utility/border_radius.dart';
@@ -18,7 +19,12 @@ class CommonTextField extends StatelessWidget {
     this.autofocus,
     this.label,
     this.onSubmitted,
-   
+    this.inputFormatters,
+    this.enableInteractiveSelection,
+    this.decoration,
+    this.floatingLabelBehavior,
+    this.floatingLabelAlignment,
+    this.textAlign,
   }) : super(key: key);
 
   final TextEditingController? textController;
@@ -29,45 +35,57 @@ class CommonTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final Widget? label;
- 
+
   final FocusNode? focusNode;
+  final TextAlign? textAlign;
+  final bool? enableInteractiveSelection;
   final void Function()? onTap;
   final void Function(String)? onSubmitted;
   final void Function(String)? onChanged;
+  final List<TextInputFormatter>? inputFormatters;
+  final InputDecoration? decoration;
+  final FloatingLabelBehavior? floatingLabelBehavior;
+  final FloatingLabelAlignment? floatingLabelAlignment;
 
   @override
   Widget build(BuildContext context) {
     //readOnly: ,
     return TextField(
       onSubmitted: onSubmitted,
-      textAlign: TextAlign.center,
+      textAlign: textAlign ?? TextAlign.start,
       onTap: onTap,
       onChanged: onChanged,
       focusNode: focusNode,
       controller: textController,
+      enableInteractiveSelection: enableInteractiveSelection,
       keyboardType: keyboardType,
+      inputFormatters: inputFormatters,
       autofocus: autofocus ?? false,
       textInputAction: textInputAction,
       cursorRadius: const Radius.circular(20),
       cursorColor: context.colorScheme.onSurface,
-      decoration: InputDecoration(
-          errorBorder: OutlineInputBorder(
-              borderRadius: const PageBorderRadius.allMedium(),
-              borderSide: BorderSide(color: context.colorScheme.error)),
-          filled: true,
-          label: label,
-          suffixIcon: suffixIcon,
-          hintText: hintText,
-          prefixIcon: prefixIcon,
-          hintStyle:
-              TextStyle(color: context.colorScheme.surface.withOpacity(0.5)),
-          fillColor: context.colorScheme.onSecondary,
-          focusedBorder: OutlineInputBorder(
-              borderRadius: const PageBorderRadius.allMedium(),
-              borderSide: BorderSide(color: context.colorScheme.secondary)),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: const PageBorderRadius.allMedium(),
-              borderSide: BorderSide(color: context.colorScheme.secondary))),
+      decoration: decoration ??
+          InputDecoration(
+              floatingLabelAlignment: floatingLabelAlignment,
+              floatingLabelBehavior: floatingLabelBehavior,
+              errorBorder: OutlineInputBorder(
+                  borderRadius: const PageBorderRadius.allMedium(),
+                  borderSide: BorderSide(color: context.colorScheme.error)),
+              filled: true,
+              label: label,
+              suffixIcon: suffixIcon,
+              hintText: hintText,
+              prefixIcon: prefixIcon,
+              hintStyle: TextStyle(
+                  color: context.colorScheme.surface.withOpacity(0.5)),
+              fillColor: context.colorScheme.onSecondary,
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: const PageBorderRadius.allMedium(),
+                  borderSide: BorderSide(color: context.colorScheme.secondary)),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: const PageBorderRadius.allMedium(),
+                  borderSide:
+                      BorderSide(color: context.colorScheme.secondary))),
       style: TextStyle(
           color: context.colorScheme.onSurface,
           fontSize: context.text.titleMedium?.fontSize),

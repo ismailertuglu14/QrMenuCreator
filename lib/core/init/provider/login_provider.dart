@@ -49,7 +49,7 @@ class LoginProvider extends ChangeNotifier {
   bool logout() {
     try {
       LocaleStorage.instance.clearAll();
-
+      
       _isAuthenticated = false;
 
       notifyListeners();

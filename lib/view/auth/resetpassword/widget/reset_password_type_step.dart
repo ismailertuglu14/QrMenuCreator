@@ -7,10 +7,14 @@ import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/core/init/provider/reset_password_provider.dart';
+import 'package:qrmenu/product/widget/countrycodepicker/country_code_picker.dart';
+import 'package:qrmenu/product/widget/text_field.dart';
 
+import '../../../../core/constans/enum/image_keys.dart';
 import '../../../../core/constans/enum/lottie_keys.dart';
 import '../../../../core/constans/enum/reset_password_type_keys.dart';
 import '../../../../core/constans/enum/route_keys.dart';
+import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/durations.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/elevation_button.dart';
@@ -54,14 +58,19 @@ class _ResetPasswordTypeStepState extends State<ResetPasswordTypeStep>
                     flex: 4,
                     child: Padding(
                       padding: const PagePadding.verticaLow(),
-                      child: TabBar(
-                          onTap: (value) {},
-                          indicatorColor: context.colorScheme.primary,
-                          controller: tabController,
-                          tabs: const [
-                            Tab(text: "Email"),
-                            Tab(text: "Phone"),
-                          ]),
+                      child: Consumer<ResetPasswordProvider>(
+                        builder: (context, provider, child) => TabBar(
+                            onTap: (value) {
+                              provider.changeResetPasswordType(
+                                  ResetPasswordTypeKeys.values[value]);
+                            },
+                            indicatorColor: context.colorScheme.primary,
+                            controller: tabController,
+                            tabs: const [
+                              Tab(text: "Email"),
+                              Tab(text: "Phone"),
+                            ]),
+                      ),
                     ),
                   ),
                   Expanded(
@@ -69,70 +78,46 @@ class _ResetPasswordTypeStepState extends State<ResetPasswordTypeStep>
                     child: Row(
                       children: [
                         Expanded(
-                          child: TextField(
-                            onChanged: (value) {},
-                            /*inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                              TelephoneInputFormatter()
-                            ],*/
-                            enableInteractiveSelection: false,
-                            textInputAction: TextInputAction.done,
-                            controller: widget.resetTargetTextController,
-                            keyboardType: /*false == ResetPasswordTypeKeys.EMAIL
-                                ? */
-                                TextInputType
-                                    .emailAddress /*: TextInputType.number*/,
-                            decoration: const InputDecoration(
-                                prefixIcon: /*false ==
-                                        ResetPasswordTypeKeys.EMAIL
-                                    ?*/
-                                    Icon(Icons.alternate_email_rounded)
-                                /*: DropdownButton(
-                                        value: null,
-                                        borderRadius: const PageBorderRadius
-                                            .allMedium(),
-                                        icon: const Icon(
-                                            Icons.arrow_drop_down_rounded),
-                                        hint: Row(
-                                          children: [
-                                            ImageKeys.voice_call.imageIcon,
-                                            const Padding(
-                                              padding:
-                                                  PagePadding.allDefault(),
-                                              child: Text(
-                                                "IDD",
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        underline: const SizedBox.shrink(),
-                                        items: [
-                                          DropdownMenuItem(
-                                              value: "+90",
-                                              child: Row(
-                                                children: const [
-                                                  Icon(Icons.flag_outlined),
-                                                  Text("+90"),
+                            child: Consumer<ResetPasswordProvider>(
+                                builder: (context, provider, child) =>
+                                    CommonTextField(
+                                      inputFormatters:
+                                          provider.resetPasswordType ==
+                                                  ResetPasswordTypeKeys.EMAIL
+                                              ? []
+                                              : [
+                                                  FilteringTextInputFormatter
+                                                      .digitsOnly,
+                                                  TelephoneInputFormatter()
                                                 ],
-                                              )),
-                                        ],
-                                        onChanged: (value) {
-                                          setState(() {
-                                            if (value != null) {}
-                                          });
-                                        },
-                                      ),*/
-                                ,
-                                hintText: /*false != ResetPasswordTypeKeys.EMAIL
-                                    ? "Phone"
-                                    :*/
-                                    "Email adress",
-                                floatingLabelAlignment:
-                                    FloatingLabelAlignment.center,
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.always),
-                          ),
-                        ),
+                                      enableInteractiveSelection: false,
+                                      textInputAction: TextInputAction.done,
+                                      textController:
+                                          widget.resetTargetTextController,
+                                      keyboardType:
+                                          provider.resetPasswordType ==
+                                                  ResetPasswordTypeKeys.EMAIL
+                                              ? TextInputType.emailAddress
+                                              : TextInputType.number,
+                                      prefixIcon: provider.resetPasswordType ==
+                                              ResetPasswordTypeKeys.EMAIL
+                                          ? Icon(Icons.alternate_email_rounded)
+                                          : CountryCodePicker(
+                                              onChanged: print,
+                                              initialSelection: 'IT',
+                                              showCountryOnly: false,
+                                              showOnlyCountryWhenClosed: false,
+                                              alignLeft: false,
+                                            ),
+                                      floatingLabelAlignment:
+                                          FloatingLabelAlignment.center,
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always,
+                                      hintText: provider.resetPasswordType !=
+                                              ResetPasswordTypeKeys.EMAIL
+                                          ? "Phone"
+                                          : "Email adress",
+                                    ))),
                         Consumer<ResetPasswordProvider>(
                           builder: (context, value, child) => AnimatedContainer(
                             width: value.isLoading == true ? 50 : 0,

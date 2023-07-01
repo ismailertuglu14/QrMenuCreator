@@ -51,10 +51,30 @@ abstract class RegisterViewModel extends State<RegisterView> {
                 password: _passwordTextController.text,
                 passwordAgain: _passwordConfirmTextController.text,
                 phone: RegisterPhone(
-                    countryCode: "+90",
+                    countryCode:
+                        _registerProvider.selectedCountryCode!.dialCode!,
                     phoneNumber: _contactNumberTextController.text)));
         if (response.isSuccess && response.errors.isEmpty) {
           Fluttertoast.showToast(msg: "Register Success");
+          LocaleStorage.instance
+              .setStringValue(LocaleKeys.EMAIL, _emailTextController.text);
+          LocaleStorage.instance.setStringValue(
+              LocaleKeys.PASSWORD, _passwordTextController.text);
+          LocaleStorage.instance.setStringValue(LocaleKeys.PHONE_COUNTRY_CODE,
+              _registerProvider.selectedCountryCode!.dialCode!);
+          LocaleStorage.instance.setStringValue(
+              LocaleKeys.PHONE_NUMBER, _contactNumberTextController.text);
+          LocaleStorage.instance.setStringValue(
+              LocaleKeys.RESTAURANT_ID, response.data.restaurantResponse.id);
+
+          LocaleStorage.instance.setStringValue(
+              LocaleKeys.BUSINESS_NAME, response.data.restaurantResponse.name);
+          LocaleStorage.instance.setStringValue(LocaleKeys.ADDRESS,
+              response.data.restaurantResponse.address ?? "");
+          LocaleStorage.instance.setStringValue(LocaleKeys.COVER_IMAGE,
+              response.data.restaurantResponse.profileImage ?? "");
+          LocaleStorage.instance.setStringValue(LocaleKeys.BANNER_IMAGE,
+              response.data.restaurantResponse.bannerImage ?? "");
 
           context.go(RouterKeys.HOME.route);
         } else {
@@ -63,7 +83,8 @@ abstract class RegisterViewModel extends State<RegisterView> {
 
         _registerProvider.changeLoading();
       } catch (e) {
-        throw UnimplementedError(e.toString());
+        Fluttertoast.showToast(msg: "Failed to register");
+        _registerProvider.changeLoading();
       }
     } else {
       Fluttertoast.showToast(msg: "Please fill in the blanks");

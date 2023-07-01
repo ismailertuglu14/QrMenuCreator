@@ -1,5 +1,5 @@
 class RegisterResponseModel {
-  final dynamic data;
+  final Data data;
   final bool isSuccess;
   final int statusCode;
   final List<dynamic> errors;
@@ -106,11 +106,11 @@ class RestaurantResponse {
   final String id;
   final int role;
   final String name;
-  final dynamic address;
-  final dynamic currentPlanId;
-  final dynamic category;
-  final dynamic profileImage;
-  final dynamic bannerImage;
+  final String? address;
+  final String? currentPlanId;
+  final String? category;
+  final String? profileImage;
+  final String? bannerImage;
   final int v;
 
   RestaurantResponse({

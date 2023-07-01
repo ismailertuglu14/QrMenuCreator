@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import '../../../../core/init/provider/register_provider.dart';
 import '../../../../product/regex/name_regex.dart';
 import '../../../../product/utility/page_padding.dart';
+import '../../../../product/widget/countrycodepicker/country_code_picker.dart';
 import '../../../../product/widget/text_form_field.dart';
 
 class RegisterPersonelStep extends StatelessWidget {
   const RegisterPersonelStep({
     super.key,
     required this.businessTextController,
-    
     required this.registerProvider,
     required this.contactNumberTextController,
   });
 
   final TextEditingController businessTextController;
- 
+
   final RegisterProvider registerProvider;
   final TextEditingController contactNumberTextController;
 
@@ -37,14 +37,24 @@ class RegisterPersonelStep extends StatelessWidget {
         ),
         Padding(
           padding: const PagePadding.allDefault(),
-          child: CommonTextFormField(
-            obscureText: false,
-            label: "Contact Number",
-            validator: nameRegex,
-            textController: contactNumberTextController,
-            textInputAction: TextInputAction.done,
-            keyboardType: TextInputType.name,
-            prefixIcon: const Icon(Icons.phone_rounded),
+          child: Expanded(
+            flex: 6,
+            child: CommonTextFormField(
+              obscureText: false,
+              label: "Contact Number",
+              validator: nameRegex,
+              textController: contactNumberTextController,
+              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.number,
+              prefixIcon: CountryCodePicker(
+                onChanged: (value) =>
+                    registerProvider.changeSelectedCountryCode(value),
+                initialSelection: 'IT',
+                showCountryOnly: false,
+                showOnlyCountryWhenClosed: false,
+                alignLeft: false,
+              ),
+            ),
           ),
         ),
       ],

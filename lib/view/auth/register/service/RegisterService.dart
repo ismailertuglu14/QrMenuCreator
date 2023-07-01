@@ -21,7 +21,7 @@ class RegisterService extends IRegisterService {
       Response<dynamic> response = await dio.post(NetworkConstants.REGISTER,
           data: requestModel.toJson());
 
-      if (response.statusCode == HttpStatus.ok ) {
+      if (response.statusCode == HttpStatus.ok) {
         return RegisterResponseModel.fromJson(response.data);
       } else {
         throw Exception('Failed to register');

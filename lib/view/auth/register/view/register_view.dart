@@ -6,11 +6,13 @@ import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import '../../../../../product/widget/elevation_button.dart';
+import '../../../../core/constans/cache/locale_keys_enum.dart';
 import '../../../../core/constans/enum/image_keys.dart';
 
 import '../../../../core/constans/enum/lottie_keys.dart';
 import '../../../../core/constans/enum/register_stepper_keys.dart';
 import '../../../../core/constans/enum/route_keys.dart';
+import '../../../../core/init/cache/local_storage.dart';
 import '../../../../core/init/network/network_manager.dart';
 import '../../../../core/init/provider/register_provider.dart';
 import '../../../../core/init/router/router_manager.dart';

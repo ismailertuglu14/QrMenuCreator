@@ -17,6 +17,7 @@ import '../../../../core/constans/enum/subscription_plan_keys.dart';
 import '../../../../core/constans/enum/theme_mode_keys.dart';
 import '../../../../core/init/cache/local_storage.dart';
 import '../../../../core/init/provider/home_provider.dart';
+import '../../../../core/init/provider/login_provider.dart';
 import '../../../../core/init/provider/theme_provider.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/elevation_button.dart';
@@ -172,8 +173,11 @@ class _BusinessViewState extends BusinessViewModel {
                                       children: [
                                         Expanded(
                                           child: OutlinedButton(
-                                              onPressed: () => context
-                                                  .go(RouterKeys.LOGIN.route),
+                                              onPressed: () {
+                                                _loginProvider.logout();
+                                                context
+                                                    .go(RouterKeys.LOGIN.route);
+                                              },
                                               child: Text("Yes")),
                                         ),
                                       ],
