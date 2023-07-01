@@ -31,6 +31,7 @@ import '../../../../product/utility/durations.dart';
 import '../../../../product/widget/notification_button.dart';
 import '../../business/view/business_view.dart';
 import '../../dashboard/view/dashboard_view.dart';
+import '../../templates/view/templates_view.dart';
 import '../widget/bottom_navi_bar.dart';
 part '../viewmodel/home_view_model.dart';
 
@@ -47,6 +48,7 @@ class _HomeViewState extends HomeViewModels {
     return Scaffold(
       bottomNavigationBar: BottomNaviBar(),
       appBar: CommonAppBar(
+        automaticallyImplyLeading: false,
         title: Text(AppConstants.APP_NAME),
         action: const [NotificationButton()],
       ),
