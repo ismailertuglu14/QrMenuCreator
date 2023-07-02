@@ -60,9 +60,10 @@ class _EditBusinessViewState extends EditBusinessViewModel {
       body: Column(
         children: [
           Expanded(
-            flex: 1,
+            flex: 2,
             child: Stack(
-              fit: StackFit.expand,
+              clipBehavior: Clip.none,
+              fit: StackFit.passthrough,
               alignment: Alignment.center,
               children: [
                 Positioned(
@@ -133,7 +134,7 @@ class _EditBusinessViewState extends EditBusinessViewModel {
             ),
           ),
           Expanded(
-            flex: 3,
+            flex: 8,
             child: Padding(
               padding: PagePadding.allHeight(),
               child: Column(children: [

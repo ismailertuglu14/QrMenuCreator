@@ -2,11 +2,13 @@ part of '../view/sections_view.dart';
 
 abstract class SectionsViewModel extends State<SectionsView> {
   late final TextEditingController _sectionController;
+
   String? _selectedSection;
 
   @override
   void initState() {
     super.initState();
+
     _sectionController = TextEditingController();
   }
 
@@ -25,6 +27,4 @@ abstract class SectionsViewModel extends State<SectionsView> {
     "Lunch",
     "Main Courses"
   ];
-
-  List<String> _sections = [];
 }

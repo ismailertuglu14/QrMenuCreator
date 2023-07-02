@@ -4,6 +4,7 @@ import 'package:qrmenu/core/init/provider/home_provider.dart';
 import 'package:qrmenu/core/init/provider/login_provider.dart';
 import 'package:qrmenu/core/init/provider/register_provider.dart';
 import 'package:qrmenu/core/init/provider/reset_password_provider.dart';
+import 'package:qrmenu/core/init/provider/section_provider.dart';
 import 'package:qrmenu/core/init/provider/subscription_provider.dart';
 import 'package:qrmenu/core/init/provider/templates_provider.dart';
 import 'package:qrmenu/core/init/provider/theme_provider.dart';
@@ -24,5 +25,6 @@ class Providers {
     ChangeNotifierProvider(create: (context) => EditBusinessProvider.instance),
     ChangeNotifierProvider(create: (context) => LocationPickProvider.instance),
     ChangeNotifierProvider(create: (context) => TemplatesProvider.instance),
+    ChangeNotifierProvider(create: (context) => SectionProvider.instance),
   ];
 }

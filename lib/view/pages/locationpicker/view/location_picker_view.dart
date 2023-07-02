@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:qrmenu/core/constans/enum/image_keys.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/image_icon_extenison.dart';
+import 'package:qrmenu/product/utility/border_radius.dart';
 import 'package:qrmenu/product/utility/page_padding.dart';
 import 'package:qrmenu/product/widget/app_bar.dart';
 import 'package:qrmenu/product/widget/elevation_button.dart';
@@ -38,27 +39,28 @@ class _LocationPickerViewState extends LocationPickerViewModel {
       appBar: CommonAppBar(title: const Text("Location Picker")),
       floatingActionButton:
           LocationPickerActionButtons(getCurrentLocation: _getCurrentLocation),
-      bottomNavigationBar: Padding(
-        padding: PagePadding.horizontalMin(),
-        child: Row(
-          children: [
-            Expanded(
-              child: CommonElevationButton(
-                  onPressed: () {
-                    if (_locationPickProvider.currentLocation != null) {
-                      getLocationName();
-                      _editBusinessProvider.changeCurrentLocation(
-                          _locationPickProvider.currentLocation!);
-                      context.pop();
-                    }
-                  },
-                  child: Padding(
-                    padding: PagePadding.allMedium(),
-                    child: Text("Set current location"),
-                  )),
+      bottomNavigationBar: GestureDetector(
+        onTap: () {
+          if (_locationPickProvider.currentLocation != null) {
+            getLocationName();
+            _editBusinessProvider
+                .changeCurrentLocation(_locationPickProvider.currentLocation!);
+            context.pop();
+          }
+        },
+        child: Container(
+            decoration: BoxDecoration(
+              color: context.colorScheme.primary,
             ),
-          ],
-        ),
+            child: Padding(
+              padding: PagePadding.allMedium(),
+              child: Text(
+                "Set current location",
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            )),
       ),
       body: Column(
         children: [

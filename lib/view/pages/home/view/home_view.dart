@@ -50,7 +50,12 @@ class _HomeViewState extends HomeViewModels {
       appBar: CommonAppBar(
         automaticallyImplyLeading: false,
         title: Text(AppConstants.APP_NAME),
-        action: const [NotificationButton()],
+        action: [
+          NotificationButton(),
+          IconButton(
+              onPressed: () => context.push(RouterKeys.QR.route),
+              icon: Icon(Icons.qr_code_rounded)),
+        ],
       ),
       body: Consumer<HomeProvider>(
         builder: (context, provider, child) => PageView.builder(
