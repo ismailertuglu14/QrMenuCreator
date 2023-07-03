@@ -22,13 +22,21 @@ Future<dynamic> addSectionDialog(BuildContext context,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: PagePadding.allHeight(),
-                    child: Text(
-                      "Add Section",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: context.text.titleLarge?.fontSize),
-                      textAlign: TextAlign.center,
+                    padding: PagePadding.allMedium(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Add Section",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: context.text.titleLarge?.fontSize),
+                          textAlign: TextAlign.center,
+                        ),
+                        IconButton(
+                            onPressed: () => context.pop(),
+                            icon: Icon(Icons.close)),
+                      ],
                     ),
                   ),
                   CommonTextField(
@@ -85,21 +93,11 @@ Future<dynamic> addSectionDialog(BuildContext context,
                       }
                     })),
                   )),
-                  Padding(
-                    padding: PagePadding.allDefault(),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        OutlinedButton(
-                            onPressed: () {
-                              context.pop();
-                              provider.sectionController.clear();
-                            },
-                            child: Padding(
-                              padding: PagePadding.horizontalHeight(),
-                              child: Text("Cancel"),
-                            )),
-                        CommonElevationButton(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                        child: CommonElevationButton(
                           child: Padding(
                             padding: PagePadding.horizontalHeight(),
                             child: Text("Add"),
@@ -117,8 +115,8 @@ Future<dynamic> addSectionDialog(BuildContext context,
                             }
                           },
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   )
                 ],
               ),

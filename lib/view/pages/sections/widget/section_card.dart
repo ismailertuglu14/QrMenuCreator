@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:qrmenu/core/constans/enum/route_keys.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
+import 'package:qrmenu/view/pages/sections/widget/add_section_dialog.dart';
 
 import '../../../../core/init/provider/section_provider.dart';
 import '../../../../product/utility/page_padding.dart';
@@ -22,7 +23,8 @@ class SectionCard extends StatelessWidget {
     return Padding(
       padding: PagePadding.allDefault(),
       child: ListTile(
-        onTap: () => context.push(RouterKeys.BRUNCH.route),
+        onTap: () => context.pushNamed(RouterKeys.SECTION_ITEMS.name,
+            queryParams: {"title": _sectionProvider.sectionList[index]}),
         title: Text(_sectionProvider.sectionList[index]),
         tileColor: context.colorScheme.secondary.withOpacity(0.1),
         trailing: SizedBox(
@@ -36,7 +38,14 @@ class SectionCard extends StatelessWidget {
                   itemBuilder: (context) => [
                     PopupMenuItem(
                       value: 1,
-                      onTap: () {},
+                      onTap: () {
+                        Future.microtask(() => _sectionProvider
+                            .sectionController
+                            .text = _sectionProvider.sectionList[index]);
+
+                        Future.sync(() => addSectionDialog(context,
+                            _sectionProvider.sectionList, _sectionProvider));
+                      },
                       child: Text("Edit"),
                     ),
                     PopupMenuItem(

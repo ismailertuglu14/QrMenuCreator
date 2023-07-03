@@ -6,12 +6,12 @@ import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/view/auth/register/view/register_view.dart';
 import 'package:qrmenu/view/auth/resetpassword/view/reset_password_view.dart';
 import 'package:qrmenu/view/pages/addons/view/add_ons_view.dart';
-import 'package:qrmenu/view/pages/brunch/view/brunch_view.dart';
 import 'package:qrmenu/view/pages/createitem/view/create_item_view.dart';
 import 'package:qrmenu/view/pages/feedback/view/feed_back_view.dart';
 import 'package:qrmenu/view/pages/home/view/home_view.dart';
 import 'package:qrmenu/view/pages/locationpicker/view/location_picker_view.dart';
 import 'package:qrmenu/view/pages/qr/view/qr_view.dart';
+import 'package:qrmenu/view/pages/sectionitems/view/section_items_view.dart';
 import 'package:qrmenu/view/pages/sections/view/sections_view.dart';
 
 import '../../../view/auth/login/view/login_view.dart';
@@ -19,6 +19,7 @@ import '../../../view/auth/onboard/view/onboard_view.dart';
 import '../../../view/auth/splash/view/splash_view.dart';
 import '../../../view/pages/editbusiness/view/edit_business_view.dart';
 import '../../../view/pages/error/eror_view.dart';
+
 import '../../constans/enum/route_keys.dart';
 
 class RouterManager with ChangeNotifier {
@@ -87,10 +88,12 @@ class RouterManager with ChangeNotifier {
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
               context: context, state: state, child: const SectionsView())),
       GoRoute(
-          name: RouterKeys.BRUNCH.name,
-          path: RouterKeys.BRUNCH.route,
+          name: RouterKeys.SECTION_ITEMS.name,
+          path: RouterKeys.SECTION_ITEMS.route,
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: const BrunchView())),
+              context: context,
+              state: state,
+              child: SectionItemsView(title: state.queryParams["title"]))),
       GoRoute(
           name: RouterKeys.CREATE_ITEM.name,
           path: RouterKeys.CREATE_ITEM.route,

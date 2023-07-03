@@ -25,6 +25,7 @@ class CommonTextField extends StatelessWidget {
     this.floatingLabelBehavior,
     this.floatingLabelAlignment,
     this.textAlign,
+    this.enabled,
   }) : super(key: key);
 
   final TextEditingController? textController;
@@ -35,7 +36,7 @@ class CommonTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final Widget? label;
-
+  final bool? enabled;
   final FocusNode? focusNode;
   final TextAlign? textAlign;
   final bool? enableInteractiveSelection;
@@ -54,6 +55,7 @@ class CommonTextField extends StatelessWidget {
       onSubmitted: onSubmitted,
       textAlign: textAlign ?? TextAlign.start,
       onTap: onTap,
+      enabled: enabled,
       onChanged: onChanged,
       focusNode: focusNode,
       controller: textController,

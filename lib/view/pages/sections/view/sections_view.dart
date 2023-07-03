@@ -29,10 +29,8 @@ class _SectionsViewState extends SectionsViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Consumer<SectionProvider>(
-          builder: (context, provider, child) => AddSectionButton(
-              sectionSuggestionList: _sectionSuggestionList,
-              provider: provider)),
+      bottomNavigationBar:
+          AddSectionButton(sectionSuggestionList: _sectionSuggestionList),
       appBar: CommonAppBar(
         title: Text("Sections"),
         action: [
@@ -43,9 +41,7 @@ class _SectionsViewState extends SectionsViewModel {
       ),
       body: Consumer<SectionProvider>(
         builder: (context, provider, child) => ReorderableListView.builder(
-          shrinkWrap: true,
           padding: PagePadding.allDefault(),
-          scrollController: ScrollController(),
           itemCount: provider.sectionList.length,
           header: Padding(
             padding: PagePadding.allDefault(),
@@ -55,7 +51,9 @@ class _SectionsViewState extends SectionsViewModel {
                     fontSize: context.text.titleMedium?.fontSize)),
           ),
           itemBuilder: (context, index) => SectionCard(
-              key: UniqueKey(), sectionProvider: provider, index: index),
+              key: ValueKey(provider.sectionList[index]),
+              sectionProvider: provider,
+              index: index),
           onReorder: (oldIndex, newIndex) {
             if (oldIndex < newIndex) {
               newIndex -= 1;

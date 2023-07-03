@@ -26,8 +26,8 @@ extension RouteExtension on RouterKeys {
         return "/qr";
       case RouterKeys.SECTIONS:
         return "/sections";
-      case RouterKeys.BRUNCH:
-        return "/brunch";
+      case RouterKeys.SECTION_ITEMS:
+        return "/section_items";
       case RouterKeys.CREATE_ITEM:
         return "/create_item";
       case RouterKeys.ADD_ONS:

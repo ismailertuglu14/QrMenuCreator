@@ -16,3 +16,7 @@ extension TextThemeExtension on BuildContext {
 extension ColorSchemeExtension on BuildContext {
   ColorScheme get colorScheme => Theme.of(this).colorScheme;
 }
+
+extension FocusScopeExtension on BuildContext {
+  FocusScopeNode get focusScope => FocusScope.of(this);
+}
