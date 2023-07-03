@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:qrmenu/core/constans/enum/route_keys.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
+import 'package:qrmenu/core/extension/router_extension.dart';
+import 'package:qrmenu/core/init/provider/add_ons_provider.dart';
 import 'package:qrmenu/product/widget/app_bar.dart';
 import 'package:qrmenu/product/widget/elevation_button.dart';
 import 'package:qrmenu/product/widget/text_field.dart';
 
 import '../../../../product/utility/page_padding.dart';
+import '../widget/add_ons_check_box_builder.dart';
+import '../widget/add_ons_dialog.dart';
 part '../viewmodel/add_ons_view_model.dart';
 
 class AddOnsView extends StatefulWidget {
@@ -19,136 +25,37 @@ class _AddOnsViewState extends AddOnsViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CommonAppBar(title: Text('Add Ons')),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => showDialog(
-          context: context,
-          builder: (context) => Dialog(
-            child: Expanded(
-              child: Padding(
-                padding: PagePadding.allMedium(),
-                child: Wrap(children: [
-                  Expanded(
-                      child: Text(
-                    "Add a new Addon",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: context.text.titleLarge?.fontSize),
-                  )),
-                  Expanded(
-                      child: Padding(
-                    padding: PagePadding.allDefault(),
-                    child: CommonTextField(
-                      hintText: "Name",
-                    ),
-                  )),
-                  Expanded(
-                      child: Padding(
-                    padding: PagePadding.allDefault(),
-                    child: CommonTextField(
-                      hintText: "Description",
-                    ),
-                  )),
-                  Padding(
-                    padding: PagePadding.allDefault(),
-                    child: Row(
-                      children: [
-                        Expanded(
-                            flex: 2,
-                            child: Text(
-                              "USD",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: context.text.titleMedium?.fontSize),
-                            )),
-                        Expanded(
-                            flex: 8,
-                            child: Padding(
-                              padding: PagePadding.allDefault(),
-                              child: CommonTextField(
-                                hintText: "Price",
-                              ),
-                            ))
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                            child: Padding(
-                          padding: PagePadding.allMedium(),
-                          child: OutlinedButton(
-                              onPressed: () => context.pop(),
-                              child: Text("Cancel")),
-                        )),
-                        Expanded(
-                          child: Padding(
-                            padding: PagePadding.allMedium(),
-                            child: CommonElevationButton(
-                              child: Text("Save"),
-                              onPressed: () {},
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ]),
-              ),
-            ),
-          ),
-        ),
+        onPressed: () => addOnsDialog(
+            context, _titleController, _subTitleController, _priceController),
         child: Icon(Icons.add_outlined),
       ),
       bottomNavigationBar: Padding(
         padding: PagePadding.allMedium(),
-        child: CommonElevationButton(
-          child: Padding(
-            padding: PagePadding.allMedium(),
-            child: Text("Add selected"),
+        child: Consumer<AddOnsProvider>(
+          builder: (context, provider, child) => CommonElevationButton(
+            child: Padding(
+                padding: PagePadding.allMedium(), child: Text("Add selected")),
+            onPressed: () {
+              context.pushReplacement(RouterKeys.CREATE_ITEM.route);
+            },
           ),
-          onPressed: () {},
         ),
       ),
-      appBar: CommonAppBar(title: Text('Add Ons')),
-      body: ListView.builder(
-          itemCount: 20,
-          itemBuilder: (context, index) => AddOnsCheckBoxListTileBuilder(
-                title: "title",
-                subTitle: "subTitle",
-                value: false,
-                onChanged: (p0) {},
-              )),
-    );
-  }
-}
-
-class AddOnsCheckBoxListTileBuilder extends StatelessWidget {
-  const AddOnsCheckBoxListTileBuilder({
-    super.key,
-    required this.title,
-    required this.subTitle,
-    required this.value,
-    this.onChanged,
-  });
-  final String title;
-  final String subTitle;
-  final bool value;
-  final void Function(bool?)? onChanged;
-  @override
-  Widget build(BuildContext context) {
-    return CheckboxListTile(
-      value: value,
-      title: Text(title),
-      secondary: Column(children: [
-        Flexible(child: Text("USD 25")),
-        Flexible(child: IconButton(onPressed: () {}, icon: Icon(Icons.edit)))
-      ]),
-      controlAffinity: ListTileControlAffinity.leading,
-      subtitle: Text(subTitle),
-      onChanged: onChanged,
+      body: Consumer<AddOnsProvider>(
+        builder: (context, provider, child) => ListView.builder(
+            itemCount: provider.onsPreviewList.length,
+            itemBuilder: (context, index) => AddOnsCheckBoxListTileBuilder(
+                  removeOnsPreviewList: provider.removeOnsPreviewList,
+                  title: provider.onsPreviewList[index].title,
+                  subTitle: provider.onsPreviewList[index].subTitle,
+                  value: provider.onsPreviewList[index].isSelected,
+                  price: provider.onsPreviewList[index].price,
+                  onChanged: (value) =>
+                      provider.changeIsSelected(index, value!),
+                )),
+      ),
     );
   }
 }

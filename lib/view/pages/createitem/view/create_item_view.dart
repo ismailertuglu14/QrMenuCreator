@@ -9,6 +9,7 @@ import 'package:qrmenu/core/constans/enum/route_keys.dart';
 import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
+import 'package:qrmenu/core/init/provider/add_ons_provider.dart';
 import 'package:qrmenu/core/init/provider/create_item_provider.dart';
 import 'package:qrmenu/product/utility/border_radius.dart';
 import 'package:qrmenu/product/utility/grid_delegates.dart';
@@ -64,7 +65,7 @@ class _CreateItemViewState extends CreateItemViewModel {
                         dotWidth: 10,
                         activeDotColor: context.colorScheme.primary),
                     activeIndex: provider.itemImageCurentIndex,
-                    count: provider.itemPreviewList.length),
+                    count: provider.itemPreviewList.length + 1),
               ),
               Expanded(
                 flex: 8,
@@ -152,7 +153,12 @@ class _CreateItemViewState extends CreateItemViewModel {
                               "Add-Ons",
                               style: context.text.titleMedium,
                             ),
-                            ItemCountCircle(count: 5),
+                            Consumer<AddOnsProvider>(
+                                builder: (context, provider, child) =>
+                                    ItemCountCircle(
+                                        count: provider.onsPreviewList
+                                            .where((item) => item.isSelected)
+                                            .length)),
                           ],
                         ),
                       ),

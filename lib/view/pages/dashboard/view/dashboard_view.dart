@@ -16,9 +16,10 @@ import 'package:qrmenu/product/widget/user_circle_avatar.dart';
 import '../../../../core/init/provider/home_provider.dart';
 import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/page_padding.dart';
+import '../../../../product/widget/app_bar.dart';
 import '../../../../product/widget/url_app_router.dart';
 import '../widget/dashboard_center_card.dart';
-import '../widget/dashboard_header.dart';
+
 part '../viewmodel/dashboard_view_model.dart';
 
 class DashboardView extends StatefulWidget {
@@ -38,7 +39,32 @@ class _DashboardViewState extends DashboardViewModel {
           children: [
             Expanded(
               flex: 2,
-              child: DashboardHeader(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  UserCircleAvatar(
+                      backgroundImage: ImageKeys.default_cover.assetImage()),
+                  Padding(
+                    padding: PagePadding.horizontalHeight(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Welcome Back",
+                          style: context.text.headlineSmall,
+                        ),
+                        Text(
+                          "Ercan Burger",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: context.text.titleLarge?.fontSize),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
             Expanded(flex: 5, child: DasboardCenterCard()),
             Expanded(

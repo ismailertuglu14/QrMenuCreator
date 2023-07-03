@@ -10,6 +10,8 @@ import 'package:qrmenu/core/init/provider/subscription_provider.dart';
 import 'package:qrmenu/core/init/provider/templates_provider.dart';
 import 'package:qrmenu/core/init/provider/theme_provider.dart';
 
+import 'add_ons_provider.dart';
+import 'business_provider.dart';
 import 'create_item_provider.dart';
 import 'edit_business_provider.dart';
 import 'location_pick_provider.dart';
@@ -30,5 +32,7 @@ class Providers {
     ChangeNotifierProvider(create: (context) => SectionProvider.instance),
     ChangeNotifierProvider(create: (context) => SectionItemsProvider.instance),
     ChangeNotifierProvider(create: (context) => CreateItemProvider.instance),
+    ChangeNotifierProvider(create: (context) => BusinessProvider.instance),
+    ChangeNotifierProvider(create: (context) => AddOnsProvider.instance),
   ];
 }

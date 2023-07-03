@@ -1,4 +1,4 @@
-const List<Map<String, String>> codes = [
+const List<Map<String, String>> countryCodes = [
   {
     "name": "افغانستان",
     "code": "AF",

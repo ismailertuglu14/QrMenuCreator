@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:qrmenu/product/widget/app_bar.dart';
+import 'package:zxing_lib/qrcode.dart';
 
 import '../../../../product/utility/page_padding.dart';
+import '../../../../product/widget/customqrgenerator/colors/color.dart';
+import '../../../../product/widget/customqrgenerator/options/colors.dart';
+import '../../../../product/widget/customqrgenerator/options/options.dart';
+import '../../../../product/widget/customqrgenerator/options/shapes.dart';
+import '../../../../product/widget/customqrgenerator/qr_painter.dart';
+import '../../../../product/widget/customqrgenerator/shapes/ball_shape.dart';
+import '../../../../product/widget/customqrgenerator/shapes/frame_shape.dart';
+import '../../../../product/widget/customqrgenerator/shapes/pixel_shape.dart';
 import '../widget/qr_border_painter.dart';
 part '../viewmodel/qr_view_model.dart';
 
@@ -25,44 +34,69 @@ class _QrViewState extends QrViewModel {
             children: [
               Expanded(
                 flex: 5,
-                child: Stack(
-                  alignment: Alignment.center,
+                child: Center(
+                  child: CustomPaint(
+                    painter: QrPainter(
+                        data: "https://www.google.com",
+                        options: const QrOptions(
+                            ecl: ErrorCorrectionLevel.H,
+                            shapes: QrShapes(
+                                lightPixel: QrPixelShapeRoundCorners(
+                                    cornerFraction: .5),
+                                darkPixel: QrPixelShapeRoundCorners(
+                                    cornerFraction: .5),
+                                frame: QrFrameShapeRoundCorners(
+                                    cornerFraction: .25),
+                                ball: QrBallShapeRoundCorners(
+                                    cornerFraction: .25)),
+                            colors: QrColors(
+                                background: QrColorSolid(Colors.transparent),
+                                light: QrColorLinearGradient(
+                                    colors: [
+                                      Color(0xFFFF0000),
+                                      Color(0xFF0000FF)
+                                    ],
+                                    orientation:
+                                        GradientOrientation.leftDiagonal),
+                                dark: QrColorLinearGradient(
+                                    colors: [
+                                      Color(0xFFFF0000),
+                                      Color(0xFF0000FF)
+                                    ],
+                                    orientation:
+                                        GradientOrientation.leftDiagonal)))),
+                    size: const Size(350, 350),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Positioned(
-                        width: BarReaderSize.width * 1.5,
-                        height: BarReaderSize.height * 1.5,
-                        child: Image.network(
-                            "https://user-images.githubusercontent.com/4993276/69906263-8d535d00-139f-11ea-8ee8-6f21a41bc60e.jpeg")),
-                    Positioned(
-                      child: CustomPaint(
-                        painter: BorderPainter(),
-                        child: SizedBox(
-                          width: BarReaderSize.width * 2,
-                          height: BarReaderSize.height * 2,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: OutlinedButton(
+                              onPressed: () {},
+                              child: Padding(
+                                padding: PagePadding.allMedium(),
+                                child: Text("Email QR Code"),
+                              )),
                         ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: OutlinedButton(
-                          onPressed: () {}, child: Text("Email QR Code")),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: OutlinedButton(
-                          onPressed: () {}, child: Text("Download QR Code")),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: OutlinedButton(
+                              onPressed: () {},
+                              child: Padding(
+                                padding: PagePadding.allMedium(),
+                                child: Text("Download QR Code"),
+                              )),
+                        ),
+                      ],
                     ),
                   ],
                 ),
