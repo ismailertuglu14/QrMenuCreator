@@ -38,7 +38,7 @@ class _AddOnsViewState extends AddOnsViewModel {
             child: Padding(
                 padding: PagePadding.allMedium(), child: Text("Add selected")),
             onPressed: () {
-              context.pushReplacement(RouterKeys.CREATE_ITEM.route);
+              context.pushReplacement(RouterKeys.CREATE_PRODUCT.route);
             },
           ),
         ),

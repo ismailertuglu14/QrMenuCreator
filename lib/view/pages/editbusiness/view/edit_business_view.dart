@@ -36,10 +36,9 @@ import '../../../../product/widget/countrycodepicker/country_code_picker.dart';
 import '../../../../product/widget/upload_file_dialog.dart';
 import '../../../../product/widget/user_circle_avatar.dart';
 import '../model/change_banner_image_response_model.dart';
-import '../model/change_profile_image_response_model.dart';
-import '../model/remove_profile_image_response_model.dart';
-import '../model/update_profile_request_model.dart';
-import '../service/EditProfile_service.dart';
+import '../model/change_cover_image_response_model.dart';
+import '../model/remove_cover_image_response_model.dart';
+import '../service/EditBusiness_service.dart';
 
 import 'package:latlong2/spline.dart';
 
@@ -84,11 +83,12 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                     child: Padding(
                       padding: PagePadding.allMin(),
                       child: IconButton(
-                        onPressed: () => uploadFileDialog(context, _imagePicker,
-                            true, UploadFileTypeKeys.SINGLE_IMAGE, (
-                                {required Object fileObject}) {
-                          return Future.value();
-                        }),
+                        onPressed: () => uploadFileDialog(
+                            context,
+                            _imagePicker,
+                            true,
+                            UploadFileTypeKeys.SINGLE_IMAGE,
+                            changeCoverImage),
                         icon: Icon(
                           Icons.edit,
                           color: context.colorScheme.primary,
@@ -97,38 +97,44 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                     )),
                 Positioned(
                   top: context.height * 0.1,
-                  child: UserCircleAvatar(
-                      maxRadius: 50,
-                      onTap: () => uploadFileDialog(context, _imagePicker,
-                              false, UploadFileTypeKeys.SINGLE_IMAGE, (
-                                  {required Object fileObject}) {
-                            return Future.value();
-                          }),
-                      backgroundImage: ImageKeys.default_cover.assetImage(),
-                      child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: context.colorScheme.onSecondary,
-                                    width: 4),
-                                shape: BoxShape.circle,
-                                color: context.colorScheme.primary),
-                            child: GestureDetector(
-                              onTap: () => uploadFileDialog(
-                                  context,
-                                  _imagePicker,
-                                  false,
-                                  UploadFileTypeKeys.SINGLE_IMAGE, (
-                                      {required Object fileObject}) {
-                                return Future.value();
-                              }),
-                              child: Padding(
-                                padding: PagePadding.allMin(),
-                                child: Icon(Icons.edit),
-                              ),
-                            )),
-                      )),
+                  child: Consumer<EditBusinessProvider>(
+                    builder: (context, provider, child) => UserCircleAvatar(
+                        maxRadius: 50,
+                        onTap: () => uploadFileDialog(
+                            context,
+                            _imagePicker,
+                            true,
+                            UploadFileTypeKeys.SINGLE_IMAGE,
+                            changeCoverImage),
+                        backgroundImage: (provider.coverImage == null ||
+                                provider.coverImage!.isEmpty)
+                            ? NetworkImage(provider.coverImage!)
+                            : NetworkImage(provider.coverImage!),
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: context.colorScheme.onSecondary,
+                                      width: 4),
+                                  shape: BoxShape.circle,
+                                  color: context.colorScheme.primary),
+                              child: GestureDetector(
+                                onTap: () => uploadFileDialog(
+                                    context,
+                                    _imagePicker,
+                                    false,
+                                    UploadFileTypeKeys.SINGLE_IMAGE, (
+                                        {required Object fileObject}) {
+                                  return Future.value();
+                                }),
+                                child: Padding(
+                                  padding: PagePadding.allMin(),
+                                  child: Icon(Icons.edit),
+                                ),
+                              )),
+                        )),
+                  ),
                 ),
               ],
             ),

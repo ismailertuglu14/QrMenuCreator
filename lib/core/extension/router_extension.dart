@@ -24,12 +24,12 @@ extension RouteExtension on RouterKeys {
         return "/edit_business";
       case RouterKeys.QR:
         return "/qr";
-      case RouterKeys.SECTIONS:
-        return "/sections";
-      case RouterKeys.SECTION_ITEMS:
-        return "/section_items";
-      case RouterKeys.CREATE_ITEM:
-        return "/create_item";
+      case RouterKeys.CATEGORY:
+        return "/category";
+      case RouterKeys.PRODUCTS:
+        return "/products";
+      case RouterKeys.CREATE_PRODUCT:
+        return "/create_product";
       case RouterKeys.ADD_ONS:
         return "/add_ons";
       case RouterKeys.LOCATION_PICKER:

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
+import 'package:qrmenu/product/utility/page_padding.dart';
 
 import '../../core/constans/enum/lottie_keys.dart';
 import '../utility/border_radius.dart';
@@ -26,9 +27,12 @@ class NotificationButton extends StatelessWidget {
                     children: [
                       LottieKeys.empty_notification
                           .path(width: context.width / 2),
-                      Text(
-                        "Noting to show here",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                      Padding(
+                        padding: PagePadding.allLow(),
+                        child: Text(
+                          "Noting to show here",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       )
                     ],
                   ),

@@ -1,4 +1,7 @@
+// ignore_for_file: unnecessary_this
+
 import 'package:flutter/material.dart';
+import 'package:qrmenu/core/extension/imag_path_extension.dart';
 
 import '../constans/enum/image_keys.dart';
 
@@ -11,6 +14,6 @@ extension ImageAssetExtension on ImageKeys {
 
 extension AssettImageExtension on ImageKeys {
   AssetImage assetImage() {
-    return AssetImage('assets/images/ic_$name.png');
+    return AssetImage(this.path);
   }
 }

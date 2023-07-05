@@ -17,7 +17,8 @@ import 'package:wiredash/wiredash.dart';
 
 Future<void> main() async {
   await InitApp.initApp();
-  runApp(MultiProvider(providers: Providers.providers, child: const MyApp()));
+  runApp(MultiProvider(
+      providers: Providers.instance.providers, child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -28,7 +29,6 @@ class MyApp extends StatelessWidget {
     return WiredashFeedBack(
         child: ResponsiveSizer(
             builder: (context, orientation, screenType) => MaterialApp.router(
-          
                   builder: FToastBuilder(),
                   title: AppConstants.APP_NAME,
                   routerConfig: RouterManager.routes,

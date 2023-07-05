@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 import 'package:qrmenu/core/constans/app/app_constants.dart';
 import 'package:qrmenu/core/constans/enum/bottom_navi_bar_keys.dart';
 import 'package:qrmenu/core/constans/enum/image_keys.dart';
@@ -11,13 +14,21 @@ import 'package:qrmenu/core/extension/image_icon_extenison.dart';
 import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/product/widget/elevation_button.dart';
+import 'package:qrmenu/product/widget/text_field.dart';
 import 'package:qrmenu/product/widget/user_circle_avatar.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../../../core/init/network/network_manager.dart';
+import '../../../../core/init/provider/dashboard_provider.dart';
 import '../../../../core/init/provider/home_provider.dart';
 import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/app_bar.dart';
 import '../../../../product/widget/url_app_router.dart';
+import '../model/create_menu_request_model.dart';
+import '../model/create_menu_response_model.dart';
+import '../model/get_restaurant_menus_response_model.dart';
+import '../service/Dashboard_service.dart';
 import '../widget/dashboard_center_card.dart';
 
 part '../viewmodel/dashboard_view_model.dart';
@@ -66,15 +77,105 @@ class _DashboardViewState extends DashboardViewModel {
                 ],
               ),
             ),
-            Expanded(flex: 5, child: DasboardCenterCard()),
             Expanded(
-              flex: 1,
-              child: ListTile(
-                title: Text("Web Dashboard"),
-                onTap: () => urlAppRouter(AppConstants.APP_WEB_DASHBOARD_URL),
-                leading: Icon(Icons.web_outlined),
-              ),
-            ),
+                flex: 5,
+                child: Consumer<DashboardProvider>(
+                  builder: (context, provider, child) =>
+                      (provider.restaurantMenus == null || provider.isLoading)
+                          ? LottieKeys.loading.path(width: context.width / 4)
+                          : PageView.builder(
+                              itemCount: provider.restaurantMenus!.length + 1,
+                              itemBuilder:
+                                  (context, index) =>
+                                      (index !=
+                                                  provider.restaurantMenus!
+                                                      .length &&
+                                              provider
+                                                  .restaurantMenus!.isNotEmpty)
+                                          ? DasboardCenterCard(
+                                              menu: provider
+                                                  .restaurantMenus![index])
+                                          : Padding(
+                                              padding: PagePadding.allMedium(),
+                                              child: Card(
+                                                  child: Column(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 8,
+                                                    child: LottieKeys
+                                                        .create_new_item
+                                                        .path(
+                                                            width:
+                                                                context.width /
+                                                                    2),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: TextButton(
+                                                        onPressed: () =>
+                                                            showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (context) =>
+                                                                        Dialog(
+                                                                          child:
+                                                                              Padding(
+                                                                            padding:
+                                                                                PagePadding.allMedium(),
+                                                                            child:
+                                                                                Column(mainAxisSize: MainAxisSize.min, children: [
+                                                                              Padding(
+                                                                                padding: PagePadding.allMedium(),
+                                                                                child: Row(
+                                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                  children: [
+                                                                                    Text(
+                                                                                      "Create Menu",
+                                                                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: context.text.titleLarge?.fontSize),
+                                                                                      textAlign: TextAlign.center,
+                                                                                    ),
+                                                                                    IconButton(onPressed: () => context.pop(), icon: Icon(Icons.close)),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                              CommonTextField(
+                                                                                label: Text("Menu Name"),
+                                                                                textController: _menuNameController,
+                                                                              ),
+                                                                              Padding(
+                                                                                padding: PagePadding.verticalHight(),
+                                                                                child: Row(
+                                                                                  children: [
+                                                                                    Expanded(
+                                                                                      child: CommonElevationButton(
+                                                                                          child: Padding(
+                                                                                            padding: PagePadding.allMedium(),
+                                                                                            child: Text("Create"),
+                                                                                          ),
+                                                                                          onPressed: () {
+                                                                                            createMenu();
+                                                                                            _menuNameController.text.isNotEmpty ? context.pop() : null;
+                                                                                          }),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              )
+                                                                            ]),
+                                                                          ),
+                                                                        )),
+                                                        child: Text(
+                                                          "Create New Menu",
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        )),
+                                                  )
+                                                ],
+                                              )),
+                                            )),
+                )),
             Expanded(
               flex: 2,
               child: Row(

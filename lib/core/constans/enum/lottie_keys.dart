@@ -8,5 +8,6 @@ enum LottieKeys {
   empty_notification,
   premium,
   click,
-  dashboard
+  dashboard,
+  create_new_item
 }

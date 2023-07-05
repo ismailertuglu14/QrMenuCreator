@@ -5,13 +5,13 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
   late final EditBusinessProvider _editBusinessProvider;
   late final TextEditingController _emailController;
   late final TextEditingController _businessNameController;
-
+  late final EditBusinessService _editBusinessService;
   late final TextEditingController _countryController;
-
 
   @override
   void initState() {
     super.initState();
+    _editBusinessService = EditBusinessService(NetworkManager.instance.dio);
     _editBusinessProvider = EditBusinessProvider.instance;
     _emailController = TextEditingController();
     _countryController = TextEditingController();
@@ -19,7 +19,6 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
 
     _imagePicker = ImagePicker();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-   
       _businessNameController.text =
           LocaleStorage.instance.getStringValue(LocaleKeys.BUSINESS_NAME);
       _emailController.text =
@@ -30,6 +29,21 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
     });
   }
 
+  Future<void> changeCoverImage({required Object fileObject}) async {
+    try {
+      ChangeCoverImageResponseModel response =
+          await _editBusinessService.changeCoverImage(file: fileObject as XFile);
+
+      if (response.isSuccess && response.errors.isEmpty) {
+        _editBusinessProvider.changeProfileImage(response.data!.url!);
+        LocaleStorage.instance
+            .setStringValue(LocaleKeys.COVER_IMAGE, response.data!.url!);
+      }
+    } catch (e) {
+      throw UnimplementedError(e.toString());
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -37,7 +51,4 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
     _emailController.dispose();
     _businessNameController.dispose();
   }
-
-
-  
 }

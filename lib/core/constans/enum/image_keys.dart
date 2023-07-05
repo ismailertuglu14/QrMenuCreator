@@ -30,5 +30,6 @@ enum ImageKeys {
   gluten_free,
   lactose_free,
   halal,
-  compass_north
+  compass_north,
+  empty_category
 }

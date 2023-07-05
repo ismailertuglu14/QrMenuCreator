@@ -11,9 +11,9 @@ class NetworkConstants {
   NetworkConstants._();
 
   // Authentication Endpoints
-  static const String LOGIN = "v1/auth/signin";
+  static const String LOGIN = "/auth/signin";
 
-  static const String REGISTER = "v1/auth/signup";
+  static const String REGISTER = "/auth/signup";
 
   // Restaurant Endpoints
 
@@ -23,9 +23,18 @@ class NetworkConstants {
 //Map Endpoints
 
   static const String GET_LOCATION_NAME =
-      "https://api.bigdatacloud.net/data/reverse-geocode-client?";  
+      "https://api.bigdatacloud.net/data/reverse-geocode-client?";
 
   static const String CHECK_UPDATE_VERSION = "check-update-version";
+
+//Category Endpoints
+
+  static const String CREATE_CATEGORY = "/category/create";
+//Product Endpoints
+
+  static const String CREATE_PRODUCT = "/product/create";
+
+//Menu Enpoints
+  static const String GET_RESTAURANT_MENUS = "/menu/all";
+  static const String CREATE_MENU = "/menu/create";
 }
-
-

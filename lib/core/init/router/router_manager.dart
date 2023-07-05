@@ -6,20 +6,20 @@ import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/view/auth/register/view/register_view.dart';
 import 'package:qrmenu/view/auth/resetpassword/view/reset_password_view.dart';
 import 'package:qrmenu/view/pages/addons/view/add_ons_view.dart';
-import 'package:qrmenu/view/pages/createitem/view/create_item_view.dart';
+import 'package:qrmenu/view/pages/createproduct/view/create_product_view.dart';
 import 'package:qrmenu/view/pages/feedback/view/feed_back_view.dart';
 import 'package:qrmenu/view/pages/home/view/home_view.dart';
 import 'package:qrmenu/view/pages/locationpicker/view/location_picker_view.dart';
 import 'package:qrmenu/view/pages/qr/view/qr_view.dart';
-import 'package:qrmenu/view/pages/sectionitems/view/section_items_view.dart';
-import 'package:qrmenu/view/pages/sections/view/sections_view.dart';
 
 import '../../../view/auth/login/view/login_view.dart';
 import '../../../view/auth/onboard/view/onboard_view.dart';
 import '../../../view/auth/splash/view/splash_view.dart';
+import '../../../view/pages/category/view/category_view.dart';
 import '../../../view/pages/editbusiness/view/edit_business_view.dart';
 import '../../../view/pages/error/eror_view.dart';
 
+import '../../../view/pages/products/view/products_view.dart';
 import '../../constans/enum/route_keys.dart';
 
 class RouterManager with ChangeNotifier {
@@ -83,22 +83,34 @@ class RouterManager with ChangeNotifier {
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
               context: context, state: state, child: const QrView())),
       GoRoute(
-          name: RouterKeys.SECTIONS.name,
-          path: RouterKeys.SECTIONS.route,
-          pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: const SectionsView())),
-      GoRoute(
-          name: RouterKeys.SECTION_ITEMS.name,
-          path: RouterKeys.SECTION_ITEMS.route,
+          name: RouterKeys.CATEGORY.name,
+          path: RouterKeys.CATEGORY.route,
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
               context: context,
               state: state,
-              child: SectionItemsView(title: state.queryParams["title"]))),
+              child: CategoryView(
+                id: state.queryParams["id"],
+                name: state.queryParams["name"],
+              ))),
       GoRoute(
-          name: RouterKeys.CREATE_ITEM.name,
-          path: RouterKeys.CREATE_ITEM.route,
+          name: RouterKeys.PRODUCTS.name,
+          path: RouterKeys.PRODUCTS.route,
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: const CreateItemView())),
+              context: context,
+              state: state,
+              child: ProductsView(
+                  title: state.queryParams["title"],
+                  categoryId: state.queryParams["categoryId"],
+                  menuId: state.queryParams["menuId"]))),
+      GoRoute(
+          name: RouterKeys.CREATE_PRODUCT.name,
+          path: RouterKeys.CREATE_PRODUCT.route,
+          pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              context: context,
+              state: state,
+              child: CreateProductView(
+                  categoryId: state.queryParams["categoryId"],
+                  menuId: state.queryParams["menuId"]))),
       GoRoute(
           name: RouterKeys.ADD_ONS.name,
           path: RouterKeys.ADD_ONS.route,

@@ -1,0 +1,78 @@
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../../../view/pages/category/model/create_category_response_model.dart';
+
+class CategoryProvider extends ChangeNotifier {
+  static CategoryProvider? _instance;
+
+  static CategoryProvider get instance {
+    _instance ??= CategoryProvider._();
+    return _instance!;
+  }
+
+  CategoryProvider._() {
+    _categoryController = TextEditingController();
+  }
+
+  final List<String> _categorySuggestionList = [
+    "Beer",
+    "Breakfast",
+    "Brunch",
+    "Dessert",
+    "Dinner",
+    "Lunch",
+    "Main Courses"
+  ];
+  List<CreateCategoryData> _categoryList = [];
+
+  bool _isLoading = false;
+
+  int? _selectedSuggestionIndex;
+
+  XFile? _categoryImage;
+
+  List<CreateCategoryData>? get categoryList => _categoryList;
+
+  late final TextEditingController _categoryController;
+
+  XFile? get categoryImage => _categoryImage;
+
+  bool get isLoading => _isLoading;
+
+  List<String> get categorySuggestionList => _categorySuggestionList;
+
+  int? get selectedSuggestionIndex => _selectedSuggestionIndex;
+  TextEditingController get categoryController => _categoryController;
+
+  set setCategoryList(List<CreateCategoryData> categoryList) {
+    _categoryList = categoryList;
+    notifyListeners();
+  }
+
+  void addCategory(CreateCategoryData category) {
+    _categoryList.add(category);
+
+    notifyListeners();
+  }
+
+  void changeLoading() {
+    _isLoading = !_isLoading;
+    notifyListeners();
+  }
+
+  set categoryImage(XFile? categoryImage) {
+    _categoryImage = categoryImage;
+    notifyListeners();
+  }
+
+  set setSelectedSuggestionIndex(int? selectedSuggestionIndex) {
+    _selectedSuggestionIndex = selectedSuggestionIndex;
+    notifyListeners();
+  }
+
+  set setCategoryImage(XFile? categoryImage) {
+    _categoryImage = categoryImage;
+    notifyListeners();
+  }
+}
