@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:qrmenu/view/pages/category/model/get_category_response_model.dart';
 
 import '../../../view/pages/category/model/create_category_response_model.dart';
 
@@ -24,7 +25,7 @@ class CategoryProvider extends ChangeNotifier {
     "Lunch",
     "Main Courses"
   ];
-  List<CreateCategoryData> _categoryList = [];
+  List<GetCategoriesData> _categoryList = [];
 
   bool _isLoading = false;
 
@@ -32,7 +33,7 @@ class CategoryProvider extends ChangeNotifier {
 
   XFile? _categoryImage;
 
-  List<CreateCategoryData>? get categoryList => _categoryList;
+  List<GetCategoriesData>? get categoryList => _categoryList;
 
   late final TextEditingController _categoryController;
 
@@ -45,12 +46,12 @@ class CategoryProvider extends ChangeNotifier {
   int? get selectedSuggestionIndex => _selectedSuggestionIndex;
   TextEditingController get categoryController => _categoryController;
 
-  set setCategoryList(List<CreateCategoryData> categoryList) {
+  set setCategoryList(List<GetCategoriesData> categoryList) {
     _categoryList = categoryList;
     notifyListeners();
   }
 
-  void addCategory(CreateCategoryData category) {
+  void addCategory(GetCategoriesData category) {
     _categoryList.add(category);
 
     notifyListeners();

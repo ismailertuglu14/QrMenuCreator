@@ -26,6 +26,8 @@ import '../../../../core/init/provider/products_provider.dart';
 import '../../../../product/utility/durations.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/app_bar.dart';
+import '../../category/model/get_category_response_model.dart';
+import '../../products/model/get_products_by_menu_id_response_model.dart';
 import '../model/allergens_model.dart';
 import '../../../../product/widget/item_count_circle.dart';
 import '../model/create_product_response_model.dart';

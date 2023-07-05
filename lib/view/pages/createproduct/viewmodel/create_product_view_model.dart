@@ -65,7 +65,13 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
           ],
         );
         if (response.isSuccess && response.errors.isEmpty) {
-          _productsProvider.addProductItem(response.data);
+          _productsProvider.addProductItem(GetProductsByMenuIdData(
+              id: response.data.id,
+              name: response.data.name,
+              description: response.data.description,
+              price: response.data.price,
+              currency: response.data.currency,
+              images: response.data.images.first));
           context.pop();
           _nameController.clear();
           _priceController.clear();

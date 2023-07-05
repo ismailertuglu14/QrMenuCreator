@@ -1,17 +1,27 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:qrmenu/core/constans/enum/image_keys.dart';
+import 'package:qrmenu/core/constans/enum/lottie_keys.dart';
 import 'package:qrmenu/core/constans/enum/route_keys.dart';
+import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
+import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/core/init/provider/products_provider.dart';
 import 'package:qrmenu/product/widget/app_bar.dart';
 import 'package:qrmenu/product/widget/elevation_button.dart';
 import 'package:qrmenu/product/widget/user_circle_avatar.dart';
+import 'package:qrmenu/view/pages/createproduct/model/create_product_response_model.dart';
 
+import '../../../../core/init/network/network_manager.dart';
 import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/bottom_sheet_button.dart';
+import '../../category/model/get_category_request_model.dart';
+import '../model/get_products_by_menu_id_response_model.dart';
+import '../service/Product_service.dart';
 import '../widget/product_item_card.dart';
 part '../viewmodel/products_view_model.dart';
 
@@ -38,26 +48,36 @@ class _ProductsViewViewState extends ProductsViewModel {
       ),
       appBar: CommonAppBar(title: Text(widget.title ?? "Section Items")),
       body: Consumer<ProductsProvider>(
-        builder: (context, provider, child) => ReorderableListView.builder(
-          itemCount: provider.productList.length,
-          header: Padding(
-            padding: PagePadding.allDefault(),
-            child: Text("Add items in sections",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: context.text.titleMedium?.fontSize)),
-          ),
-          padding: PagePadding.allHeight(),
-          itemBuilder: (context, index) =>
-              ProductItemCard(key: ValueKey(index), index: index,categoryId: widget.categoryId,menuId: widget.menuId,),
-          onReorder: (oldIndex, newIndex) {
-            if (oldIndex < newIndex) {
-              newIndex -= 1;
-            }
-            final item = provider.productList.removeAt(oldIndex);
-            provider.productList.insert(newIndex, item);
-          },
-        ),
+        builder: (context, provider, child) => provider.productList == null
+            ? Center(child: LottieKeys.loading.path(width: context.width / 4))
+            : provider.productList!.isEmpty
+                ? Center(
+                    child: ImageKeys.empty_category
+                        .imageAsset(width: context.width / 2))
+                : ReorderableListView.builder(
+                    itemCount: provider.productList!.length,
+                    header: Padding(
+                      padding: PagePadding.allDefault(),
+                      child: Text("Add items in category",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: context.text.titleMedium?.fontSize)),
+                    ),
+                    padding: PagePadding.allHeight(),
+                    itemBuilder: (context, index) => ProductItemCard(
+                      key: ValueKey(index),
+                      index: index,
+                      categoryId: widget.categoryId,
+                      menuId: widget.menuId,
+                    ),
+                    onReorder: (oldIndex, newIndex) {
+                      if (oldIndex < newIndex) {
+                        newIndex -= 1;
+                      }
+                      final item = provider.productList?.removeAt(oldIndex);
+                      provider.productList?.insert(newIndex, item!);
+                    },
+                  ),
       ),
     );
   }

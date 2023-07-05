@@ -12,6 +12,7 @@ import '../../../../core/init/provider/category_provider.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/item_count_circle.dart';
 import '../model/create_category_response_model.dart';
+import '../model/get_category_response_model.dart';
 import 'add_category_dialog.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -22,7 +23,7 @@ class CategoryCard extends StatelessWidget {
   });
 
   final int index;
-  final CreateCategoryData category;
+  final GetCategoriesData category;
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +31,11 @@ class CategoryCard extends StatelessWidget {
       padding: PagePadding.allDefault(),
       child: Consumer<CategoryProvider>(
         builder: (context, provider, child) => ListTile(
-          onTap: () => context.pushNamed(RouterKeys.PRODUCTS.name,
-              queryParams: {
-                "title": category.name,
-                "categoryId": category.id,
-                "menuId": category.menuId
-              }),
+          onTap: () =>
+              context.pushNamed(RouterKeys.PRODUCTS.name, queryParams: {
+            "title": category.name,
+            "categoryId": category.id,
+          }),
           tileColor: context.colorScheme.secondary.withOpacity(0.1),
           title: Text(category.name),
           leading: Padding(

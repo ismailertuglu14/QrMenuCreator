@@ -15,23 +15,28 @@ abstract class CategoryViewModel extends State<CategoryView> {
 
     _categoryProvider = CategoryProvider.instance;
     _categoryService = CategoryService(NetworkManager.instance.dio);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      getCategories();
+    });
     _picker = ImagePicker();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  Future<void> getCategories() async {
+    try {
+      _categoryProvider.changeLoading();
 
-  final List<String> _sectionSuggestionList = [
-    "Beer",
-    "Breakfast",
-    "Brunch",
-    "Dessert",
-    "Dinner",
-    "Lunch",
-    "Main Courses"
-  ];
+      GetCategoriesResponseModel response =
+          await _categoryService.getCategories(
+              requestModel: GetCategoriesRequestModel(menuId: widget.id ?? ""));
+      if (response.isSuccess && response.errors.isEmpty) {
+        _categoryProvider.setCategoryList = response.data ;
+      }
+    } catch (e) {
+      throw Exception(e);
+    } finally {
+      _categoryProvider.changeLoading();
+    }
+  }
 
   Future<void> createCategory() async {
     if (_categoryProvider.categoryController.text.isNotEmpty) {
@@ -44,7 +49,10 @@ abstract class CategoryViewModel extends State<CategoryView> {
                 image: _categoryProvider.categoryImage as XFile);
         if (response.isSuccess && response.errors.isEmpty) {
           context.pop();
-          _categoryProvider.addCategory(response.data);
+          _categoryProvider.addCategory(GetCategoriesData(
+              id: response.data.id,
+              name: response.data.name,
+              image: response.data.image));
           _categoryProvider.categoryController.clear();
           _categoryProvider.setCategoryImage = null;
           _categoryProvider.setSelectedSuggestionIndex = null;
