@@ -23,19 +23,16 @@ class AddSectionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<CategoryProvider>(
-      builder: (context, provider, child) => Padding(
-        padding: PagePadding.allDefault(),
-        child: BottomSheetButton(
-          onPressed: () => addCategoryDialog(
-              context, imagePicker, sectionSuggestionList, provider,
-              createCategory: createCategory, uploadFile: uploadFile),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.add),
-              Text("Add Section"),
-            ],
-          ),
+      builder: (context, provider, child) => BottomSheetButton(
+        onPressed: () => addCategoryDialog(
+            context, imagePicker, sectionSuggestionList, provider,
+            createCategory: createCategory, uploadFile: uploadFile),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(Icons.add),
+            Text("Add Section"),
+          ],
         ),
       ),
     );

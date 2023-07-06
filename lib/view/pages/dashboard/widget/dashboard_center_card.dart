@@ -25,7 +25,6 @@ class DasboardCenterCard extends StatelessWidget {
         onTap: () => context.pushNamed(RouterKeys.CATEGORY.name,
             queryParams: {"id": menu.id, "name": menu.name}),
         child: Card(
-          color: context.colorScheme.onSecondary.withOpacity(0.8),
           child: Column(
             children: [
               Expanded(

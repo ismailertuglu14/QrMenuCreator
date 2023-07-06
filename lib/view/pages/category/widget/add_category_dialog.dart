@@ -6,8 +6,10 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:qrmenu/core/constans/enum/image_keys.dart';
+import 'package:qrmenu/core/constans/enum/lottie_keys.dart';
 import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
+import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
 import 'package:qrmenu/core/init/provider/category_provider.dart';
 import 'package:qrmenu/product/utility/border_radius.dart';
 import 'package:qrmenu/product/widget/upload_file_dialog.dart';
@@ -117,6 +119,7 @@ Future<dynamic> addCategoryDialog(BuildContext context, ImagePicker imagePicker,
                                           .imageAsset(width: context.width / 4)
                                       : Image.file(
                                           File(provider.categoryImage!.path),
+                                          height: context.height / 10,
                                           width: context.width / 4,
                                           fit: BoxFit.cover,
                                         )),
@@ -134,12 +137,18 @@ Future<dynamic> addCategoryDialog(BuildContext context, ImagePicker imagePicker,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Expanded(
-                        child: CommonElevationButton(
-                          child: Padding(
-                            padding: PagePadding.horizontalHeight(),
-                            child: Text("Add"),
-                          ),
-                          onPressed: () => createCategory.call(),
+                        child: Consumer<CategoryProvider>(
+                          builder: (context, provider, child) =>
+                              provider.isLoading
+                                  ? LottieKeys.loading
+                                      .path(height: context.height / 20)
+                                  : CommonElevationButton(
+                                      child: Padding(
+                                        padding: PagePadding.horizontalHeight(),
+                                        child: Text("Add"),
+                                      ),
+                                      onPressed: () => createCategory.call(),
+                                    ),
                         ),
                       ),
                     ],

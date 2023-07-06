@@ -21,7 +21,7 @@ abstract class ProductsViewModel extends State<ProductsView> {
       GetProductsByMenuIdResponseModel response =
           await _productService.getProductsByMenuId(
               requestModel: GetCategoriesRequestModel(
-        menuId: "64a53b0a46a0b8151f9ce55f",
+        menuId: widget.menuId ?? "",
       ));
       if (response.isSuccess && response.errors.isEmpty) {
         _productsProvider.setProductList = response.data;

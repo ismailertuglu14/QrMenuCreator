@@ -34,8 +34,8 @@ class ProductItemCard extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: PageBorderRadius.allMedium()),
                 tileColor: context.colorScheme.surface.withOpacity(0.2),
-                onTap: () => context.pushNamed(RouterKeys.CREATE_PRODUCT.name,
-                    queryParams: {"categoryId": categoryId, "menuId": menuId}),
+                /* onTap: () => context.pushNamed(RouterKeys.CREATE_PRODUCT.name,
+                    queryParams: {"categoryId": categoryId, "menuId": menuId}),*/
                 title:
                     Text(provider.productList?[index].name ?? "Product Name"),
                 subtitle: Card(

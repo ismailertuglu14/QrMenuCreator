@@ -20,9 +20,11 @@ class CategoryCard extends StatelessWidget {
     super.key,
     required this.index,
     required this.category,
+    required this.menuId,
   });
 
   final int index;
+  final String menuId;
   final GetCategoriesData category;
 
   @override
@@ -35,6 +37,7 @@ class CategoryCard extends StatelessWidget {
               context.pushNamed(RouterKeys.PRODUCTS.name, queryParams: {
             "title": category.name,
             "categoryId": category.id,
+            "menuId" : menuId,
           }),
           tileColor: context.colorScheme.secondary.withOpacity(0.1),
           title: Text(category.name),

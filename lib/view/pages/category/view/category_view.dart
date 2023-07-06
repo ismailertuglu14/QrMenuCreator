@@ -84,6 +84,7 @@ class _CategoryViewState extends CategoryViewModel {
                               fontSize: context.text.titleMedium?.fontSize)),
                     ),
                     itemBuilder: (context, index) => CategoryCard(
+                        menuId: widget.id ?? "",
                         category: provider.categoryList![index],
                         key: ValueKey(provider.categoryList![index]),
                         index: index),

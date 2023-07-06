@@ -18,7 +18,7 @@ class BottomSheetButton extends StatelessWidget {
       child: CommonElevationButton(
         onPressed: onPressed,
         child: Padding(
-          padding: PagePadding.allHeight(),
+          padding: PagePadding.allMedium(),
           child: child,
         ),
       ),
