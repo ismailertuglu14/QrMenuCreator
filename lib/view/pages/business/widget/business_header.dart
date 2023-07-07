@@ -32,12 +32,10 @@ class BusinessHeader extends StatelessWidget {
           top: context.height * 0.1,
           child: UserCircleAvatar(
             maxRadius: 50,
-            backgroundImage: ImageKeys.default_cover.assetImage(),
+            backgroundImage: ImageKeys.default_image.assetImage(),
           ),
         ),
       ],
     );
   }
 }
-
-

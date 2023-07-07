@@ -7,6 +7,7 @@ import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/product/utility/border_radius.dart';
+import 'package:qrmenu/product/widget/user_circle_avatar.dart';
 
 import '../../../../core/init/provider/category_provider.dart';
 import '../../../../product/utility/page_padding.dart';
@@ -21,11 +22,13 @@ class CategoryCard extends StatelessWidget {
     required this.index,
     required this.category,
     required this.menuId,
+    required this.deleteCategory,
   });
 
   final int index;
   final String menuId;
   final GetCategoriesData category;
+  final Future<void> Function() deleteCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -37,41 +40,36 @@ class CategoryCard extends StatelessWidget {
               context.pushNamed(RouterKeys.PRODUCTS.name, queryParams: {
             "title": category.name,
             "categoryId": category.id,
-            "menuId" : menuId,
+            "menuId": menuId,
           }),
-          tileColor: context.colorScheme.secondary.withOpacity(0.1),
+          contentPadding: PagePadding.allDefault(),
+          tileColor: context.colorScheme.surface.withOpacity(0.05),
           title: Text(category.name),
-          leading: Padding(
-            padding: PagePadding.allMin(),
-            child: ClipRRect(
-                borderRadius: PageBorderRadius.allMedium(),
-                child: ImageKeys.default_banner.imageAsset()),
-          ),
+          leading: UserCircleAvatar(
+              backgroundImage: ImageKeys.default_image.assetImage()),
           trailing: SizedBox(
             width: context.width * 0.3,
             child: Row(
               children: [
-                Expanded(flex: 8, child: ItemCountCircle(count: 5)),
+                Expanded(
+                    flex: 8,
+                    child: ItemCountCircle(count: category.productCount)),
                 Expanded(
                   flex: 2,
                   child: PopupMenuButton(
+                    onOpened: () => provider.setSelectedCategoryId(category.id),
+                    onCanceled: () => provider.setSelectedCategoryId(null),
                     itemBuilder: (context) => [
-                      /* PopupMenuItem(
+                      PopupMenuItem(
                         value: 1,
-                        onTap: () {
-                          Future.microtask(() => 
-                              provider
-                              .categoryController.text = provider.categorySuggestionList[index]);
-      
-                          Future.sync(() => addCategoryDialog(context, , sectionSuggestionList, provider, createCategory: createCategory, uploadFile: uploadFile));
-                        },
+                        onTap: () {},
                         child: Text("Edit"),
                       ),
                       PopupMenuItem(
-                        onTap: () => provider.removeSection(index),
+                        onTap: () => deleteCategory(),
                         value: 2,
                         child: Text("Delete"),
-                      ),*/
+                      ),
                     ],
                   ),
                 ),

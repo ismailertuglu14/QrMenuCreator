@@ -69,14 +69,8 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                     top: 0,
                     height: context.height * 0.15,
                     width: context.width,
-                    child: GestureDetector(
-                        onTap: () => uploadFileDialog(context, _imagePicker,
-                                true, UploadFileTypeKeys.SINGLE_IMAGE, (
-                                    {required Object fileObject}) {
-                              return Future.value();
-                            }),
-                        child: ImageKeys.default_banner
-                            .imageAsset(fit: BoxFit.cover))),
+                    child:
+                        ImageKeys.default_banner.imageAsset(fit: BoxFit.cover)),
                 Positioned(
                     top: 0,
                     right: 0,
@@ -100,39 +94,25 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                   child: Consumer<EditBusinessProvider>(
                     builder: (context, provider, child) => UserCircleAvatar(
                         maxRadius: 50,
-                        onTap: () => uploadFileDialog(
-                            context,
-                            _imagePicker,
-                            true,
-                            UploadFileTypeKeys.SINGLE_IMAGE,
-                            changeCoverImage),
-                        backgroundImage: (provider.coverImage == null ||
-                                provider.coverImage!.isEmpty)
-                            ? NetworkImage(provider.coverImage!)
-                            : NetworkImage(provider.coverImage!),
+                        backgroundImage: ImageKeys.default_image.assetImage(),
                         child: Align(
                           alignment: Alignment.bottomRight,
-                          child: Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: context.colorScheme.onSecondary,
-                                      width: 4),
-                                  shape: BoxShape.circle,
-                                  color: context.colorScheme.primary),
-                              child: GestureDetector(
-                                onTap: () => uploadFileDialog(
-                                    context,
-                                    _imagePicker,
-                                    false,
-                                    UploadFileTypeKeys.SINGLE_IMAGE, (
-                                        {required Object fileObject}) {
-                                  return Future.value();
-                                }),
-                                child: Padding(
-                                  padding: PagePadding.allMin(),
-                                  child: Icon(Icons.edit),
-                                ),
-                              )),
+                          child: GestureDetector(
+                            onTap: () => uploadFileDialog(context, _imagePicker,
+                                false, UploadFileTypeKeys.SINGLE_IMAGE, (
+                                    {required Object fileObject}) {
+                              return Future.value();
+                            }),
+                            child: Container(
+                                padding: PagePadding.allMin(),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: context.colorScheme.onSecondary,
+                                        width: 4),
+                                    shape: BoxShape.circle,
+                                    color: context.colorScheme.primary),
+                                child: Icon(Icons.edit)),
+                          ),
                         )),
                   ),
                 ),

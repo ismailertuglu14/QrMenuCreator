@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
+import 'package:qrmenu/core/init/provider/dashboard_provider.dart';
 
 import '../../../../core/constans/enum/lottie_keys.dart';
 import '../../../../core/constans/enum/route_keys.dart';
@@ -14,8 +15,12 @@ class DasboardCenterCard extends StatelessWidget {
   const DasboardCenterCard({
     super.key,
     required this.menu,
+    required this.provider,
+    required this.deleteRestaurantMenu,
   });
   final RestaurantMenuData menu;
+  final DashboardProvider provider;
+  final Future<void> Function() deleteRestaurantMenu;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -28,15 +33,34 @@ class DasboardCenterCard extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                flex: 7,
+                  flex: 2,
+                  child: Padding(
+                    padding: PagePadding.horizontalMedium(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          menu.name.toUpperCase(),
+                          style: TextStyle(
+                              fontSize: context.text.titleLarge?.fontSize,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        PopupMenuButton(
+                            onOpened: () => provider.setSelectedMenuId(menu.id),
+                            onCanceled: () => provider.setSelectedMenuId(null),
+                            itemBuilder: (context) => [
+                                  PopupMenuItem(
+                                    onTap: () => deleteRestaurantMenu(),
+                                    child: Text("Delete Menu"),
+                                  )
+                                ])
+                      ],
+                    ),
+                  )),
+              Expanded(
+                flex: 5,
                 child: LottieKeys.dashboard.path(fit: BoxFit.cover),
               ),
-              Expanded(
-                  flex: 1,
-                  child: Text(
-                    menu.name.toUpperCase(),
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  )),
               Expanded(
                 flex: 3,
                 child: Row(
@@ -54,7 +78,7 @@ class DasboardCenterCard extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "51",
+                                "${menu.productCount}",
                                 style: TextStyle(
                                     fontSize: context.text.titleLarge?.fontSize,
                                     fontWeight: FontWeight.bold),

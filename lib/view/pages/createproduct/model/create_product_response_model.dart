@@ -1,3 +1,5 @@
+
+
 class CreateProductResponseModel {
   final CreateProductData data;
   final bool isSuccess;
@@ -36,7 +38,9 @@ class CreateProductData {
   final List<ProductIngredient> ingredients;
   final int price;
   final String currency;
-  final List<dynamic> images;
+  final List<String> images;
+  final bool isActive;
+  final DateTime createdDate;
   final String id;
   final int v;
 
@@ -50,6 +54,8 @@ class CreateProductData {
     required this.price,
     required this.currency,
     required this.images,
+    required this.isActive,
+    required this.createdDate,
     required this.id,
     required this.v,
   });
@@ -64,7 +70,9 @@ class CreateProductData {
             json["ingredients"].map((x) => ProductIngredient.fromJson(x))),
         price: json["price"],
         currency: json["currency"],
-        images: List<dynamic>.from(json["images"].map((x) => x)),
+        images: List<String>.from(json["images"].map((x) => x)),
+        isActive: json["isActive"],
+        createdDate: DateTime.parse(json["createdDate"]),
         id: json["_id"],
         v: json["__v"],
       );
@@ -79,6 +87,8 @@ class CreateProductData {
         "price": price,
         "currency": currency,
         "images": List<dynamic>.from(images.map((x) => x)),
+        "isActive": isActive,
+        "createdDate": createdDate.toIso8601String(),
         "_id": id,
         "__v": v,
       };

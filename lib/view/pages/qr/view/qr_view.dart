@@ -36,6 +36,7 @@ class _QrViewState extends QrViewModel {
                 flex: 5,
                 child: Center(
                   child: CustomPaint(
+                    isComplex: true,
                     painter: QrPainter(
                         data: "https://www.google.com",
                         options: const QrOptions(

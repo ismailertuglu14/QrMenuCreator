@@ -42,7 +42,7 @@ class CreateItemPreviewFiles extends StatelessWidget {
                       padding: PagePadding.allDefault(),
                       child: Container(
                         decoration: BoxDecoration(
-                            color: context.colorScheme.surface.withOpacity(0.5),
+                            color: context.colorScheme.surface.withOpacity(0.2),
                             borderRadius: PageBorderRadius
                                 .allDefault()), //color: Colors.red),
 

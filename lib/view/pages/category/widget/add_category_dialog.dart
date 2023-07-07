@@ -115,7 +115,7 @@ Future<dynamic> addCategoryDialog(BuildContext context, ImagePicker imagePicker,
                           child: Consumer<CategoryProvider>(
                               builder: (context, provider, child) =>
                                   provider.categoryImage == null
-                                      ? ImageKeys.default_banner
+                                      ? ImageKeys.default_image
                                           .imageAsset(width: context.width / 4)
                                       : Image.file(
                                           File(provider.categoryImage!.path),

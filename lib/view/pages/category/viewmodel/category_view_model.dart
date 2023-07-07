@@ -29,7 +29,27 @@ abstract class CategoryViewModel extends State<CategoryView> {
           await _categoryService.getCategories(
               requestModel: GetCategoriesRequestModel(menuId: widget.id ?? ""));
       if (response.isSuccess && response.errors.isEmpty) {
-        _categoryProvider.setCategoryList = response.data ;
+        _categoryProvider.setCategoryList = response.data;
+      }
+    } catch (e) {
+      throw Exception(e);
+    } finally {
+      _categoryProvider.changeLoading();
+    }
+  }
+
+  Future<void> deleteCategory() async {
+    try {
+      _categoryProvider.changeLoading();
+      DeleteCategoryResponseModel response =
+          await _categoryService.deleteCategory(
+              requestModel: DeleteCategoryRequestModel(
+                  categoryId: _categoryProvider.selectedCategoryId ?? ""));
+      if (response.isSuccess && response.errors.isEmpty) {
+        _categoryProvider
+            .removeCategory(_categoryProvider.selectedCategoryId ?? "");
+      } else {
+        Fluttertoast.showToast(msg: response.errors[0].message);
       }
     } catch (e) {
       throw Exception(e);
@@ -49,10 +69,13 @@ abstract class CategoryViewModel extends State<CategoryView> {
                 image: _categoryProvider.categoryImage as XFile);
         if (response.isSuccess && response.errors.isEmpty) {
           context.pop();
-          _categoryProvider.addCategory(GetCategoriesData(
-              id: response.data.id,
-              name: response.data.name,
-              image: response.data.image));
+          _categoryProvider.addCategory(
+            GetCategoriesData(
+                id: response.data.id,
+                name: response.data.name,
+                image: response.data.image,
+                productCount: 0),
+          );
           _categoryProvider.categoryController.clear();
           _categoryProvider.setCategoryImage = null;
           _categoryProvider.setSelectedSuggestionIndex = null;

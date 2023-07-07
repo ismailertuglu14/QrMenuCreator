@@ -70,6 +70,24 @@ class CreateProductProvider extends ChangeNotifier {
 
   int get itemImageCurentIndex => _itemImageCurentIndex;
 
+  void clearAll() {
+    _isGluetenFree = false;
+    _isLactoseFree = false;
+    _isVegan = false;
+    _isVegetarian = false;
+    _isHalal = false;
+    _isActive = false;
+    _kcalCalculate = false;
+    _isLoading = false;
+    _protein = 0;
+    _carbohydrate = 0;
+    _fat = 0;
+    _kcal = 0;
+    _allergens = [];
+    _itemImageCurentIndex = 0;
+    _itemPreviewList = [];
+  }
+
   void changeLoading() {
     _isLoading = !_isLoading;
     notifyListeners();

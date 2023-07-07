@@ -6,13 +6,16 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:qrmenu/core/constans/enum/image_keys.dart';
+import 'package:qrmenu/core/constans/enum/lottie_keys.dart';
 import 'package:qrmenu/core/constans/enum/route_keys.dart';
 import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
+import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/core/init/provider/add_ons_provider.dart';
 import 'package:qrmenu/core/init/provider/create_product_provider.dart';
 import 'package:qrmenu/product/utility/border_radius.dart';
+import 'package:qrmenu/product/utility/box_decoration.dart';
 import 'package:qrmenu/product/utility/grid_delegates.dart';
 import 'package:qrmenu/product/widget/elevation_button.dart';
 import 'package:qrmenu/product/widget/text_field.dart';
@@ -26,8 +29,9 @@ import '../../../../core/init/provider/products_provider.dart';
 import '../../../../product/utility/durations.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/app_bar.dart';
+import '../../../../product/widget/custom_switch_list_tile.dart';
 import '../../category/model/get_category_response_model.dart';
-import '../../products/model/get_products_by_menu_id_response_model.dart';
+import '../../products/model/get_products_by_category_id_response_model.dart';
 import '../model/allergens_model.dart';
 import '../../../../product/widget/item_count_circle.dart';
 import '../model/create_product_response_model.dart';
@@ -85,12 +89,14 @@ class _CreateProductViewViewState extends CreateProductViewModel {
                     children: [
                       CommonTextField(
                         hintText: "Name",
+                        hideInputDecoration: true,
                         textController: _nameController,
                         keyboardType: TextInputType.name,
                         textInputAction: TextInputAction.done,
                       ),
                       CommonTextField(
                         hintText: "Description",
+                        hideInputDecoration: true,
                         textController: _descriptionController,
                         keyboardType: TextInputType.name,
                         textInputAction: TextInputAction.done,
@@ -103,7 +109,7 @@ class _CreateProductViewViewState extends CreateProductViewModel {
                             onChanged: (value) =>
                                 provider.changeIsGluetenFree(value),
                             title: "Gluten Free",
-                            secondary: ImageKeys.gluten_free,
+                            leading: ImageKeys.gluten_free,
                           ),
                           CreateItemSwitchTileBuilder(
                             value: provider.isVegetarian,
@@ -111,26 +117,26 @@ class _CreateProductViewViewState extends CreateProductViewModel {
                               provider.changeIsVegetarian(value);
                             },
                             title: "Vegeterian",
-                            secondary: ImageKeys.vegeterian,
+                            leading: ImageKeys.vegeterian,
                           ),
                           CreateItemSwitchTileBuilder(
                             value: provider.isVegan,
                             title: "Vegan",
                             onChanged: (value) => provider.changeIsVegan(value),
-                            secondary: ImageKeys.vegan,
+                            leading: ImageKeys.vegan,
                           ),
                           CreateItemSwitchTileBuilder(
                               value: provider.isLactoseFree,
                               title: "Lactose Free",
                               onChanged: (value) =>
                                   provider.changeIsLactoseFree(value),
-                              secondary: ImageKeys.lactose_free),
+                              leading: ImageKeys.lactose_free),
                           CreateItemSwitchTileBuilder(
                               value: provider.isHalal,
                               title: "Halal",
                               onChanged: (value) =>
                                   provider.changeIsHalal(value),
-                              secondary: ImageKeys.halal),
+                              leading: ImageKeys.halal),
                         ]),
                       ),
                       CreateItemListTileBuilder(
@@ -243,9 +249,10 @@ class _CreateProductViewViewState extends CreateProductViewModel {
                         ],
                       ),
                       Consumer<CreateProductProvider>(
-                        builder: (context, provider, child) => SwitchListTile(
+                        builder: (context, provider, child) => ListTileSwitch(
                             value: provider.isActive,
                             contentPadding: EdgeInsets.zero,
+                            switchActiveColor: context.colorScheme.primary,
                             title:
                                 Text("Active", style: context.text.titleMedium),
                             onChanged: (value) =>
@@ -254,12 +261,19 @@ class _CreateProductViewViewState extends CreateProductViewModel {
                       Row(
                         children: [
                           Expanded(
-                            child: CommonElevationButton(
-                              child: Padding(
-                                padding: PagePadding.allHeight(),
-                                child: Text("Save"),
-                              ),
-                              onPressed: () => createProduct(),
+                            child: Consumer<CreateProductProvider>(
+                              builder: (context, provider, child) =>
+                                  provider.isLoading
+                                      ? LottieKeys.loading.path(
+                                          width: context.width * 0.1,
+                                          height: context.width * 0.1)
+                                      : CommonElevationButton(
+                                          child: Padding(
+                                            padding: PagePadding.allHeight(),
+                                            child: Text("Save"),
+                                          ),
+                                          onPressed: () => createProduct(),
+                                        ),
                             ),
                           ),
                         ],

@@ -20,11 +20,30 @@ abstract class ProductsViewModel extends State<ProductsView> {
 
       GetProductsByMenuIdResponseModel response =
           await _productService.getProductsByMenuId(
-              requestModel: GetCategoriesRequestModel(
-        menuId: widget.menuId ?? "",
+              requestModel: GetProductsByCategoyIdRequestModel(
+        categoryId: widget.categoryId ?? "",
       ));
       if (response.isSuccess && response.errors.isEmpty) {
         _productsProvider.setProductList = response.data;
+      }
+    } catch (e) {
+      throw Exception(e);
+    } finally {
+      _productsProvider.changeLoading();
+    }
+  }
+
+  Future<void> deleteProduct() async {
+    try {
+      _productsProvider.changeLoading();
+      DeleteProductResponseModel response = await _productService.deleteProduct(
+          requestModel: DeleteProductRequestModel(
+              productId: _productsProvider.selectedProductId ?? ""));
+      if (response.isSuccess && response.errors.isEmpty) {
+        _productsProvider
+            .removeProductItem(_productsProvider.selectedProductId ?? "");
+      } else {
+        Fluttertoast.showToast(msg: response.errors[0].message);
       }
     } catch (e) {
       throw Exception(e);

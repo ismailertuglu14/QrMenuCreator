@@ -13,7 +13,8 @@ class GetRestaurantMenusResponseModel {
 
   factory GetRestaurantMenusResponseModel.fromJson(Map<String, dynamic> json) =>
       GetRestaurantMenusResponseModel(
-        data: List<RestaurantMenuData>.from(json["data"].map((x) => RestaurantMenuData.fromJson(x))),
+        data: List<RestaurantMenuData>.from(
+            json["data"].map((x) => RestaurantMenuData.fromJson(x))),
         isSuccess: json["isSuccess"],
         statusCode: json["statusCode"],
         errors: List<dynamic>.from(json["errors"].map((x) => x)),
@@ -29,32 +30,33 @@ class GetRestaurantMenusResponseModel {
 
 class RestaurantMenuData {
   final String id;
-  final String restaurantId;
-  final int templateId;
   final String name;
-  final int v;
+  final int templateId;
+  final String restaurantId;
+  final int productCount;
 
   RestaurantMenuData({
     required this.id,
-    required this.restaurantId,
-    required this.templateId,
     required this.name,
-    required this.v,
+    required this.templateId,
+    required this.restaurantId,
+    required this.productCount,
   });
 
-  factory RestaurantMenuData.fromJson(Map<String, dynamic> json) => RestaurantMenuData(
+  factory RestaurantMenuData.fromJson(Map<String, dynamic> json) =>
+      RestaurantMenuData(
         id: json["_id"],
-        restaurantId: json["restaurantId"],
-        templateId: json["templateId"],
         name: json["name"],
-        v: json["__v"],
+        templateId: json["templateId"],
+        restaurantId: json["restaurantId"],
+        productCount: json["productCount"],
       );
 
   Map<String, dynamic> toJson() => {
         "_id": id,
-        "restaurantId": restaurantId,
-        "templateId": templateId,
         "name": name,
-        "__v": v,
+        "templateId": templateId,
+        "restaurantId": restaurantId,
+        "productCount": productCount,
       };
 }

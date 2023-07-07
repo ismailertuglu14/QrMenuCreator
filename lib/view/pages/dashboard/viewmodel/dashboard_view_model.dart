@@ -33,6 +33,29 @@ abstract class DashboardViewModel extends State<DashboardView> {
     }
   }
 
+  Future<void> deleteRestaurantMenu() async {
+ 
+    try {
+      _dashboardProvider.changeLoading();
+
+      DeleteRestaurantMenusResponseModel response =
+          await _dashboardService.deleteRestaurantMenu(
+              resquestModel: DeleteMenuRequestModel(
+                  menuId: _dashboardProvider.selectedMenuId ?? ""));
+      if (response.isSuccess && response.errors.isEmpty) {
+        _dashboardProvider
+            .removeRestaurantMenu(_dashboardProvider.selectedMenuId ?? "");
+        Fluttertoast.showToast(msg: "Delete Menu Success");
+      } else {
+        Fluttertoast.showToast(msg: "Delete Menu Failed");
+      }
+    } catch (e) {
+      throw UnimplementedError(e.toString());
+    } finally {
+      _dashboardProvider.changeLoading();
+    }
+  }
+
   Future<void> createMenu() async {
     if (_menuNameController.text.isNotEmpty) {
       try {

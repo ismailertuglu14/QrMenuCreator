@@ -20,7 +20,10 @@ import 'package:qrmenu/product/widget/text_field.dart';
 import '../../../../core/init/network/network_manager.dart';
 import '../../../../core/init/provider/category_provider.dart';
 import '../../../../product/widget/item_count_circle.dart';
+import '../../dashboard/model/delete_menu_request_model.dart';
 import '../model/create_category_response_model.dart';
+import '../model/delete_category_request_model.dart';
+import '../model/delete_category_response_model.dart';
 import '../model/get_category_request_model.dart';
 import '../model/get_category_response_model.dart';
 import '../service/Category_service.dart';
@@ -73,25 +76,29 @@ class _CategoryViewState extends CategoryViewModel {
                       ],
                     ),
                   )
-                : ReorderableListView.builder(
-                    padding: PagePadding.allDefault(),
-                    itemCount: provider.categoryList!.length,
-                    header: Padding(
-                      padding: PagePadding.allDefault(),
-                      child: Text("Add section in your menu",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: context.text.titleMedium?.fontSize)),
+                : RefreshIndicator(
+                    onRefresh: () => getCategories(),
+                    child: Scrollbar( 
+                      child: ReorderableListView.builder(
+                        padding: PagePadding.allHeight(),
+                        itemCount: provider.categoryList!.length,
+                        header: Text("Add section in your menu",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: context.text.titleMedium?.fontSize)),
+                        itemBuilder: (context, index) => CategoryCard(
+                            deleteCategory: deleteCategory,
+                            menuId: widget.id ?? "",
+                            category: provider.categoryList![index],
+                            key: ValueKey(provider.categoryList![index]),
+                            index: index),
+                        onReorder: (oldIndex, newIndex) {
+                          final item =
+                              provider.categoryList!.removeAt(oldIndex);
+                          provider.categoryList!.insert(newIndex, item);
+                        },
+                      ),
                     ),
-                    itemBuilder: (context, index) => CategoryCard(
-                        menuId: widget.id ?? "",
-                        category: provider.categoryList![index],
-                        key: ValueKey(provider.categoryList![index]),
-                        index: index),
-                    onReorder: (oldIndex, newIndex) {
-                      final item = provider.categoryList!.removeAt(oldIndex);
-                      provider.categoryList!.insert(newIndex, item);
-                    },
                   ),
       ),
     );

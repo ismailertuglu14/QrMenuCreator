@@ -40,7 +40,6 @@ abstract class RegisterViewModel extends State<RegisterView> {
         _passwordConfirmTextController.text.isNotEmpty &&
         _contactNumberTextController.text.isNotEmpty) {
       try {
-        _registerProvider.changeValidateMode(AutovalidateMode.always);
         _registerProvider.changeLoading();
 
         RegisterResponseModel response = await _registerService.register(

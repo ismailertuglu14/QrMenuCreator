@@ -30,8 +30,10 @@ class CategoryProvider extends ChangeNotifier {
   bool _isLoading = false;
 
   int? _selectedSuggestionIndex;
+  String? _selectedCategoryId;
 
   XFile? _categoryImage;
+  String? get selectedCategoryId => _selectedCategoryId;
 
   List<GetCategoriesData>? get categoryList => _categoryList;
 
@@ -45,6 +47,16 @@ class CategoryProvider extends ChangeNotifier {
 
   int? get selectedSuggestionIndex => _selectedSuggestionIndex;
   TextEditingController get categoryController => _categoryController;
+
+  void removeCategory(String id) {
+    _categoryList.removeWhere((element) => element.id == id);
+    notifyListeners();
+  }
+
+  void setSelectedCategoryId(String? categoryId) {
+    _selectedCategoryId = categoryId;
+    notifyListeners();
+  }
 
   set setCategoryList(List<GetCategoriesData> categoryList) {
     _categoryList = categoryList;

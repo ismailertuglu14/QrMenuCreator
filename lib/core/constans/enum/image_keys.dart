@@ -13,7 +13,6 @@ enum ImageKeys {
   login,
   register,
   reset_password,
-  default_cover,
   default_banner,
   light_theme,
   dark_theme,
@@ -31,5 +30,6 @@ enum ImageKeys {
   lactose_free,
   halal,
   compass_north,
-  empty_category
+  empty_category,
+  default_image,
 }

@@ -27,6 +27,8 @@ import '../../../../product/widget/app_bar.dart';
 import '../../../../product/widget/url_app_router.dart';
 import '../model/create_menu_request_model.dart';
 import '../model/create_menu_response_model.dart';
+import '../model/delete_menu_request_model.dart';
+import '../model/delete_restaurant_response_model.dart';
 import '../model/get_restaurant_menus_response_model.dart';
 import '../service/Dashboard_service.dart';
 import '../widget/dashboard_center_card.dart';
@@ -54,7 +56,7 @@ class _DashboardViewState extends DashboardViewModel {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   UserCircleAvatar(
-                      backgroundImage: ImageKeys.default_cover.assetImage()),
+                      backgroundImage: ImageKeys.default_image.assetImage()),
                   Padding(
                     padding: PagePadding.horizontalHeight(),
                     child: Column(
@@ -93,6 +95,9 @@ class _DashboardViewState extends DashboardViewModel {
                                               provider
                                                   .restaurantMenus!.isNotEmpty)
                                           ? DasboardCenterCard(
+                                              deleteRestaurantMenu:
+                                                  deleteRestaurantMenu,
+                                              provider: provider,
                                               menu: provider
                                                   .restaurantMenus![index])
                                           : Padding(
@@ -148,15 +153,19 @@ class _DashboardViewState extends DashboardViewModel {
                                                                                 child: Row(
                                                                                   children: [
                                                                                     Expanded(
-                                                                                      child: CommonElevationButton(
-                                                                                          child: Padding(
-                                                                                            padding: PagePadding.allMedium(),
-                                                                                            child: Text("Create"),
-                                                                                          ),
-                                                                                          onPressed: () {
-                                                                                            createMenu();
-                                                                                            _menuNameController.text.isNotEmpty ? context.pop() : null;
-                                                                                          }),
+                                                                                      child: Consumer<DashboardProvider>(
+                                                                                        builder: (context, provider, child) => provider.isLoading
+                                                                                            ? LottieKeys.loading.path(width: context.width / 4, height: context.height / 15)
+                                                                                            : CommonElevationButton(
+                                                                                                child: Padding(
+                                                                                                  padding: PagePadding.allMedium(),
+                                                                                                  child: Text("Create"),
+                                                                                                ),
+                                                                                                onPressed: () {
+                                                                                                  createMenu();
+                                                                                                  _menuNameController.text.isNotEmpty ? context.pop() : null;
+                                                                                                }),
+                                                                                      ),
                                                                                     ),
                                                                                   ],
                                                                                 ),

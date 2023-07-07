@@ -71,16 +71,16 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
               description: response.data.description,
               price: response.data.price,
               currency: response.data.currency,
-              images: response.data.images.first));
+              images: response.data.images));
           context.pop();
           _nameController.clear();
           _priceController.clear();
           _descriptionController.clear();
+          _createProductProvider.clearAll();
         }
       } catch (e) {
-        throw Exception(e);
-      } finally {
         _createProductProvider.changeLoading();
+        throw Exception(e);
       }
     } else {
       Fluttertoast.showToast(msg: "Please enter a blank field");

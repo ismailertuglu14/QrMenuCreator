@@ -26,6 +26,7 @@ class CommonTextField extends StatelessWidget {
     this.floatingLabelAlignment,
     this.textAlign,
     this.enabled,
+    this.hideInputDecoration,
   }) : super(key: key);
 
   final TextEditingController? textController;
@@ -47,7 +48,7 @@ class CommonTextField extends StatelessWidget {
   final InputDecoration? decoration;
   final FloatingLabelBehavior? floatingLabelBehavior;
   final FloatingLabelAlignment? floatingLabelAlignment;
-
+  final bool? hideInputDecoration;
   @override
   Widget build(BuildContext context) {
     //readOnly: ,
@@ -83,11 +84,16 @@ class CommonTextField extends StatelessWidget {
               fillColor: context.colorScheme.onSecondary,
               focusedBorder: OutlineInputBorder(
                   borderRadius: const PageBorderRadius.allMedium(),
-                  borderSide: BorderSide(color: context.colorScheme.secondary)),
+                  borderSide: BorderSide(
+                      color: hideInputDecoration == null
+                          ? context.colorScheme.secondary
+                          : Colors.transparent)),
               enabledBorder: OutlineInputBorder(
                   borderRadius: const PageBorderRadius.allMedium(),
-                  borderSide:
-                      BorderSide(color: context.colorScheme.secondary))),
+                  borderSide: BorderSide(
+                      color: hideInputDecoration == null
+                          ? context.colorScheme.secondary
+                          : Colors.transparent))),
       style: TextStyle(
           color: context.colorScheme.onSurface,
           fontSize: context.text.titleMedium?.fontSize),
