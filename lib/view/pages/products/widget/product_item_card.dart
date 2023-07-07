@@ -5,6 +5,7 @@ import 'package:qrmenu/core/constans/enum/image_keys.dart';
 import 'package:qrmenu/core/constans/enum/lottie_keys.dart';
 import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
+import 'package:qrmenu/core/extension/image_icon_extenison.dart';
 import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/core/init/provider/products_provider.dart';
@@ -65,15 +66,23 @@ class ProductItemCard extends StatelessWidget {
                   onCanceled: () => provider.setSelectedProductId = null,
                   itemBuilder: (context) => [
                     PopupMenuItem(
-                      value: 0,
-                      onTap: () =>
-                          context.push(RouterKeys.CREATE_PRODUCT.route),
-                      child: Text("Edit"),
-                    ),
+                        value: 0,
+                        onTap: () =>
+                            context.push(RouterKeys.CREATE_PRODUCT.route),
+                        child: ListTile(
+                          leading: ImageKeys.edit
+                              .imageIcon(color: context.colorScheme.surface),
+                          title: Text("Edit"),
+                        )),
                     PopupMenuItem(
                       value: 1,
                       onTap: () => deleteProduct(),
-                      child: Text("Delete"),
+                      child: ListTile(
+                        textColor: context.colorScheme.error,
+                        leading: ImageKeys.delete
+                            .imageIcon(color: context.colorScheme.error),
+                        title: Text("Delete"),
+                      ),
                     ),
                   ],
                 )),

@@ -3,10 +3,12 @@ import 'package:app_version_update/app_version_update.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/product/utility/page_padding.dart';
+import 'package:qrmenu/view/auth/login/service/email/Login_service.dart';
 
 import '../../../../core/constans/app/app_constants.dart';
 import '../../../../core/constans/cache/locale_keys_enum.dart';
@@ -15,9 +17,11 @@ import '../../../../core/constans/enum/route_keys.dart';
 
 import '../../../../core/init/cache/local_storage.dart';
 import '../../../../core/init/network/network_manager.dart';
+import '../../../../core/init/provider/login_provider.dart';
 import '../../../../core/init/update/Update_service.dart';
 import '../../../../product/mixin/cache_init_mixin.dart';
 import '../../../../product/utility/durations.dart';
+import '../../login/model/login_request_model.dart';
 part '../viewmodel/splash_view_model.dart';
 
 class SplashView extends StatefulWidget {

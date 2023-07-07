@@ -13,7 +13,7 @@ enum ImageKeys {
   login,
   register,
   reset_password,
-  default_banner,
+
   premium,
   language,
   edit_business,
@@ -29,4 +29,10 @@ enum ImageKeys {
   compass_north,
   empty_category,
   default_image,
+  qr,
+  chef,
+  notification,
+  delete,
+  create_menu,
+  edit
 }

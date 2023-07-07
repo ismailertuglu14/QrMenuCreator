@@ -77,12 +77,15 @@ class BusinessBottom extends StatelessWidget {
               context: context,
               builder: (context) => Wrap(
                     children: [
-                      settingsThemeSwitchBuilder(context, "System",
-                          ThemeModekeys.SYSTEM),
-                      settingsThemeSwitchBuilder(context, "Light",
-                          ThemeModekeys.LIGHT),
-                      settingsThemeSwitchBuilder(context, "Dark",
-                          ThemeModekeys.DARK,),
+                      settingsThemeSwitchBuilder(
+                          context, "System", ThemeModekeys.SYSTEM),
+                      settingsThemeSwitchBuilder(
+                          context, "Light", ThemeModekeys.LIGHT),
+                      settingsThemeSwitchBuilder(
+                        context,
+                        "Dark",
+                        ThemeModekeys.DARK,
+                      ),
                     ],
                   ))),
       ProfileListTileBuilder(
@@ -100,6 +103,7 @@ class BusinessBottom extends StatelessWidget {
                             builder: (context, provider, child) =>
                                 CommonTextField(
                               prefixIcon: Icon(Icons.search),
+                              hideInputDecoration: true,
                               hintText: "Search Language",
                               keyboardType: TextInputType.text,
                               textInputAction: TextInputAction.search,

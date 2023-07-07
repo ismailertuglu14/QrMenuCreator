@@ -24,6 +24,7 @@ class _TemplatesViewState extends TemplatesViewModel {
     return Scaffold(
       bottomSheet: Consumer<TemplatesProvider>(
         builder: (context, provider, child) => BottomSheet(
+            animationController: _animationController,
             backgroundColor: context.colorScheme.surface.withOpacity(0.05),
             shadowColor: Colors.black,
             enableDrag: true,

@@ -9,6 +9,7 @@ import 'package:qrmenu/core/constans/enum/image_keys.dart';
 import 'package:qrmenu/core/constans/enum/lottie_keys.dart';
 import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
+import 'package:qrmenu/core/extension/image_icon_extenison.dart';
 import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/core/init/provider/home_provider.dart';
@@ -50,11 +51,8 @@ class _HomeViewState extends HomeViewModels {
       appBar: CommonAppBar(
         automaticallyImplyLeading: false,
         title: Text(AppConstants.APP_NAME),
-        action: [
+        action: const [
           NotificationButton(),
-          IconButton(
-              onPressed: () => context.push(RouterKeys.QR.route),
-              icon: Icon(Icons.qr_code_rounded)),
         ],
       ),
       body: Consumer<HomeProvider>(

@@ -59,7 +59,7 @@ class _EditBusinessViewState extends EditBusinessViewModel {
       body: Column(
         children: [
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Stack(
               clipBehavior: Clip.none,
               fit: StackFit.passthrough,
@@ -69,8 +69,7 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                     top: 0,
                     height: context.height * 0.15,
                     width: context.width,
-                    child:
-                        ImageKeys.default_banner.imageAsset(fit: BoxFit.cover)),
+                    child: Container(color: Color(0xFFe9eaec))),
                 Positioned(
                     top: 0,
                     right: 0,
@@ -120,7 +119,7 @@ class _EditBusinessViewState extends EditBusinessViewModel {
             ),
           ),
           Expanded(
-            flex: 8,
+            flex: 7,
             child: Padding(
               padding: PagePadding.allHeight(),
               child: Column(children: [

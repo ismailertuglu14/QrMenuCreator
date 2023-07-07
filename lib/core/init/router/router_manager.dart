@@ -27,7 +27,7 @@ class RouterManager with ChangeNotifier {
 
   static GoRouter routes = GoRouter(
     errorBuilder: (context, state) => CommonErrorView(error: state.error),
-    initialLocation: RouterKeys.SPLASH.route,
+    initialLocation: RouterKeys.ONBOARD.route,
     routes: [
       GoRoute(
           name: RouterKeys.SPLASH.name,

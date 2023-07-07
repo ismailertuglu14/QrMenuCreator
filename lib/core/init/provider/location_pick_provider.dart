@@ -36,8 +36,7 @@ class LocationPickProvider extends ChangeNotifier {
   }
 
   void zoomIn() {
-    print(_currentLocation);
-    if (_currentLocation != null) {
+    if (_currentLocation != null && _zoom < 18) {
       _zoom += 1;
       _mapController.move(_currentLocation!, _zoom);
       notifyListeners();
@@ -45,7 +44,7 @@ class LocationPickProvider extends ChangeNotifier {
   }
 
   void zoomOut() {
-    if (_currentLocation != null) {
+    if (_currentLocation != null && _zoom > 0) {
       _zoom -= 1;
       _mapController.move(_currentLocation!, _zoom);
       notifyListeners();

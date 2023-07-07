@@ -1,5 +1,3 @@
-
-
 class CreateProductResponseModel {
   final CreateProductData data;
   final bool isSuccess;
@@ -35,7 +33,7 @@ class CreateProductData {
   final String categoryId;
   final String name;
   final String description;
-  final List<ProductIngredient> ingredients;
+  final List<Ingredients> ingredients;
   final int price;
   final String currency;
   final List<String> images;
@@ -60,14 +58,15 @@ class CreateProductData {
     required this.v,
   });
 
-  factory CreateProductData.fromJson(Map<String, dynamic> json) => CreateProductData(
+  factory CreateProductData.fromJson(Map<String, dynamic> json) =>
+      CreateProductData(
         restaurantId: json["restaurantId"],
         menuId: json["menuId"],
         categoryId: json["categoryId"],
         name: json["name"],
         description: json["description"],
-        ingredients: List<ProductIngredient>.from(
-            json["ingredients"].map((x) => ProductIngredient.fromJson(x))),
+        ingredients: List<Ingredients>.from(
+            json["ingredients"].map((x) => Ingredients.fromJson(x))),
         price: json["price"],
         currency: json["currency"],
         images: List<String>.from(json["images"].map((x) => x)),
@@ -94,16 +93,16 @@ class CreateProductData {
       };
 }
 
-class ProductIngredient {
+class Ingredients {
   final String name;
   final bool isInclude;
 
-  ProductIngredient({
+  Ingredients({
     required this.name,
     required this.isInclude,
   });
 
-  factory ProductIngredient.fromJson(Map<String, dynamic> json) => ProductIngredient(
+  factory Ingredients.fromJson(Map<String, dynamic> json) => Ingredients(
         name: json["name"],
         isInclude: json["isInclude"],
       );

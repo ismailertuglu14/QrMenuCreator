@@ -21,7 +21,7 @@ class CreateProductService extends ICreateProductService {
       required int price,
       required String currency,
       required List<XFile> files,
-      required List<ProductIngredient> ingredients}) async {
+      required List<Ingredients> ingredients}) async {
     try {
       final List<MultipartFile> images = files
           .map((img) => MultipartFile.fromFileSync(img.path,

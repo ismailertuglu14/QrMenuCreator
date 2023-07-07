@@ -8,6 +8,7 @@ import 'package:qrmenu/core/constans/enum/lottie_keys.dart';
 import 'package:qrmenu/core/constans/enum/route_keys.dart';
 import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
+import 'package:qrmenu/core/extension/image_icon_extenison.dart';
 import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/core/init/provider/products_provider.dart';
@@ -51,7 +52,9 @@ class _ProductsViewViewState extends ProductsViewModel {
               "menuId": widget.menuId
             }),
       ),
-      appBar: CommonAppBar(title: Text(widget.title ?? "Section Items")),
+      appBar: CommonAppBar(
+        title: Text(widget.title ?? "Section Items"),
+      ),
       body: Consumer<ProductsProvider>(
         builder: (context, provider, child) => provider.productList == null
             ? Center(child: LottieKeys.loading.path(width: context.width / 4))

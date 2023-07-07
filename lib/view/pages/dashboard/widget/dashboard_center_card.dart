@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:qrmenu/core/constans/enum/image_keys.dart';
+import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
+import 'package:qrmenu/core/extension/image_icon_extenison.dart';
 import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/core/init/provider/dashboard_provider.dart';
@@ -35,7 +38,7 @@ class DasboardCenterCard extends StatelessWidget {
               Expanded(
                   flex: 2,
                   child: Padding(
-                    padding: PagePadding.horizontalMedium(),
+                    padding: PagePadding.horizontalHeight(),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -50,16 +53,32 @@ class DasboardCenterCard extends StatelessWidget {
                             onCanceled: () => provider.setSelectedMenuId(null),
                             itemBuilder: (context) => [
                                   PopupMenuItem(
-                                    onTap: () => deleteRestaurantMenu(),
-                                    child: Text("Delete Menu"),
-                                  )
+                                      onTap: () => deleteRestaurantMenu(),
+                                      child: ListTile(
+                                        textColor: context.colorScheme.error,
+                                        title: Text("Delete Menu"),
+                                        leading: ImageKeys.delete.imageIcon(
+                                          color: context.colorScheme.error,
+                                        ),
+                                      )),
+                                  PopupMenuItem(
+                                      onTap: () =>
+                                          context.pushNamed(RouterKeys.QR.name),
+                                      child: ListTile(
+                                        leading: ImageKeys.qr.imageIcon(
+                                            color: context.colorScheme.surface),
+                                        title: Text("QR Code"),
+                                      )),
                                 ])
                       ],
                     ),
                   )),
               Expanded(
                 flex: 5,
-                child: LottieKeys.dashboard.path(fit: BoxFit.cover),
+                child: Padding(
+                  padding: PagePadding.allMedium(),
+                  child: ImageKeys.chef.imageAsset(),
+                ),
               ),
               Expanded(
                 flex: 3,

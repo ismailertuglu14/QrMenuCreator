@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/init/provider/subscription_provider.dart';
+import 'package:qrmenu/product/widget/custom_switch_list_tile.dart';
 
 import '../../../../core/constans/enum/subscription_plan_keys.dart';
 import '../../../../product/utility/border_radius.dart';
@@ -64,19 +65,26 @@ class SubscriptionCard extends StatelessWidget {
                 ),
               ),
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: Consumer<SubscriptionProvider>(
                   builder: (context, provider, child) => Padding(
                     padding: PagePadding.horizontalHeight(),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text("MONTHLY", style: context.text.titleMedium),
-                        Switch(
-                          value: provider.isYearly,
-                          onChanged: provider.changeSubscriptionType,
+                        Flexible(
+                            child: Text("MONTHLY",
+                                style: context.text.titleMedium)),
+                        Flexible(
+                          child: ListTileSwitch(
+                            switchActiveColor: context.colorScheme.primary,
+                            value: provider.isYearly,
+                            onChanged: provider.changeSubscriptionType,
+                          ),
                         ),
-                        Text("YEARLY", style: context.text.titleMedium),
+                        Flexible(
+                            child: Text("YEARLY",
+                                style: context.text.titleMedium)),
                       ],
                     ),
                   ),

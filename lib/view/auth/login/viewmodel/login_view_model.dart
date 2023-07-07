@@ -13,7 +13,7 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
     super.initState();
     _loginService = LoginService(NetworkManager.instance.dio);
     _loginProvider = LoginProvider.instance;
-    initAppState();
+   
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
   }
@@ -26,32 +26,6 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
     _passwordController.dispose();
   }
 
-  checkUserIsValid() async {
-    if (await context.read<LoginProvider>().isTokenValid()) {
-      try {
-        String email = LocaleStorage.instance.getStringValue(LocaleKeys.EMAIL);
-        String password =
-            LocaleStorage.instance.getStringValue(LocaleKeys.PASSWORD);
-        LoginRequestModel request =
-            LoginRequestModel(email: email, password: password);
-
-        LoginResponseModel response =
-            await _loginService.login(requestModel: request);
-        if (response.isSuccess && response.errors.isEmpty) {
-          context.read<LoginProvider>().setAuthenticated(true);
-          context.go(RouterKeys.HOME.route);
-        }
-      } catch (e) {
-        context.read<LoginProvider>().setAuthenticated(false);
-      }
-    } else {
-      context.read<LoginProvider>().setAuthenticated(false);
-    }
-  }
-
-  Future<void> initAppState() async {
-    await cacheInit().then((_) => checkUserIsValid());
-  }
 
   Future<void> login() async {
     if (_loginProvider.formKey.currentState!.validate()) {

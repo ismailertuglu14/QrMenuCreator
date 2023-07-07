@@ -59,10 +59,12 @@ Future<dynamic> addCategoryDialog(BuildContext context, ImagePicker imagePicker,
                     prefixIcon: Icon(Icons.category_outlined),
                     textInputAction: TextInputAction.done,
                   ),
-                  Divider(),
-                  Text(
-                    "Suggestions",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  Padding(
+                    padding: PagePadding.allDefault(),
+                    child: Text(
+                      "Suggestions",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                   Flexible(
                       child: SingleChildScrollView(

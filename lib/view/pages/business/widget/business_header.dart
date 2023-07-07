@@ -27,7 +27,7 @@ class BusinessHeader extends StatelessWidget {
             top: 0,
             height: context.height * 0.15,
             width: context.width,
-            child: ImageKeys.default_banner.imageAsset(fit: BoxFit.cover)),
+            child: Container(color: Color(0xFFe9eaec))),
         Positioned(
           top: context.height * 0.1,
           child: UserCircleAvatar(

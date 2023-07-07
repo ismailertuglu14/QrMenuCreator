@@ -49,18 +49,18 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
           currency: "TL",
           files: _createProductProvider.itemPreviewList,
           ingredients: [
-            ProductIngredient(
+            Ingredients(
                 name: "Gluten Free",
                 isInclude: _createProductProvider.isGluetenFree),
-            ProductIngredient(
+            Ingredients(
                 name: "Vegaterian",
                 isInclude: _createProductProvider.isVegetarian),
-            ProductIngredient(
+            Ingredients(
                 name: "Vegan", isInclude: _createProductProvider.isVegan),
-            ProductIngredient(
+            Ingredients(
                 name: "Lactos Free",
                 isInclude: _createProductProvider.isLactoseFree),
-            ProductIngredient(
+            Ingredients(
                 name: "Halal", isInclude: _createProductProvider.isHalal),
           ],
         );

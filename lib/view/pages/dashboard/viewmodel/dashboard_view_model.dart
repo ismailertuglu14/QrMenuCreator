@@ -13,7 +13,7 @@ abstract class DashboardViewModel extends State<DashboardView> {
     _dashboardService = DashboardService(NetworkManager.instance.dio);
     _homeProvider = HomeProvider.instance;
     _menuNameController = TextEditingController();
-    getRestaurantMenus();
+    WidgetsBinding.instance.addPostFrameCallback((_) => getRestaurantMenus());
   }
 
   Future<void> getRestaurantMenus() async {
@@ -34,7 +34,6 @@ abstract class DashboardViewModel extends State<DashboardView> {
   }
 
   Future<void> deleteRestaurantMenu() async {
- 
     try {
       _dashboardProvider.changeLoading();
 
@@ -66,6 +65,7 @@ abstract class DashboardViewModel extends State<DashboardView> {
         if (response.isSuccess && response.errors.isEmpty) {
           _dashboardProvider.addRestaurantMenu(response.data);
           _menuNameController.clear();
+
           Fluttertoast.showToast(msg: "Create Menu Success");
         } else {
           Fluttertoast.showToast(msg: "Create Menu Failed");

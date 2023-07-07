@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:qrmenu/core/constans/enum/image_keys.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
+import 'package:qrmenu/core/extension/image_icon_extenison.dart';
 import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
 import 'package:qrmenu/product/utility/page_padding.dart';
 
@@ -39,6 +42,7 @@ class NotificationButton extends StatelessWidget {
                 ],
               );
             }),
-        icon: Icon(Icons.notifications_none_rounded));
+        icon: ImageKeys.notification
+            .imageIcon(color: context.colorScheme.surface));
   }
 }

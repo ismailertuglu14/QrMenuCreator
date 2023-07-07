@@ -5,6 +5,7 @@ import 'package:qrmenu/core/constans/enum/image_keys.dart';
 import 'package:qrmenu/core/constans/enum/route_keys.dart';
 import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
+import 'package:qrmenu/core/extension/image_icon_extenison.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/product/utility/border_radius.dart';
 import 'package:qrmenu/product/widget/user_circle_avatar.dart';
@@ -52,23 +53,31 @@ class CategoryCard extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                    flex: 8,
+                    flex: 7,
                     child: ItemCountCircle(count: category.productCount)),
                 Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: PopupMenuButton(
                     onOpened: () => provider.setSelectedCategoryId(category.id),
                     onCanceled: () => provider.setSelectedCategoryId(null),
                     itemBuilder: (context) => [
                       PopupMenuItem(
-                        value: 1,
-                        onTap: () {},
-                        child: Text("Edit"),
-                      ),
+                          value: 0,
+                          onTap: () {},
+                          child: ListTile(
+                            leading: ImageKeys.edit
+                                .imageIcon(color: context.colorScheme.surface),
+                            title: Text("Edit"),
+                          )),
                       PopupMenuItem(
+                        value: 1,
                         onTap: () => deleteCategory(),
-                        value: 2,
-                        child: Text("Delete"),
+                        child: ListTile(
+                          textColor: context.colorScheme.error,
+                          leading: ImageKeys.delete
+                              .imageIcon(color: context.colorScheme.error),
+                          title: Text("Delete"),
+                        ),
                       ),
                     ],
                   ),

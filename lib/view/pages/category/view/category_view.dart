@@ -9,6 +9,7 @@ import 'package:qrmenu/core/constans/enum/lottie_keys.dart';
 import 'package:qrmenu/core/constans/enum/route_keys.dart';
 import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
+import 'package:qrmenu/core/extension/image_icon_extenison.dart';
 import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/product/utility/border_radius.dart';
@@ -50,11 +51,6 @@ class _CategoryViewState extends CategoryViewModel {
           uploadFile: uploadFile),
       appBar: CommonAppBar(
         title: Text(widget.name ?? "Menu"),
-        action: [
-          IconButton(
-              onPressed: () => context.push(RouterKeys.QR.route),
-              icon: Icon(Icons.qr_code_rounded))
-        ],
       ),
       body: Consumer<CategoryProvider>(
         builder: (context, provider, child) => provider.categoryList == null
@@ -78,7 +74,7 @@ class _CategoryViewState extends CategoryViewModel {
                   )
                 : RefreshIndicator(
                     onRefresh: () => getCategories(),
-                    child: Scrollbar( 
+                    child: Scrollbar(
                       child: ReorderableListView.builder(
                         padding: PagePadding.allHeight(),
                         itemCount: provider.categoryList!.length,
