@@ -24,9 +24,9 @@ class DasboardCenterCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: PagePadding.allMedium(),
+      padding: PagePadding.allHeight(),
       child: InkWell(
-        borderRadius: PageBorderRadius.allMedium(),
+        borderRadius: PageBorderRadius.allHeight(),
         onTap: () => context.pushNamed(RouterKeys.CATEGORY.name,
             queryParams: {"id": menu.id, "name": menu.name}),
         child: Card(

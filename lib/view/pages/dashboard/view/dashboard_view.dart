@@ -25,6 +25,7 @@ import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/app_bar.dart';
 import '../../../../product/widget/url_app_router.dart';
+import '../../../auth/onboard/model/onboard_model.dart';
 import '../model/create_menu_request_model.dart';
 import '../model/create_menu_response_model.dart';
 import '../model/delete_menu_request_model.dart';
@@ -85,11 +86,17 @@ class _DashboardViewState extends DashboardViewModel {
                   builder: (context, provider, child) =>
                       (provider.restaurantMenus == null || provider.isLoading)
                           ? LottieKeys.loading.path(width: context.width / 4)
-                          : PageView.builder(
-                              itemCount: provider.restaurantMenus!.length + 1,
-                              itemBuilder:
-                                  (context, index) =>
-                                      (index !=
+                          : Column(
+                              children: [
+                                Expanded(
+                                  flex: 20,
+                                  child: PageView.builder(
+                                      onPageChanged:
+                                          provider.setSelectedMenuIndex,
+                                      controller: provider.pageController,
+                                      itemCount:
+                                          provider.restaurantMenus!.length + 1,
+                                      itemBuilder: (context, index) => (index !=
                                                   provider.restaurantMenus!
                                                       .length &&
                                               provider
@@ -184,6 +191,21 @@ class _DashboardViewState extends DashboardViewModel {
                                                 ],
                                               )),
                                             )),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: AnimatedSmoothIndicator(
+                                      effect: WormEffect(
+                                          dotHeight: 2,
+                                          dotWidth: 20,
+                                          activeDotColor:
+                                              context.colorScheme.primary),
+                                      activeIndex: provider.selectedMenuIndex,
+                                      count:
+                                          provider.restaurantMenus!.length + 1),
+                                ),
+                              ],
+                            ),
                 )),
             Expanded(
               flex: 2,

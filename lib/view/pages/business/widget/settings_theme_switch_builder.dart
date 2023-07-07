@@ -11,10 +11,9 @@ import '../../../../core/init/cache/local_storage.dart';
 import '../../../../core/init/provider/theme_provider.dart';
 
 settingsThemeSwitchBuilder(
-    BuildContext context, String title, ThemeModekeys value, ImageKeys image) {
+    BuildContext context, String title, ThemeModekeys value) {
   return Consumer<ThemeProvider>(
       builder: (context, provider, child) => RadioListTile(
-            secondary: image.imageAsset(width: context.width / 10),
             controlAffinity: ListTileControlAffinity.trailing,
             groupValue: provider.themeMode,
             title: Text(title,
@@ -27,4 +26,3 @@ settingsThemeSwitchBuilder(
             },
           ));
 }
-

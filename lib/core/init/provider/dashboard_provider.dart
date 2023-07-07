@@ -10,19 +10,33 @@ class DashboardProvider extends ChangeNotifier {
     return _instance!;
   }
 
-  DashboardProvider._();
+  DashboardProvider._() {
+    _pageController = PageController(initialPage: _selectedMenuIndex);
+  }
 
   List<RestaurantMenuData>? _restaurantMenus;
 
   String? _selectedMenuId;
+  int _selectedMenuIndex = 0;
 
   bool _isLoading = false;
+  late final PageController _pageController;
 
   String? get selectedMenuId => _selectedMenuId;
 
+  int get selectedMenuIndex => _selectedMenuIndex;
+
   bool get isLoading => _isLoading;
 
+  PageController get pageController => _pageController;
+
   List<RestaurantMenuData>? get restaurantMenus => _restaurantMenus;
+
+  void setSelectedMenuIndex(int index) {
+    _selectedMenuIndex = index;
+
+    notifyListeners();
+  }
 
   void removeRestaurantMenu(String? menuId) {
     _restaurantMenus?.removeWhere((element) => element.id == menuId);

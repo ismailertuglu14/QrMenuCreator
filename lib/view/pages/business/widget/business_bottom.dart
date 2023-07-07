@@ -78,11 +78,11 @@ class BusinessBottom extends StatelessWidget {
               builder: (context) => Wrap(
                     children: [
                       settingsThemeSwitchBuilder(context, "System",
-                          ThemeModekeys.SYSTEM, ImageKeys.system_theme),
+                          ThemeModekeys.SYSTEM),
                       settingsThemeSwitchBuilder(context, "Light",
-                          ThemeModekeys.LIGHT, ImageKeys.light_theme),
+                          ThemeModekeys.LIGHT),
                       settingsThemeSwitchBuilder(context, "Dark",
-                          ThemeModekeys.DARK, ImageKeys.dark_theme),
+                          ThemeModekeys.DARK,),
                     ],
                   ))),
       ProfileListTileBuilder(
