@@ -88,8 +88,8 @@ class _CreateProductViewViewState extends CreateProductViewModel {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       CommonTextField(
-                        hintText: "Name",
                         hideInputDecoration: true,
+                        hintText: "Name",
                         textController: _nameController,
                         keyboardType: TextInputType.name,
                         textInputAction: TextInputAction.done,

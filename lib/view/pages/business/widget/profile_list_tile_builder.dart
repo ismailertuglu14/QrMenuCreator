@@ -20,7 +20,10 @@ class ProfileListTileBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
-      title: Text(title),
+      title: Text(
+        title,
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       leading: leading.imageIcon(color: context.colorScheme.surface),
       trailing: trailing,
     );

@@ -13,30 +13,27 @@ class ThemeProvider extends ChangeNotifier {
   }
 
   ThemeProvider._() {
-    _themeMode = ThemeModekeys
-        .values[LocaleStorage.instance.getIntValue(LocaleKeys.THEME_MODE)];
+    _isDark = LocaleStorage.instance.getBoolValue(LocaleKeys.THEME_MODE);
+    _isDark ??= ThemeMode.system == ThemeMode.dark ? true : false;
   }
 
-  ThemeModekeys? _themeMode;
-  ThemeModekeys? get themeMode => _themeMode;
+  bool? _isDark;
+  bool? get isDark => _isDark;
   ThemeMode get getThemeMode => _getThemeMode();
-  void changeTheme(ThemeModekeys value) {
-    _themeMode = value;
-
-    LocaleStorage.instance.setIntValue(LocaleKeys.THEME_MODE, value.index);
+  void changeTheme(bool value) {
+    _isDark = value;
+    LocaleStorage.instance.setBoolValue(LocaleKeys.THEME_MODE, value);
     notifyListeners();
   }
 
   ThemeMode _getThemeMode() {
-    switch (_themeMode) {
-      case ThemeModekeys.LIGHT:
-        return ThemeMode.light;
-
-      case ThemeModekeys.DARK:
+    switch (_isDark) {
+      case true:
         return ThemeMode.dark;
 
-      case ThemeModekeys.SYSTEM:
-        return ThemeMode.system;
+      case false:
+        return ThemeMode.light;
+
       default:
         return ThemeMode.system;
     }

@@ -27,7 +27,7 @@ class RouterManager with ChangeNotifier {
 
   static GoRouter routes = GoRouter(
     errorBuilder: (context, state) => CommonErrorView(error: state.error),
-    initialLocation: RouterKeys.ONBOARD.route,
+    initialLocation: RouterKeys.SPLASH.route,
     routes: [
       GoRoute(
           name: RouterKeys.SPLASH.name,
@@ -73,8 +73,11 @@ class RouterManager with ChangeNotifier {
       GoRoute(
           name: RouterKeys.EDIT_BUSINESS.name,
           path: RouterKeys.EDIT_BUSINESS.route,
-          pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: const EditBusinessView())),
+          pageBuilder: (context, state) =>
+              buildPageWithSlideRightToLeftTransition(
+                  context: context,
+                  state: state,
+                  child: const EditBusinessView())),
       GoRoute(
           name: RouterKeys.QR.name,
           path: RouterKeys.QR.route,
@@ -151,6 +154,27 @@ CustomTransitionPage buildPageWithSlideTransition<T>({
       return SlideTransition(
         position: Tween<Offset>(
           begin: Offset(0, 1),
+          end: Offset.zero,
+        ).animate(animation),
+        child: child,
+      );
+    },
+  );
+}
+
+CustomTransitionPage buildPageWithSlideRightToLeftTransition<T>({
+  required BuildContext context,
+  required GoRouterState state,
+  required Widget child,
+}) {
+  return CustomTransitionPage<T>(
+    key: state.pageKey,
+    child: child,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      return SlideTransition(
+        
+        position: Tween<Offset>(
+          begin: Offset(1, 0),
           end: Offset.zero,
         ).animate(animation),
         child: child,

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
@@ -43,7 +45,11 @@ class _BusinessViewState extends BusinessViewModel {
           flex: 2,
           child: BusinessHeader(),
         ),
-        Expanded(flex: 8, child: BusinessBottom(loginProvider: _loginProvider)),
+        Expanded(
+            flex: 8,
+            child: BusinessBottom(
+              loginProvider: _loginProvider,
+            )),
       ]),
     );
   }

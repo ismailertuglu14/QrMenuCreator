@@ -3,6 +3,7 @@ import 'package:qrmenu/core/extension/context_extension.dart';
 
 import '../../../../core/init/provider/login_provider.dart';
 import '../../../../product/utility/page_padding.dart';
+import '../../../../product/widget/elevation_button.dart';
 import 'log_out_dialog.dart';
 
 class LogOutButton extends StatelessWidget {
@@ -20,12 +21,7 @@ class LogOutButton extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: PagePadding.allMedium(),
-            child: OutlinedButton(
-              style: ButtonStyle(
-                  side: MaterialStateProperty.all(
-                      BorderSide(color: context.colorScheme.error)),
-                  foregroundColor:
-                      MaterialStateProperty.all(context.colorScheme.error)),
+            child: CommonElevationButton(
               onPressed: () => logOutDialog(context, _loginProvider),
               child: Padding(
                 padding: PagePadding.allMedium(),

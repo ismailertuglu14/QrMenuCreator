@@ -2,25 +2,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:qrmenu/core/constans/app/app_constants.dart';
 import 'package:qrmenu/core/constans/cache/locale_keys_enum.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
+import 'package:qrmenu/core/extension/image_icon_extenison.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/core/init/cache/local_storage.dart';
 import 'package:qrmenu/core/init/provider/business_provider.dart';
+import 'package:qrmenu/product/utility/border_radius.dart';
+import 'package:qrmenu/product/widget/custom_switch_list_tile.dart';
 import 'package:qrmenu/product/widget/text_field.dart';
+import 'package:qrmenu/product/widget/url_app_router.dart';
 import 'package:qrmenu/view/pages/business/widget/log_out_dialog.dart';
 import 'package:qrmenu/view/pages/business/widget/profile_list_tile_builder.dart';
-import 'package:qrmenu/view/pages/business/widget/settings_theme_switch_builder.dart';
 import 'package:wiredash/wiredash.dart';
 
 import '../../../../core/constans/enum/image_keys.dart';
 import '../../../../core/constans/enum/route_keys.dart';
 import '../../../../core/constans/enum/theme_mode_keys.dart';
 import '../../../../core/init/provider/login_provider.dart';
+import '../../../../core/init/provider/theme_provider.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/countrycodepicker/country_codes.dart';
 import '../../../../product/widget/elevation_button.dart';
 import '../../../../product/widget/email_app_router.dart';
+import 'app_version_dialog.dart';
 import 'business_header.dart';
 import 'log_out_button.dart';
 
@@ -34,60 +40,28 @@ class BusinessBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Expanded(
-        child: Row(
-          children: [
-            Padding(
-              padding: PagePadding.allMedium(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      "Ercan Burger",
-                      style: TextStyle(
-                          fontSize: context.text.headlineSmall?.fontSize,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      "ercanburger@gmail.com",
-                      style: TextStyle(
-                          fontSize: context.text.titleMedium?.fontSize),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+    return Wrap(children: [
+      Consumer<ThemeProvider>(
+          builder: (context, provider, child) => ListTileSwitch(
+                leading: ImageKeys.change_theme
+                    .imageIcon(color: context.colorScheme.surface),
+                switchActiveColor: context.colorScheme.primary,
+                onChanged: (value) {
+                  provider.changeTheme(value);
+                  LocaleStorage.instance
+                      .setBoolValue(LocaleKeys.THEME_MODE, value);
+                },
+                value: provider.isDark!,
+                title: Text("Dark Mode",
+                    style: TextStyle(
+                        color: context.colorScheme.surface,
+                        fontWeight: FontWeight.bold)),
+              )),
       ProfileListTileBuilder(
-        title: "Edit Business",
-        onTap: () => context.push(RouterKeys.EDIT_BUSINESS.route),
+        title: "Change Password",
+        onTap: () {},
         leading: ImageKeys.edit_business,
       ),
-      ProfileListTileBuilder(
-          leading: ImageKeys.change_theme,
-          title: "Theme Mode",
-          onTap: () => showModalBottomSheet(
-              showDragHandle: true,
-              context: context,
-              builder: (context) => Wrap(
-                    children: [
-                      settingsThemeSwitchBuilder(
-                          context, "System", ThemeModekeys.SYSTEM),
-                      settingsThemeSwitchBuilder(
-                          context, "Light", ThemeModekeys.LIGHT),
-                      settingsThemeSwitchBuilder(
-                        context,
-                        "Dark",
-                        ThemeModekeys.DARK,
-                      ),
-                    ],
-                  ))),
       ProfileListTileBuilder(
         title: "Language",
         leading: ImageKeys.language,
@@ -103,7 +77,6 @@ class BusinessBottom extends StatelessWidget {
                             builder: (context, provider, child) =>
                                 CommonTextField(
                               prefixIcon: Icon(Icons.search),
-                              hideInputDecoration: true,
                               hintText: "Search Language",
                               keyboardType: TextInputType.text,
                               textInputAction: TextInputAction.search,
@@ -156,6 +129,24 @@ class BusinessBottom extends StatelessWidget {
       ProfileListTileBuilder(
         title: "Delete Account",
         onTap: () {},
+        leading: ImageKeys.delete_account,
+      ),
+      ProfileListTileBuilder(
+        title: "Privacy Policy",
+        onTap: () => urlAppRouter("https://www.google.com/"),
+        leading: ImageKeys.delete_account,
+      ),
+      ProfileListTileBuilder(
+        title: "Rate App",
+        onTap: () {},
+        leading: ImageKeys.delete_account,
+      ),
+      ProfileListTileBuilder(
+        title: "   Version",
+        onTap: () => appVersionDialog(context),
+        trailing: Text(
+          AppConstants.APP_VERSION,
+        ),
         leading: ImageKeys.delete_account,
       ),
       LogOutButton(loginProvider: _loginProvider),
