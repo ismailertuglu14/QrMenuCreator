@@ -27,6 +27,7 @@ class CommonTextField extends StatelessWidget {
     this.textAlign,
     this.enabled,
     this.hideInputDecoration,
+    this.obscureText,
   }) : super(key: key);
 
   final TextEditingController? textController;
@@ -46,6 +47,7 @@ class CommonTextField extends StatelessWidget {
   final void Function(String)? onChanged;
   final List<TextInputFormatter>? inputFormatters;
   final InputDecoration? decoration;
+  final bool? obscureText;
   final FloatingLabelBehavior? floatingLabelBehavior;
   final FloatingLabelAlignment? floatingLabelAlignment;
   final bool? hideInputDecoration;
@@ -59,6 +61,7 @@ class CommonTextField extends StatelessWidget {
       enabled: enabled,
       onChanged: onChanged,
       focusNode: focusNode,
+      obscureText: obscureText ?? false,
       controller: textController,
       enableInteractiveSelection: enableInteractiveSelection,
       keyboardType: keyboardType,
@@ -92,7 +95,7 @@ class CommonTextField extends StatelessWidget {
                   borderRadius: const PageBorderRadius.allMedium(),
                   borderSide: BorderSide(
                       color: hideInputDecoration == null
-                          ? context.colorScheme.secondary
+                          ? context.colorScheme.surface.withOpacity(0.2)
                           : Colors.transparent))),
       style: TextStyle(
           color: context.colorScheme.onSurface,

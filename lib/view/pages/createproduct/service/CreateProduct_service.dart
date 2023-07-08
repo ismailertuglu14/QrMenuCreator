@@ -21,6 +21,7 @@ class CreateProductService extends ICreateProductService {
       required int price,
       required String currency,
       required List<XFile> files,
+      required bool isActive,
       required List<Ingredients> ingredients}) async {
     try {
       final List<MultipartFile> images = files
@@ -40,7 +41,6 @@ class CreateProductService extends ICreateProductService {
       Response<dynamic> response =
           await dio.post(NetworkConstants.CREATE_PRODUCT, data: formData);
       if (response.statusCode == HttpStatus.ok) {
-       
         return CreateProductResponseModel.fromJson(response.data);
       } else {
         throw Exception("Failed to load data");

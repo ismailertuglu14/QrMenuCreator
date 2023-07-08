@@ -42,6 +42,7 @@ class EditBusinessProvider extends ChangeNotifier {
   }
 
   void changeCurrentLocation(LatLng value) {
+    
     _currentLocation = value;
     notifyListeners();
   }

@@ -6,7 +6,7 @@ class ChangeCoverImageResponseModel {
     required this.errors,
   });
 
-  final dynamic data;
+  final String data;
   final int statusCode;
   final bool isSuccess;
   final List<dynamic> errors;

@@ -37,15 +37,6 @@ class DarkThemeData {
           radius: const Radius.circular(20),
           thickness: MaterialStateProperty.all<double>(2),
         ),
-        timePickerTheme:
-            const TimePickerThemeData(backgroundColor: Color(0xFF161618)),
-        drawerTheme: const DrawerThemeData(
-            scrimColor: Colors.transparent,
-            backgroundColor: Color(0xFF161618),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(15),
-                    bottomRight: Radius.circular(15)))),
         progressIndicatorTheme:
             const ProgressIndicatorThemeData(color: Color(0xFF3AB86F)),
         scaffoldBackgroundColor: const Color(0xFF161618),
@@ -61,16 +52,6 @@ class DarkThemeData {
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10)))),
-        expansionTileTheme: const ExpansionTileThemeData(
-          textColor: Colors.white70,
-          collapsedTextColor: Colors.white70,
-          backgroundColor: Color(0xFF161618),
-          collapsedBackgroundColor: Color(0xFF161618),
-          childrenPadding: PagePadding.allDefault(),
-          tilePadding: PagePadding.allDefault(),
-          collapsedShape: RoundedRectangleBorder(
-              borderRadius: PageBorderRadius.allMedium()),
-        ),
         checkboxTheme: CheckboxThemeData(
             fillColor:
                 MaterialStateProperty.all<Color>(const Color(0xFF3AB86F)),
@@ -90,12 +71,6 @@ class DarkThemeData {
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10)))),
-        tabBarTheme: TabBarTheme(
-          labelColor: Colors.white70,
-          unselectedLabelColor: Colors.white30,
-          overlayColor: MaterialStateProperty.all<Color>(Colors.transparent),
-          indicator: CustomTabIndicator(),
-        ),
         radioTheme: RadioThemeData(
             fillColor:
                 MaterialStateProperty.all<Color>(const Color(0xFF3AB86F))),

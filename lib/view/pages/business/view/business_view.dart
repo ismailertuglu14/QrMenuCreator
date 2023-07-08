@@ -40,17 +40,20 @@ class _BusinessViewState extends BusinessViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        Expanded(
-          flex: 2,
-          child: BusinessHeader(),
-        ),
-        Expanded(
-            flex: 8,
-            child: BusinessBottom(
-              loginProvider: _loginProvider,
-            )),
-      ]),
+      body: Padding(
+        padding: PagePadding.allDefault(),
+        child: Column(children: [
+          Expanded(
+            flex: 2,
+            child: BusinessHeader(),
+          ),
+          Expanded(
+              flex: 8,
+              child: BusinessBottom(
+                loginProvider: _loginProvider,
+              )),
+        ]),
+      ),
     );
   }
 }

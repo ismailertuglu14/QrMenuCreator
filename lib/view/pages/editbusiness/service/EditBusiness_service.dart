@@ -14,15 +14,13 @@ import 'IEditBusiness_service.dart';
 class EditBusinessService extends IEditBusinessService {
   EditBusinessService(super.dio);
 
-
-  
   @override
   Future<ChangeCoverImageResponseModel> changeCoverImage(
       {required XFile file}) async {
     try {
-      FormData formData = FormData.fromMap({
-        "file": await MultipartFile.fromFile(file.path),
-      });
+      FormData formData =
+          FormData.fromMap({"image": await MultipartFile.fromFile(file.path)});
+
       Response<dynamic> response =
           await dio.post(NetworkConstants.CHANGE_COVER_IMAGE, data: formData);
       if (response.statusCode == HttpStatus.ok) {

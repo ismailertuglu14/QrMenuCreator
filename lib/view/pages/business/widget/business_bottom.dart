@@ -8,7 +8,6 @@ import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/image_icon_extenison.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/core/init/cache/local_storage.dart';
-import 'package:qrmenu/core/init/provider/business_provider.dart';
 import 'package:qrmenu/product/utility/border_radius.dart';
 import 'package:qrmenu/product/widget/custom_switch_list_tile.dart';
 import 'package:qrmenu/product/widget/text_field.dart';
@@ -40,81 +39,34 @@ class BusinessBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(children: [
-      Consumer<ThemeProvider>(
-          builder: (context, provider, child) => ListTileSwitch(
-                leading: ImageKeys.change_theme
-                    .imageIcon(color: context.colorScheme.surface),
-                switchActiveColor: context.colorScheme.primary,
-                onChanged: (value) {
-                  provider.changeTheme(value);
-                  LocaleStorage.instance
-                      .setBoolValue(LocaleKeys.THEME_MODE, value);
-                },
-                value: provider.isDark!,
-                title: Text("Dark Mode",
-                    style: TextStyle(
-                        color: context.colorScheme.surface,
-                        fontWeight: FontWeight.bold)),
-              )),
+    return Column(children: [
+      Flexible(
+        child: Consumer<ThemeProvider>(
+            builder: (context, provider, child) => ListTileSwitch(
+                  leading: ImageKeys.theme_mode
+                      .imageIcon(color: context.colorScheme.surface),
+                  switchActiveColor: context.colorScheme.primary,
+                  onChanged: (value) {
+                    provider.changeTheme(value);
+                    LocaleStorage.instance
+                        .setBoolValue(LocaleKeys.THEME_MODE, value);
+                  },
+                  value: provider.isDark!,
+                  title: Text("Dark Mode",
+                      style: TextStyle(
+                          color: context.colorScheme.surface,
+                          fontWeight: FontWeight.bold)),
+                )),
+      ),
       ProfileListTileBuilder(
         title: "Change Password",
-        onTap: () {},
-        leading: ImageKeys.edit_business,
+        onTap: () => context.push(RouterKeys.CHANGE_PASSWORD.route),
+        leading: ImageKeys.change_password,
       ),
       ProfileListTileBuilder(
         title: "Language",
         leading: ImageKeys.language,
-        onTap: () => showDialog(
-            context: context,
-            builder: (context) => Dialog(
-                  child: Padding(
-                    padding: PagePadding.allLow(),
-                    child: Column(mainAxisSize: MainAxisSize.min, children: [
-                      Flexible(
-                          flex: 1,
-                          child: Consumer<BusinessProvider>(
-                            builder: (context, provider, child) =>
-                                CommonTextField(
-                              prefixIcon: Icon(Icons.search),
-                              hintText: "Search Language",
-                              keyboardType: TextInputType.text,
-                              textInputAction: TextInputAction.search,
-                              onChanged: provider.searchCountry,
-                            ),
-                          )),
-                      Flexible(
-                        flex: 9,
-                        child: Container(
-                          constraints:
-                              BoxConstraints(maxHeight: context.height / 2),
-                          child: Scrollbar(
-                            child: Consumer<BusinessProvider>(
-                              builder: (context, provider, child) =>
-                                  ListView.builder(
-                                      itemCount:
-                                          provider.localCountryCodes.length,
-                                      itemBuilder: (context, index) =>
-                                          RadioListTile(
-                                            title: Text(provider
-                                                    .localCountryCodes[index]
-                                                ["name"]!),
-                                            value: provider
-                                                    .localCountryCodes[index]
-                                                ["name"]!,
-                                            groupValue:
-                                                provider.selectedCountryName,
-                                            onChanged: (value) =>
-                                                provider.selectCountry(
-                                                    value as String, index),
-                                          )),
-                            ),
-                          ),
-                        ),
-                      )
-                    ]),
-                  ),
-                )),
+        onTap: () => context.push(RouterKeys.CHANGE_LANGUAGE.route),
       ),
       ProfileListTileBuilder(
         title: "Contact Us",
@@ -134,20 +86,17 @@ class BusinessBottom extends StatelessWidget {
       ProfileListTileBuilder(
         title: "Privacy Policy",
         onTap: () => urlAppRouter("https://www.google.com/"),
-        leading: ImageKeys.delete_account,
+        leading: ImageKeys.privacy_policy,
       ),
       ProfileListTileBuilder(
         title: "Rate App",
         onTap: () {},
-        leading: ImageKeys.delete_account,
+        leading: ImageKeys.rate_app,
       ),
       ProfileListTileBuilder(
-        title: "   Version",
+        title: "Version",
         onTap: () => appVersionDialog(context),
-        trailing: Text(
-          AppConstants.APP_VERSION,
-        ),
-        leading: ImageKeys.delete_account,
+        leading: ImageKeys.info,
       ),
       LogOutButton(loginProvider: _loginProvider),
     ]);

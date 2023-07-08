@@ -6,7 +6,7 @@ class RemoveProfileImageResponseModel {
     required this.errors,
   });
 
-  final String? data;
+  final dynamic data;
   final int statusCode;
   final bool isSuccess;
   final List<dynamic> errors;

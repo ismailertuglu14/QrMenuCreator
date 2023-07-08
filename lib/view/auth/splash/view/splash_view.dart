@@ -35,49 +35,52 @@ class _SplashViewState extends SplashViewModels {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Stack(
-      fit: StackFit.expand,
-      alignment: Alignment.center,
-      children: [
-        Positioned(
-            top: context.height / 3.5,
-            child: LottieKeys.splash.path(
-              height: context.height / 3,
-              width: context.width / 1.2,
-            )),
-        Positioned(
-          bottom: context.height / 3.5,
-          child: AnimatedOpacity(
-              opacity: _isFirstInit ? 1 : 0,
-              duration: const PageDurations.normal(),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: PagePadding.allDefault(),
-                    child: Text(AppConstants.APP_NAME,
-                        style: TextStyle(
-                            fontSize: context.text.headlineLarge?.fontSize)),
+          fit: StackFit.expand,
+          alignment: Alignment.center,
+          children: [
+            Positioned(
+                top: context.height / 3.5,
+                child: LottieKeys.splash.path(
+                  height: context.height / 3,
+                  width: context.width / 1.2,
+                )),
+            Positioned(
+              bottom: context.height / 3.5,
+              child: AnimatedOpacity(
+                  opacity: _isFirstInit ? 1 : 0,
+                  duration: const PageDurations.medium(),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: PagePadding.allDefault(),
+                        child: Text(AppConstants.APP_NAME,
+                            style: TextStyle(
+                                fontSize:
+                                    context.text.headlineLarge?.fontSize)),
+                      ),
+                      Text("Redefining Dining",
+                          style: TextStyle(
+                              color:
+                                  context.colorScheme.surface.withOpacity(.5),
+                              fontSize: context.text.titleSmall?.fontSize)),
+                    ],
+                  )),
+            ),
+            Positioned(
+                bottom: context.height / 20,
+                child: AnimatedOpacity(
+                  opacity: _isFirstInit ? 1 : 0,
+                  duration: const PageDurations.normal(),
+                  child: Text(
+                    "Build version ${AppConstants.APP_VERSION}",
+                    style: TextStyle(
+                        color: context.colorScheme.surface.withOpacity(0.5)),
                   ),
-                  Text("Redefining Dining",
-                      style: TextStyle(
-                          color: context.colorScheme.surface.withOpacity(.5),
-                          fontSize: context.text.titleSmall?.fontSize)),
-                ],
-              )),
-        ),
-        Positioned(
-            bottom: context.height / 20,
-            child: AnimatedOpacity(
-              opacity: _isFirstInit ? 1 : 0,
-              duration: const PageDurations.normal(),
-              child: Text(
-                "Build version ${AppConstants.APP_VERSION}",
-                style: TextStyle(
-                    color: context.colorScheme.surface.withOpacity(0.5)),
-              ),
-            ))
-      ],
-    ));
+                ))
+          ],
+        ));
   }
 }

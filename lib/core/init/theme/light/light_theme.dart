@@ -36,13 +36,6 @@ class LightThemeData {
         radius: const Radius.circular(20),
         thickness: MaterialStateProperty.all<double>(2),
       ),
-      drawerTheme: const DrawerThemeData(
-          scrimColor: Colors.transparent,
-          backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(15),
-                  bottomRight: Radius.circular(15)))),
       progressIndicatorTheme:
           const ProgressIndicatorThemeData(color: Color(0xFF2ecc71)),
       scaffoldBackgroundColor: Colors.white,
@@ -50,7 +43,6 @@ class LightThemeData {
         color: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
-      timePickerTheme: const TimePickerThemeData(backgroundColor: Colors.white),
       snackBarTheme: const SnackBarThemeData(
           backgroundColor: Color(0xFF2ecc71),
           contentTextStyle: TextStyle(color: Colors.white),
@@ -58,16 +50,6 @@ class LightThemeData {
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10)))),
-      expansionTileTheme: ExpansionTileThemeData(
-        textColor: Color(0xFF161618),
-        collapsedTextColor: Color(0xFF161618),
-        backgroundColor: Colors.grey.shade100,
-        collapsedBackgroundColor: Colors.white,
-        childrenPadding: const PagePadding.allDefault(),
-        tilePadding: const PagePadding.allDefault(),
-        collapsedShape: const RoundedRectangleBorder(
-            borderRadius: PageBorderRadius.allMedium()),
-      ),
       checkboxTheme: CheckboxThemeData(
           fillColor: MaterialStateProperty.all<Color>(const Color(0xFF2ecc71)),
           shape:
@@ -111,16 +93,12 @@ class LightThemeData {
           shadowColor: Colors.transparent,
           surfaceTintColor: Colors.transparent,
           backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))),
           titleTextStyle: TextStyle(
               fontWeight: FontWeight.bold,
               color: Color(0xFF161618),
               fontSize: 24)),
-      tabBarTheme: TabBarTheme(
-        labelColor: Color(0xFF161618),
-        unselectedLabelColor: Color(0xFF161618).withOpacity(0.5),
-        overlayColor: MaterialStateProperty.all<Color>(Colors.transparent),
-        indicator: CustomTabIndicator(),
-      ),
       radioTheme: RadioThemeData(
           fillColor: MaterialStateProperty.all<Color>(const Color(0xFF3AB86F))),
       cardColor: Colors.white70,

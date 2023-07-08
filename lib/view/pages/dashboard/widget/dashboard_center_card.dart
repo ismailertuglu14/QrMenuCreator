@@ -36,6 +36,47 @@ class DasboardCenterCard extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
+                  flex: 5,
+                  child: ClipRRect(
+                    borderRadius: PageBorderRadius.spesificTop(),
+                    child: Stack(
+                      children: [
+                        Image.network(
+                          "https://picsum.photos/1920/1080",
+                          width: context.width,
+                          fit: BoxFit.cover,
+                        ),
+                        Positioned(
+                          right: 20,
+                          top: 20,
+                          child: Card(
+                            child: Padding(
+                              padding: PagePadding.allMin(),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "156 ",
+                                    style: TextStyle(
+                                        fontSize:
+                                            context.text.titleMedium?.fontSize,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    "views",
+                                    style: TextStyle(
+                                      fontSize:
+                                          context.text.titleMedium?.fontSize,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+              Expanded(
                   flex: 2,
                   child: Padding(
                     padding: PagePadding.horizontalHeight(),
@@ -74,59 +115,47 @@ class DasboardCenterCard extends StatelessWidget {
                     ),
                   )),
               Expanded(
-                flex: 5,
-                child: Padding(
-                  padding: PagePadding.allMedium(),
-                  child: ImageKeys.chef.imageAsset(),
-                ),
-              ),
-              Expanded(
                 flex: 3,
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 8,
-                      child: Row(children: [
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                "Total items",
-                                style: TextStyle(
-                                  fontSize: context.text.titleLarge?.fontSize,
-                                ),
-                              ),
-                              Text(
-                                "${menu.productCount}",
-                                style: TextStyle(
-                                    fontSize: context.text.titleLarge?.fontSize,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
+                child: Row(children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          "Category items",
+                          style: TextStyle(
+                            fontSize: context.text.titleMedium?.fontSize,
                           ),
                         ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                "Menu views",
-                                style: TextStyle(
-                                  fontSize: context.text.titleLarge?.fontSize,
-                                ),
-                              ),
-                              Text(
-                                "156",
-                                style: TextStyle(
-                                    fontSize: context.text.titleLarge?.fontSize,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
+                        Text(
+                          "${menu.categoryCount}",
+                          style: TextStyle(
+                              fontSize: context.text.titleMedium?.fontSize,
+                              fontWeight: FontWeight.bold),
                         ),
-                      ]),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          "Total items",
+                          style: TextStyle(
+                            fontSize: context.text.titleMedium?.fontSize,
+                          ),
+                        ),
+                        Text(
+                          "${menu.productCount}",
+                          style: TextStyle(
+                              fontSize: context.text.titleMedium?.fontSize,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                ]),
               ),
             ],
           ),

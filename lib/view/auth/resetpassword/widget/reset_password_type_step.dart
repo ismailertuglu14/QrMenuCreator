@@ -121,7 +121,7 @@ class _ResetPasswordTypeStepState extends State<ResetPasswordTypeStep>
                         Consumer<ResetPasswordProvider>(
                           builder: (context, value, child) => AnimatedContainer(
                             width: value.isLoading == true ? 50 : 0,
-                            duration: const PageDurations.min(),
+                            duration: const PageDurations.low(),
                             child: LottieKeys.loading
                                 .path(fit: BoxFit.cover, height: 50),
                           ),

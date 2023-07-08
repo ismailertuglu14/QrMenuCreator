@@ -10,9 +10,7 @@ class DashboardProvider extends ChangeNotifier {
     return _instance!;
   }
 
-  DashboardProvider._() {
-    _pageController = PageController(initialPage: _selectedMenuIndex);
-  }
+  DashboardProvider._();
 
   List<RestaurantMenuData>? _restaurantMenus;
 
@@ -20,15 +18,12 @@ class DashboardProvider extends ChangeNotifier {
   int _selectedMenuIndex = 0;
 
   bool _isLoading = false;
-  late final PageController _pageController;
 
   String? get selectedMenuId => _selectedMenuId;
 
   int get selectedMenuIndex => _selectedMenuIndex;
 
   bool get isLoading => _isLoading;
-
-  PageController get pageController => _pageController;
 
   List<RestaurantMenuData>? get restaurantMenus => _restaurantMenus;
 

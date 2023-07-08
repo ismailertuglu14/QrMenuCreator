@@ -31,13 +31,13 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
 
   Future<void> changeCoverImage({required Object fileObject}) async {
     try {
-      ChangeCoverImageResponseModel response =
-          await _editBusinessService.changeCoverImage(file: fileObject as XFile);
+      ChangeCoverImageResponseModel response = await _editBusinessService
+          .changeCoverImage(file: fileObject as XFile);
 
       if (response.isSuccess && response.errors.isEmpty) {
-        _editBusinessProvider.changeProfileImage(response.data!.url!);
+        _editBusinessProvider.changeProfileImage(response.data);
         LocaleStorage.instance
-            .setStringValue(LocaleKeys.COVER_IMAGE, response.data!.url!);
+            .setStringValue(LocaleKeys.COVER_IMAGE, response.data);
       }
     } catch (e) {
       throw UnimplementedError(e.toString());

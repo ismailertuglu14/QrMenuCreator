@@ -34,6 +34,10 @@ extension RouteExtension on RouterKeys {
         return "/add_ons";
       case RouterKeys.LOCATION_PICKER:
         return "/location_picker";
+      case RouterKeys.CHANGE_PASSWORD:
+        return "/change_password";
+      case RouterKeys.CHANGE_LANGUAGE:
+        return "/change_language";
     }
   }
 }

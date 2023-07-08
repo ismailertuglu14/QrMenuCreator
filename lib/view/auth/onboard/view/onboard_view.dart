@@ -25,6 +25,7 @@ class _OnboardViewState extends OnboardViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const PagePadding.verticalHight(),
         child: Column(children: [

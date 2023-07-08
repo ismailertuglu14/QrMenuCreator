@@ -15,17 +15,20 @@ class ProfileListTileBuilder extends StatelessWidget {
   final String title;
   final ImageKeys leading;
   final Widget? trailing;
+
   final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: onTap,
-      title: Text(
-        title,
-        style: TextStyle(fontWeight: FontWeight.bold),
+    return Flexible(
+      child: ListTile(
+        onTap: onTap,
+        title: Text(
+          title,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        leading: leading.imageIcon(color: context.colorScheme.surface),
+        trailing: trailing,
       ),
-      leading: leading.imageIcon(color: context.colorScheme.surface),
-      trailing: trailing,
     );
   }
 }

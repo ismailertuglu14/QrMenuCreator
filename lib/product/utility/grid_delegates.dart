@@ -22,9 +22,9 @@ class PageGridDelegates extends SliverGridDelegateWithFixedCrossAxisCount {
   PageGridDelegates.height()
       : super(
             crossAxisCount: 1,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-            childAspectRatio: 1.3);
+            mainAxisSpacing: 0,
+            crossAxisSpacing: 0,
+            childAspectRatio: 1.5);
   PageGridDelegates.max()
       : super(
             crossAxisCount: 1,

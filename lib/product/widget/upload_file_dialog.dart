@@ -15,11 +15,10 @@ uploadFileDialog(
     Future<void> Function({required Object fileObject}) uploadObject,
     {Future<void> Function()? removeFile,
     String? currentFile}) {
-  return showModalBottomSheet(
-    showDragHandle: true,
+  return showDialog(
     context: context,
-    builder: (context) => Column(
-      mainAxisSize: MainAxisSize.min,
+    builder: (context) => SimpleDialog(
+      title: Text("Choose an action"),
       children: [
         Row(
           children: [

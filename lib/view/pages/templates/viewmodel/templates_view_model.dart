@@ -11,8 +11,8 @@ abstract class TemplatesViewModel extends State<TemplatesView>
     _templatesProvider = TemplatesProvider.instance;
     _animationController = AnimationController(
         vsync: this,
-        duration: PageDurations.low(),
-        reverseDuration: PageDurations.low());
+        duration: PageDurations.normal(),
+        reverseDuration: PageDurations.normal());
   }
 
   @override

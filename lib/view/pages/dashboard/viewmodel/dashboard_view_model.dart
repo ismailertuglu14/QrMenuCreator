@@ -1,9 +1,11 @@
 part of '../view/dashboard_view.dart';
 
-abstract class DashboardViewModel extends State<DashboardView> {
+abstract class DashboardViewModel extends State<DashboardView>
+    with SingleTickerProviderStateMixin {
   late final HomeProvider _homeProvider;
   late final DashboardService _dashboardService;
   late final DashboardProvider _dashboardProvider;
+  late final AnimationController _animationController;
   late final TextEditingController _menuNameController;
 
   @override
@@ -11,10 +13,19 @@ abstract class DashboardViewModel extends State<DashboardView> {
     super.initState();
     _dashboardProvider = DashboardProvider.instance;
     _dashboardService = DashboardService(NetworkManager.instance.dio);
+    _animationController =
+        AnimationController(vsync: this, duration: PageDurations.low());
     _homeProvider = HomeProvider.instance;
     _menuNameController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => getRestaurantMenus());
   }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+  
 
   Future<void> getRestaurantMenus() async {
     try {

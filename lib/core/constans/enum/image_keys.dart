@@ -17,7 +17,6 @@ enum ImageKeys {
   premium,
   language,
   edit_business,
-  change_theme,
   delete_account,
   app_feedback,
   contact_us,
@@ -34,5 +33,11 @@ enum ImageKeys {
   notification,
   delete,
   create_menu,
-  edit
+  edit,
+  rate_app,
+  info,
+  theme_mode,
+  privacy_policy,
+  business,
+  change_password,
 }

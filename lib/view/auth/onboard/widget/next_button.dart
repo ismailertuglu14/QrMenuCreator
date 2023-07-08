@@ -46,7 +46,7 @@ class OnBoardNextButton extends StatelessWidget {
   dynamic _pageButtonState(BuildContext context, currentPage, pageController) {
     return OnboardModels.items.length != (currentPage + 1)
         ? pageController.animateToPage(currentPage + 1,
-            duration: const PageDurations.min(), curve: Curves.easeInOutCubic)
+            duration: const PageDurations.low(), curve: Curves.easeInOutCubic)
         : navigateToLogin(context);
   }
 }

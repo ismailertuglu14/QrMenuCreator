@@ -1,9 +1,17 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_file_downloader/flutter_file_downloader.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/pdf.dart';
 import 'package:provider/provider.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/product/utility/durations.dart';
+import 'package:pdf/widgets.dart' as pw;
 import 'package:qrmenu/product/utility/grid_delegates.dart';
 import 'package:qrmenu/product/widget/app_bar.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:zxing_lib/qrcode.dart';
 
 import '../../../../core/init/provider/templates_provider.dart';
@@ -36,7 +44,8 @@ class _QrViewState extends QrViewModel {
         action: [
           IconButton(onPressed: () {}, icon: Icon(Icons.attach_email_outlined)),
           IconButton(
-              onPressed: () {}, icon: Icon(Icons.file_download_outlined)),
+              onPressed: () => downloadTemplate(),
+              icon: Icon(Icons.file_download_outlined)),
         ],
       ),
       bottomSheet: Consumer<TemplatesProvider>(
@@ -57,42 +66,50 @@ class _QrViewState extends QrViewModel {
             onClosing: () {},
             builder: (context) => TemplatesBottomSheet()),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: Container(
-              alignment: Alignment.center,
-              height: context.height * 0.3,
-              width: context.width * 0.3,
-              child: CustomPaint(
-                isComplex: true,
-                painter: QrPainter(
-                    data: "https://www.google.com",
-                    options: const QrOptions(
-                        ecl: ErrorCorrectionLevel.H,
-                        shapes: QrShapes(
-                            lightPixel:
-                                QrPixelShapeRoundCorners(cornerFraction: .5),
-                            darkPixel:
-                                QrPixelShapeRoundCorners(cornerFraction: .5),
-                            frame:
-                                QrFrameShapeRoundCorners(cornerFraction: .25),
-                            ball: QrBallShapeRoundCorners(cornerFraction: .25)),
-                        colors: QrColors(
-                            background: QrColorSolid(Colors.transparent),
-                            light: QrColorLinearGradient(
-                                colors: [Color(0xFFFF0000), Color(0xFF0000FF)],
-                                orientation: GradientOrientation.leftDiagonal),
-                            dark: QrColorLinearGradient(
-                                colors: [Color(0xFFFF0000), Color(0xFF0000FF)],
-                                orientation:
-                                    GradientOrientation.leftDiagonal)))),
-                size: const Size(350, 350),
+      body: Screenshot(
+        controller: _screenshotController,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: Container(
+                alignment: Alignment.center,
+                height: context.height * 0.3,
+                width: context.width * 0.3,
+                child: CustomPaint(
+                  isComplex: true,
+                  painter: QrPainter(
+                      data: "https://www.google.com",
+                      options: const QrOptions(
+                          ecl: ErrorCorrectionLevel.H,
+                          shapes: QrShapes(
+                              lightPixel:
+                                  QrPixelShapeRoundCorners(cornerFraction: .5),
+                              darkPixel:
+                                  QrPixelShapeRoundCorners(cornerFraction: .5),
+                              frame:
+                                  QrFrameShapeRoundCorners(cornerFraction: .25),
+                              ball:
+                                  QrBallShapeRoundCorners(cornerFraction: .25)),
+                          colors: QrColors(
+                              background: QrColorSolid(Colors.transparent),
+                              light: QrColorLinearGradient(colors: [
+                                Color(0xFFFF0000),
+                                Color(0xFF0000FF)
+                              ], orientation: GradientOrientation.leftDiagonal),
+                              dark: QrColorLinearGradient(
+                                  colors: [
+                                    Color(0xFFFF0000),
+                                    Color(0xFF0000FF)
+                                  ],
+                                  orientation:
+                                      GradientOrientation.leftDiagonal)))),
+                  size: const Size(350, 350),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

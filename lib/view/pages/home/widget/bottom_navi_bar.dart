@@ -22,7 +22,7 @@ class BottomNaviBar extends StatelessWidget {
           selectedIndex: value.currentIndex,
           rippleColor: Colors.grey[300]!,
           hoverColor: Colors.grey[100]!,
-          duration: PageDurations.min(),
+          duration: PageDurations.low(),
           tabBackgroundColor: Colors.grey[100]!,
           activeColor: context.colorScheme.primary,
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),

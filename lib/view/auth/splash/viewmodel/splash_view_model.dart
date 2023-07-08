@@ -18,8 +18,8 @@ abstract class SplashViewModels extends State<SplashView> with CacheInit {
   }
 
   Future<void> initAppState() async {
-    Timer(const PageDurations.normal(), () => _changeAnimationInit());
-    Future.delayed(const PageDurations.height(), () async {
+    Timer(const PageDurations.medium(), () => _changeAnimationInit());
+    Future.delayed(const PageDurations.max(), () async {
       await cacheInit().then((_) => checkUserIsValid());
     });
   }

@@ -23,47 +23,37 @@ class BusinessHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Stack(
-        clipBehavior: Clip.none,
-        fit: StackFit.expand,
-        alignment: Alignment.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Positioned(width: context.width, child: Container(color: Colors.red)),
-          Positioned(
-            left: 10,
-            child: Row(
+          UserCircleAvatar(
+            maxRadius: 40,
+            backgroundImage: ImageKeys.default_image.assetImage(),
+          ),
+          Padding(
+            padding: PagePadding.allMedium(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                UserCircleAvatar(
-                  maxRadius: 50,
-                  backgroundImage: ImageKeys.default_image.assetImage(),
+                Text(
+                  "Ercan Burger",
+                  style: TextStyle(
+                      fontSize: context.text.headlineSmall?.fontSize,
+                      fontWeight: FontWeight.bold),
                 ),
-                Padding(
-                  padding: PagePadding.allMedium(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Ercan Burger",
-                        style: TextStyle(
-                            fontSize: context.text.headlineSmall?.fontSize,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "ercanburger@gmail.com",
-                        style: TextStyle(
-                            fontSize: context.text.titleMedium?.fontSize),
-                      ),
-                    ],
-                  ),
+                Text(
+                  "ercanburger@gmail.com",
+                  style:
+                      TextStyle(fontSize: context.text.titleMedium?.fontSize),
                 ),
-                IconButton(
-                    onPressed: () =>
-                        context.push(RouterKeys.EDIT_BUSINESS.route),
-                    icon: ImageKeys.edit_business
-                        .imageIcon(color: context.colorScheme.surface))
               ],
             ),
           ),
+          IconButton(
+              onPressed: () => context.push(RouterKeys.EDIT_BUSINESS.route),
+              icon: ImageKeys.edit_business
+                  .imageIcon(color: context.colorScheme.surface))
         ],
       ),
     );

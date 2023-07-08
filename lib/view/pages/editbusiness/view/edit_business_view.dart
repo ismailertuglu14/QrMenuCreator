@@ -93,15 +93,20 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                   child: Consumer<EditBusinessProvider>(
                     builder: (context, provider, child) => UserCircleAvatar(
                         maxRadius: 50,
-                        backgroundImage: ImageKeys.default_image.assetImage(),
+                        backgroundImage: provider.coverImage == null ||
+                                provider.coverImage!.isEmpty
+                            ? ImageKeys.default_image.assetImage()
+                            : NetworkImage(provider.coverImage!)
+                                as ImageProvider<Object>?,
                         child: Align(
                           alignment: Alignment.bottomRight,
                           child: GestureDetector(
-                            onTap: () => uploadFileDialog(context, _imagePicker,
-                                false, UploadFileTypeKeys.SINGLE_IMAGE, (
-                                    {required Object fileObject}) {
-                              return Future.value();
-                            }),
+                            onTap: () => uploadFileDialog(
+                                context,
+                                _imagePicker,
+                                true,
+                                UploadFileTypeKeys.SINGLE_IMAGE,
+                                changeCoverImage),
                             child: Container(
                                 padding: PagePadding.allMin(),
                                 decoration: BoxDecoration(

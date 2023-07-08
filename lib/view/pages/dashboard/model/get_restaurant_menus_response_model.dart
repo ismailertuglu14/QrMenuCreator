@@ -34,6 +34,7 @@ class RestaurantMenuData {
   final int templateId;
   final String restaurantId;
   final int productCount;
+  final int categoryCount;
 
   RestaurantMenuData({
     required this.id,
@@ -41,6 +42,7 @@ class RestaurantMenuData {
     required this.templateId,
     required this.restaurantId,
     required this.productCount,
+    required this.categoryCount,
   });
 
   factory RestaurantMenuData.fromJson(Map<String, dynamic> json) =>
@@ -50,6 +52,7 @@ class RestaurantMenuData {
         templateId: json["templateId"],
         restaurantId: json["restaurantId"],
         productCount: json["productCount"],
+        categoryCount: json["categoryCount"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -58,5 +61,6 @@ class RestaurantMenuData {
         "templateId": templateId,
         "restaurantId": restaurantId,
         "productCount": productCount,
+        "categoryCount": categoryCount,
       };
 }
