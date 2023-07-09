@@ -35,7 +35,7 @@ class GetProductsByMenuIdData {
   final String description;
   final int price;
   final String currency;
-  final List<String> images;
+  final List<String>? images;
 
   GetProductsByMenuIdData({
     required this.id,
@@ -62,6 +62,6 @@ class GetProductsByMenuIdData {
         "description": description,
         "price": price,
         "currency": currency,
-        "images": List<dynamic>.from(images.map((x) => x)),
+        "images": List<dynamic>.from(images?.map((x) => x) ?? []),
       };
 }

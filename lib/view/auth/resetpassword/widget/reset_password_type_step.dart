@@ -149,7 +149,7 @@ class _ResetPasswordTypeStepState extends State<ResetPasswordTypeStep>
           ),
         ),
         Expanded(
-          flex: 2,
+          flex: 5,
           child: TextButton(
               onPressed: () => context.go(RouterKeys.LOGIN.route),
               child: Text.rich(

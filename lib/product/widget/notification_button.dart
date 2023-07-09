@@ -42,7 +42,21 @@ class NotificationButton extends StatelessWidget {
                 ],
               );
             }),
-        icon: ImageKeys.notification
-            .imageIcon(color: context.colorScheme.surface));
+        icon: Stack(
+          children: [
+            ImageKeys.notification
+                .imageIcon(color: context.colorScheme.surface),
+            Positioned(
+                right: 0,
+                top: 0,
+                child: Container(
+                  width: 10,
+                  height: 10,
+                  decoration: BoxDecoration(
+                      color: context.colorScheme.primary,
+                      borderRadius: BorderRadius.circular(10)),
+                ))
+          ],
+        ));
   }
 }

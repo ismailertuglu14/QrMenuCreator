@@ -20,43 +20,8 @@ class DashboardAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       backgroundColor: context.colorScheme.onSecondary,
-      title: Row(
-        children: [
-          Text.rich(
-              textScaleFactor: 1,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              TextSpan(children: [
-                TextSpan(
-                    text: " Welcome back  ",
-                    style: TextStyle(
-                        color: context.colorScheme.surface,
-                        fontWeight: FontWeight.bold)),
-                TextSpan(
-                    text: (LocaleStorage.instance
-                                    .getStringValue(LocaleKeys.BUSINESS_NAME) ==
-                                null ||
-                            LocaleStorage.instance
-                                .getStringValue(LocaleKeys.BUSINESS_NAME)
-                                .isEmpty)
-                        ? "Business Name"
-                        : LocaleStorage.instance
-                            .getStringValue(LocaleKeys.BUSINESS_NAME),
-                    style: TextStyle(
-                        color: context.colorScheme.primary,
-                        fontWeight: FontWeight.bold)),
-              ]))
-        ],
-      ),
-      toolbarHeight: context.height / 8,
-      automaticallyImplyLeading: false,
-      centerTitle: true,
-      floating: true,
-      snap: true,
-      stretch: true,
-      pinned: true,
       bottom: PreferredSize(
-          preferredSize: Size(context.width, context.height / 15),
+          preferredSize: Size(context.width, context.height / 10),
           child: Padding(
             padding: PagePadding.horizontalMedium(),
             child: CommonTextField(
@@ -67,6 +32,44 @@ class DashboardAppBar extends StatelessWidget {
               textInputAction: TextInputAction.search,
               prefixIcon: Icon(Icons.search),
             ),
+          )),
+      toolbarHeight: context.height / 10,
+      automaticallyImplyLeading: false,
+      centerTitle: true,
+      floating: true,
+      snap: true,
+      pinned: true,
+      stretch: true,
+      flexibleSpace: FlexibleSpaceBar(
+          titlePadding: PagePadding.allHeight(),
+          centerTitle: true,
+          expandedTitleScale: 1,
+          title: Align(
+            alignment: Alignment.centerLeft,
+            child: Text.rich(
+                textScaleFactor: 1,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                TextSpan(children: [
+                  TextSpan(
+                      text: " Welcome back  ",
+                      style: TextStyle(
+                          color: context.colorScheme.surface,
+                          fontWeight: FontWeight.bold)),
+                  TextSpan(
+                      text: (LocaleStorage.instance.getStringValue(
+                                      LocaleKeys.BUSINESS_NAME) ==
+                                  null ||
+                              LocaleStorage.instance
+                                  .getStringValue(LocaleKeys.BUSINESS_NAME)
+                                  .isEmpty)
+                          ? "Business Name"
+                          : LocaleStorage.instance
+                              .getStringValue(LocaleKeys.BUSINESS_NAME),
+                      style: TextStyle(
+                          color: context.colorScheme.primary,
+                          fontWeight: FontWeight.bold)),
+                ])),
           )),
     );
   }

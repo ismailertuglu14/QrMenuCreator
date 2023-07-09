@@ -20,3 +20,7 @@ extension ColorSchemeExtension on BuildContext {
 extension FocusScopeExtension on BuildContext {
   FocusScopeNode get focusScope => FocusScope.of(this);
 }
+
+extension KeyboardIsOpenExtension on BuildContext {
+  bool get keyboardIsOpen => MediaQuery.of(this).viewInsets.bottom > 0;
+}

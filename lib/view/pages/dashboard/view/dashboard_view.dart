@@ -66,6 +66,8 @@ class _DashboardViewState extends DashboardViewModel {
         body: RefreshIndicator(
           onRefresh: () => getRestaurantMenus(),
           child: CustomScrollView(
+            physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics()),
             slivers: [
               DashboardAppBar(),
               SliverGrid.builder(
@@ -83,6 +85,8 @@ class _DashboardViewState extends DashboardViewModel {
                             : provider.restaurantMenus!.isEmpty
                                 ? ImageKeys.empty_category.imageAsset()
                                 : DasboardCenterCard(
+                                    index: index,
+                                    length: provider.restaurantMenus!.length,
                                     deleteRestaurantMenu: deleteRestaurantMenu,
                                     provider: provider,
                                     menu: provider.restaurantMenus![index],

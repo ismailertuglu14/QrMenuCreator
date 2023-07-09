@@ -37,31 +37,38 @@ class ProductItemCard extends StatelessWidget {
         builder: (context, provider, child) => provider.productList == null
             ? LottieKeys.loading.path()
             : ListTile(
+                contentPadding: PagePadding.allMedium(),
                 shape: RoundedRectangleBorder(
                     borderRadius: PageBorderRadius.allMedium()),
                 tileColor: context.colorScheme.surface.withOpacity(0.05),
                 /* onTap: () => context.pushNamed(RouterKeys.CREATE_PRODUCT.name,
                     queryParams: {"categoryId": categoryId, "menuId": menuId}),*/
                 title: Text(category.name),
-                subtitle: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: PageBorderRadius.allMedium(),
-                      color: context.colorScheme.primary,
-                    ),
-                    constraints:
-                        BoxConstraints(maxHeight: context.height * 0.03),
-                    child: Center(
-                        child: Padding(
-                      padding: PagePadding.verticalMin(),
-                      child: Text(
-                        "${category.price} TL",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                subtitle: Padding(
+                  padding: PagePadding.verticalMin(),
+                  child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: PageBorderRadius.allMedium(),
+                        color: context.colorScheme.primary,
                       ),
-                    ))),
+                      constraints:
+                          BoxConstraints(maxHeight: context.height * 0.03),
+                      child: Center(
+                          child: Padding(
+                        padding: PagePadding.verticalMin(),
+                        child: Text(
+                          "${category.price} TL",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ))),
+                ),
                 leading: UserCircleAvatar(
-                    backgroundImage: category.images.first.isEmpty
+                    backgroundImage: (category.images == null ||
+                            category.images!.isEmpty ||
+                            category.images!.first.isEmpty)
                         ? ImageKeys.default_image.assetImage()
-                        : NetworkImage(category.images.first) as ImageProvider),
+                        : NetworkImage(category.images!.first)
+                            as ImageProvider),
                 trailing: PopupMenuButton(
                   onOpened: () => provider.setSelectedProductId = category.id,
                   onCanceled: () => provider.setSelectedProductId = null,

@@ -56,162 +56,170 @@ class _EditBusinessViewState extends EditBusinessViewModel {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CommonAppBar(title: Text("Edit Business")),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 3,
-            child: Stack(
-              clipBehavior: Clip.none,
-              fit: StackFit.passthrough,
-              alignment: Alignment.center,
-              children: [
-                Positioned(
-                    top: 0,
-                    height: context.height * 0.15,
-                    width: context.width,
-                    child: Container(color: Color(0xFFe9eaec))),
-                Positioned(
-                    top: 0,
-                    right: 0,
-                    child: Padding(
-                      padding: PagePadding.allMin(),
-                      child: IconButton(
-                        onPressed: () => uploadFileDialog(
-                            context,
-                            _imagePicker,
-                            true,
-                            UploadFileTypeKeys.SINGLE_IMAGE,
-                            changeCoverImage),
-                        icon: Icon(
-                          Icons.edit,
-                          color: context.colorScheme.primary,
-                        ),
-                      ),
-                    )),
-                Positioned(
-                  top: context.height * 0.1,
-                  child: Consumer<EditBusinessProvider>(
-                    builder: (context, provider, child) => UserCircleAvatar(
-                        maxRadius: 50,
-                        backgroundImage: provider.coverImage == null ||
-                                provider.coverImage!.isEmpty
-                            ? ImageKeys.default_image.assetImage()
-                            : NetworkImage(provider.coverImage!)
-                                as ImageProvider<Object>?,
-                        child: Align(
-                          alignment: Alignment.bottomRight,
-                          child: GestureDetector(
-                            onTap: () => uploadFileDialog(
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: context.height,
+          width: context.width,
+          child: Column(
+            children: [
+              Expanded(
+                flex: 3,
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  fit: StackFit.passthrough,
+                  alignment: Alignment.center,
+                  children: [
+                    Positioned(
+                        top: 0,
+                        height: context.height * 0.15,
+                        width: context.width,
+                        child: Container(color: Color(0xFFe9eaec))),
+                    Positioned(
+                        top: 0,
+                        right: 0,
+                        child: Padding(
+                          padding: PagePadding.allMin(),
+                          child: IconButton(
+                            onPressed: () => uploadFileDialog(
                                 context,
                                 _imagePicker,
                                 true,
                                 UploadFileTypeKeys.SINGLE_IMAGE,
                                 changeCoverImage),
-                            child: Container(
-                                padding: PagePadding.allMin(),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: context.colorScheme.onSecondary,
-                                        width: 4),
-                                    shape: BoxShape.circle,
-                                    color: context.colorScheme.primary),
-                                child: Icon(Icons.edit)),
+                            icon: Icon(
+                              Icons.edit,
+                              color: context.colorScheme.primary,
+                            ),
                           ),
                         )),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 7,
-            child: Padding(
-              padding: PagePadding.allHeight(),
-              child: Column(children: [
-                Expanded(
-                  child: CommonTextFormField(
-                    validator: firstNameRegex,
-                    textController: _businessNameController,
-                    keyboardType: TextInputType.name,
-                    label: "Business Name",
-                    textInputAction: TextInputAction.next,
-                    prefixIcon: Icon(Icons.business_outlined),
-                  ),
-                ),
-                Expanded(
-                  child: CommonTextFormField(
-                    validator: emailRegex,
-                    textController: _emailController,
-                    label: "Email",
-                    textInputAction: TextInputAction.next,
-                    prefixIcon: Icon(Icons.alternate_email_rounded),
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                ),
-                Expanded(
-                  child: CommonTextFormField(
-                      prefixIcon: CountryCodePicker(
-                        onChanged: (value) => _editBusinessProvider
-                            .changeSelectedCountryCode(value),
-                        initialSelection: 'IT',
-                        showCountryOnly: false,
-                        showOnlyCountryWhenClosed: false,
-                        alignLeft: false,
-                      ),
-                      label: "Phone Number",
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please Enter a Phone Number";
-                        } else if (!RegExp(
-                                r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$')
-                            .hasMatch(value)) {
-                          return "Please Enter a Valid Phone Number";
-                        }
-                        return null;
-                      },
-                      keyboardType: TextInputType.phone,
-                      textInputAction: TextInputAction.next,
-                      textController: _countryController),
-                ),
-                Expanded(
-                    child: Row(
-                  children: [
-                    Expanded(
-                        child: Text(
-                      (_editBusinessProvider.currentLocation != null &&
-                              _editBusinessProvider.currentLocationName != null)
-                          ? "${_editBusinessProvider.currentLocationName}"
-                          : "No Location Selected",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    )),
-                    Expanded(
-                      child: CommonElevationButton(
-                        child: Text("Change location"),
-                        onPressed: () =>
-                            context.push(RouterKeys.LOCATION_PICKER.route),
+                    Positioned(
+                      top: context.height * 0.1,
+                      child: Consumer<EditBusinessProvider>(
+                        builder: (context, provider, child) => UserCircleAvatar(
+                            maxRadius: 50,
+                            backgroundImage: provider.coverImage == null ||
+                                    provider.coverImage!.isEmpty
+                                ? ImageKeys.default_image.assetImage()
+                                : NetworkImage(provider.coverImage!)
+                                    as ImageProvider<Object>?,
+                            child: Align(
+                              alignment: Alignment.bottomRight,
+                              child: GestureDetector(
+                                onTap: () => uploadFileDialog(
+                                    context,
+                                    _imagePicker,
+                                    true,
+                                    UploadFileTypeKeys.SINGLE_IMAGE,
+                                    changeCoverImage),
+                                child: Container(
+                                    padding: PagePadding.allMin(),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color:
+                                                context.colorScheme.onSecondary,
+                                            width: 4),
+                                        shape: BoxShape.circle,
+                                        color: context.colorScheme.primary),
+                                    child: Icon(Icons.edit)),
+                              ),
+                            )),
                       ),
                     ),
                   ],
-                )),
-                Expanded(
-                    flex: 1,
-                    child: Row(
+                ),
+              ),
+              Expanded(
+                flex: 7,
+                child: Padding(
+                  padding: PagePadding.allHeight(),
+                  child: Column(children: [
+                    Expanded(
+                      child: CommonTextFormField(
+                        validator: firstNameRegex,
+                        textController: _businessNameController,
+                        keyboardType: TextInputType.name,
+                        label: "Business Name",
+                        textInputAction: TextInputAction.next,
+                        prefixIcon: Icon(Icons.business_outlined),
+                      ),
+                    ),
+                    Expanded(
+                      child: CommonTextFormField(
+                        validator: emailRegex,
+                        textController: _emailController,
+                        label: "Email",
+                        textInputAction: TextInputAction.next,
+                        prefixIcon: Icon(Icons.alternate_email_rounded),
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                    ),
+                    Expanded(
+                      child: CommonTextFormField(
+                          prefixIcon: CountryCodePicker(
+                            onChanged: (value) => _editBusinessProvider
+                                .changeSelectedCountryCode(value),
+                            initialSelection: 'IT',
+                            showCountryOnly: false,
+                            showOnlyCountryWhenClosed: false,
+                            alignLeft: false,
+                          ),
+                          label: "Phone Number",
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Please Enter a Phone Number";
+                            } else if (!RegExp(
+                                    r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$')
+                                .hasMatch(value)) {
+                              return "Please Enter a Valid Phone Number";
+                            }
+                            return null;
+                          },
+                          keyboardType: TextInputType.phone,
+                          textInputAction: TextInputAction.next,
+                          textController: _countryController),
+                    ),
+                    Expanded(
+                        child: Row(
                       children: [
                         Expanded(
+                            child: Text(
+                          (_editBusinessProvider.currentLocation != null &&
+                                  _editBusinessProvider.currentLocationName !=
+                                      null)
+                              ? "${_editBusinessProvider.currentLocationName}"
+                              : "No Location Selected",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )),
+                        Expanded(
                           child: CommonElevationButton(
-                            child: Padding(
-                              padding: PagePadding.allHeight(),
-                              child: Text("Save"),
-                            ),
-                            onPressed: () {},
+                            child: Text("Change location"),
+                            onPressed: () =>
+                                context.push(RouterKeys.LOCATION_PICKER.route),
                           ),
                         ),
                       ],
                     )),
-              ]),
-            ),
+                    Expanded(
+                        flex: 1,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: CommonElevationButton(
+                                child: Padding(
+                                  padding: PagePadding.allHeight(),
+                                  child: Text("Save"),
+                                ),
+                                onPressed: () {},
+                              ),
+                            ),
+                          ],
+                        )),
+                  ]),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

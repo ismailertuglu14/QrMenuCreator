@@ -28,7 +28,6 @@ import '../widget/register_bottom_button.dart';
 import '../widget/register_confirmation_step.dart';
 import '../widget/register_personel_step.dart';
 
-
 part '../viewmodel/register_view_model.dart';
 
 class RegisterView extends StatefulWidget {
@@ -50,66 +49,69 @@ class _RegisterViewState extends RegisterViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const PagePadding.spesificAuth(),
-        child: Column(
-          children: [
-            AnimatedContainer(
-              duration: Duration.zero,
-              height: MediaQuery.of(context).viewInsets.bottom > 0
-                  ? 0
-                  : context.height * 0.3,
-              child: Padding(
-                padding: const PagePadding.allHeight(),
-                child: ImageKeys.register.imageAsset(),
-              ),
-            ),
-            Expanded(
-                flex: 7,
-                child: Center(
-                  child: Consumer<RegisterProvider>(
-                    builder: (context, value, child) => Stepper(
-                        currentStep: value.currentStep,
-                        type: StepperType.horizontal,
-                        controlsBuilder: _controlsBuilder,
-                        onStepCancel: () => value.onStepCancel(),
-                        onStepContinue: () => value.onStepContinue(),
-                        onStepTapped: (_) => value.changeCurrentStep(_),
-                        // physics: const NeverScrollableScrollPhysics(),
-                        steps: [
-                          _registerStepBuilder(
-                              _personel,
-                              RegisterStepKeys.personel,
-                              RegisterPersonelStep(
-                                  contactNumberTextController:
-                                      _contactNumberTextController,
-                                  businessTextController:
-                                      _businessTextController,
-                                  registerProvider: _registerProvider)),
-                          _registerStepBuilder(
-                              _account,
-                              RegisterStepKeys.account,
-                              RegisterAccountStep(
-                                  passwordConfirmTextController:
-                                      _passwordConfirmTextController,
-                                  emailTextController: _emailTextController,
-                                  userName: _userName,
-                                  passwordTextController:
-                                      _passwordTextController,
-                                  registerProvider: _registerProvider)),
-                          _registerStepBuilder(
-                              _confirmation,
-                              RegisterStepKeys.confirmation,
-                              RegisterConfirmationStep(
-                                  registerProvider: _registerProvider,
-                                  register: register)),
-                        ]),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: context.height,
+          width: context.width,
+          child: Padding(
+            padding: const PagePadding.spesificAuth(),
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Padding(
+                    padding: const PagePadding.allHeight(),
+                    child: ImageKeys.register.imageAsset(),
                   ),
-                )),
-            SizedBox(
-                height: context.height / 25,
-                child: const RegisterBottomButton())
-          ],
+                ),
+                Expanded(
+                    flex: 7,
+                    child: Center(
+                      child: Consumer<RegisterProvider>(
+                        builder: (context, value, child) => Stepper(
+                            currentStep: value.currentStep,
+                            type: StepperType.horizontal,
+                            controlsBuilder: _controlsBuilder,
+                            onStepCancel: () => value.onStepCancel(),
+                            onStepContinue: () => value.onStepContinue(),
+                            onStepTapped: (_) => value.changeCurrentStep(_),
+                            physics: const NeverScrollableScrollPhysics(),
+                            steps: [
+                              _registerStepBuilder(
+                                  _personel,
+                                  RegisterStepKeys.personel,
+                                  RegisterPersonelStep(
+                                      contactNumberTextController:
+                                          _contactNumberTextController,
+                                      businessTextController:
+                                          _businessTextController,
+                                      registerProvider: _registerProvider)),
+                              _registerStepBuilder(
+                                  _account,
+                                  RegisterStepKeys.account,
+                                  RegisterAccountStep(
+                                      passwordConfirmTextController:
+                                          _passwordConfirmTextController,
+                                      emailTextController: _emailTextController,
+                                      userName: _userName,
+                                      passwordTextController:
+                                          _passwordTextController,
+                                      registerProvider: _registerProvider)),
+                              _registerStepBuilder(
+                                  _confirmation,
+                                  RegisterStepKeys.confirmation,
+                                  RegisterConfirmationStep(
+                                      registerProvider: _registerProvider,
+                                      register: register)),
+                            ]),
+                      ),
+                    )),
+                SizedBox(
+                    height: context.height / 25,
+                    child: const RegisterBottomButton())
+              ],
+            ),
+          ),
         ),
       ),
     );
