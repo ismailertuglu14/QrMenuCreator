@@ -24,7 +24,7 @@ class ProfileListTileBuilder extends StatelessWidget {
         onTap: onTap,
         title: Text(
           title,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(),
         ),
         leading: leading.imageIcon(color: context.colorScheme.surface),
         trailing: trailing,

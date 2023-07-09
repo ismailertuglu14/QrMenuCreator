@@ -29,7 +29,6 @@ class LogOutButton extends StatelessWidget {
                 child: Text("Log Out",
                     style: TextStyle(
                         color: Colors.white,
-                        fontWeight: FontWeight.bold,
                         fontSize: context.text.titleMedium?.fontSize)),
               ),
             ),

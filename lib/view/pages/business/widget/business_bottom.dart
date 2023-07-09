@@ -53,9 +53,7 @@ class BusinessBottom extends StatelessWidget {
                   },
                   value: provider.isDark!,
                   title: Text("Dark Mode",
-                      style: TextStyle(
-                          color: context.colorScheme.surface,
-                          fontWeight: FontWeight.bold)),
+                      style: TextStyle(color: context.colorScheme.surface)),
                 )),
       ),
       ProfileListTileBuilder(
