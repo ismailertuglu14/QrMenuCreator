@@ -20,15 +20,20 @@ class CreateProductProvider extends ChangeNotifier {
   bool _isHalal = false;
   bool _isActive = false;
   bool _kcalCalculate = false;
+  bool _isAddeedFibre = false;
 
   bool _isLoading = false;
 
-  double _protein = 0;
-  double _carbohydrate = 0;
-  double _fat = 0;
-  double _kcal = 0;
+  int _protein = 0;
+  int _carbohydrate = 0;
+  int _fat = 0;
+  int _kcal = 0;
+  int _fibre = 0;
 
   bool get isLoading => _isLoading;
+  bool get isAddeedFibre => _isAddeedFibre;
+
+  int get fibre => _fibre;
 
   List<AllergensModel> _allergens = [];
   final List<AllergensModel> _suggestionAllergens = [
@@ -47,10 +52,10 @@ class CreateProductProvider extends ChangeNotifier {
   ];
 
   bool get kcalCalculate => _kcalCalculate;
-  double get protein => _protein;
-  double get carbohydrate => _carbohydrate;
-  double get fat => _fat;
-  double get kcal => _kcal;
+  int get protein => _protein;
+  int get carbohydrate => _carbohydrate;
+  int get fat => _fat;
+  int get kcal => _kcal;
   bool get isGluetenFree => _isGluetenFree;
   bool get isActive => _isActive;
   bool get isLactoseFree => _isLactoseFree;
@@ -88,27 +93,37 @@ class CreateProductProvider extends ChangeNotifier {
     _itemPreviewList = [];
   }
 
+  void changeIsAddeedFibre(bool value) {
+    _isAddeedFibre = value;
+    notifyListeners();
+  }
+
   void changeLoading() {
     _isLoading = !_isLoading;
     notifyListeners();
   }
 
-  void changeProtein(double value) {
+  void changeProtein(int value) {
     _protein = value;
     notifyListeners();
   }
 
-  void changeCarbohydrate(double value) {
+  void changeFibre(int value) {
+    _fibre = value;
+    notifyListeners();
+  }
+
+  void changeCarbohydrate(int value) {
     _carbohydrate = value;
     notifyListeners();
   }
 
-  void changeFat(double value) {
+  void changeFat(int value) {
     _fat = value;
     notifyListeners();
   }
 
-  void changeKcal(double value) {
+  void changeKcal(int value) {
     _kcal = value;
     notifyListeners();
   }

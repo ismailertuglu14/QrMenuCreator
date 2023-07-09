@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/product/utility/page_padding.dart';
 import 'package:qrmenu/product/widget/text_field.dart';
@@ -43,6 +44,7 @@ class NutritionFactsCheckBoxBuilder extends StatelessWidget {
               textAlign: TextAlign.center,
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             )),
         controlAffinity: ListTileControlAffinity.leading,
       ),

@@ -22,7 +22,8 @@ class CreateProductService extends ICreateProductService {
       required String currency,
       required List<XFile> files,
       required bool isActive,
-      required List<Ingredients> ingredients}) async {
+      required List<Ingredient> ingredients,
+      required List<Nutrition> nutritions}) async {
     try {
       final List<MultipartFile> images = files
           .map((img) => MultipartFile.fromFileSync(img.path,
@@ -36,8 +37,11 @@ class CreateProductService extends ICreateProductService {
         "price": price,
         "currency": currency,
         "images": images,
-        "ingredients": ingredients
+        "isActive": isActive,
+        "ingredients": ingredients,
+        "nutritions": nutritions,
       });
+
       Response<dynamic> response =
           await dio.post(NetworkConstants.CREATE_PRODUCT, data: formData);
       if (response.statusCode == HttpStatus.ok) {

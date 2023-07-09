@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/init/provider/theme_provider.dart';
@@ -21,6 +22,7 @@ class CommonTextFormField extends StatelessWidget {
     this.hintText,
     this.errorText,
     this.autovalidateMode,
+    this.inputFormatters,
   });
   final String? hintText;
   final String? label;
@@ -35,6 +37,7 @@ class CommonTextFormField extends StatelessWidget {
   final TextEditingController textController;
   final String? Function(String?)? validator;
   final String? errorText;
+  final List<TextInputFormatter>? inputFormatters;
   final AutovalidateMode? autovalidateMode;
 
   @override
@@ -55,6 +58,7 @@ class CommonTextFormField extends StatelessWidget {
       obscureText: obscureText ?? false,
       cursorRadius: const Radius.circular(20),
       cursorColor: context.colorScheme.onSurface,
+      inputFormatters: inputFormatters,
       decoration: InputDecoration(
           errorMaxLines: 1,
           errorText: errorText,

@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:qrmenu/core/constans/cache/locale_keys_enum.dart';
 import 'package:qrmenu/core/constans/enum/image_keys.dart';
 import 'package:qrmenu/core/constans/enum/lottie_keys.dart';
 import 'package:qrmenu/core/constans/enum/route_keys.dart';
@@ -14,6 +16,7 @@ import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
+import 'package:qrmenu/core/init/cache/local_storage.dart';
 import 'package:qrmenu/core/init/provider/add_ons_provider.dart';
 import 'package:qrmenu/core/init/provider/create_product_provider.dart';
 import 'package:qrmenu/product/utility/border_radius.dart';
@@ -62,7 +65,7 @@ class _CreateProductViewViewState extends CreateProductViewModel {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CommonAppBar(
-          title: Text("Create Item"),
+          title: Text("Create Product"),
         ),
         body: SingleChildScrollView(
             padding: PagePadding.allMedium(),
@@ -249,6 +252,9 @@ class _CreateProductViewViewState extends CreateProductViewModel {
                               hintText: "Price",
                               textInputAction: TextInputAction.done,
                               keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
                             ),
                           )
                         ],

@@ -15,7 +15,8 @@ abstract class ICreateProductService {
     required int price,
     required String currency,
     required List<XFile> files,
-    required List<Ingredients> ingredients,
+    required List<Ingredient> ingredients,
+    required List<Nutrition> nutritions,
     required bool isActive,
   });
 }

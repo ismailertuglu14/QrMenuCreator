@@ -41,7 +41,7 @@ Future<dynamic> addNutritionFactsDialog(
                       value: provider.kcalCalculate,
                       enabled: provider.kcalCalculate,
                       onChangedField: (value) =>
-                          provider.changeProtein(double.parse(value)),
+                          provider.changeProtein(int.parse(value)),
                       onTapField: () => provider.changeKcalCalculate(true),
                       onChanged: (value) =>
                           provider.changeKcalCalculate(value!),
@@ -50,7 +50,7 @@ Future<dynamic> addNutritionFactsDialog(
                       title: "Carbs",
                       enabled: provider.kcalCalculate,
                       onChangedField: (value) =>
-                          provider.changeCarbohydrate(double.parse(value)),
+                          provider.changeCarbohydrate(int.parse(value)),
                       onTapField: () => provider.changeKcalCalculate(true),
                       value: provider.kcalCalculate,
                       onChanged: (value) =>
@@ -59,7 +59,7 @@ Future<dynamic> addNutritionFactsDialog(
                     NutritionFactsCheckBoxBuilder(
                       title: "Fats",
                       onChangedField: (value) =>
-                          provider.changeFat(double.parse(value)),
+                          provider.changeFat(int.parse(value)),
                       onTapField: () => provider.changeKcalCalculate(true),
                       value: provider.kcalCalculate,
                       enabled: provider.kcalCalculate,
@@ -68,8 +68,11 @@ Future<dynamic> addNutritionFactsDialog(
                     ),
                     NutritionFactsCheckBoxBuilder(
                       title: "Fibre",
-                      value: false,
-                      onChanged: (value) {},
+                      value: provider.isAddeedFibre,
+                      onChangedField: (value) =>
+                          provider.changeFibre(int.parse(value)),
+                      onChanged: (value) =>
+                          provider.changeIsAddeedFibre(value!),
                     ),
                     Padding(
                       padding: PagePadding.allMedium(),

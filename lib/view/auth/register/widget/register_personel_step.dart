@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../../core/init/provider/register_provider.dart';
 import '../../../../product/regex/name_regex.dart';
@@ -44,6 +45,7 @@ class RegisterPersonelStep extends StatelessWidget {
               label: "Contact Number",
               validator: nameRegex,
               textController: contactNumberTextController,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               textInputAction: TextInputAction.done,
               keyboardType: TextInputType.number,
               prefixIcon: CountryCodePicker(

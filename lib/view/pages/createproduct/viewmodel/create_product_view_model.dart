@@ -33,8 +33,6 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
     super.dispose();
   }
 
-
-
   Future<void> createProduct() async {
     if (_nameController.text.isNotEmpty &&
         _priceController.text.isNotEmpty &&
@@ -51,19 +49,26 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
           currency: "TL",
           isActive: _createProductProvider.isActive,
           files: _createProductProvider.itemPreviewList,
+          nutritions: [
+            Nutrition(name: "Protein", value: _createProductProvider.protein),
+            Nutrition(
+                name: "Carbs", value: _createProductProvider.carbohydrate),
+            Nutrition(name: "Fats", value: _createProductProvider.fat),
+            Nutrition(name: "Fibre", value: _createProductProvider.fibre),
+          ],
           ingredients: [
-            Ingredients(
+            Ingredient(
                 name: "Gluten Free",
                 isInclude: _createProductProvider.isGluetenFree),
-            Ingredients(
+            Ingredient(
                 name: "Vegaterian",
                 isInclude: _createProductProvider.isVegetarian),
-            Ingredients(
+            Ingredient(
                 name: "Vegan", isInclude: _createProductProvider.isVegan),
-            Ingredients(
+            Ingredient(
                 name: "Lactos Free",
                 isInclude: _createProductProvider.isLactoseFree),
-            Ingredients(
+            Ingredient(
                 name: "Halal", isInclude: _createProductProvider.isHalal),
           ],
         );
@@ -74,7 +79,7 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
               description: response.data.description,
               price: response.data.price,
               currency: response.data.currency,
-              images: response.data.images));
+              images: response.data.images.first));
           context.pop();
           _nameController.clear();
           _priceController.clear();

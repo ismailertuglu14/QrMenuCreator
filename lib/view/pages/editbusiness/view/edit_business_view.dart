@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 
 import 'package:geolocator/geolocator.dart';
@@ -175,6 +176,9 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                             return null;
                           },
                           keyboardType: TextInputType.phone,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
                           textInputAction: TextInputAction.next,
                           textController: _countryController),
                     ),

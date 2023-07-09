@@ -33,10 +33,11 @@ class CreateProductData {
   final String categoryId;
   final String name;
   final String description;
-  final List<Ingredients> ingredients;
+  final List<Ingredient> ingredients;
+  final List<Nutrition> nutritions;
   final int price;
   final String currency;
-  final List<String> images;
+  final List<dynamic> images;
   final bool isActive;
   final DateTime createdDate;
   final String id;
@@ -49,6 +50,7 @@ class CreateProductData {
     required this.name,
     required this.description,
     required this.ingredients,
+    required this.nutritions,
     required this.price,
     required this.currency,
     required this.images,
@@ -65,11 +67,13 @@ class CreateProductData {
         categoryId: json["categoryId"],
         name: json["name"],
         description: json["description"],
-        ingredients: List<Ingredients>.from(
-            json["ingredients"].map((x) => Ingredients.fromJson(x))),
+        ingredients: List<Ingredient>.from(
+            json["ingredients"].map((x) => Ingredient.fromJson(x))),
+        nutritions: List<Nutrition>.from(
+            json["nutritions"].map((x) => Nutrition.fromJson(x))),
         price: json["price"],
         currency: json["currency"],
-        images: List<String>.from(json["images"].map((x) => x)),
+        images: List<dynamic>.from(json["images"].map((x) => x)),
         isActive: json["isActive"],
         createdDate: DateTime.parse(json["createdDate"]),
         id: json["_id"],
@@ -83,6 +87,7 @@ class CreateProductData {
         "name": name,
         "description": description,
         "ingredients": List<dynamic>.from(ingredients.map((x) => x.toJson())),
+        "nutritions": List<dynamic>.from(nutritions.map((x) => x.toJson())),
         "price": price,
         "currency": currency,
         "images": List<dynamic>.from(images.map((x) => x)),
@@ -93,16 +98,16 @@ class CreateProductData {
       };
 }
 
-class Ingredients {
+class Ingredient {
   final String name;
   final bool isInclude;
 
-  Ingredients({
+  Ingredient({
     required this.name,
     required this.isInclude,
   });
 
-  factory Ingredients.fromJson(Map<String, dynamic> json) => Ingredients(
+  factory Ingredient.fromJson(Map<String, dynamic> json) => Ingredient(
         name: json["name"],
         isInclude: json["isInclude"],
       );
@@ -110,5 +115,25 @@ class Ingredients {
   Map<String, dynamic> toJson() => {
         "name": name,
         "isInclude": isInclude,
+      };
+}
+
+class Nutrition {
+  final String name;
+  final int value;
+
+  Nutrition({
+    required this.name,
+    required this.value,
+  });
+
+  factory Nutrition.fromJson(Map<String, dynamic> json) => Nutrition(
+        name: json["name"],
+        value: json["value"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "value": value,
       };
 }
