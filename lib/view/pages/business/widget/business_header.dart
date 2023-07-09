@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +8,7 @@ import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/image_icon_extenison.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
+import 'package:qrmenu/core/init/provider/edit_business_provider.dart';
 
 import '../../../../core/constans/cache/locale_keys_enum.dart';
 import '../../../../core/constans/enum/image_keys.dart';
@@ -26,9 +29,19 @@ class BusinessHeader extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          UserCircleAvatar(
-            maxRadius: 40,
-            backgroundImage: ImageKeys.default_image.assetImage(),
+          Consumer<EditBusinessProvider>(
+            builder: (context, value, child) => UserCircleAvatar(
+              maxRadius: 40,
+              backgroundImage: (LocaleStorage.instance
+                              .getStringValue(LocaleKeys.COVER_IMAGE) ==
+                          null ||
+                      LocaleStorage.instance
+                          .getStringValue(LocaleKeys.COVER_IMAGE)
+                          .isEmpty)
+                  ? ImageKeys.default_image.assetImage()
+                  : NetworkImage(LocaleStorage.instance
+                      .getStringValue(LocaleKeys.COVER_IMAGE)) as ImageProvider,
+            ),
           ),
           Padding(
             padding: PagePadding.allMedium(),
@@ -37,13 +50,29 @@ class BusinessHeader extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Ercan Burger",
+                  (LocaleStorage.instance
+                                  .getStringValue(LocaleKeys.BUSINESS_NAME) ==
+                              null ||
+                          LocaleStorage.instance
+                              .getStringValue(LocaleKeys.BUSINESS_NAME)
+                              .isEmpty)
+                      ? "Business Name"
+                      : LocaleStorage.instance
+                          .getStringValue(LocaleKeys.BUSINESS_NAME),
                   style: TextStyle(
                       fontSize: context.text.headlineSmall?.fontSize,
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  "ercanburger@gmail.com",
+                  (LocaleStorage.instance
+                                  .getStringValue(LocaleKeys.BUSINESS_NAME) ==
+                              null ||
+                          LocaleStorage.instance
+                              .getStringValue(LocaleKeys.BUSINESS_NAME)
+                              .isEmpty)
+                      ? "businessname@gmail.com"
+                      : LocaleStorage.instance
+                          .getStringValue(LocaleKeys.BUSINESS_NAME),
                   style:
                       TextStyle(fontSize: context.text.titleMedium?.fontSize),
                 ),

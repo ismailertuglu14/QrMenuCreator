@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
+import 'package:qrmenu/product/widget/elevation_button.dart';
 
 import '../../../../product/utility/durations.dart';
 import '../../../../product/utility/page_padding.dart';
@@ -27,7 +28,7 @@ class OnBoardNextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: PagePadding.horizontalMedium(),
-      child: ElevatedButton(
+      child: CommonElevationButton(
           onPressed: () =>
               _pageButtonState(context, _currentPage, _pageController),
           style: ButtonStyle(

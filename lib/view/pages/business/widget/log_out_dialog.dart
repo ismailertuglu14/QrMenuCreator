@@ -9,6 +9,7 @@ import 'package:qrmenu/core/init/provider/login_provider.dart';
 import '../../../../core/constans/enum/route_keys.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/elevation_button.dart';
+import '../../../../product/widget/outline_button.dart';
 
 Future<dynamic> logOutDialog(
     BuildContext context, LoginProvider loginProvider) {
@@ -38,7 +39,7 @@ Future<dynamic> logOutDialog(
                       Expanded(
                         child: Padding(
                           padding: PagePadding.allDefault(),
-                          child: OutlinedButton(
+                          child: CommonOutlineButton(
                               onPressed: () => context.pop(),
                               child: Padding(
                                 padding: PagePadding.allMedium(),

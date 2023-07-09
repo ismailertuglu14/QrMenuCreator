@@ -10,6 +10,7 @@ import '../../../../core/constans/enum/reset_password_stepper_keys.dart';
 
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/elevation_button.dart';
+import '../../../../product/widget/outline_button.dart';
 import 'otp_text_field.dart';
 
 class ResetPasswordOtpStep extends StatefulWidget {
@@ -89,7 +90,7 @@ class _ResetPasswordOtpStepState extends State<ResetPasswordOtpStep> {
                 flex: 5,
                 child: Padding(
                   padding: PagePadding.allDefault(),
-                  child: OutlinedButton(
+                  child: CommonOutlineButton(
                     onPressed: () async {
                       if (_requestTimeoutTimer.seconds.isEven) {
                         return await widget.checkEmail();

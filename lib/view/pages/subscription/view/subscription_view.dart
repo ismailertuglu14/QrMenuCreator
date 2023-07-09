@@ -84,7 +84,8 @@ class _SubscriptionState extends SubscriptionViewModel {
                   children: [
                     Expanded(
                         child: Consumer<SubscriptionProvider>(
-                      builder: (context, provider, child) => ElevatedButton(
+                      builder: (context, provider, child) =>
+                          CommonElevationButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: provider.subscriptionPlanKeys ==
                                   SubscriptionPlanKeys.Basic

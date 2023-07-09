@@ -38,6 +38,7 @@ extension RouteExtension on RouterKeys {
         return "/change_password";
       case RouterKeys.CHANGE_LANGUAGE:
         return "/change_language";
+    
     }
   }
 }

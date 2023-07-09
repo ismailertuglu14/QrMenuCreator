@@ -46,7 +46,6 @@ class Providers {
       ChangeNotifierProvider(create: (context) => ProductsProvider.instance),
       ChangeNotifierProvider(
           create: (context) => CreateProductProvider.instance),
-    
       ChangeNotifierProvider(create: (context) => AddOnsProvider.instance),
       ChangeNotifierProvider(create: (context) => DashboardProvider.instance),
       ChangeNotifierProvider(

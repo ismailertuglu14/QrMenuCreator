@@ -137,6 +137,7 @@ class RouterManager with ChangeNotifier {
           pageBuilder: (context, state) =>
               buildPageWithSlideRightToLeftTransition(
                   context: context, state: state, child: ChangeLanguageView())),
+     
     ],
   );
 }

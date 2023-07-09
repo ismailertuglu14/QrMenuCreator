@@ -14,17 +14,18 @@ import '../../../../core/constans/enum/route_keys.dart';
 import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/user_circle_avatar.dart';
+import '../model/get_products_by_category_id_response_model.dart';
 
 class ProductItemCard extends StatelessWidget {
   const ProductItemCard({
     super.key,
-    required this.index,
     this.categoryId,
     this.menuId,
     required this.deleteProduct,
+    required this.category,
   });
 
-  final int index;
+  final GetProductsByMenuIdData category;
   final String? categoryId;
   final String? menuId;
   final Future<void> Function() deleteProduct;
@@ -41,8 +42,7 @@ class ProductItemCard extends StatelessWidget {
                 tileColor: context.colorScheme.surface.withOpacity(0.05),
                 /* onTap: () => context.pushNamed(RouterKeys.CREATE_PRODUCT.name,
                     queryParams: {"categoryId": categoryId, "menuId": menuId}),*/
-                title:
-                    Text(provider.productList?[index].name ?? "Product Name"),
+                title: Text(category.name),
                 subtitle: Container(
                     decoration: BoxDecoration(
                       borderRadius: PageBorderRadius.allMedium(),
@@ -54,15 +54,16 @@ class ProductItemCard extends StatelessWidget {
                         child: Padding(
                       padding: PagePadding.verticalMin(),
                       child: Text(
-                        "${provider.productList![index].price} TL",
+                        "${category.price} TL",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ))),
                 leading: UserCircleAvatar(
-                    backgroundImage: ImageKeys.default_image.assetImage()),
+                    backgroundImage: category.images.first.isEmpty
+                        ? ImageKeys.default_image.assetImage()
+                        : NetworkImage(category.images.first) as ImageProvider),
                 trailing: PopupMenuButton(
-                  onOpened: () => provider.setSelectedProductId =
-                      provider.productList?[index].id,
+                  onOpened: () => provider.setSelectedProductId = category.id,
                   onCanceled: () => provider.setSelectedProductId = null,
                   itemBuilder: (context) => [
                     PopupMenuItem(

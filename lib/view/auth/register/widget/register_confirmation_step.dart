@@ -9,6 +9,7 @@ import '../../../../core/constans/enum/lottie_keys.dart';
 import '../../../../core/init/provider/register_provider.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/elevation_button.dart';
+import '../../../../product/widget/outline_button.dart';
 
 class RegisterConfirmationStep extends StatelessWidget {
   const RegisterConfirmationStep(
@@ -27,7 +28,7 @@ class RegisterConfirmationStep extends StatelessWidget {
         Expanded(
             child: Padding(
           padding: const PagePadding.allDefault(),
-          child: OutlinedButton(
+          child: CommonOutlineButton(
               onPressed: () => registerProvider.onStepCancel(),
               child: const Padding(
                 padding: PagePadding.allMedium(),

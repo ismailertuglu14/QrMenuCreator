@@ -17,6 +17,7 @@ import 'package:qrmenu/product/widget/upload_file_dialog.dart';
 import '../../../../core/constans/enum/upload_file_keys.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/elevation_button.dart';
+import '../../../../product/widget/outline_button.dart';
 import '../../../../product/widget/text_field.dart';
 
 Future<dynamic> addCategoryDialog(BuildContext context, ImagePicker imagePicker,
@@ -53,7 +54,7 @@ Future<dynamic> addCategoryDialog(BuildContext context, ImagePicker imagePicker,
                     ),
                   ),
                   CommonTextField(
-                    label: Text("Category Name"),
+                    hintText: "Category Name",
                     textController: provider.categoryController,
                     keyboardType: TextInputType.name,
                     prefixIcon: Icon(Icons.category_outlined),
@@ -126,7 +127,7 @@ Future<dynamic> addCategoryDialog(BuildContext context, ImagePicker imagePicker,
                                           fit: BoxFit.cover,
                                         )),
                         )),
-                        OutlinedButton(
+                        CommonOutlineButton(
                             onPressed: () => uploadFileDialog(
                                 context,
                                 imagePicker,

@@ -47,7 +47,10 @@ class CategoryCard extends StatelessWidget {
           tileColor: context.colorScheme.surface.withOpacity(0.05),
           title: Text(category.name),
           leading: UserCircleAvatar(
-              backgroundImage: ImageKeys.default_image.assetImage()),
+              backgroundImage:
+                  (category.image == null || category.image!.isEmpty)
+                      ? ImageKeys.default_image.assetImage()
+                      : NetworkImage(category.image!) as ImageProvider),
           trailing: SizedBox(
             width: context.width * 0.3,
             child: Row(

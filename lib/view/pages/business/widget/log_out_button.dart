@@ -22,17 +22,15 @@ class LogOutButton extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: PagePadding.allLow(),
-            child: ZoomTapAnimation(
-              child: CommonElevationButton(
-                onPressed: () => logOutDialog(context, _loginProvider),
-                child: Padding(
-                  padding: PagePadding.allMedium(),
-                  child: Text("Log Out",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: context.text.titleMedium?.fontSize)),
-                ),
+            child: CommonElevationButton(
+              onPressed: () => logOutDialog(context, _loginProvider),
+              child: Padding(
+                padding: PagePadding.allMedium(),
+                child: Text("Log Out",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: context.text.titleMedium?.fontSize)),
               ),
             ),
           ),

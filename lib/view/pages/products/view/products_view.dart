@@ -76,9 +76,10 @@ class _ProductsViewViewState extends ProductsViewModel {
                         ),
                         padding: PagePadding.allHeight(),
                         itemBuilder: (context, index) => ProductItemCard(
+                          category: provider.productList![index],
                           deleteProduct: deleteProduct,
                           key: ValueKey(index),
-                          index: index,
+                    
                           categoryId: widget.categoryId,
                           menuId: widget.menuId,
                         ),

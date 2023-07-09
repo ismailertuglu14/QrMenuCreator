@@ -25,7 +25,6 @@ abstract class DashboardViewModel extends State<DashboardView>
     _animationController.dispose();
     super.dispose();
   }
-  
 
   Future<void> getRestaurantMenus() async {
     try {

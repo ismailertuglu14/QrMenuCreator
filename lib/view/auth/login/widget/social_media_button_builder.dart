@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../product/utility/page_padding.dart';
+import '../../../../product/widget/outline_button.dart';
 import '../service/social/Social_adapter.dart';
 
 class SocialMediaButtonBuilder extends StatelessWidget {
@@ -13,7 +14,7 @@ class SocialMediaButtonBuilder extends StatelessWidget {
   final void Function(String token) onCompleted;
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
+    return CommonOutlineButton(
         style: OutlinedButton.styleFrom(
           backgroundColor: adapter.model.backgroundColor,
         ),

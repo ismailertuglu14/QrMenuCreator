@@ -40,7 +40,7 @@ class CreateMenuDialog extends StatelessWidget {
             ),
           ),
           CommonTextField(
-            label: Text("Menu Name"),
+            hintText: "Menu Name",
             textController: menuNameController,
           ),
           Padding(

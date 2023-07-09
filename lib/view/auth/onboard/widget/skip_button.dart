@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../product/utility/page_padding.dart';
+import '../../../../product/widget/outline_button.dart';
 
 class OnboardSkipButton extends StatelessWidget {
   const OnboardSkipButton({super.key, required this.navigateToLogin});
@@ -10,7 +11,7 @@ class OnboardSkipButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: PagePadding.horizontalMedium(),
-      child: OutlinedButton(
+      child: CommonOutlineButton(
           onPressed: () => navigateToLogin(context),
           child: Padding(
             padding: PagePadding.allMedium(),

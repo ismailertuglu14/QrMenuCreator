@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/product/utility/zoom_tap_animation.dart';
 
-class CommonElevationButton extends StatelessWidget {
-  const CommonElevationButton(
+class CommonOutlineButton extends StatelessWidget {
+  const CommonOutlineButton(
       {super.key, required this.child, required this.onPressed, this.style});
   final Widget child;
   final void Function()? onPressed;
@@ -12,6 +12,6 @@ class CommonElevationButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ZoomTapAnimation(
         child:
-            ElevatedButton(style: style, onPressed: onPressed, child: child));
+            OutlinedButton(style: style, onPressed: onPressed, child: child));
   }
 }
