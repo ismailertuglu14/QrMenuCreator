@@ -3,6 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qrmenu/view/pages/createproduct/model/create_product_response_model.dart';
 
+import '../model/get_product_by_id_response_model.dart';
+import '../model/update_product_response_model.dart';
+
 abstract class ICreateProductService {
   late final Dio dio;
   ICreateProductService(this.dio);
@@ -19,4 +22,18 @@ abstract class ICreateProductService {
     required List<Nutrition> nutritions,
     required bool isActive,
   });
+
+  Future<GetProductByIdResponseModel> getProductById(
+      {required String productId});
+  Future<UpdateProductResponseModel> updateProduct ( {required String productId,
+    required String menuId,
+    required String categoryId,
+    required String name,
+    required String description,
+    required int price,
+    required String currency,
+    required List<XFile> files,
+    required List<Ingredient> ingredients,
+    required List<Nutrition> nutritions,
+    required bool isActive,}) ;
 }

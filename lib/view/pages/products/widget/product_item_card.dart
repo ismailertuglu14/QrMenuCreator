@@ -22,10 +22,10 @@ class ProductItemCard extends StatelessWidget {
     this.categoryId,
     this.menuId,
     required this.deleteProduct,
-    required this.category,
+    required this.product,
   });
 
-  final GetProductsByMenuIdData category;
+  final GetProductsByMenuIdData product;
   final String? categoryId;
   final String? menuId;
   final Future<void> Function() deleteProduct;
@@ -41,9 +41,8 @@ class ProductItemCard extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: PageBorderRadius.allMedium()),
                 tileColor: context.colorScheme.surface.withOpacity(0.05),
-                /* onTap: () => context.pushNamed(RouterKeys.CREATE_PRODUCT.name,
-                    queryParams: {"categoryId": categoryId, "menuId": menuId}),*/
-                title: Text(category.name),
+               
+                title: Text(product.name),
                 subtitle: Padding(
                   padding: PagePadding.verticalMin(),
                   child: Container(
@@ -57,26 +56,26 @@ class ProductItemCard extends StatelessWidget {
                           child: Padding(
                         padding: PagePadding.verticalMin(),
                         child: Text(
-                          "${category.price} TL",
+                          "${product.price} TL",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ))),
                 ),
                 leading: UserCircleAvatar(
-                    backgroundImage: (category.images == null ||
-                            category.images!.isEmpty ||
-                            category.images!.first.isEmpty)
+                    backgroundImage: (product.images == null ||
+                            product.images!.isEmpty ||
+                            product.images!.first.isEmpty)
                         ? ImageKeys.default_image.assetImage()
-                        : NetworkImage(category.images!.first)
+                        : NetworkImage(product.images!.first)
                             as ImageProvider),
                 trailing: PopupMenuButton(
-                  onOpened: () => provider.setSelectedProductId = category.id,
+                  onOpened: () => provider.setSelectedProductId = product.id,
                   onCanceled: () => provider.setSelectedProductId = null,
                   itemBuilder: (context) => [
                     PopupMenuItem(
                         value: 0,
                         onTap: () =>
-                            context.push(RouterKeys.CREATE_PRODUCT.route),
+                            context.pushNamed(RouterKeys.CREATE_PRODUCT.name,queryParams: {"productId": product.id}),
                         child: ListTile(
                           leading: ImageKeys.edit
                               .imageIcon(color: context.colorScheme.surface),

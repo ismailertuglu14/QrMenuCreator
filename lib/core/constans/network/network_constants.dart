@@ -32,6 +32,8 @@ class NetworkConstants {
   static const String CREATE_PRODUCT = "/product/create";
   static const String GET_RESTAURANT_PRODUCTS = "/product/customer/all";
   static const String PRODUCT_DELETE = "/product/delete";
+  static const String GET_PRODUCT_BY_ID = "/product/";
+  static const String UPDATE_PRODUCT = "/product/update/";
 
 //Menu Enpoints
   static const String GET_RESTAURANT_MENUS = "/menu/all";

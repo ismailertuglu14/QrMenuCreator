@@ -57,27 +57,28 @@ class _ProductsViewViewState extends ProductsViewModel {
         title: Text(widget.title ?? "Product Items"),
       ),
       body: Consumer<ProductsProvider>(
-        builder: (context, provider, child) => provider.productList!.isEmpty
+        builder: (context, provider, child) => (provider.productList != null &&
+                provider.productList!.isEmpty)
             ? emptyPageWidgetBuilder(
                 context, ImageKeys.empty_category, "Not found any item")
             : RefreshIndicator(
                 onRefresh: () => getProductsByMenuId(),
                 child: Scrollbar(
                   child: ReorderableListView.builder(
-                    itemCount: provider.productList!.length,
+                    itemCount: provider.productList?.length ?? 10,
                     header: Padding(
                       padding: PagePadding.allDefault(),
-                      child: Text("Add items in category",
+                      child: Text("Add product in category",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: context.text.titleMedium?.fontSize)),
                     ),
                     padding: PagePadding.allHeight(),
                     itemBuilder: (context, index) =>
-                        provider.productList == null
-                            ? getProductShimmer(context, index)
+                        (provider.productList == null || provider.isLoading)
+                            ? getProductShimmer(context)
                             : ProductItemCard(
-                                category: provider.productList![index],
+                                product: provider.productList![index],
                                 deleteProduct: deleteProduct,
                                 key: ValueKey(index),
                                 categoryId: widget.categoryId,

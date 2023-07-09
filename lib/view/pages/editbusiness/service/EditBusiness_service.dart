@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/constans/network/network_constants.dart';
 import '../model/change_cover_image_response_model.dart';
+import '../../createproduct/model/get_product_by_id_response_model.dart';
 import '../model/remove_banner_image_response_model.dart';
 import '../model/remove_cover_image_response_model.dart';
 import 'IEditBusiness_service.dart';
@@ -32,4 +33,6 @@ class EditBusinessService extends IEditBusinessService {
       throw UnimplementedError(e.toString());
     }
   }
+
+  
 }

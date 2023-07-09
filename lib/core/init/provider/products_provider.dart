@@ -49,4 +49,10 @@ class ProductsProvider extends ChangeNotifier {
     _productList?.removeWhere((element) => element.id == id);
     notifyListeners();
   }
+
+  void updateProductItem(GetProductsByMenuIdData sectionItem) {
+    _productList?.removeWhere((element) => element.id == sectionItem.id);
+    _productList?.add(sectionItem);
+    notifyListeners();
+  }
 }

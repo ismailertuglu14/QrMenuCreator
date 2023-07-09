@@ -113,6 +113,7 @@ class RouterManager with ChangeNotifier {
               context: context,
               state: state,
               child: CreateProductView(
+                  productId: state.queryParams["productId"],
                   categoryId: state.queryParams["categoryId"],
                   menuId: state.queryParams["menuId"]))),
       GoRoute(

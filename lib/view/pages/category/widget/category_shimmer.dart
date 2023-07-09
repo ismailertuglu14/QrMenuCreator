@@ -5,10 +5,10 @@ import 'package:shimmer/shimmer.dart';
 import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/page_padding.dart';
 
-Widget getCategoryShimmer(BuildContext context, int index) {
+Widget getCategoryShimmer(BuildContext context) {
   return Card(
-    color: context.colorScheme.surface.withOpacity(0.1),
-    key: ValueKey(index),
+    color: context.colorScheme.surface.withOpacity(0.05),
+    key: UniqueKey(),
     child: Padding(
       padding: PagePadding.allDefault(),
       child: Shimmer.fromColors(

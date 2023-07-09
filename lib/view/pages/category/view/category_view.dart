@@ -16,6 +16,7 @@ import 'package:qrmenu/product/utility/border_radius.dart';
 import 'package:qrmenu/product/utility/page_padding.dart';
 import 'package:qrmenu/product/widget/app_bar.dart';
 import 'package:qrmenu/product/widget/elevation_button.dart';
+import 'package:qrmenu/product/widget/empty_page_widget_builder.dart';
 import 'package:qrmenu/product/widget/text_field.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -74,29 +75,37 @@ class _CategoryViewState extends CategoryViewModel {
               )
             : RefreshIndicator(
                 onRefresh: () => getCategories(),
-                child: Scrollbar(
-                  child: ReorderableListView.builder(
-                    padding: PagePadding.allHeight(),
-                    itemCount: provider.categoryList!.length,
-                    header: Text("Add section in your menu",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: context.text.titleMedium?.fontSize)),
-                    itemBuilder: (context, index) =>
-                        (provider.categoryList == null || provider.isLoading)
-                            ? getCategoryShimmer(context, index)
-                            : CategoryCard(
-                                deleteCategory: deleteCategory,
-                                menuId: widget.id ?? "",
-                                category: provider.categoryList![index],
-                                key: ValueKey(provider.categoryList![index]),
-                                index: index),
-                    onReorder: (oldIndex, newIndex) {
-                      final item = provider.categoryList!.removeAt(oldIndex);
-                      provider.categoryList!.insert(newIndex, item);
-                    },
-                  ),
-                ),
+                child: (provider.categoryList != null &&
+                        provider.categoryList!.isEmpty)
+                    ? emptyPageWidgetBuilder(context, ImageKeys.empty_category,
+                        "Not found any category")
+                    : Scrollbar(
+                        child: ReorderableListView.builder(
+                          padding: PagePadding.allHeight(),
+                          itemCount: provider.categoryList?.length ?? 10,
+                          header: Text("Add category in your menu",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize:
+                                      context.text.titleMedium?.fontSize)),
+                          itemBuilder: (context, index) => (provider
+                                          .categoryList ==
+                                      null ||
+                                  provider.isLoading)
+                              ? getCategoryShimmer(context)
+                              : CategoryCard(
+                                  deleteCategory: deleteCategory,
+                                  menuId: widget.id ?? "",
+                                  category: provider.categoryList![index],
+                                  key: ValueKey(provider.categoryList![index]),
+                                  index: index),
+                          onReorder: (oldIndex, newIndex) {
+                            final item =
+                                provider.categoryList!.removeAt(oldIndex);
+                            provider.categoryList!.insert(newIndex, item);
+                          },
+                        ),
+                      ),
               ),
       ),
     );

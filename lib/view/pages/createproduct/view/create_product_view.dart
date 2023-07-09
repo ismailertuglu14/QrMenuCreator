@@ -38,10 +38,12 @@ import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/app_bar.dart';
 import '../../../../product/widget/custom_switch_list_tile.dart';
 import '../../category/model/get_category_response_model.dart';
+import '../model/get_product_by_id_response_model.dart';
 import '../../products/model/get_products_by_category_id_response_model.dart';
 import '../model/allergens_model.dart';
 import '../../../../product/widget/item_count_circle.dart';
 import '../model/create_product_response_model.dart';
+import '../model/update_product_response_model.dart';
 import '../service/CreateProduct_service.dart';
 import '../widget/add_allergens_dialog.dart';
 import '../widget/add_nutritin_facts_dialog.dart';
@@ -52,10 +54,12 @@ import '../widget/create_item_switch_list_tile_builder.dart';
 part '../viewmodel/create_product_view_model.dart';
 
 class CreateProductView extends StatefulWidget {
-  const CreateProductView({Key? key, this.menuId, this.categoryId})
+  const CreateProductView(
+      {Key? key, this.menuId, this.categoryId, this.productId})
       : super(key: key);
   final String? menuId;
   final String? categoryId;
+  final String? productId;
   @override
   State<CreateProductView> createState() => _CreateProductViewViewState();
 }
@@ -273,18 +277,20 @@ class _CreateProductViewViewState extends CreateProductViewModel {
                         children: [
                           Expanded(
                             child: Consumer<CreateProductProvider>(
-                              builder: (context, provider, child) =>
-                                  provider.isLoading
-                                      ? LottieKeys.loading.path(
-                                          width: context.width * 0.1,
-                                          height: context.width * 0.1)
-                                      : CommonElevationButton(
-                                          child: Padding(
-                                            padding: PagePadding.allHeight(),
-                                            child: Text("Save"),
-                                          ),
-                                          onPressed: () => createProduct(),
-                                        ),
+                              builder: (context, provider, child) => provider
+                                      .isLoading
+                                  ? LottieKeys.loading.path(
+                                      width: context.width * 0.1,
+                                      height: context.width * 0.1)
+                                  : CommonElevationButton(
+                                      child: Padding(
+                                        padding: PagePadding.allHeight(),
+                                        child: Text("Save"),
+                                      ),
+                                      onPressed: () => widget.productId != null
+                                          ? updateProduct()
+                                          : createProduct(),
+                                    ),
                             ),
                           ),
                         ],

@@ -64,7 +64,7 @@ class _EditBusinessViewState extends EditBusinessViewModel {
           child: Column(
             children: [
               Expanded(
-                flex: 3,
+                flex: 2,
                 child: Stack(
                   clipBehavior: Clip.none,
                   fit: StackFit.passthrough,
@@ -130,7 +130,7 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                 ),
               ),
               Expanded(
-                flex: 7,
+                flex: 6,
                 child: Padding(
                   padding: PagePadding.allHeight(),
                   child: Column(children: [
@@ -182,6 +182,22 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                           textInputAction: TextInputAction.next,
                           textController: _countryController),
                     ),
+                    Expanded(
+                        child: Row(
+                      children: [
+                        Expanded(
+                            child: Text(
+                          "Currency: TRY",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )),
+                        Expanded(
+                          child: CommonElevationButton(
+                            child: Text("Change Currency"),
+                            onPressed: () {},
+                          ),
+                        ),
+                      ],
+                    )),
                     Expanded(
                         child: Row(
                       children: [
