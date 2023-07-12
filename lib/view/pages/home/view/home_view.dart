@@ -51,8 +51,11 @@ class _HomeViewState extends HomeViewModels {
       appBar: CommonAppBar(
         automaticallyImplyLeading: false,
         title: Text(AppConstants.APP_NAME),
-        action: const [
+        action: [
           NotificationButton(),
+          IconButton(
+              onPressed: () => context.push(RouterKeys.QR.route),
+              icon: ImageKeys.qr.imageIcon(color: context.colorScheme.surface))
         ],
       ),
       body: Consumer<HomeProvider>(

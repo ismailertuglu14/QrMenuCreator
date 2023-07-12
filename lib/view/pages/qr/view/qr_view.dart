@@ -2,7 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/product/utility/border_radius.dart';
@@ -49,6 +52,7 @@ class _QrViewState extends QrViewModel {
                 value: null,
                 hint: Text("Select Menu"),
                 underline: SizedBox.shrink(),
+                icon: Icon(Icons.arrow_drop_down_rounded),
                 padding: PagePadding.allHeight(),
                 menuMaxHeight: context.height * .5,
                 borderRadius: PageBorderRadius.allMedium(),
@@ -56,6 +60,7 @@ class _QrViewState extends QrViewModel {
                     10,
                     (index) => DropdownMenuItem(
                           onTap: () {},
+                          
                           value: UniqueKey(),
                           child: Text("Menu $index"),
                         )),
@@ -107,33 +112,33 @@ class _QrViewState extends QrViewModel {
               ),
             ),
           ),
-          Padding(
-            padding: PagePadding.allDefault(),
-            child: Row(
-              children: [
-                Expanded(
-                    child: CommonOutlineButton(
-                        child: Padding(
-                          padding: PagePadding.allMedium(),
-                          child: Text("Download"),
-                        ),
-                        onPressed: () {})),
-              ],
-            ),
+          Row(
+            children: [
+              Expanded(
+                  child: Padding(
+                padding: PagePadding.allMedium(),
+                child: CommonOutlineButton(
+                    child: Padding(
+                      padding: PagePadding.allMedium(),
+                      child: Text("Download"),
+                    ),
+                    onPressed: () => downloadTemplate()),
+              )),
+            ],
           ),
-          Padding(
-            padding: PagePadding.allDefault(),
-            child: Row(
-              children: [
-                Expanded(
-                    child: CommonOutlineButton(
-                        child: Padding(
-                          padding: PagePadding.allMedium(),
-                          child: Text("Send email"),
-                        ),
-                        onPressed: () {})),
-              ],
-            ),
+          Row(
+            children: [
+              Expanded(
+                  child: Padding(
+                padding: PagePadding.allMedium(),
+                child: CommonOutlineButton(
+                    child: Padding(
+                      padding: PagePadding.allMedium(),
+                      child: Text("Send email"),
+                    ),
+                    onPressed: () {}),
+              )),
+            ],
           ),
         ],
       ),

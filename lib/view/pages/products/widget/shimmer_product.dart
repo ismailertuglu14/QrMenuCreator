@@ -10,12 +10,12 @@ Widget getProductShimmer(BuildContext context) {
     key: UniqueKey(),
     color: context.colorScheme.surface.withOpacity(0.1),
     child: Padding(
-      padding: EdgeInsets.all(8.0),
+      padding: PagePadding.allDefault(),
       child: Shimmer.fromColors(
         baseColor: Colors.grey[300]!,
         highlightColor: Colors.grey[100]!,
         child: ListTile(
-            contentPadding: EdgeInsets.all(8.0),
+            contentPadding: PagePadding.allMedium(),
             leading: CircleAvatar(
               backgroundColor: Colors.grey[300],
               radius: 30,
@@ -28,26 +28,21 @@ Widget getProductShimmer(BuildContext context) {
               height: 20,
               width: 50,
             ),
-            subtitle: Padding(
-              padding: PagePadding.verticalMin(),
-              child: Container(
+            subtitle: Container(
+                decoration: BoxDecoration(
+                  borderRadius: PageBorderRadius.allMedium(),
+                  color: context.colorScheme.primary,
+                ),
+                constraints: BoxConstraints(maxHeight: context.height * 0.03),
+                child: Center(
+                    child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: PageBorderRadius.allMedium(),
-                    color: context.colorScheme.primary,
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
-                  constraints: BoxConstraints(maxHeight: context.height * 0.03),
-                  child: Center(
-                      child: Padding(
-                          padding: PagePadding.verticalMin(),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            height: 10,
-                            width: 100,
-                          )))),
-            ),
+                  height: 10,
+                  width: 100,
+                ))),
             trailing: PopupMenuButton(
               itemBuilder: (context) => [],
             )),

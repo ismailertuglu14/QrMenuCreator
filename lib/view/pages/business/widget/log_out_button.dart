@@ -10,10 +10,7 @@ import 'log_out_dialog.dart';
 class LogOutButton extends StatelessWidget {
   const LogOutButton({
     super.key,
-    required LoginProvider loginProvider,
-  }) : _loginProvider = loginProvider;
-
-  final LoginProvider _loginProvider;
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +20,9 @@ class LogOutButton extends StatelessWidget {
           child: Padding(
             padding: PagePadding.allLow(),
             child: CommonElevationButton(
-              onPressed: () => logOutDialog(context, _loginProvider),
+              onPressed: () => showDialog(
+                  context: context,
+                  builder: (context) => logOutDialog(context)),
               child: Padding(
                 padding: PagePadding.allMedium(),
                 child: Text("Log Out",

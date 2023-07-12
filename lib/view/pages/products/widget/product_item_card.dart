@@ -13,6 +13,7 @@ import 'package:qrmenu/core/init/provider/products_provider.dart';
 import '../../../../core/constans/enum/route_keys.dart';
 import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/page_padding.dart';
+
 import '../../../../product/widget/user_circle_avatar.dart';
 import '../model/get_products_by_category_id_response_model.dart';
 
@@ -41,7 +42,6 @@ class ProductItemCard extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: PageBorderRadius.allMedium()),
                 tileColor: context.colorScheme.surface.withOpacity(0.05),
-               
                 title: Text(product.name),
                 subtitle: Padding(
                   padding: PagePadding.verticalMin(),
@@ -66,25 +66,25 @@ class ProductItemCard extends StatelessWidget {
                             product.images!.isEmpty ||
                             product.images!.first.isEmpty)
                         ? ImageKeys.default_image.assetImage()
-                        : NetworkImage(product.images!.first)
-                            as ImageProvider),
+                        : NetworkImage(product.images!.first) as ImageProvider),
                 trailing: PopupMenuButton(
                   onOpened: () => provider.setSelectedProductId = product.id,
                   onCanceled: () => provider.setSelectedProductId = null,
                   itemBuilder: (context) => [
                     PopupMenuItem(
                         value: 0,
-                        onTap: () =>
-                            context.pushNamed(RouterKeys.CREATE_PRODUCT.name,queryParams: {"productId": product.id}),
                         child: ListTile(
+                          onTap: () => context.pushNamed(
+                              RouterKeys.CREATE_PRODUCT.name,
+                              queryParams: {"productId": product.id}),
                           leading: ImageKeys.edit
                               .imageIcon(color: context.colorScheme.surface),
                           title: Text("Edit"),
                         )),
                     PopupMenuItem(
                       value: 1,
-                      onTap: () => deleteProduct(),
                       child: ListTile(
+                        onTap: () => deleteProduct(),
                         textColor: context.colorScheme.error,
                         leading: ImageKeys.delete
                             .imageIcon(color: context.colorScheme.error),

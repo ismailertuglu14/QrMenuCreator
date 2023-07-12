@@ -64,7 +64,6 @@ class _LoginViewState extends LoginViewModels {
                     Expanded(
                       flex: 3,
                       child: LoginPasswordTextField(
-                        
                           passwordController: _passwordController),
                     ),
                     Expanded(flex: 2, child: LoginButton(login: login)),

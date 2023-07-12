@@ -20,6 +20,7 @@ class ThemeProvider extends ChangeNotifier {
   bool? _isDark;
   bool? get isDark => _isDark;
   ThemeMode get getThemeMode => _getThemeMode();
+  
   void changeTheme(bool value) {
     _isDark = value;
     LocaleStorage.instance.setBoolValue(LocaleKeys.THEME_MODE, value);

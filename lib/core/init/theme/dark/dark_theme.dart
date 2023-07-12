@@ -16,6 +16,7 @@ class DarkThemeData {
   DarkThemeData._();
 
   ThemeData get theme => ThemeData(
+        visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: "SFPRO",
         colorScheme: const ColorScheme(
           brightness: Brightness.dark,
@@ -62,6 +63,11 @@ class DarkThemeData {
               shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)))),
         ),
+        tabBarTheme: TabBarTheme(
+            unselectedLabelStyle:
+                TextStyle(color: Colors.white.withOpacity(0.5)),
+            labelStyle: TextStyle(color: Colors.white),
+            indicator: CustomTabIndicator()),
         bottomSheetTheme: const BottomSheetThemeData(
             elevation: 0,
             shadowColor: Colors.transparent,

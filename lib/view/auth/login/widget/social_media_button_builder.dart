@@ -16,6 +16,7 @@ class SocialMediaButtonBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return CommonOutlineButton(
         style: OutlinedButton.styleFrom(
+          shape: StadiumBorder(),
           backgroundColor: adapter.model.backgroundColor,
         ),
         onPressed: () async {

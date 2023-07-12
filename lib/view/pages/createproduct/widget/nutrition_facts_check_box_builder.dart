@@ -8,37 +8,34 @@ class NutritionFactsCheckBoxBuilder extends StatelessWidget {
   const NutritionFactsCheckBoxBuilder({
     super.key,
     required this.title,
-    required this.value,
-    this.onChanged,
+   
+   
     this.hintText,
-    this.enabled,
-    this.onTapField,
+ 
+  
     this.onChangedField,
   });
   final String title;
 
-  final bool value;
-  final bool? enabled;
+
   final String? hintText;
   final void Function(String)? onChangedField;
 
-  final void Function()? onTapField;
-  final void Function(bool?)? onChanged;
+
+
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: PagePadding.allMin(),
-      child: CheckboxListTile(
+      child: ListTile(
         contentPadding: EdgeInsets.zero,
-        value: value,
-        onChanged: onChanged,
         title: Text(title),
-        secondary: SizedBox(
+        trailing: SizedBox(
             width: context.width / 5,
             child: CommonTextField(
-              onTap: onTapField,
-              enabled: enabled ?? true,
+          
+             
               hintText: hintText ?? "0",
               onChanged: onChangedField,
               textAlign: TextAlign.center,
@@ -46,7 +43,6 @@ class NutritionFactsCheckBoxBuilder extends StatelessWidget {
               keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             )),
-        controlAffinity: ListTileControlAffinity.leading,
       ),
     );
   }

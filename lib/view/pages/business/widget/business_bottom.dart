@@ -46,11 +46,7 @@ class BusinessBottom extends StatelessWidget {
                   leading: ImageKeys.theme_mode
                       .imageIcon(color: context.colorScheme.surface),
                   switchActiveColor: context.colorScheme.primary,
-                  onChanged: (value) {
-                    provider.changeTheme(value);
-                    LocaleStorage.instance
-                        .setBoolValue(LocaleKeys.THEME_MODE, value);
-                  },
+                  onChanged: provider.changeTheme,
                   value: provider.isDark!,
                   title: Text("Dark Mode",
                       style: TextStyle(color: context.colorScheme.surface)),
@@ -96,7 +92,7 @@ class BusinessBottom extends StatelessWidget {
         onTap: () => appVersionDialog(context),
         leading: ImageKeys.info,
       ),
-      LogOutButton(loginProvider: _loginProvider),
+      LogOutButton(),
     ]);
   }
 }

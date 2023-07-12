@@ -4,6 +4,7 @@ abstract class QrViewModel extends State<QrView>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
   late final ScreenshotController _screenshotController;
+
   Uint8List? imageFile;
   String? pdfFilePath;
 
@@ -24,27 +25,21 @@ abstract class QrViewModel extends State<QrView>
   }
 
   Future<void> createDownloadsDirectory() async {
-    final downloadsDirectory = await getExternalStorageDirectory();
-    final appDownloadsDirectory =
-        Directory('${downloadsDirectory!.path}/downloads');
+    final appDownloadsDirectory = Directory("/storage/emulated/0/Download/");
     if (!await appDownloadsDirectory.exists()) {
       await appDownloadsDirectory.create(recursive: true);
     }
   }
 
-  Future downloadTemplate({Widget? bo}) async {
-    createDownloadsDirectory();
+  Future<void> downloadTemplate() async {
+    await createDownloadsDirectory();
 
-    final appDocDir =
-        (await getExternalStorageDirectories(type: StorageDirectory.downloads))
-            ?.first;
-    //_screenshotController.captureFromWidget();
+    String directory = '/storage/emulated/0/Download/';
 
-    final file = File('$appDocDir/');
+    final fileName = "${DateTime.now().microsecondsSinceEpoch}qrmenu.png";
 
-    final downloadPath = '$appDocDir/';
-
-    final tempDir = await getTemporaryDirectory();
-    final tempPath = tempDir.path;
+    _screenshotController
+        .captureAndSave(directory, fileName: fileName)
+        .then((value) => Fluttertoast.showToast(msg: "Saved to $directory"));
   }
 }

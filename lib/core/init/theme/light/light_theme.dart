@@ -15,6 +15,7 @@ class LightThemeData {
 
   LightThemeData._();
   ThemeData get theme => ThemeData(
+      visualDensity: VisualDensity.adaptivePlatformDensity,
       fontFamily: "SFPRO",
       colorScheme: const ColorScheme(
         brightness: Brightness.light,
@@ -113,6 +114,11 @@ class LightThemeData {
           Color(0xFF161618),
         ),
       )),
+      tabBarTheme: TabBarTheme(
+          unselectedLabelStyle:
+              TextStyle(color: Color(0xFF161618).withOpacity(0.5)),
+          labelStyle: TextStyle(color: Color(0xFF161618)),
+          indicator: CustomTabIndicator()),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
               textStyle: MaterialStateProperty.all<TextStyle>(
