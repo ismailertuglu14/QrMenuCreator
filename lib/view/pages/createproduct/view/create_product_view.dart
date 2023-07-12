@@ -21,7 +21,6 @@ import 'package:qrmenu/core/init/provider/add_ons_provider.dart';
 import 'package:qrmenu/core/init/provider/create_product_provider.dart';
 import 'package:qrmenu/product/utility/border_radius.dart';
 import 'package:qrmenu/product/utility/box_decoration.dart';
-import 'package:pdf/pdf.dart';
 
 import 'package:qrmenu/product/utility/grid_delegates.dart';
 import 'package:qrmenu/product/widget/elevation_button.dart';

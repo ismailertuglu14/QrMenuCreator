@@ -6,7 +6,7 @@ abstract class DashboardViewModel extends State<DashboardView>
   late final DashboardService _dashboardService;
   late final DashboardProvider _dashboardProvider;
   late final AnimationController _animationController;
-  late final TextEditingController _menuNameController;
+ 
 
   @override
   void initState() {
@@ -16,7 +16,7 @@ abstract class DashboardViewModel extends State<DashboardView>
     _animationController =
         AnimationController(vsync: this, duration: PageDurations.low());
     _homeProvider = HomeProvider.instance;
-    _menuNameController = TextEditingController();
+ 
     WidgetsBinding.instance.addPostFrameCallback((_) => getRestaurantMenus());
   }
 
@@ -66,15 +66,15 @@ abstract class DashboardViewModel extends State<DashboardView>
   }
 
   Future<void> createMenu() async {
-    if (_menuNameController.text.isNotEmpty) {
+    if (_dashboardProvider.menuNameController.text.isNotEmpty) {
       try {
         _dashboardProvider.changeLoading();
         CreateMenuResponseModel response = await _dashboardService.createMenu(
             resquestModel: CreateMenuResquestModel(
-                name: _menuNameController.text, templateId: 0));
+                name: _dashboardProvider.menuNameController.text, templateId: 0));
         if (response.isSuccess && response.errors.isEmpty) {
           _dashboardProvider.addRestaurantMenu(response.data);
-          _menuNameController.clear();
+          _dashboardProvider.menuNameController.clear();
 
           Fluttertoast.showToast(msg: "Create Menu Success");
         } else {

@@ -11,10 +11,10 @@ class PageBorderRadius extends BorderRadius {
             bottom: const Radius.circular(8), top: const Radius.circular(8));
   const PageBorderRadius.verticallMedium()
       : super.vertical(
-            bottom: const Radius.circular(15), top: const Radius.circular(10));
+            bottom: const Radius.circular(10), top: const Radius.circular(10));
   const PageBorderRadius.verticallHeight()
       : super.vertical(
-            bottom: const Radius.circular(20), top: const Radius.circular(15));
+            bottom: const Radius.circular(15), top: const Radius.circular(15));
 
   const PageBorderRadius.horizontalDefault()
       : super.horizontal(
@@ -22,10 +22,10 @@ class PageBorderRadius extends BorderRadius {
 
   const PageBorderRadius.horizontalMedium()
       : super.horizontal(
-            left: const Radius.circular(15), right: const Radius.circular(10));
+            left: const Radius.circular(10), right: const Radius.circular(10));
   const PageBorderRadius.horizontalHeight()
       : super.horizontal(
-            left: const Radius.circular(20), right: const Radius.circular(15));
+            left: const Radius.circular(15), right: const Radius.circular(15));
 
   const PageBorderRadius.spesificTop()
       : super.only(

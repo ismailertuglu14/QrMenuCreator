@@ -58,8 +58,6 @@ dependencies:
   custom_qr_generator: ^0.1.2
   intl: ^0.17.0
   zxing_lib: ^0.6.0
-  flutter_file_downloader: ^1.1.2
-  pdf: ^3.10.4
   share_plus: ^7.0.2
   path_provider: ^2.0.15
   screenshot: ^2.1.0
@@ -82,6 +80,7 @@ flutter:
     - assets/languages/
     - assets/lotties/
     - assets/images/flags/
+    - assets/currencys/
 
   fonts:
     - family: SFPRO

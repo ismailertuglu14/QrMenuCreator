@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -187,13 +190,21 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                       children: [
                         Expanded(
                             child: Text(
-                          "Currency: TRY",
+                          "TRY",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         )),
                         Expanded(
                           child: CommonElevationButton(
                             child: Text("Change Currency"),
-                            onPressed: () {},
+                            onPressed: () => showDialog(
+                              context: context,
+                              builder: (context) => Dialog(
+                                  child: Column(
+                                children: [
+                                  CommonTextField(hintText: "Search Currency"),
+                                ],
+                              )),
+                            ),
                           ),
                         ),
                       ],

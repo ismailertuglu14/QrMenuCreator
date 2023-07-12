@@ -39,6 +39,8 @@ import '../service/Dashboard_service.dart';
 import '../widget/create_menu_dialog.dart';
 import '../widget/dashboard_app_bar.dart';
 import '../widget/dashboard_center_card.dart';
+import '../widget/dashboard_create_menu_button.dart';
+import '../widget/dashboard_menu_builder.dart';
 
 part '../viewmodel/dashboard_view_model.dart';
 
@@ -54,14 +56,8 @@ class _DashboardViewState extends DashboardViewModel {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        floatingActionButton: ZoomTapAnimation(
-          child: FloatingActionButton(
-              onPressed: () => showDialog(
-                  context: context,
-                  builder: (context) => CreateMenuDialog(
-                      menuNameController: _menuNameController,
-                      createMenu: createMenu)),
-              child: Icon(Icons.add_rounded)),
+        floatingActionButton: DashboardCreateMenuButton(
+          createMenu: createMenu,
         ),
         body: RefreshIndicator(
           onRefresh: () => getRestaurantMenus(),
@@ -70,28 +66,7 @@ class _DashboardViewState extends DashboardViewModel {
                 parent: AlwaysScrollableScrollPhysics()),
             slivers: [
               DashboardAppBar(),
-              SliverGrid.builder(
-                  gridDelegate: PageGridDelegates.height(),
-                  itemCount: context
-                      .watch<DashboardProvider>()
-                      .restaurantMenus
-                      ?.length,
-                  itemBuilder: (context, index) => Consumer<DashboardProvider>(
-                        builder: (context, provider, child) => (provider
-                                        .restaurantMenus ==
-                                    null ||
-                                provider.isLoading)
-                            ? LottieKeys.loading.path(width: context.width / 8)
-                            : provider.restaurantMenus!.isEmpty
-                                ? ImageKeys.empty_category.imageAsset()
-                                : DasboardCenterCard(
-                                    index: index,
-                                    length: provider.restaurantMenus!.length,
-                                    deleteRestaurantMenu: deleteRestaurantMenu,
-                                    provider: provider,
-                                    menu: provider.restaurantMenus![index],
-                                  ),
-                      )),
+              DashboardMenuBuilder(deleteRestaurantMenu: deleteRestaurantMenu)
             ],
           ),
         ));

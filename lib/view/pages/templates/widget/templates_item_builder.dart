@@ -9,8 +9,8 @@ import 'package:qrmenu/product/utility/page_padding.dart';
 import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/durations.dart';
 
-class TemplatesBottomSheet extends StatelessWidget {
-  const TemplatesBottomSheet({super.key});
+class TemplatesItemBuilder extends StatelessWidget {
+  const TemplatesItemBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {

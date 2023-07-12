@@ -10,7 +10,9 @@ class DashboardProvider extends ChangeNotifier {
     return _instance!;
   }
 
-  DashboardProvider._();
+  DashboardProvider._() {
+    _menuNameController = TextEditingController();
+  }
 
   List<RestaurantMenuData>? _restaurantMenus;
 
@@ -20,6 +22,9 @@ class DashboardProvider extends ChangeNotifier {
   bool _isLoading = false;
 
   String? get selectedMenuId => _selectedMenuId;
+  late final TextEditingController _menuNameController;
+
+  TextEditingController get menuNameController => _menuNameController;
 
   int get selectedMenuIndex => _selectedMenuIndex;
 

@@ -34,41 +34,17 @@ abstract class QrViewModel extends State<QrView>
 
   Future downloadTemplate({Widget? bo}) async {
     createDownloadsDirectory();
-    final pdf = pw.Document();
-    pdf.addPage(
-      pw.MultiPage(
-        build: (pw.Context context) {
-          return [];
-        },
-      ),
-    );
 
     final appDocDir =
         (await getExternalStorageDirectories(type: StorageDirectory.downloads))
             ?.first;
+    //_screenshotController.captureFromWidget();
 
     final file = File('$appDocDir/');
 
-    await file.writeAsBytes(await pdf.save());
-
-    // PDF dosyasını indirin
     final downloadPath = '$appDocDir/';
 
-    /*  await FileDownloader.downloadFile(
-        url: appDocDir.toString(),
-        
-        onProgress: (count, total) {
-          print('Downloading: $count/$total');
-        });
-
-         final tempDir = await getTemporaryDirectory();
-  final tempPath = tempDir.path;
-  final pdfFilePath = '$tempPath/qr_menu.pdf';
-
-  final file = File(pdfFilePath);
-  await file.writeAsBytes(await pdf.save());
-
-  // PDF dosyasını indir
-  await FlutterFileDownloader.downloadFile(pdfFilePath);*/
+    final tempDir = await getTemporaryDirectory();
+    final tempPath = tempDir.path;
   }
 }

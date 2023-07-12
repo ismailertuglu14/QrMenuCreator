@@ -44,7 +44,6 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
     }
   }
 
-
   @override
   void dispose() {
     super.dispose();

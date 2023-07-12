@@ -85,7 +85,11 @@ class RouterManager with ChangeNotifier {
           name: RouterKeys.QR.name,
           path: RouterKeys.QR.route,
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: const QrView())),
+              context: context,
+              state: state,
+              child: QrView(
+                menuId: state.queryParams["menuId"],
+              ))),
       GoRoute(
           name: RouterKeys.CATEGORY.name,
           path: RouterKeys.CATEGORY.route,
