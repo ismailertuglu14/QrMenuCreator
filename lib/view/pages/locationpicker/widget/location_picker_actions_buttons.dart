@@ -30,8 +30,8 @@ class LocationPickerActionButtons extends StatelessWidget {
           FloatingActionButton(
             onPressed: () => getCurrentLocation(),
             child: provider.currentLocation != null
-                ? Icon(Icons.my_location_rounded)
-                : Icon(Icons.location_searching),
+                ? Icon(Icons.my_location_rounded, color: Colors.white)
+                : Icon(Icons.location_searching, color: Colors.white),
           ),
         ],
       ),

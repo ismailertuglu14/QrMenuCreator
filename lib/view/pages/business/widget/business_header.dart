@@ -30,17 +30,12 @@ class BusinessHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Consumer<EditBusinessProvider>(
-            builder: (context, value, child) => UserCircleAvatar(
+            builder: (context, provider, child) => UserCircleAvatar(
               maxRadius: 40,
-              backgroundImage: (LocaleStorage.instance
-                              .getStringValue(LocaleKeys.COVER_IMAGE) ==
-                          null ||
-                      LocaleStorage.instance
-                          .getStringValue(LocaleKeys.COVER_IMAGE)
-                          .isEmpty)
-                  ? ImageKeys.default_image.assetImage()
-                  : NetworkImage(LocaleStorage.instance
-                      .getStringValue(LocaleKeys.COVER_IMAGE)) as ImageProvider,
+              backgroundImage:
+                  (provider.coverImage == null || provider.coverImage!.isEmpty)
+                      ? ImageKeys.default_image.assetImage()
+                      : NetworkImage(provider.coverImage!) as ImageProvider,
             ),
           ),
           Padding(

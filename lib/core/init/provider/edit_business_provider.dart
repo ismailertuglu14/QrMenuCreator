@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../../product/widget/countrycodepicker/country_code.dart';
+import '../../constans/enum/add_media_link_keys.dart';
 import '../../constans/enum/gender_keys.dart';
 
 class EditBusinessProvider extends ChangeNotifier {
@@ -15,7 +16,7 @@ class EditBusinessProvider extends ChangeNotifier {
   EditBusinessProvider._init();
 
   String? _coverImage;
-
+  AddMediaLinkKeys _selectedAddMediaType = AddMediaLinkKeys.WEBSITE;
   String? _bannerImage;
   bool _isLoading = false;
   String? _currentLocationName;
@@ -34,7 +35,14 @@ class EditBusinessProvider extends ChangeNotifier {
 
   String? get bannerImage => _bannerImage;
 
+  AddMediaLinkKeys get selectedAddMediaType => _selectedAddMediaType;
+
   AutovalidateMode get autoValidateMode => _autoValidateMode;
+
+  void changeSelectedAddMediaType(AddMediaLinkKeys value) {
+    _selectedAddMediaType = value;
+    notifyListeners();
+  }
 
   void changeCurrentLocationName(String value) {
     _currentLocationName = value;
@@ -42,7 +50,6 @@ class EditBusinessProvider extends ChangeNotifier {
   }
 
   void changeCurrentLocation(LatLng value) {
-    
     _currentLocation = value;
     notifyListeners();
   }

@@ -9,7 +9,7 @@ import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../model/subscription_basic_plan_model.dart';
 import '../model/subscription_pro_plan_model.dart';
-import '../model/subscription_ultra_plan_model.dart';
+
 
 class SubscriptionCard extends StatelessWidget {
   const SubscriptionCard({

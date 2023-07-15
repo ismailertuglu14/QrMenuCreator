@@ -14,6 +14,7 @@ class NetworkConstants {
   static const String LOGIN = "/auth/signin";
   static const String REGISTER = "/auth/signup";
   static const String CHANGE_PASSWORD = "/auth/change-password";
+  static const String GET_BUSINESS = "/restaurant";
 
 // Restaurant Endpoints
   static const String CHANGE_COVER_IMAGE = "/restaurant/change-profile-image";

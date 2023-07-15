@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qrmenu/core/constans/enum/image_keys.dart';
+import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/init/provider/templates_provider.dart';
 import 'package:qrmenu/product/utility/border_radius.dart';
@@ -23,11 +25,7 @@ class SelectTemplateBottomSheet extends StatelessWidget {
           animationController: _animationController,
           backgroundColor: context.colorScheme.surface.withOpacity(0.05),
           shadowColor: Colors.black,
-          enableDrag: true,
-          onDragStart: (details) {
-            provider.toggleBottomSheet();
-          },
-          onDragEnd: (details, {required isClosing}) {},
+          onDragStart: (details) => provider.toggleBottomSheet(),
           showDragHandle: true,
           constraints: BoxConstraints.expand(
               height:
@@ -58,10 +56,7 @@ class SelectTemplateBottomSheet extends StatelessWidget {
                       color: context.colorScheme.primary,
                       location: BannerLocation.topEnd,
                       message: "PRO",
-                      child: Image.network(
-                        "https://picsum.photos/1920/1080",
-                        fit: BoxFit.cover,
-                      ),
+                      child: ImageKeys.celadon.imageAsset(fit: BoxFit.fitWidth),
                     ),
                   ),
                 ),

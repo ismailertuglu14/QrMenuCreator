@@ -9,12 +9,14 @@ import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/init/cache/local_storage.dart';
 import 'package:qrmenu/product/utility/border_radius.dart';
+import 'package:qrmenu/product/utility/durations.dart';
 import 'package:qrmenu/product/utility/grid_delegates.dart';
 import 'package:qrmenu/product/widget/app_bar.dart';
 import 'package:qrmenu/product/widget/text_field.dart';
 import 'package:qrmenu/product/widget/user_circle_avatar.dart';
 import 'package:qrmenu/product/widget/video_player.dart';
 import 'package:qrmenu/view/pages/templates/model/base_template_model.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../utility/page_padding.dart';
 
@@ -28,6 +30,26 @@ class CeladonMenuStyle extends StatefulWidget {
 
 class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  late final ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+
+    super.dispose();
+  }
+
+  void _scrollToCategory() {
+    _scrollController.animateTo(0,
+        duration: PageDurations.low(), curve: Curves.easeInOut);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,33 +63,38 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
               child: GridView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: widget.model.categories.length,
-                  gridDelegate: PageGridDelegates.min(),
-                  itemBuilder: (context, index) => Column(
-                        children: [
-                          Expanded(
-                              flex: 8,
-                              child: Card(
-                                clipBehavior: Clip.antiAlias,
-                                child: (widget.model.categories[index].image ==
-                                            null ||
-                                        widget.model.categories[index].image!
-                                            .isEmpty)
-                                    ? ImageKeys.default_image
-                                        .imageAsset(fit: BoxFit.cover)
-                                    : Image.network(
-                                        widget.model.categories[index].image!,
-                                        fit: BoxFit.cover),
-                              )),
-                          Expanded(
-                            flex: 2,
-                            child: Text(
-                                widget.model.categories[index].name
-                                    .toUpperCase(),
-                                style: TextStyle(
-                                    fontSize:
-                                        context.text.titleLarge?.fontSize)),
-                          )
-                        ],
+                  padding: PagePadding.allLow(),
+                  gridDelegate: PageGridDelegates.normal(),
+                  itemBuilder: (context, index) => GestureDetector(
+                        onTap: () => _scrollToCategory(),
+                        child: Column(
+                          children: [
+                            Expanded(
+                                flex: 8,
+                                child: Card(
+                                  clipBehavior: Clip.antiAlias,
+                                  child: (widget.model.categories[index]
+                                                  .image ==
+                                              null ||
+                                          widget.model.categories[index].image!
+                                              .isEmpty)
+                                      ? ImageKeys.default_image
+                                          .imageAsset(fit: BoxFit.cover)
+                                      : Image.network(
+                                          widget.model.categories[index].image!,
+                                          fit: BoxFit.cover),
+                                )),
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                  widget.model.categories[index].name
+                                      .toUpperCase(),
+                                  style: TextStyle(
+                                      fontSize:
+                                          context.text.titleLarge?.fontSize)),
+                            )
+                          ],
+                        ),
                       )),
             ),
             Flexible(
@@ -121,6 +148,7 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                     child: Scrollbar(
                       child: ListView.builder(
                           shrinkWrap: true,
+                          controller: _scrollController,
                           padding: PagePadding.allDefault(),
                           itemCount: widget.model.products.length,
                           itemBuilder: (context, index) => GestureDetector(
@@ -131,121 +159,165 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                           child: SizedBox(
                                             height: context.height * 0.6,
                                             width: context.width * 0.8,
-                                            child: Stack(
-                                              alignment: Alignment.topRight,
+                                            child: Column(
                                               children: [
-                                                Column(
-                                                  children: [
-                                                    Expanded(
-                                                      flex: 5,
-                                                      child: PageView.builder(
-                                                        scrollDirection:
-                                                            Axis.horizontal,
-                                                        itemBuilder: (context,
-                                                                index) =>
-                                                            CommonVideoPlayer(
-                                                                url:
-                                                                    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"),
-                                                        itemCount: 10,
-                                                      ),
-                                                    ),
-                                                    Expanded(
-                                                        flex: 5,
-                                                        child: Padding(
-                                                          padding: PagePadding
-                                                              .allMedium(),
-                                                          child: Column(
+                                                Expanded(
+                                                  flex: 5,
+                                                  child: PageView.builder(
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    itemBuilder: (context,
+                                                            index) =>
+                                                        CommonVideoPlayer(
+                                                            url:
+                                                                "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"),
+                                                    itemCount: 5,
+                                                  ),
+                                                ),
+                                                AnimatedSmoothIndicator(
+                                                  activeIndex: 2,
+                                                  count: 5,
+                                                  effect: ScrollingDotsEffect(
+                                                      dotHeight: 2,
+                                                      dotWidth: 20,
+                                                      dotColor: context
+                                                          .colorScheme.primary,
+                                                      activeDotColor: context
+                                                          .colorScheme
+                                                          .secondary),
+                                                ),
+                                                Expanded(
+                                                    flex: 5,
+                                                    child: Padding(
+                                                      padding:
+                                                          PagePadding.allLow(),
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: [
+                                                          Row(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
-                                                                    .spaceEvenly,
+                                                                    .center,
                                                             children: [
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Text(
-                                                                    widget
-                                                                        .model
-                                                                        .products[
-                                                                            index]
-                                                                        .name
-                                                                        .toUpperCase(),
-                                                                    style: TextStyle(
-                                                                        fontSize: context
-                                                                            .text
-                                                                            .headlineSmall
-                                                                            ?.fontSize),
-                                                                  ),
-                                                                  Card(
-                                                                      color: context
-                                                                          .colorScheme
-                                                                          .primary,
-                                                                      child:
-                                                                          Padding(
-                                                                        padding:
-                                                                            PagePadding.allLow(),
-                                                                        child:
-                                                                            Text(
-                                                                          "New",
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                          ),
-                                                                        ),
-                                                                      )),
-                                                                ],
-                                                              ),
                                                               Text(
                                                                 widget
                                                                     .model
                                                                     .products[
                                                                         index]
-                                                                    .description,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
+                                                                    .name
+                                                                    .toUpperCase(),
                                                                 style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
                                                                     fontSize: context
                                                                         .text
                                                                         .headlineSmall
                                                                         ?.fontSize),
                                                               ),
-                                                              Text(
-                                                                " ${widget.model.products[index].price.toString()} ₺",
-                                                                style: TextStyle(
-                                                                    fontSize: context
-                                                                        .text
-                                                                        .headlineSmall
-                                                                        ?.fontSize),
-                                                              ),
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceEvenly,
+                                                              Card(
+                                                                  color: context
+                                                                      .colorScheme
+                                                                      .primary,
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        PagePadding
+                                                                            .allLow(),
+                                                                    child: Text(
+                                                                      "New",
+                                                                      style:
+                                                                          TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
+                                                                    ),
+                                                                  )),
+                                                            ],
+                                                          ),
+                                                          Text(
+                                                            widget
+                                                                .model
+                                                                .products[index]
+                                                                .description,
+                                                            maxLines: 3,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: context
+                                                                    .text
+                                                                    .titleMedium
+                                                                    ?.fontSize),
+                                                          ),
+                                                          Text(
+                                                            " ${widget.model.products[index].price.toString()} ₺",
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: context
+                                                                    .text
+                                                                    .titleLarge
+                                                                    ?.fontSize),
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
+                                                            children: [
+                                                              Column(
                                                                 children: [
                                                                   ImageKeys.milk
                                                                       .imageAsset(
                                                                           width:
                                                                               context.width * 0.1),
-                                                                  ImageKeys.hot
-                                                                      .imageAsset(
-                                                                          width:
-                                                                              context.width * 0.1),
-                                                                  ImageKeys
-                                                                      .gluten
-                                                                      .imageAsset(
-                                                                          width:
-                                                                              context.width * 0.1),
+                                                                  Text(
+                                                                      "Süt ürünleri",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize: context
+                                                                              .text
+                                                                              .bodySmall
+                                                                              ?.fontSize))
                                                                 ],
-                                                              )
+                                                              ),
+                                                              ImageKeys.hot.imageAsset(
+                                                                  width: context
+                                                                          .width *
+                                                                      0.1),
+                                                              ImageKeys.gluten
+                                                                  .imageAsset(
+                                                                      width: context
+                                                                              .width *
+                                                                          0.1),
+                                                              ImageKeys.celery
+                                                                  .imageAsset(
+                                                                      width: context
+                                                                              .width *
+                                                                          0.1),
+                                                              ImageKeys
+                                                                  .sulphurdioxide
+                                                                  .imageAsset(
+                                                                      width: context
+                                                                              .width *
+                                                                          0.1),
+                                                              ImageKeys.soybean
+                                                                  .imageAsset(
+                                                                      width: context
+                                                                              .width *
+                                                                          0.1),
                                                             ],
-                                                          ),
-                                                        ))
-                                                  ],
-                                                ),
-                                                Positioned(child: CloseButton())
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ))
                                               ],
                                             ),
                                           ),

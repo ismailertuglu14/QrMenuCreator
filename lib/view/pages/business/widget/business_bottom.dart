@@ -9,6 +9,7 @@ import 'package:qrmenu/core/extension/image_icon_extenison.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/core/init/cache/local_storage.dart';
 import 'package:qrmenu/product/utility/border_radius.dart';
+import 'package:qrmenu/product/utility/zoom_tap_animation.dart';
 import 'package:qrmenu/product/widget/custom_switch_list_tile.dart';
 import 'package:qrmenu/product/widget/text_field.dart';
 import 'package:qrmenu/product/widget/url_app_router.dart';
@@ -27,7 +28,6 @@ import '../../../../product/widget/elevation_button.dart';
 import '../../../../product/widget/email_app_router.dart';
 import 'app_version_dialog.dart';
 import 'business_header.dart';
-import 'log_out_button.dart';
 
 class BusinessBottom extends StatelessWidget {
   const BusinessBottom({
@@ -92,7 +92,36 @@ class BusinessBottom extends StatelessWidget {
         onTap: () => appVersionDialog(context),
         leading: ImageKeys.info,
       ),
-      LogOutButton(),
+      Row(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: PagePadding.allLow(),
+              child: GestureDetector(
+                onTap: () => showDialog(
+                    context: context,
+                    builder: (context) => logOutDialog(context)),
+                child: ZoomTapAnimation(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: context.colorScheme.primary,
+                        borderRadius: PageBorderRadius.allMedium()),
+                    child: Padding(
+                      padding: PagePadding.allMedium(),
+                      child: Center(
+                        child: Text("Log Out",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: context.text.titleMedium?.fontSize)),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      )
     ]);
   }
 }

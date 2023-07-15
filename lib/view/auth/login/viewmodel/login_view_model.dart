@@ -13,7 +13,7 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
     super.initState();
     _loginService = LoginService(NetworkManager.instance.dio);
     _loginProvider = LoginProvider.instance;
-   
+
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
   }
@@ -26,6 +26,32 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
     _passwordController.dispose();
   }
 
+  Future<void> getBusiness() async {
+    try {
+      GetBusinessResponseModel response = await _loginService.getBusiness();
+      if (response.isSuccess && response.errors.isEmpty) {
+        LocaleStorage.instance
+            .setStringValue(LocaleKeys.CURRENCY, response.data.defaultCurrency);
+
+        LocaleStorage.instance
+            .setStringValue(LocaleKeys.BUSINESS_NAME, response.data.name);
+
+        LocaleStorage.instance
+            .setStringValue(LocaleKeys.ADDRESS, response.data.address);
+
+        LocaleStorage.instance
+            .setStringValue(LocaleKeys.COVER_IMAGE, response.data.profileImage);
+
+        LocaleStorage.instance.setStringValue(
+            LocaleKeys.PHONE_COUNTRY_CODE, response.data.phone.countryCode);
+
+        LocaleStorage.instance.setStringValue(
+            LocaleKeys.PHONE_NUMBER, response.data.phone.phoneNumber);
+      }
+    } catch (e) {
+      Fluttertoast.showToast(msg: "Failed to get business");
+    }
+  }
 
   Future<void> login() async {
     if (_loginProvider.formKey.currentState!.validate()) {
@@ -36,6 +62,7 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
                 email: _emailController.text,
                 password: _passwordController.text));
         if (response.isSuccess && response.errors.isEmpty) {
+          getBusiness();
           LocaleStorage.instance.setStringValue(
               LocaleKeys.ACCESS_TOKEN, response.data.accessToken);
           LocaleStorage.instance.setStringValue(

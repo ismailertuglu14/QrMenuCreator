@@ -23,7 +23,7 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
           LocaleStorage.instance.getStringValue(LocaleKeys.BUSINESS_NAME);
       _emailController.text =
           LocaleStorage.instance.getStringValue(LocaleKeys.EMAIL);
-
+    
       _countryController.text =
           LocaleStorage.instance.getStringValue(LocaleKeys.PHONE_NUMBER);
     });

@@ -25,10 +25,10 @@ enum ImageKeys {
   empty_category,
   default_image,
   qr,
-  chef,
+
   notification,
   delete,
-  create_menu,
+
   edit,
   rate_app,
   info,
@@ -49,5 +49,10 @@ enum ImageKeys {
   sesame,
   sulphurdioxide,
   lupin,
-  molluscs
+  molluscs,
+  celadon,
+  threads,
+  twitter,
+  instagram,
+  website
 }

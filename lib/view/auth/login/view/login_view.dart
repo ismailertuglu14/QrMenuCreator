@@ -20,6 +20,7 @@ import '../../../../core/init/network/network_manager.dart';
 import '../../../../core/init/provider/login_provider.dart';
 import '../../../../product/mixin/cache_init_mixin.dart';
 import '../../../../product/widget/elevation_button.dart';
+import '../model/get_business_response_model.dart';
 import '../model/login_request_model.dart';
 import '../model/login_response_model.dart';
 import '../service/email/Login_service.dart';
