@@ -26,7 +26,6 @@ import '../../../../product/widget/customqrgenerator/qr_painter.dart';
 import '../../../../product/widget/customqrgenerator/shapes/ball_shape.dart';
 import '../../../../product/widget/customqrgenerator/shapes/frame_shape.dart';
 import '../../../../product/widget/customqrgenerator/shapes/pixel_shape.dart';
-import '../../templates/widget/templates_item_builder.dart';
 import '../widget/qr_border_painter.dart';
 part '../viewmodel/qr_view_model.dart';
 
@@ -60,7 +59,6 @@ class _QrViewState extends QrViewModel {
                     10,
                     (index) => DropdownMenuItem(
                           onTap: () {},
-                          
                           value: UniqueKey(),
                           child: Text("Menu $index"),
                         )),

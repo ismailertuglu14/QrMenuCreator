@@ -73,7 +73,7 @@ class _CreateProductViewViewState extends CreateProductViewModel {
         body: SingleChildScrollView(
             padding: PagePadding.allMedium(),
             child: SizedBox(
-              height: context.height * 1.5,
+              height: context.height * 1.2,
               width: context.width,
               child: Column(children: [
                 Expanded(
@@ -108,47 +108,6 @@ class _CreateProductViewViewState extends CreateProductViewModel {
                         textController: _descriptionController,
                         keyboardType: TextInputType.name,
                         textInputAction: TextInputAction.done,
-                      ),
-                      Consumer<CreateProductProvider>(
-                        builder: (context, provider, child) => Padding(
-                          padding: PagePadding.allDefault(),
-                          child: Column(children: [
-                            CreateItemSwitchTileBuilder(
-                              value: provider.isGluetenFree,
-                              onChanged: (value) =>
-                                  provider.changeIsGluetenFree(value),
-                              title: "Gluten Free",
-                              leading: ImageKeys.gluten_free,
-                            ),
-                            CreateItemSwitchTileBuilder(
-                              value: provider.isVegetarian,
-                              onChanged: (value) {
-                                provider.changeIsVegetarian(value);
-                              },
-                              title: "Vegeterian",
-                              leading: ImageKeys.vegeterian,
-                            ),
-                            CreateItemSwitchTileBuilder(
-                              value: provider.isVegan,
-                              title: "Vegan",
-                              onChanged: (value) =>
-                                  provider.changeIsVegan(value),
-                              leading: ImageKeys.vegan,
-                            ),
-                            CreateItemSwitchTileBuilder(
-                                value: provider.isLactoseFree,
-                                title: "Lactose Free",
-                                onChanged: (value) =>
-                                    provider.changeIsLactoseFree(value),
-                                leading: ImageKeys.lactose_free),
-                            CreateItemSwitchTileBuilder(
-                                value: provider.isHalal,
-                                title: "Halal",
-                                onChanged: (value) =>
-                                    provider.changeIsHalal(value),
-                                leading: ImageKeys.halal),
-                          ]),
-                        ),
                       ),
                       CreateItemListTileBuilder(
                         onTap: () => addNutritionFactsDialog(context),
@@ -226,8 +185,10 @@ class _CreateProductViewViewState extends CreateProductViewModel {
                                                         .withOpacity(0.2)),
                                             child: index !=
                                                     provider.allergens.length
-                                                ? Icon(provider
-                                                    .allergens[index].icon)
+                                                ? provider
+                                                    .suggestionAllergens[index]
+                                                    .icon
+                                                    .imageAsset()
                                                 : Icon(Icons.add_rounded)),
                                       );
                                     },
@@ -264,13 +225,20 @@ class _CreateProductViewViewState extends CreateProductViewModel {
                       ),
                       Consumer<CreateProductProvider>(
                         builder: (context, provider, child) => ListTileSwitch(
+                            value: provider.isNew,
+                            contentPadding: EdgeInsets.zero,
+                            switchActiveColor: context.colorScheme.primary,
+                            title: Text("New", style: context.text.titleMedium),
+                            onChanged: provider.changeIsNew),
+                      ),
+                      Consumer<CreateProductProvider>(
+                        builder: (context, provider, child) => ListTileSwitch(
                             value: provider.isActive,
                             contentPadding: EdgeInsets.zero,
                             switchActiveColor: context.colorScheme.primary,
                             title:
                                 Text("Active", style: context.text.titleMedium),
-                            onChanged: (value) =>
-                                provider.changeIsActive(value)),
+                            onChanged: provider.changeIsActive),
                       ),
                       Row(
                         children: [

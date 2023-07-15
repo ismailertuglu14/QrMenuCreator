@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:qrmenu/core/constans/enum/image_keys.dart';
 
 import '../../../view/pages/createproduct/model/allergens_model.dart';
 
@@ -13,14 +14,10 @@ class CreateProductProvider extends ChangeNotifier {
 
   CreateProductProvider._init();
 
-  bool _isGluetenFree = false;
-  bool _isLactoseFree = false;
-  bool _isVegan = false;
-  bool _isVegetarian = false;
-  bool _isHalal = false;
   bool _isActive = false;
   bool _kcalCalculate = false;
   bool _isAddeedFibre = false;
+  bool _isNew = false;
 
   bool _isLoading = false;
 
@@ -37,18 +34,20 @@ class CreateProductProvider extends ChangeNotifier {
 
   List<AllergensModel> _allergens = [];
   final List<AllergensModel> _suggestionAllergens = [
-    AllergensModel("Fish", Icons.food_bank),
-    AllergensModel("Fish", Icons.food_bank),
-    AllergensModel("Fish", Icons.food_bank),
-    AllergensModel("Fish", Icons.food_bank),
-    AllergensModel("Fish", Icons.food_bank),
-    AllergensModel("Fish", Icons.food_bank),
-    AllergensModel("Fish", Icons.food_bank),
-    AllergensModel("Fish", Icons.food_bank),
-    AllergensModel("Fish", Icons.food_bank),
-    AllergensModel("Fish", Icons.food_bank),
-    AllergensModel("Fish", Icons.food_bank),
-    AllergensModel("Fish", Icons.food_bank),
+    AllergensModel("Molluscs", ImageKeys.molluscs),
+    AllergensModel("Egg", ImageKeys.egg),
+    AllergensModel("Fish", ImageKeys.fish),
+    AllergensModel("Lupin", ImageKeys.lupin),
+    AllergensModel("Soya", ImageKeys.soybean),
+    AllergensModel("Milk", ImageKeys.milk),
+    AllergensModel("Peanuts", ImageKeys.peanut),
+    AllergensModel("Gluten", ImageKeys.gluten),
+    AllergensModel("Mustard", ImageKeys.mustard),
+    AllergensModel("Nut", ImageKeys.nut),
+    AllergensModel("Sesame", ImageKeys.sesame),
+    AllergensModel("Celery", ImageKeys.celery),
+    AllergensModel("Sulphites", ImageKeys.sulphurdioxide),
+    AllergensModel("Crutaceans", ImageKeys.crustaceans),
   ];
 
   bool get kcalCalculate => _kcalCalculate;
@@ -56,12 +55,9 @@ class CreateProductProvider extends ChangeNotifier {
   int get carbohydrate => _carbohydrate;
   int get fat => _fat;
   int get kcal => _kcal;
-  bool get isGluetenFree => _isGluetenFree;
+
   bool get isActive => _isActive;
-  bool get isLactoseFree => _isLactoseFree;
-  bool get isVegan => _isVegan;
-  bool get isVegetarian => _isVegetarian;
-  bool get isHalal => _isHalal;
+  bool get isNew => _isNew;
 
   List<AllergensModel> get suggestionAllergens => _suggestionAllergens;
 
@@ -76,11 +72,6 @@ class CreateProductProvider extends ChangeNotifier {
   int get itemImageCurentIndex => _itemImageCurentIndex;
 
   void clearAll() {
-    _isGluetenFree = false;
-    _isLactoseFree = false;
-    _isVegan = false;
-    _isVegetarian = false;
-    _isHalal = false;
     _isActive = false;
     _kcalCalculate = false;
     _isLoading = false;
@@ -91,6 +82,11 @@ class CreateProductProvider extends ChangeNotifier {
     _allergens = [];
     _itemImageCurentIndex = 0;
     _itemPreviewList = [];
+  }
+
+  void changeIsNew(bool value) {
+    _isNew = value;
+    notifyListeners();
   }
 
   void changeIsAddeedFibre(bool value) {
@@ -150,31 +146,6 @@ class CreateProductProvider extends ChangeNotifier {
 
   void changeIsActive(bool value) {
     _isActive = value;
-    notifyListeners();
-  }
-
-  void changeIsGluetenFree(bool value) {
-    _isGluetenFree = value;
-    notifyListeners();
-  }
-
-  void changeIsLactoseFree(bool value) {
-    _isLactoseFree = value;
-    notifyListeners();
-  }
-
-  void changeIsVegan(bool value) {
-    _isVegan = value;
-    notifyListeners();
-  }
-
-  void changeIsVegetarian(bool value) {
-    _isVegetarian = value;
-    notifyListeners();
-  }
-
-  void changeIsHalal(bool value) {
-    _isHalal = value;
     notifyListeners();
   }
 

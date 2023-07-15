@@ -35,7 +35,6 @@ class _CommonVideoPlayerState extends State<CommonVideoPlayer> {
       aspectRatio: 16 / 9,
       //showControlsOnInitialize: true,
       //autoInitialize: true,
-      fullScreenByDefault: true,
 
       autoInitialize: true,
       allowFullScreen: true,

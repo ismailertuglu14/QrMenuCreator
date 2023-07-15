@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 
 import '../../../../core/init/provider/create_product_provider.dart';
@@ -38,19 +39,34 @@ Future<dynamic> addAllergensDialog(BuildContext context) {
                       itemCount: provider.suggestionAllergens.length,
                       padding: PagePadding.allHeight(),
                       gridDelegate: PageGridDelegates.ultra(),
-                      itemBuilder: (context, index) => Container(
-                          width: context.width * 0.2,
-                          height: context.height * 0.1,
-                          decoration: BoxDecoration(
-                              borderRadius: PageBorderRadius.allMedium(),
-                              color: context.colorScheme.primary),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(provider.suggestionAllergens[index].icon),
-                              Text(provider.suggestionAllergens[index].name)
-                            ],
-                          ))),
+                      itemBuilder: (context, index) => GestureDetector(
+                            onTap: () {
+                              provider.allergens.contains(
+                                      provider.suggestionAllergens[index])
+                                  ? provider.removeAllergens(
+                                      provider.suggestionAllergens[index])
+                                  : provider.addAllergens(
+                                      provider.suggestionAllergens[index]);
+                            },
+                            child: Container(
+                                width: context.width * 0.2,
+                                height: context.height * 0.1,
+                                decoration: BoxDecoration(
+                                    borderRadius: PageBorderRadius.allMedium(),
+                                    color: context.colorScheme.primary),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    provider.suggestionAllergens[index].icon
+                                        .imageAsset(width: context.width * 0.1),
+                                    Padding(
+                                      padding: PagePadding.horizontalMin(),
+                                      child: Text(provider
+                                          .suggestionAllergens[index].name),
+                                    )
+                                  ],
+                                )),
+                          )),
                   Padding(
                     padding: PagePadding.allMin(),
                     child: Row(
@@ -62,8 +78,6 @@ Future<dynamic> addAllergensDialog(BuildContext context) {
                               child: Text("Add"),
                             ),
                             onPressed: () {
-                              provider.addAllergens(AllergensModel(
-                                  "name", Icons.fastfood_outlined));
                               context.pop();
                             },
                           ),

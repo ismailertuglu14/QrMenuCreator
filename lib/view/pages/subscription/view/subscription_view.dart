@@ -52,14 +52,6 @@ class _SubscriptionState extends SubscriptionViewModel {
                     onTap: () => provider
                         .changeSubscriptionPlan(SubscriptionPlanKeys.Pro),
                   ),
-                  SubscriptionCard(
-                    title: "Ultra",
-                    price: 25,
-                    planKey: SubscriptionPlanKeys.Ultra,
-                    isSelected: false,
-                    onTap: () => provider
-                        .changeSubscriptionPlan(SubscriptionPlanKeys.Ultra),
-                  ),
                 ])),
           ),
         ),

@@ -57,21 +57,7 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
             Nutrition(name: "Fats", value: _createProductProvider.fat),
             Nutrition(name: "Fibre", value: _createProductProvider.fibre),
           ],
-          ingredients: [
-            Ingredient(
-                name: "Gluten Free",
-                isInclude: _createProductProvider.isGluetenFree),
-            Ingredient(
-                name: "Vegaterian",
-                isInclude: _createProductProvider.isVegetarian),
-            Ingredient(
-                name: "Vegan", isInclude: _createProductProvider.isVegan),
-            Ingredient(
-                name: "Lactos Free",
-                isInclude: _createProductProvider.isLactoseFree),
-            Ingredient(
-                name: "Halal", isInclude: _createProductProvider.isHalal),
-          ],
+          ingredients: [],
         );
         if (response.isSuccess && response.errors.isEmpty) {
           _productsProvider.addProductItem(GetProductsByMenuIdData(
@@ -121,21 +107,7 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
             Nutrition(name: "Fats", value: _createProductProvider.fat),
             Nutrition(name: "Fibre", value: _createProductProvider.fibre),
           ],
-          ingredients: [
-            Ingredient(
-                name: "Gluten Free",
-                isInclude: _createProductProvider.isGluetenFree),
-            Ingredient(
-                name: "Vegaterian",
-                isInclude: _createProductProvider.isVegetarian),
-            Ingredient(
-                name: "Vegan", isInclude: _createProductProvider.isVegan),
-            Ingredient(
-                name: "Lactos Free",
-                isInclude: _createProductProvider.isLactoseFree),
-            Ingredient(
-                name: "Halal", isInclude: _createProductProvider.isHalal),
-          ],
+          ingredients: [],
         );
 
         if (response.isSuccess && response.errors.isEmpty) {
@@ -175,16 +147,7 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
           _createProductProvider.changeFibre(response.data.nutritions[3].value);
           _createProductProvider
               .changeProtein(response.data.nutritions[0].value);
-          _createProductProvider
-              .changeIsGluetenFree(response.data.ingredients[0].isInclude);
-          _createProductProvider
-              .changeIsVegetarian(response.data.ingredients[1].isInclude);
-          _createProductProvider
-              .changeIsVegan(response.data.ingredients[2].isInclude);
-          _createProductProvider
-              .changeIsLactoseFree(response.data.ingredients[3].isInclude);
-          _createProductProvider
-              .changeIsHalal(response.data.ingredients[4].isInclude);
+
           _nameController.text = response.data.name;
           _priceController.text = response.data.price.toString();
           _descriptionController.text = response.data.description;

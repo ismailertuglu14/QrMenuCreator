@@ -57,7 +57,10 @@ class SubscriptionCard extends StatelessWidget {
                   builder: (context, provider, child) => Align(
                     alignment: Alignment.center,
                     child: Text(
-                        "\$ ${(provider.isYearly ? price * 12 : price)}",
+                        provider.subscriptionPlanKeys ==
+                                SubscriptionPlanKeys.Basic
+                            ? "Free"
+                            : "\$ ${(provider.isYearly ? price * 12 : price)}",
                         style: TextStyle(
                             color: context.colorScheme.surface,
                             fontSize: context.text.headlineSmall?.fontSize)),
@@ -117,9 +120,7 @@ class SubscriptionCardDescriptionBuilder extends StatelessWidget {
       case SubscriptionPlanKeys.Pro:
         planModel = SubscriptionProPlanModels.proPlanList;
         break;
-      case SubscriptionPlanKeys.Ultra:
-        planModel = SubscriptionUltraPlanModels.ultraPlanList;
-        break;
+
       default:
         return ErrorWidget("Error");
     }
