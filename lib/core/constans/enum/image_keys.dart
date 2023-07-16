@@ -55,5 +55,6 @@ enum ImageKeys {
   twitter,
   instagram,
   website,
-  whatsapp
+  whatsapp,
+  fulvous
 }

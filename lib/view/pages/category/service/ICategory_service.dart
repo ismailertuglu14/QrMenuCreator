@@ -9,6 +9,8 @@ import '../model/create_category_response_model.dart';
 import '../model/delete_category_request_model.dart';
 import '../model/get_category_request_model.dart';
 import '../model/get_category_response_model.dart';
+import '../model/relocate_category_request_model.dart';
+import '../model/relocate_category_response_model.dart';
 
 abstract class ICategoryService {
   late final Dio dio;
@@ -20,4 +22,7 @@ abstract class ICategoryService {
       {required GetCategoriesRequestModel requestModel});
   Future<DeleteCategoryResponseModel> deleteCategory(
       {required DeleteCategoryRequestModel requestModel});
+
+  Future<RelocateCategoryResponseModel> relocateCategory(
+      {required RelocateCategoryRequestModel requestModel});
 }

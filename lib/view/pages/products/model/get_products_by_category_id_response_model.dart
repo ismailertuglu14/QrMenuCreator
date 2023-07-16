@@ -36,6 +36,7 @@ class GetProductsByMenuIdData {
   final int price;
   final String currency;
   final List<String>? images;
+  final bool isNew;
 
   GetProductsByMenuIdData({
     required this.id,
@@ -44,6 +45,7 @@ class GetProductsByMenuIdData {
     required this.price,
     required this.currency,
     required this.images,
+    required this.isNew,
   });
 
   factory GetProductsByMenuIdData.fromJson(Map<String, dynamic> json) =>
@@ -54,6 +56,7 @@ class GetProductsByMenuIdData {
         price: json["price"],
         currency: json["currency"],
         images: List<String>.from(json["images"].map((x) => x)),
+        isNew: json["isNew"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -63,5 +66,6 @@ class GetProductsByMenuIdData {
         "price": price,
         "currency": currency,
         "images": List<dynamic>.from(images?.map((x) => x) ?? []),
+        "isNew": isNew,
       };
 }

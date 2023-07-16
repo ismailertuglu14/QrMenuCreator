@@ -64,7 +64,8 @@ class UpdateProductData {
     required this.updatedDate,
   });
 
-  factory UpdateProductData.fromJson(Map<String, dynamic> json) => UpdateProductData(
+  factory UpdateProductData.fromJson(Map<String, dynamic> json) =>
+      UpdateProductData(
         id: json["_id"],
         restaurantId: json["restaurantId"],
         menuId: json["menuId"],

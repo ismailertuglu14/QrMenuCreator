@@ -18,6 +18,7 @@ import 'package:qrmenu/product/widget/app_bar.dart';
 import 'package:qrmenu/product/widget/elevation_button.dart';
 import 'package:qrmenu/product/widget/empty_page_widget_builder.dart';
 import 'package:qrmenu/product/widget/text_field.dart';
+import 'package:qrmenu/view/pages/category/model/relocate_category_request_model.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/init/network/network_manager.dart';
@@ -29,6 +30,7 @@ import '../model/delete_category_request_model.dart';
 import '../model/delete_category_response_model.dart';
 import '../model/get_category_request_model.dart';
 import '../model/get_category_response_model.dart';
+import '../model/relocate_category_response_model.dart';
 import '../service/Category_service.dart';
 import '../widget/add_category_button.dart';
 import '../widget/category_card.dart';
@@ -88,6 +90,9 @@ class _CategoryViewState extends CategoryViewModel {
                                   fontWeight: FontWeight.bold,
                                   fontSize:
                                       context.text.titleMedium?.fontSize)),
+                          onReorderStart: (index) =>
+                              provider.setSelectedCategoryId(
+                                  provider.categoryList![index].id),
                           itemBuilder: (context, index) => (provider
                                           .categoryList ==
                                       null ||
@@ -100,6 +105,12 @@ class _CategoryViewState extends CategoryViewModel {
                                   key: ValueKey(provider.categoryList![index]),
                                   index: index),
                           onReorder: (oldIndex, newIndex) {
+                            if (oldIndex < newIndex) {
+                              newIndex -= 1;
+                            }
+                            relocateCategory(
+                                categoryId: provider.selectedCategoryId ?? "",
+                                newPosition: newIndex);
                             final item =
                                 provider.categoryList!.removeAt(oldIndex);
                             provider.categoryList!.insert(newIndex, item);

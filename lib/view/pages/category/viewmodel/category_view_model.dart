@@ -38,6 +38,23 @@ abstract class CategoryViewModel extends State<CategoryView> {
     }
   }
 
+  Future<void> relocateCategory(
+      {required String categoryId, required int newPosition}) async {
+    try {
+      RelocateCategoryResponseModel response =
+          await _categoryService.relocateCategory(
+              requestModel: RelocateCategoryRequestModel(
+                  categoryId: categoryId, newPosition: newPosition));
+      if (response.isSuccess && response.errors.isEmpty) {
+        Fluttertoast.showToast(msg: "Category relocated");
+      } else {
+        Fluttertoast.showToast(msg: response.errors[0].message);
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   Future<void> deleteCategory() async {
     try {
       _categoryProvider.changeLoading();

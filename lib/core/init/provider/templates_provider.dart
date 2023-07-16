@@ -14,7 +14,7 @@ class TemplatesProvider extends ChangeNotifier {
   }
 
   TemplatesProvider._();
-  TemplateKeys _selectedTemplateKey = TemplateKeys.CELADON;
+  TemplateKeys _selectedTemplateKey = TemplateKeys.FULVOUS;
 
   TemplateKeys get selectedTemplateKey => _selectedTemplateKey;
   bool _isBottomSheetOpen = false;

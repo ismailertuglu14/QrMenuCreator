@@ -136,6 +136,22 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                                 style: TextStyle(fontWeight: FontWeight.bold))),
                       ),
                       Expanded(
+                        flex: 3,
+                        child: TextButton.icon(
+                            onPressed: () =>
+                                context.push(RouterKeys.LOCATION_PICKER.route),
+                            icon: Icon(Icons.maps_home_work_outlined),
+                            label: Text(
+                              (_editBusinessProvider.currentLocation != null &&
+                                      _editBusinessProvider
+                                              .currentLocationName !=
+                                          null)
+                                  ? "${_editBusinessProvider.currentLocationName}"
+                                  : "No Location Selected",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )),
+                      ),
+                      Expanded(
                         flex: 6,
                         child: Consumer<EditBusinessProvider>(
                             builder: (context, provider, child) => Column(
@@ -207,22 +223,6 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                                     ),
                                   ],
                                 )),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: TextButton.icon(
-                            onPressed: () =>
-                                context.push(RouterKeys.LOCATION_PICKER.route),
-                            icon: Icon(Icons.maps_home_work_outlined),
-                            label: Text(
-                              (_editBusinessProvider.currentLocation != null &&
-                                      _editBusinessProvider
-                                              .currentLocationName !=
-                                          null)
-                                  ? "Location: ${_editBusinessProvider.currentLocationName}"
-                                  : "No Location Selected",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            )),
                       ),
                     ],
                   ),

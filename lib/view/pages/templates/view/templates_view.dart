@@ -46,7 +46,7 @@ class _TemplatesViewState extends TemplatesViewModel {
           animationController: _animationController),
       body: Consumer<TemplatesProvider>(
           builder: (context, provider, child) => provider.isLoading
-              ? LottieKeys.loading.path()
+              ? Center(child: LottieKeys.loading.path())
               : _templates[provider.selectedTemplateKey.index]),
     );
   }

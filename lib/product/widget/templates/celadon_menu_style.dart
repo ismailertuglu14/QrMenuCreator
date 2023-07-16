@@ -21,6 +21,8 @@ import 'package:qrmenu/view/pages/templates/model/base_template_model.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../utility/page_padding.dart';
+import '../template_file_preview.dart';
+import 'fulvous_menu_style.dart';
 
 class CeladonMenuStyle extends StatefulWidget {
   const CeladonMenuStyle({super.key, required this.model});
@@ -84,6 +86,7 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                           .imageAsset(fit: BoxFit.cover)
                                       : Image.network(
                                           widget.model.categories[index].image!,
+                                          width: context.width * 0.2,
                                           fit: BoxFit.cover),
                                 )),
                             Expanded(
@@ -164,29 +167,12 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                             child: Column(
                                               children: [
                                                 Expanded(
-                                                  flex: 5,
-                                                  child: PageView.builder(
-                                                    scrollDirection:
-                                                        Axis.horizontal,
-                                                    itemBuilder: (context,
-                                                            index) =>
-                                                        CommonVideoPlayer(
-                                                            url:
-                                                                "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"),
-                                                    itemCount: 5,
-                                                  ),
-                                                ),
-                                                AnimatedSmoothIndicator(
-                                                  activeIndex: 2,
-                                                  count: 5,
-                                                  effect: ScrollingDotsEffect(
-                                                      dotHeight: 2,
-                                                      dotWidth: 20,
-                                                      dotColor: context
-                                                          .colorScheme.primary,
-                                                      activeDotColor: context
-                                                          .colorScheme
-                                                          .secondary),
+                                                  flex: 6,
+                                                  child: TemplateFilePreview(
+                                                      files: widget
+                                                          .model
+                                                          .products[index]
+                                                          .images!),
                                                 ),
                                                 Expanded(
                                                     flex: 5,
@@ -219,24 +205,31 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                                                         .headlineSmall
                                                                         ?.fontSize),
                                                               ),
-                                                              Card(
-                                                                  color: context
-                                                                      .colorScheme
-                                                                      .primary,
-                                                                  child:
-                                                                      Padding(
-                                                                    padding:
-                                                                        PagePadding
-                                                                            .allLow(),
-                                                                    child: Text(
-                                                                      "New",
-                                                                      style:
-                                                                          TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
-                                                                      ),
-                                                                    ),
-                                                                  )),
+                                                              widget
+                                                                      .model
+                                                                      .products[
+                                                                          index]
+                                                                      .isNew
+                                                                  ? Card(
+                                                                      color: context
+                                                                          .colorScheme
+                                                                          .primary,
+                                                                      child:
+                                                                          Padding(
+                                                                        padding:
+                                                                            PagePadding.allLow(),
+                                                                        child:
+                                                                            Text(
+                                                                          "New",
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                          ),
+                                                                        ),
+                                                                      ))
+                                                                  : SizedBox
+                                                                      .shrink(),
                                                             ],
                                                           ),
                                                           Text(
@@ -272,49 +265,29 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
                                                                     .spaceEvenly,
-                                                            children: [
-                                                              Column(
-                                                                children: [
-                                                                  ImageKeys.milk
-                                                                      .imageAsset(
-                                                                          width:
-                                                                              context.width * 0.1),
-                                                                  Text(
-                                                                      "Süt ürünleri",
-                                                                      style: TextStyle(
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          fontSize: context
-                                                                              .text
-                                                                              .bodySmall
-                                                                              ?.fontSize))
-                                                                ],
-                                                              ),
-                                                              ImageKeys.hot.imageAsset(
-                                                                  width: context
-                                                                          .width *
-                                                                      0.1),
-                                                              ImageKeys.gluten
-                                                                  .imageAsset(
-                                                                      width: context
-                                                                              .width *
-                                                                          0.1),
-                                                              ImageKeys.celery
-                                                                  .imageAsset(
-                                                                      width: context
-                                                                              .width *
-                                                                          0.1),
-                                                              ImageKeys
-                                                                  .sulphurdioxide
-                                                                  .imageAsset(
-                                                                      width: context
-                                                                              .width *
-                                                                          0.1),
-                                                              ImageKeys.soybean
-                                                                  .imageAsset(
-                                                                      width: context
-                                                                              .width *
-                                                                          0.1),
+                                                            children: const [
+                                                              ProductAllergensBuilder(
+                                                                  image:
+                                                                      ImageKeys
+                                                                          .milk,
+                                                                  titile:
+                                                                      "Milk products"),
+                                                              ProductAllergensBuilder(
+                                                                  image:
+                                                                      ImageKeys
+                                                                          .hot,
+                                                                  titile:
+                                                                      "Hot food"),
+                                                              ProductAllergensBuilder(
+                                                                  image: ImageKeys
+                                                                      .gluten,
+                                                                  titile:
+                                                                      "Gluten"),
+                                                              ProductAllergensBuilder(
+                                                                  image: ImageKeys
+                                                                      .soybean,
+                                                                  titile:
+                                                                      "Soybean"),
                                                             ],
                                                           )
                                                         ],
@@ -368,17 +341,24 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                    widget.model.products[index]
-                                                        .name,
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: context
-                                                            .text
-                                                            .titleLarge
-                                                            ?.fontSize,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
+                                                Padding(
+                                                  padding: PagePadding
+                                                      .verticalDefault(),
+                                                  child: Text(
+                                                      widget.model
+                                                          .products[index].name,
+                                                      style: TextStyle(
+                                                          color:
+                                                              context
+                                                                  .colorScheme
+                                                                  .surface,
+                                                          fontSize: context
+                                                              .text
+                                                              .titleLarge
+                                                              ?.fontSize,
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                ),
                                                 Text(
                                                     widget.model.products[index]
                                                         .description,
@@ -387,19 +367,27 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                                             .text
                                                             .titleLarge
                                                             ?.fontSize,
-                                                        color: Colors.black,
+                                                        color: context
+                                                            .colorScheme
+                                                            .surface,
                                                         overflow: TextOverflow
                                                             .ellipsis)),
-                                                Text(
-                                                    "${widget.model.products[index].price} ₺",
-                                                    style: TextStyle(
-                                                        fontSize: context
-                                                            .text
-                                                            .titleLarge
-                                                            ?.fontSize,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
+                                                Padding(
+                                                  padding: PagePadding
+                                                      .verticalDefault(),
+                                                  child: Text(
+                                                      "${widget.model.products[index].price} ₺",
+                                                      style: TextStyle(
+                                                          fontSize: context
+                                                              .text
+                                                              .titleLarge
+                                                              ?.fontSize,
+                                                          color: context
+                                                              .colorScheme
+                                                              .surface,
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -445,18 +433,22 @@ class DrawerMenu extends StatelessWidget {
                 Consumer<EditBusinessProvider>(
                   builder: (context, provider, child) => UserCircleAvatar(
                       backgroundImage: LocaleStorage.instance
-                              .getStringValue(LocaleKeys.BUSINESS_NAME)
+                              .getStringValue(LocaleKeys.COVER_IMAGE)
                               .isEmpty
                           ? ImageKeys.default_image.assetImage()
                           : NetworkImage(LocaleStorage.instance
-                                  .getStringValue(LocaleKeys.BUSINESS_NAME))
+                                  .getStringValue(LocaleKeys.COVER_IMAGE))
                               as ImageProvider),
                 ),
                 Padding(
                   padding: PagePadding.allDefault(),
                   child: Text(
                     LocaleStorage.instance
-                        .getStringValue(LocaleKeys.BUSINESS_NAME),
+                            .getStringValue(LocaleKeys.BUSINESS_NAME)
+                            .isEmpty
+                        ? "Business Name"
+                        : LocaleStorage.instance
+                            .getStringValue(LocaleKeys.BUSINESS_NAME),
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: context.text.titleLarge?.fontSize),

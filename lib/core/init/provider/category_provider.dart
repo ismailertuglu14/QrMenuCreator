@@ -27,6 +27,8 @@ class CategoryProvider extends ChangeNotifier {
   ];
   List<GetCategoriesData> _categoryList = [];
 
+  
+
   bool _isLoading = false;
 
   int? _selectedSuggestionIndex;

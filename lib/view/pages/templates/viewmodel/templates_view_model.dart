@@ -23,10 +23,12 @@ abstract class TemplatesViewModel extends State<TemplatesView>
         reverseDuration: PageDurations.normal());
 
     _model = BaseTemplateModel(
-        _templatesProvider.categories, _templatesProvider.products);
+      _templatesProvider.categories,
+      _templatesProvider.products,
+    );
     _templates = [
-      CeladonMenuStyle(model: _model),
       FulvousMenuStyle(model: _model),
+      CeladonMenuStyle(model: _model),
     ];
     getMenus();
   }

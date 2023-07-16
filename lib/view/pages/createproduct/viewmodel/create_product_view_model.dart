@@ -61,6 +61,7 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
         );
         if (response.isSuccess && response.errors.isEmpty) {
           _productsProvider.addProductItem(GetProductsByMenuIdData(
+              isNew: true,
               id: response.data.id,
               name: response.data.name,
               description: response.data.description,
@@ -112,6 +113,7 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
 
         if (response.isSuccess && response.errors.isEmpty) {
           _productsProvider.updateProductItem(GetProductsByMenuIdData(
+              isNew: true,
               id: response.data.id,
               name: response.data.name,
               description: response.data.description,

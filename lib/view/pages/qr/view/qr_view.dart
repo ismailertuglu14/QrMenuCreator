@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+import 'package:qrmenu/core/constans/enum/template_keys.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/init/provider/dashboard_provider.dart';
 import 'package:qrmenu/product/utility/border_radius.dart';
@@ -80,7 +81,29 @@ class _QrViewState extends QrViewModel {
                 ),
               )),
           Expanded(
-            flex: 7,
+              flex: 1,
+              child: Consumer<QrProvider>(
+                builder: (context, provider, child) => DropdownButton(
+                  isExpanded: true,
+                  value: provider.selectedTemplate,
+                  hint: Text("Select Template"),
+                  underline: SizedBox.shrink(),
+                  icon: Icon(Icons.arrow_drop_down_rounded),
+                  padding: PagePadding.allHeight(),
+                  menuMaxHeight: context.height * .5,
+                  borderRadius: PageBorderRadius.allMedium(),
+                  items: List.generate(
+                      TemplateKeys.values.length,
+                      (index) => DropdownMenuItem(
+                            value: TemplateKeys.values[index],
+                            child: Text(TemplateKeys.values[index].name),
+                          )),
+                  onChanged: (value) =>
+                      provider.changeSelectedTemplate(value as TemplateKeys),
+                ),
+              )),
+          Expanded(
+            flex: 6,
             child: Screenshot(
               controller: _screenshotController,
               child: Center(

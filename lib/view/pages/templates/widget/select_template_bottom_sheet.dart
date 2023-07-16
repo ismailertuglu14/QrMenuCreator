@@ -52,11 +52,16 @@ class SelectTemplateBottomSheet extends StatelessWidget {
                                   value: provider.menus?[index].id,
                                   child: Row(
                                     children: [
-                                      Text(provider.menus![index].name
-                                          .toUpperCase()),
+                                      Text(
+                                          provider.menus![index].name
+                                              .toUpperCase(),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold)),
                                       Spacer(),
                                       Text(
-                                          "${provider.menus?[index].productCount ?? 0} Products"),
+                                          "${provider.menus?[index].productCount ?? 0} Products",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold)),
                                     ],
                                   ),
                                 )),
@@ -93,9 +98,12 @@ class SelectTemplateBottomSheet extends StatelessWidget {
                           child: Banner(
                             color: context.colorScheme.primary,
                             location: BannerLocation.topEnd,
-                            message: "PRO",
-                            child: ImageKeys.celadon
-                                .imageAsset(fit: BoxFit.fitWidth),
+                            message: index == 0 ? "FREE" : "PRO",
+                            child: index == 0
+                                ? ImageKeys.fulvous
+                                    .imageAsset(fit: BoxFit.fitWidth)
+                                : ImageKeys.celadon
+                                    .imageAsset(fit: BoxFit.fitWidth),
                           ),
                         ),
                       ),

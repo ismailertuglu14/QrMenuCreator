@@ -30,6 +30,7 @@ class NetworkConstants {
   static const String CREATE_CATEGORY = "/category/create";
   static const String GET_RESTAURANT_CATEGORIES = "/category/customer/all";
   static const String CATEGORY_DELETE = "/category/delete";
+  static const String CATEGORY_RELOCATE = "/category/relocate";
 
 //Product Endpoints
   static const String CREATE_PRODUCT = "/product/create";

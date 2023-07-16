@@ -40,7 +40,7 @@ class _OnboardViewState extends OnboardViewModel {
           Expanded(
             flex: 1,
             child: AnimatedSmoothIndicator(
-                effect: WormEffect(
+                effect: ExpandingDotsEffect(
                     dotHeight: 10,
                     dotWidth: 10,
                     activeDotColor: context.colorScheme.primary),

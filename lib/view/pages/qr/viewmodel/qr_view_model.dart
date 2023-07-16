@@ -13,6 +13,7 @@ abstract class QrViewModel extends State<QrView>
   @override
   void initState() {
     super.initState();
+
     _dashboardService = DashboardService(NetworkManager.instance.dio);
     _qrProvider = QrProvider.instance;
 
@@ -53,14 +54,18 @@ abstract class QrViewModel extends State<QrView>
   }
 
   Future<void> downloadTemplate() async {
-    await createDownloadsDirectory();
+    if (await Permission.storage.isGranted) {
+      await createDownloadsDirectory();
 
-    String directory = '/storage/emulated/0/Download/';
+      String directory = '/storage/emulated/0/Download/';
 
-    final fileName = "${DateTime.now().microsecondsSinceEpoch}qrmenu.png";
+      final fileName = "${DateTime.now().microsecondsSinceEpoch}qrmenu.png";
 
-    _screenshotController
-        .captureAndSave(directory, fileName: fileName)
-        .then((value) => Fluttertoast.showToast(msg: "Saved to $directory"));
+      _screenshotController
+          .captureAndSave(directory, fileName: fileName)
+          .then((value) => Fluttertoast.showToast(msg: "Saved to $directory"));
+    } else {
+      Permission.storage.request();
+    }
   }
 }
