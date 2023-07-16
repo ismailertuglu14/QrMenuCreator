@@ -20,6 +20,7 @@ class NetworkConstants {
 // Restaurant Endpoints
   static const String CHANGE_COVER_IMAGE = "/restaurant/change-profile-image";
   static const String ADD_SOCIAL_MEDIA = "/restaurant/social-media";
+  static const String UPDATE_BUSINESS = "/restaurant/update";
 
 //Map Endpoints
   static const String GET_LOCATION_NAME =

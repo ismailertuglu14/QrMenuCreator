@@ -38,8 +38,10 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
             .setStringValue(LocaleKeys.BUSINESS_NAME, response.data.name);
         LocaleStorage.instance
             .setStringValue(LocaleKeys.RESTAURANT_ID, response.data.id);
-        LocaleStorage.instance
-            .setStringValue(LocaleKeys.ADDRESS, response.data.address ?? "");
+        /*LocaleStorage.instance.setStringValue(
+            LocaleKeys.LOCATION_LATITUDE, response.data.address ?? "");
+        LocaleStorage.instance.setStringValue(
+            LocaleKeys.LOCATION_LATITUDE, response.data.address ?? "");*/
 
         LocaleStorage.instance.setStringValue(
             LocaleKeys.COVER_IMAGE, response.data.profileImage ?? "");

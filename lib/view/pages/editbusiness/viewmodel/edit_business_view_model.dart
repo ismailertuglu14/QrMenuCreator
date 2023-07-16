@@ -62,7 +62,6 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
     if (_socialMediaLinkController.text.isNotEmpty) {
       try {
         if (_editBusinessProvider.isLinkEditing) {
-          
           _editBusinessProvider.updateSocialMediaLinks(AddSocialMediaLinkModel(
               link: _editBusinessProvider.editingItem?.link,
               imageKey: _editBusinessProvider.editingItem!.imageKey,
@@ -108,10 +107,53 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
       } catch (e) {
         throw UnimplementedError(e.toString());
       }
-        _editBusinessProvider.changeSelectedAddMediaType(
-                                        AddMediaLinkKeys.WEBSITE);
+      _editBusinessProvider
+          .changeSelectedAddMediaType(AddMediaLinkKeys.WEBSITE);
     } else {
       Fluttertoast.showToast(msg: "Link can't be empty");
+    }
+  }
+
+  Future<void> updateBusiness() async {
+    if (_businessNameController.text.isNotEmpty &&
+        _emailController.text.isNotEmpty &&
+        _phoneNumberController.text.isNotEmpty) {
+      try {
+        UpdateBusinessResponseModel response =
+            await _editBusinessService.updateBusiness(
+          email: _emailController.text,
+          currency: "TRY",
+          countryCode: _editBusinessProvider.selectedCountryCode!.dialCode!,
+          phoneNumber: _phoneNumberController.text,
+          businessName: _businessNameController.text,
+          latitude: _editBusinessProvider.currentLocation!.latitude,
+          longitude: _editBusinessProvider.currentLocation!.longitude,
+        );
+        if (response.isSuccess && response.errors.isEmpty) {
+          LocaleStorage.instance.setStringValue(
+              LocaleKeys.BUSINESS_NAME, _businessNameController.text);
+          LocaleStorage.instance
+              .setStringValue(LocaleKeys.EMAIL, _emailController.text);
+          LocaleStorage.instance.setStringValue(
+              LocaleKeys.PHONE_NUMBER, _phoneNumberController.text);
+          LocaleStorage.instance.setStringValue(LocaleKeys.PHONE_COUNTRY_CODE,
+              _editBusinessProvider.selectedCountryCode!.dialCode!);
+          LocaleStorage.instance.setStringValue(LocaleKeys.LOCATION_LATITUDE,
+              _editBusinessProvider.currentLocation!.latitude.toString());
+
+          LocaleStorage.instance.setStringValue(LocaleKeys.LOCATION_LONGITUDE,
+              _editBusinessProvider.currentLocation!.longitude.toString());
+          LocaleStorage.instance.setStringValue(LocaleKeys.CURRENCY, "TRY");
+
+           Fluttertoast.showToast(msg: "Business updated successfully");
+        } else {
+          Fluttertoast.showToast(msg: response.errors.first);
+        }
+      } catch (e) {
+        throw UnimplementedError(e.toString());
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Please fill all fields");
     }
   }
 

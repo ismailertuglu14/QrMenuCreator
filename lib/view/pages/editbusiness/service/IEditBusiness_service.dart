@@ -9,6 +9,7 @@ import '../model/change_social_media_request_model.dart';
 
 import '../model/change_social_media_response_model.dart';
 import '../model/remove_cover_image_response_model.dart';
+import '../model/update_business_response_model.dart';
 
 abstract class IEditBusinessService {
   late final Dio dio;
@@ -16,4 +17,14 @@ abstract class IEditBusinessService {
   Future<ChangeCoverImageResponseModel> changeCoverImage({required XFile file});
   Future<ChangeSocialMediaResponseModel> addSocialMedia(
       {required ChangeSocialMediaRequestModel requestModel});
+  Future<UpdateBusinessResponseModel> updateBusiness({
+    required String email,
+    required String currency,
+    required String countryCode,
+    required String phoneNumber,
+    
+    required String businessName,
+    required double latitude,
+    required double longitude,
+  });
 }

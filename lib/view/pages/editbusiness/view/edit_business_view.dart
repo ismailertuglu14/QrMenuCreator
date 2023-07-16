@@ -48,6 +48,7 @@ import '../model/change_cover_image_response_model.dart';
 import '../model/change_social_media_request_model.dart';
 import '../model/change_social_media_response_model.dart';
 import '../model/remove_cover_image_response_model.dart';
+import '../model/update_business_response_model.dart';
 import '../service/EditBusiness_service.dart';
 
 import 'package:latlong2/spline.dart';
@@ -238,6 +239,23 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                   Column(mainAxisAlignment: MainAxisAlignment.start, children: [
                 Padding(
                   padding: PagePadding.verticalMedium(),
+                  child: Row(children: [
+                    Expanded(flex: 1, child: Icon(Icons.info_outline_rounded)),
+                    Expanded(
+                      flex: 9,
+                      child: Padding(
+                        padding: PagePadding.horizontalMedium(),
+                        child: Text(
+                          "While applying logo and social media link changes instantly, you should click save to update your other information.",
+                          style: TextStyle(
+                              fontSize: context.text.titleSmall?.fontSize),
+                        ),
+                      ),
+                    ),
+                  ]),
+                ),
+                Padding(
+                  padding: PagePadding.verticalMedium(),
                   child: CommonTextFormField(
                     validator: firstNameRegex,
                     textController: _businessNameController,
@@ -293,7 +311,7 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                           padding: PagePadding.allHeight(),
                           child: Text("Save"),
                         ),
-                        onPressed: () {},
+                        onPressed: () => updateBusiness(),
                       ),
                     ),
                   ],
