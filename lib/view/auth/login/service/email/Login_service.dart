@@ -36,9 +36,10 @@ class LoginService extends ILoginService with LoginLogMixin {
     try {
       Response<dynamic> response = await dio.get(NetworkConstants.GET_BUSINESS);
       if (response.statusCode == HttpStatus.ok) {
+        print("response.data: ${response.data}");
         return GetBusinessResponseModel.fromJson(response.data);
       } else {
-        throw Exception("Login Error");
+        throw Exception("Get Business Error");
       }
     } catch (e) {
       throw Exception(e);

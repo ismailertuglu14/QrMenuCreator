@@ -31,7 +31,7 @@ class ChangePasswordViewState extends ChangePasswordViewModel {
         child: Card(
           color: context.colorScheme.onSecondary.withOpacity(0.8),
           child: Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: PagePadding.allMedium(),
             child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,

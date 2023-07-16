@@ -30,8 +30,8 @@ class AddOnsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeOnsPreviewList(OnsPreviewModel onsPreviewModel) {
-    _onsPreviewList.remove(onsPreviewModel);
+  void removeOnsPreviewList(int index) {
+    _onsPreviewList.removeAt(index);
     notifyListeners();
   }
 

@@ -48,8 +48,8 @@ class LoginProvider extends ChangeNotifier {
 
   bool logout() {
     try {
-      LocaleStorage.instance.clearAll();
-      
+      LocaleStorage.instance.clearAllSaveFirst();
+
       _isAuthenticated = false;
 
       notifyListeners();

@@ -1,11 +1,11 @@
-
+import 'package:qrmenu/view/auth/login/model/get_business_response_model.dart';
 
 class RegisterRequestModel {
   final String restaurantName;
   final String email;
   final String password;
   final String passwordAgain;
-  final RegisterPhone phone;
+  final Phone phone;
 
   RegisterRequestModel({
     required this.restaurantName,
@@ -21,7 +21,7 @@ class RegisterRequestModel {
         email: json["email"],
         password: json["password"],
         passwordAgain: json["passwordAgain"],
-        phone: RegisterPhone.fromJson(json["phone"]),
+        phone: Phone.fromJson(json["phone"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -32,26 +32,3 @@ class RegisterRequestModel {
         "phone": phone.toJson(),
       };
 }
-
-class RegisterPhone {
-  final String countryCode;
-  final String phoneNumber;
-
-  RegisterPhone({
-    required this.countryCode,
-    required this.phoneNumber,
-  });
-
-  factory RegisterPhone.fromJson(Map<String, dynamic> json) => RegisterPhone(
-        countryCode: json["countryCode"],
-        phoneNumber: json["phoneNumber"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "countryCode": countryCode,
-        "phoneNumber": phoneNumber,
-      };
-}
-
-
-

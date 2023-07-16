@@ -74,7 +74,7 @@ class BusinessBottom extends StatelessWidget {
       ),
       ProfileListTileBuilder(
         title: "Delete Account",
-        onTap: () {},
+        onTap: () => context.push(RouterKeys.DELETE_BUSINESS.route),
         leading: ImageKeys.delete_account,
       ),
       ProfileListTileBuilder(

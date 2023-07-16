@@ -17,7 +17,7 @@ class CreateProductProvider extends ChangeNotifier {
   bool _isActive = false;
   bool _kcalCalculate = false;
   bool _isAddeedFibre = false;
-  bool _isNew = false;
+
 
   bool _isLoading = false;
 
@@ -57,7 +57,7 @@ class CreateProductProvider extends ChangeNotifier {
   int get kcal => _kcal;
 
   bool get isActive => _isActive;
-  bool get isNew => _isNew;
+  
 
   List<AllergensModel> get suggestionAllergens => _suggestionAllergens;
 
@@ -84,10 +84,6 @@ class CreateProductProvider extends ChangeNotifier {
     _itemPreviewList = [];
   }
 
-  void changeIsNew(bool value) {
-    _isNew = value;
-    notifyListeners();
-  }
 
   void changeIsAddeedFibre(bool value) {
     _isAddeedFibre = value;

@@ -57,7 +57,8 @@ abstract class SplashViewModels extends State<SplashView> with CacheInit {
           LoginRequestModel request =
               LoginRequestModel(email: email, password: password);
 
-          var response = await _loginService.login(requestModel: request);
+          LoginResponseModel response =
+              await _loginService.login(requestModel: request);
           if (response.isSuccess && response.errors.isEmpty) {
             context.read<LoginProvider>().setAuthenticated(true);
             context.go(RouterKeys.HOME.route);
@@ -67,6 +68,7 @@ abstract class SplashViewModels extends State<SplashView> with CacheInit {
         }
       } else {
         context.read<LoginProvider>().setAuthenticated(false);
+        context.go(RouterKeys.LOGIN.route);
       }
     }
   }

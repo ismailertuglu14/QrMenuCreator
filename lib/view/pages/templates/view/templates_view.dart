@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qrmenu/core/constans/enum/lottie_keys.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
+import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
 import 'package:qrmenu/product/utility/border_radius.dart';
 import 'package:qrmenu/product/utility/durations.dart';
 import 'package:qrmenu/product/utility/grid_delegates.dart';
@@ -21,6 +24,7 @@ import '../../../../core/init/network/network_manager.dart';
 import '../../../../core/init/provider/templates_provider.dart';
 import '../../../../product/widget/templates/celadon_menu_style.dart';
 import '../../../../product/widget/templates/fulvous_menu_style.dart';
+import '../../dashboard/model/get_restaurant_menus_response_model.dart';
 import '../widget/select_template_bottom_sheet.dart';
 
 part '../viewmodel/templates_view_model.dart';
@@ -37,11 +41,13 @@ class _TemplatesViewState extends TemplatesViewModel {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      bottomSheet:
-          SelectTemplateBottomSheet(animationController: _animationController),
+      bottomSheet: SelectTemplateBottomSheet(
+          changeTemplate: changeTemplate,
+          animationController: _animationController),
       body: Consumer<TemplatesProvider>(
-          builder: (context, provider, child) =>
-              templates[provider.selectedTemplateKey.index]),
+          builder: (context, provider, child) => provider.isLoading
+              ? LottieKeys.loading.path()
+              : _templates[provider.selectedTemplateKey.index]),
     );
   }
 }

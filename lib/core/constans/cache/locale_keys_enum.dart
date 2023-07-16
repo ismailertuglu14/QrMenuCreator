@@ -3,7 +3,6 @@
 enum LocaleKeys {
   BUSINESS_NAME,
   EMAIL,
-
   PASSWORD,
   ACCESS_TOKEN,
   REFRESH_TOKEN,
@@ -18,4 +17,10 @@ enum LocaleKeys {
   ADDRESS,
   LANGUAGE,
   CURRENCY,
+  INSTAGRAM,
+  FACEBOOK,
+  TWITTER,
+  THREADS,
+  WHATSAPP,
+  WEBSITE
 }

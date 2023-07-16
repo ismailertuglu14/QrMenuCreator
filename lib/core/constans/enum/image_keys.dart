@@ -54,5 +54,6 @@ enum ImageKeys {
   threads,
   twitter,
   instagram,
-  website
+  website,
+  whatsapp
 }

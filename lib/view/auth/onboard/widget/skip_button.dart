@@ -10,13 +10,19 @@ class OnboardSkipButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: PagePadding.horizontalLow(),
-      child: CommonOutlineButton(
-          onPressed: () => navigateToLogin(context),
-          child: Padding(
-            padding: PagePadding.allMedium(),
-            child: Text("Skip"),
-          )),
+      padding: PagePadding.horizontalMedium(),
+      child: Row(
+        children: [
+          Expanded(
+            child: CommonOutlineButton(
+                onPressed: () => navigateToLogin(context),
+                child: Padding(
+                  padding: PagePadding.allMedium(),
+                  child: Text("Skip"),
+                )),
+          ),
+        ],
+      ),
     );
   }
 }

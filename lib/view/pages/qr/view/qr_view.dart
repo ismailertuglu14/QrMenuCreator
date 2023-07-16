@@ -8,14 +8,18 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
+import 'package:qrmenu/core/init/provider/dashboard_provider.dart';
 import 'package:qrmenu/product/utility/border_radius.dart';
 import 'package:qrmenu/product/utility/durations.dart';
 import 'package:qrmenu/product/utility/grid_delegates.dart';
 import 'package:qrmenu/product/widget/app_bar.dart';
 import 'package:qrmenu/product/widget/outline_button.dart';
+import 'package:qrmenu/view/pages/dashboard/service/Dashboard_service.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:zxing_lib/qrcode.dart';
 
+import '../../../../core/init/network/network_manager.dart';
+import '../../../../core/init/provider/qr_provider.dart';
 import '../../../../core/init/provider/templates_provider.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/customqrgenerator/colors/color.dart';
@@ -26,6 +30,8 @@ import '../../../../product/widget/customqrgenerator/qr_painter.dart';
 import '../../../../product/widget/customqrgenerator/shapes/ball_shape.dart';
 import '../../../../product/widget/customqrgenerator/shapes/frame_shape.dart';
 import '../../../../product/widget/customqrgenerator/shapes/pixel_shape.dart';
+import '../../../../product/widget/item_count_circle.dart';
+import '../../dashboard/model/get_restaurant_menus_response_model.dart';
 import '../widget/qr_border_painter.dart';
 part '../viewmodel/qr_view_model.dart';
 
@@ -45,24 +51,33 @@ class _QrViewState extends QrViewModel {
         children: [
           Expanded(
               flex: 1,
-              child: DropdownButton(
-                isExpanded: true,
-                onTap: () {},
-                value: null,
-                hint: Text("Select Menu"),
-                underline: SizedBox.shrink(),
-                icon: Icon(Icons.arrow_drop_down_rounded),
-                padding: PagePadding.allHeight(),
-                menuMaxHeight: context.height * .5,
-                borderRadius: PageBorderRadius.allMedium(),
-                items: List.generate(
-                    10,
-                    (index) => DropdownMenuItem(
-                          onTap: () {},
-                          value: UniqueKey(),
-                          child: Text("Menu $index"),
-                        )),
-                onChanged: (value) {},
+              child: Consumer<QrProvider>(
+                builder: (context, provider, child) => DropdownButton(
+                  isExpanded: true,
+                  value: provider.selectedMenu,
+                  hint: Text("Select Menu"),
+                  underline: SizedBox.shrink(),
+                  icon: Icon(Icons.arrow_drop_down_rounded),
+                  padding: PagePadding.allHeight(),
+                  menuMaxHeight: context.height * .5,
+                  borderRadius: PageBorderRadius.allMedium(),
+                  items: List.generate(
+                      provider.menus?.length ?? 0,
+                      (index) => DropdownMenuItem(
+                            value: provider.menus?[index].id,
+                            child: Row(
+                              children: [
+                                Text(
+                                    provider.menus?[index].name.toUpperCase() ??
+                                        ""),
+                                Spacer(),
+                                Text(
+                                    "${provider.menus?[index].productCount ?? 0} Products"),
+                              ],
+                            ),
+                          )),
+                  onChanged: (value) => provider.changeSelectedMenu(value!),
+                ),
               )),
           Expanded(
             flex: 7,

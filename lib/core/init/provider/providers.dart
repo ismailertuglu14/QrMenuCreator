@@ -1,8 +1,10 @@
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:qrmenu/core/init/provider/dashboard_provider.dart';
+import 'package:qrmenu/core/init/provider/delete_business_provider.dart';
 import 'package:qrmenu/core/init/provider/home_provider.dart';
 import 'package:qrmenu/core/init/provider/login_provider.dart';
+import 'package:qrmenu/core/init/provider/qr_provider.dart';
 import 'package:qrmenu/core/init/provider/register_provider.dart';
 import 'package:qrmenu/core/init/provider/reset_password_provider.dart';
 import 'package:qrmenu/core/init/provider/products_provider.dart';
@@ -50,6 +52,9 @@ class Providers {
       ChangeNotifierProvider(create: (context) => DashboardProvider.instance),
       ChangeNotifierProvider(
           create: (context) => ChangeLanguageProvider.instance),
+      ChangeNotifierProvider(create: (context) => QrProvider.instance),
+      ChangeNotifierProvider(
+          create: (context) => DeleteBusinessProvider.instance),
     ];
   }
 }

@@ -7,7 +7,8 @@ abstract class TemplatesViewModel extends State<TemplatesView>
   late final DashboardService _dashboardService;
   late final ProductService _productService;
   late final AnimationController _animationController;
-  late final List<Widget> templates;
+  late final List<Widget> _templates;
+  late final BaseTemplateModel _model;
 
   @override
   void initState() {
@@ -20,48 +21,59 @@ abstract class TemplatesViewModel extends State<TemplatesView>
         vsync: this,
         duration: PageDurations.normal(),
         reverseDuration: PageDurations.normal());
-    templates = [
-      CeladonMenuStyle(model: model),
-      FulvousMenuStyle(model: model),
+
+    _model = BaseTemplateModel(
+        _templatesProvider.categories, _templatesProvider.products);
+    _templates = [
+      CeladonMenuStyle(model: _model),
+      FulvousMenuStyle(model: _model),
     ];
+    getMenus();
   }
 
   @override
   void dispose() {
     _animationController.dispose();
+
     super.dispose();
   }
 
-  final BaseTemplateModel model = BaseTemplateModel(
-      List.generate(
-          25,
-          (index) => GetCategoriesData(
-              id: "id",
-              name: "Tatlılar",
-              image:
-                  "https://img.jacca.com/pixlogo/product/778c091d-d512-4772-bf80-5e296f859504.jpg",
-              productCount: 12)),
-      List.generate(
-          25,
-          (index) => GetProductsByMenuIdData(
-                  id: "id",
-                  name: "Taquitos",
-                  description:
-                      "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",
-                  price: 256,
-                  currency: "currency",
-                  images: [
-                    "https://img.jacca.com/pixlogo/product/46774f5c-fe01-4363-9e1b-76e4ac78caa5.jpg"
-                  ])));
+  Future<void> changeTemplate() async {
+    try {
+      _templatesProvider.changeLoading();
+      GetCategoriesResponseModel categoriesResponse =
+          await _categoryService.getCategories(
+              requestModel: GetCategoriesRequestModel(
+                  menuId: _templatesProvider.selectedMenuId ?? ""));
+      GetProductsByMenuIdResponseModel productResponse =
+          await _productService.getProductsByMenuId(
+              requestModel: GetProductsByCategoyIdRequestModel(
+                  categoryId: _templatesProvider.selectedMenuId ?? ""));
+      if (categoriesResponse.errors.isEmpty &&
+          categoriesResponse.isSuccess &&
+          productResponse.errors.isEmpty &&
+          productResponse.isSuccess) {
+        _templatesProvider.changeCategories(categoriesResponse.data);
+        _templatesProvider.changeProducts(productResponse.data);
+      }
+      _templatesProvider.changeLoading();
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 
-  void initTemplate() {
+  void getMenus() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await _dashboardService.getRestaurantMenus();
-      await _productService.getProductsByMenuId(
-          requestModel:
-              GetProductsByCategoyIdRequestModel(categoryId: "categoryId"));
-      await _categoryService.getCategories(
-          requestModel: GetCategoriesRequestModel(menuId: "menuId"));
+      try {
+        GetRestaurantMenusResponseModel menuResponse =
+            await _dashboardService.getRestaurantMenus();
+
+        if (menuResponse.errors.isEmpty && menuResponse.isSuccess) {
+          _templatesProvider.changeMenus(menuResponse.data);
+        }
+      } catch (e) {
+        throw Exception(e);
+      }
     });
   }
 }

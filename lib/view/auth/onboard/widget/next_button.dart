@@ -28,19 +28,24 @@ class OnBoardNextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: PagePadding.horizontalMedium(),
-      child: CommonElevationButton(
-          onPressed: () =>
-              _pageButtonState(context, _currentPage, _pageController),
-          style: ButtonStyle(
-              minimumSize:
-                  MaterialStatePropertyAll(Size(context.width / 2, 50))),
-          child: Text(
-              _currentPage == 0
-                  ? _getStarted
-                  : OnboardModels.items.length != (_currentPage + 1)
-                      ? _nextText
-                      : _doneText,
-              style: TextStyle(fontSize: context.text.titleMedium!.fontSize))),
+      child: Row(
+        children: [
+          Expanded(
+            child: CommonElevationButton(
+                onPressed: () =>
+                    _pageButtonState(context, _currentPage, _pageController),
+                style: ButtonStyle(
+                    minimumSize:
+                        MaterialStatePropertyAll(Size(context.width / 2, 50))),
+                child: Text(
+                    OnboardModels.items.length != (_currentPage + 1)
+                        ? _nextText
+                        : _doneText,
+                    style: TextStyle(
+                        fontSize: context.text.titleMedium!.fontSize))),
+          ),
+        ],
+      ),
     );
   }
 

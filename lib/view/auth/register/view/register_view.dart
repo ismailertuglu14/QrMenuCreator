@@ -18,6 +18,7 @@ import '../../../../core/init/provider/register_provider.dart';
 import '../../../../core/init/router/router_manager.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/text_form_field.dart';
+import '../../login/model/get_business_response_model.dart';
 import '../../login/service/email/Login_service.dart';
 import '../model/register_request_model.dart';
 import '../model/register_response_model.dart';

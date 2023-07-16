@@ -3,11 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:qrmenu/core/constans/cache/locale_keys_enum.dart';
 import 'package:qrmenu/core/constans/enum/image_keys.dart';
 import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/init/cache/local_storage.dart';
+import 'package:qrmenu/core/init/provider/edit_business_provider.dart';
 import 'package:qrmenu/product/utility/border_radius.dart';
 import 'package:qrmenu/product/utility/durations.dart';
 import 'package:qrmenu/product/utility/grid_delegates.dart';
@@ -323,7 +325,8 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                           ),
                                         )),
                                 child: Card(
-                                  color: context.colorScheme.surface,
+                                  color: context.colorScheme.surface
+                                      .withOpacity(0.15),
                                   child: Padding(
                                     padding: PagePadding.allDefault(),
                                     child: Row(
@@ -439,8 +442,16 @@ class DrawerMenu extends StatelessWidget {
                 child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                UserCircleAvatar(
-                    backgroundImage: ImageKeys.default_image.assetImage()),
+                Consumer<EditBusinessProvider>(
+                  builder: (context, provider, child) => UserCircleAvatar(
+                      backgroundImage: LocaleStorage.instance
+                              .getStringValue(LocaleKeys.BUSINESS_NAME)
+                              .isEmpty
+                          ? ImageKeys.default_image.assetImage()
+                          : NetworkImage(LocaleStorage.instance
+                                  .getStringValue(LocaleKeys.BUSINESS_NAME))
+                              as ImageProvider),
+                ),
                 Padding(
                   padding: PagePadding.allDefault(),
                   child: Text(

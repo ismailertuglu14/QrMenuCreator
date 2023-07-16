@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
+import 'package:qrmenu/view/pages/dashboard/widget/dashboard_center_card_shimmer.dart';
 
 import '../../../../core/constans/enum/image_keys.dart';
 import '../../../../core/constans/enum/lottie_keys.dart';
@@ -21,7 +22,9 @@ class DashboardMenuBuilder extends StatelessWidget {
         itemBuilder: (context, index) => Consumer<DashboardProvider>(
               builder: (context, provider, child) =>
                   (provider.restaurantMenus == null || provider.isLoading)
-                      ? LottieKeys.loading.path(width: context.width / 8)
+                      ? DasboardCenterShimmerCard(
+                          index: index,
+                          length: provider.restaurantMenus?.length ?? 10)
                       : provider.restaurantMenus!.isEmpty
                           ? ImageKeys.empty_category.imageAsset()
                           : DasboardCenterCard(

@@ -4,6 +4,8 @@ abstract class QrViewModel extends State<QrView>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
   late final ScreenshotController _screenshotController;
+  late final DashboardService _dashboardService;
+  late final QrProvider _qrProvider;
 
   Uint8List? imageFile;
   String? pdfFilePath;
@@ -11,11 +13,15 @@ abstract class QrViewModel extends State<QrView>
   @override
   void initState() {
     super.initState();
+    _dashboardService = DashboardService(NetworkManager.instance.dio);
+    _qrProvider = QrProvider.instance;
+
     _screenshotController = ScreenshotController();
     _animationController = AnimationController(
         vsync: this,
         duration: PageDurations.normal(),
         reverseDuration: PageDurations.normal());
+    getMenus();
   }
 
   @override
@@ -28,6 +34,21 @@ abstract class QrViewModel extends State<QrView>
     final appDownloadsDirectory = Directory("/storage/emulated/0/Download/");
     if (!await appDownloadsDirectory.exists()) {
       await appDownloadsDirectory.create(recursive: true);
+    }
+  }
+
+  Future<void> getMenus() async {
+    try {
+      GetRestaurantMenusResponseModel response =
+          await _dashboardService.getRestaurantMenus();
+
+      if (response.isSuccess && response.errors.isEmpty) {
+        _qrProvider.changeMenus(response.data);
+      } else {
+        Fluttertoast.showToast(msg: "Get menus failed");
+      }
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 

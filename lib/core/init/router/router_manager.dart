@@ -9,6 +9,7 @@ import 'package:qrmenu/view/auth/resetpassword/view/reset_password_view.dart';
 import 'package:qrmenu/view/pages/addons/view/add_ons_view.dart';
 import 'package:qrmenu/view/pages/changelanguage/view/change_language_view.dart';
 import 'package:qrmenu/view/pages/createproduct/view/create_product_view.dart';
+import 'package:qrmenu/view/pages/deletebusiness/view/delete_business_view.dart';
 import 'package:qrmenu/view/pages/feedback/view/feed_back_view.dart';
 import 'package:qrmenu/view/pages/home/view/home_view.dart';
 import 'package:qrmenu/view/pages/locationpicker/view/location_picker_view.dart';
@@ -18,6 +19,7 @@ import '../../../view/auth/login/view/login_view.dart';
 import '../../../view/auth/onboard/view/onboard_view.dart';
 import '../../../view/auth/splash/view/splash_view.dart';
 import '../../../view/pages/category/view/category_view.dart';
+import '../../../view/pages/changecurrency/view/change_currency_view.dart';
 import '../../../view/pages/changepassword/view/change_password_view.dart';
 import '../../../view/pages/editbusiness/view/edit_business_view.dart';
 import '../../../view/pages/error/eror_view.dart';
@@ -142,6 +144,17 @@ class RouterManager with ChangeNotifier {
           pageBuilder: (context, state) =>
               buildPageWithSlideRightToLeftTransition(
                   context: context, state: state, child: ChangeLanguageView())),
+      GoRoute(
+          name: RouterKeys.DELETE_BUSINESS.name,
+          path: RouterKeys.DELETE_BUSINESS.route,
+          pageBuilder: (context, state) =>
+              buildPageWithSlideRightToLeftTransition(
+                  context: context, state: state, child: DeleteBusinessView())),
+      GoRoute(
+          name: RouterKeys.CHANGE_CURRENCY.name,
+          path: RouterKeys.CHANGE_CURRENCY.route,
+          pageBuilder: (context, state) => buildPageWithSlideTransition(
+              context: context, state: state, child: ChangeCurrencyView())),
     ],
   );
 }

@@ -6,4 +6,5 @@ enum AddMediaLinkKeys {
   THREADS,
   FACEBOOK,
   WEBSITE,
+  WHATSAPP,
 }

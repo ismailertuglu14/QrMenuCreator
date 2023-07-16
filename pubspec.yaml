@@ -16,7 +16,7 @@ dependencies:
     
   #Services
   dio: ^5.0.1
-  app_version_update: ^3.1.0
+  app_version_update: ^4.0.1
   image_picker: ^0.8.7
   url_launcher: ^6.1.10
   flutter_udid: ^2.0.1 # Device unique id

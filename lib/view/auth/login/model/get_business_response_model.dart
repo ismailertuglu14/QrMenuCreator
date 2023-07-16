@@ -28,63 +28,60 @@ class GetBusinessResponseModel {
 }
 
 class GetBusinessData {
-  final bool isActive;
-  final bool isVerified;
-  final String defaultCurrency;
   final String id;
   final String name;
   final dynamic address;
   final dynamic currentPlanId;
   final dynamic category;
-  final String profileImage;
-  final dynamic bannerImage;
+  final dynamic profileImage;
+  final bool isActive;
+  final bool isVerified;
+  final String defaultCurrency;
   final SocialMedias socialMedias;
   final String email;
   final Phone phone;
 
   GetBusinessData({
-    required this.isActive,
-    required this.isVerified,
-    required this.defaultCurrency,
     required this.id,
     required this.name,
     this.address,
     this.currentPlanId,
     this.category,
-    required this.profileImage,
-    this.bannerImage,
+    this.profileImage,
+    required this.isActive,
+    required this.isVerified,
+    required this.defaultCurrency,
     required this.socialMedias,
     required this.email,
     required this.phone,
   });
 
-  factory GetBusinessData.fromJson(Map<String, dynamic> json) => GetBusinessData(
-        isActive: json["isActive"],
-        isVerified: json["isVerified"],
-        defaultCurrency: json["defaultCurrency"],
+  factory GetBusinessData.fromJson(Map<String, dynamic> json) =>
+      GetBusinessData(
         id: json["_id"],
         name: json["name"],
         address: json["address"],
         currentPlanId: json["currentPlanId"],
         category: json["category"],
         profileImage: json["profileImage"],
-        bannerImage: json["bannerImage"],
+        isActive: json["isActive"],
+        isVerified: json["isVerified"],
+        defaultCurrency: json["defaultCurrency"],
         socialMedias: SocialMedias.fromJson(json["socialMedias"]),
         email: json["email"],
         phone: Phone.fromJson(json["phone"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "isActive": isActive,
-        "isVerified": isVerified,
-        "defaultCurrency": defaultCurrency,
         "_id": id,
         "name": name,
         "address": address,
         "currentPlanId": currentPlanId,
         "category": category,
         "profileImage": profileImage,
-        "bannerImage": bannerImage,
+        "isActive": isActive,
+        "isVerified": isVerified,
+        "defaultCurrency": defaultCurrency,
         "socialMedias": socialMedias.toJson(),
         "email": email,
         "phone": phone.toJson(),
@@ -112,21 +109,21 @@ class Phone {
 }
 
 class SocialMedias {
-  final String instagram;
-  final String facebook;
-  final String twitter;
-  final String threads;
-  final String whatsapp;
-  final String website;
+  final dynamic instagram;
+  final dynamic facebook;
+  final dynamic twitter;
+  final dynamic threads;
+  final dynamic whatsapp;
+  final dynamic website;
   final String id;
 
   SocialMedias({
-    required this.instagram,
-    required this.facebook,
-    required this.twitter,
-    required this.threads,
-    required this.whatsapp,
-    required this.website,
+    this.instagram,
+    this.facebook,
+    this.twitter,
+    this.threads,
+    this.whatsapp,
+    this.website,
     required this.id,
   });
 

@@ -225,14 +225,6 @@ class _CreateProductViewViewState extends CreateProductViewModel {
                       ),
                       Consumer<CreateProductProvider>(
                         builder: (context, provider, child) => ListTileSwitch(
-                            value: provider.isNew,
-                            contentPadding: EdgeInsets.zero,
-                            switchActiveColor: context.colorScheme.primary,
-                            title: Text("New", style: context.text.titleMedium),
-                            onChanged: provider.changeIsNew),
-                      ),
-                      Consumer<CreateProductProvider>(
-                        builder: (context, provider, child) => ListTileSwitch(
                             value: provider.isActive,
                             contentPadding: EdgeInsets.zero,
                             switchActiveColor: context.colorScheme.primary,

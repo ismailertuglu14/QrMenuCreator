@@ -22,6 +22,7 @@ import '../../../../core/init/update/Update_service.dart';
 import '../../../../product/mixin/cache_init_mixin.dart';
 import '../../../../product/utility/durations.dart';
 import '../../login/model/login_request_model.dart';
+import '../../login/model/login_response_model.dart';
 part '../viewmodel/splash_view_model.dart';
 
 class SplashView extends StatefulWidget {

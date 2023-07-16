@@ -38,7 +38,12 @@ extension RouteExtension on RouterKeys {
         return "/change_password";
       case RouterKeys.CHANGE_LANGUAGE:
         return "/change_language";
-    
+
+      case RouterKeys.DELETE_BUSINESS:
+        return "/delete_business";
+
+      case RouterKeys.CHANGE_CURRENCY:
+        return "/change_currency";
     }
   }
 }

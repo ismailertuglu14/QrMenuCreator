@@ -106,7 +106,7 @@ class _DasboardCenterCardState extends State<DasboardCenterCard>
                                   child: Row(
                                     children: [
                                       Text(
-                                        "156 ",
+                                        "0 ",
                                         style: TextStyle(
                                             fontSize: context
                                                 .text.titleMedium?.fontSize,

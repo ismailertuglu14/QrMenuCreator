@@ -168,9 +168,9 @@ class CountryCodePickerState extends State<CountryCodePicker> {
         onTap: showCountryCodePickerDialog,
         child: Container(
           padding: PagePadding.allHeight(),
-          child: Wrap(
-            direction: Axis.horizontal,
-            children: <Widget>[
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
               if (widget.showFlagMain != null
                   ? widget.showFlagMain!
                   : widget.showFlag)
@@ -233,12 +233,7 @@ class CountryCodePickerState extends State<CountryCodePicker> {
     if (oldWidget.initialSelection != widget.initialSelection) {
       if (widget.initialSelection != null) {
         selectedItem = elements.firstWhere(
-            (criteria) =>
-                (criteria.code!.toUpperCase() ==
-                    widget.initialSelection!.toUpperCase()) ||
-                (criteria.dialCode == widget.initialSelection) ||
-                (criteria.name!.toUpperCase() ==
-                    widget.initialSelection!.toUpperCase()),
+            (criteria) => (criteria.dialCode == widget.initialSelection),
             orElse: () => elements[0]);
       } else {
         selectedItem = elements[0];

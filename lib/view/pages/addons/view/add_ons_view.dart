@@ -47,6 +47,10 @@ class _AddOnsViewState extends AddOnsViewModel {
         builder: (context, provider, child) => ListView.builder(
             itemCount: provider.onsPreviewList.length,
             itemBuilder: (context, index) => AddOnsCheckBoxListTileBuilder(
+                  index: index,
+                  descriptionController: _subTitleController,
+                  priceController: _priceController,
+                  titleController:  _titleController,
                   removeOnsPreviewList: provider.removeOnsPreviewList,
                   title: provider.onsPreviewList[index].title,
                   subTitle: provider.onsPreviewList[index].subTitle,

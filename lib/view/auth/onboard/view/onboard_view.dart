@@ -48,18 +48,18 @@ class _OnboardViewState extends OnboardViewModel {
                 count: OnboardModels.items.length),
           ),
           Expanded(
-              flex: 1,
-              child: Row(
+              flex: 2,
+              child: Column(
                 children: [
-                  Expanded(
-                      child:
-                          OnboardSkipButton(navigateToLogin: navigateToLogin)),
                   Expanded(
                     child: OnBoardNextButton(
                         currentPage: _currentPage,
                         pageController: _pageController,
                         navigateToLogin: navigateToLogin),
                   ),
+                  Expanded(
+                      child:
+                          OnboardSkipButton(navigateToLogin: navigateToLogin)),
                 ],
               )),
         ]),

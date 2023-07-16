@@ -28,125 +28,25 @@ class RegisterResponseModel {
 }
 
 class Data {
-  final RestauntCredentialResponse restauntCredentialResponse;
-  final RestaurantResponse restaurantResponse;
+  final String accessToken;
+  final DateTime expiration;
+  final String refreshToken;
 
   Data({
-    required this.restauntCredentialResponse,
-    required this.restaurantResponse,
+    required this.accessToken,
+    required this.expiration,
+    required this.refreshToken,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        restauntCredentialResponse: RestauntCredentialResponse.fromJson(
-            json["restauntCredentialResponse"]),
-        restaurantResponse:
-            RestaurantResponse.fromJson(json["restaurantResponse"]),
+        accessToken: json["accessToken"],
+        expiration: DateTime.parse(json["expiration"]),
+        refreshToken: json["refreshToken"],
       );
 
   Map<String, dynamic> toJson() => {
-        "restauntCredentialResponse": restauntCredentialResponse.toJson(),
-        "restaurantResponse": restaurantResponse.toJson(),
-      };
-}
-
-class RestauntCredentialResponse {
-  final String email;
-  final String hashedPassword;
-  final Phone phone;
-  final String id;
-  final int v;
-
-  RestauntCredentialResponse({
-    required this.email,
-    required this.hashedPassword,
-    required this.phone,
-    required this.id,
-    required this.v,
-  });
-
-  factory RestauntCredentialResponse.fromJson(Map<String, dynamic> json) =>
-      RestauntCredentialResponse(
-        email: json["email"],
-        hashedPassword: json["hashedPassword"],
-        phone: Phone.fromJson(json["phone"]),
-        id: json["_id"],
-        v: json["__v"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "email": email,
-        "hashedPassword": hashedPassword,
-        "phone": phone.toJson(),
-        "_id": id,
-        "__v": v,
-      };
-}
-
-class Phone {
-  final String countryCode;
-  final String phoneNumber;
-
-  Phone({
-    required this.countryCode,
-    required this.phoneNumber,
-  });
-
-  factory Phone.fromJson(Map<String, dynamic> json) => Phone(
-        countryCode: json["countryCode"],
-        phoneNumber: json["phoneNumber"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "countryCode": countryCode,
-        "phoneNumber": phoneNumber,
-      };
-}
-
-class RestaurantResponse {
-  final String id;
-  final int role;
-  final String name;
-  final String? address;
-  final String? currentPlanId;
-  final String? category;
-  final String? profileImage;
-  final String? bannerImage;
-  final int v;
-
-  RestaurantResponse({
-    required this.id,
-    required this.role,
-    required this.name,
-    this.address,
-    this.currentPlanId,
-    this.category,
-    this.profileImage,
-    this.bannerImage,
-    required this.v,
-  });
-
-  factory RestaurantResponse.fromJson(Map<String, dynamic> json) =>
-      RestaurantResponse(
-        id: json["_id"],
-        role: json["role"],
-        name: json["name"],
-        address: json["address"],
-        currentPlanId: json["currentPlanId"],
-        category: json["category"],
-        profileImage: json["profileImage"],
-        bannerImage: json["bannerImage"],
-        v: json["__v"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "_id": id,
-        "role": role,
-        "name": name,
-        "address": address,
-        "currentPlanId": currentPlanId,
-        "category": category,
-        "profileImage": profileImage,
-        "bannerImage": bannerImage,
-        "__v": v,
+        "accessToken": accessToken,
+        "expiration": expiration.toIso8601String(),
+        "refreshToken": refreshToken,
       };
 }

@@ -25,6 +25,7 @@ class LocaleStorage {
 
   Future<void> clearAll() async {
     await _preferences!.clear();
+    
   }
 
   Future<void> clearAllSaveFirst() async {

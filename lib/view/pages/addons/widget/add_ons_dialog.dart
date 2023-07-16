@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -59,29 +60,12 @@ Future<dynamic> addOnsDialog(
               )),
               Padding(
                 padding: PagePadding.allDefault(),
-                child: Row(
-                  children: [
-                    Expanded(
-                        flex: 2,
-                        child: Text(
-                          "USD",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: context.text.titleMedium?.fontSize),
-                        )),
-                    Expanded(
-                        flex: 8,
-                        child: Padding(
-                          padding: PagePadding.allDefault(),
-                          child: CommonTextField(
-                            textAlign: TextAlign.center,
-                            textController: priceController,
-                            hintText: "Price",
-                            keyboardType: TextInputType.number,
-                            textInputAction: TextInputAction.done,
-                          ),
-                        ))
-                  ],
+                child: CommonTextField(
+                  textController: priceController,
+                  hintText: "Price",
+                  keyboardType: TextInputType.number,
+                  textInputAction: TextInputAction.done,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
               ),
               Row(

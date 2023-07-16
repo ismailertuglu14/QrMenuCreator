@@ -29,24 +29,38 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
   Future<void> getBusiness() async {
     try {
       GetBusinessResponseModel response = await _loginService.getBusiness();
+
       if (response.isSuccess && response.errors.isEmpty) {
         LocaleStorage.instance
             .setStringValue(LocaleKeys.CURRENCY, response.data.defaultCurrency);
 
         LocaleStorage.instance
             .setStringValue(LocaleKeys.BUSINESS_NAME, response.data.name);
-
         LocaleStorage.instance
-            .setStringValue(LocaleKeys.ADDRESS, response.data.address);
-
+            .setStringValue(LocaleKeys.RESTAURANT_ID, response.data.id);
         LocaleStorage.instance
-            .setStringValue(LocaleKeys.COVER_IMAGE, response.data.profileImage);
+            .setStringValue(LocaleKeys.ADDRESS, response.data.address ?? "");
+
+        LocaleStorage.instance.setStringValue(
+            LocaleKeys.COVER_IMAGE, response.data.profileImage ?? "");
 
         LocaleStorage.instance.setStringValue(
             LocaleKeys.PHONE_COUNTRY_CODE, response.data.phone.countryCode);
 
         LocaleStorage.instance.setStringValue(
             LocaleKeys.PHONE_NUMBER, response.data.phone.phoneNumber);
+        LocaleStorage.instance.setStringValue(
+            LocaleKeys.INSTAGRAM, response.data.socialMedias.instagram ?? "");
+
+        LocaleStorage.instance.setStringValue(
+            LocaleKeys.FACEBOOK, response.data.socialMedias.facebook ?? "");
+
+        LocaleStorage.instance.setStringValue(
+            LocaleKeys.TWITTER, response.data.socialMedias.twitter ?? "");
+        LocaleStorage.instance.setStringValue(
+            LocaleKeys.WHATSAPP, response.data.socialMedias.whatsapp ?? "");
+        LocaleStorage.instance.setStringValue(
+            LocaleKeys.WEBSITE, response.data.socialMedias.website ?? "");
       }
     } catch (e) {
       Fluttertoast.showToast(msg: "Failed to get business");
@@ -62,13 +76,15 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
                 email: _emailController.text,
                 password: _passwordController.text));
         if (response.isSuccess && response.errors.isEmpty) {
-          getBusiness();
           LocaleStorage.instance.setStringValue(
               LocaleKeys.ACCESS_TOKEN, response.data.accessToken);
+
           LocaleStorage.instance.setStringValue(
               LocaleKeys.REFRESH_TOKEN, response.data.refreshToken);
           LocaleStorage.instance.setStringValue(
               LocaleKeys.EXPIRATION, response.data.expiration.toString());
+          getBusiness();
+
           LocaleStorage.instance
               .setStringValue(LocaleKeys.EMAIL, _emailController.text);
           LocaleStorage.instance

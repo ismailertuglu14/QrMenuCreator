@@ -1,4 +1,4 @@
-// ignore_for_file: implementation_imports, deprecated_member_use
+// ignore_for_file: implementation_imports
 
 import 'dart:io';
 import 'package:dio/dio.dart';
@@ -17,6 +17,7 @@ class RegisterService extends IRegisterService {
   @override
   Future<RegisterResponseModel> register(BuildContext context,
       {required RegisterRequestModel requestModel}) async {
+   
     try {
       Response<dynamic> response = await dio.post(NetworkConstants.REGISTER,
           data: requestModel.toJson());
@@ -26,7 +27,7 @@ class RegisterService extends IRegisterService {
       } else {
         throw Exception('Failed to register');
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       throw Exception(e);
     }
   }
