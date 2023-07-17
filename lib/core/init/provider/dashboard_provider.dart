@@ -33,8 +33,6 @@ class DashboardProvider extends ChangeNotifier {
 
   List<RestaurantMenuData>? get menus => _menus;
 
- 
-
   int get selectedMenuIndex => _selectedMenuIndex;
 
   bool get isLoading => _isLoading;

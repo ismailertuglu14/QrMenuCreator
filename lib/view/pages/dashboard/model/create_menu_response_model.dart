@@ -1,7 +1,5 @@
-import 'get_restaurant_menus_response_model.dart';
-
 class CreateMenuResponseModel {
-  final RestaurantMenuData data;
+  final CreateMenuData data;
   final bool isSuccess;
   final int statusCode;
   final List<dynamic> errors;
@@ -15,7 +13,7 @@ class CreateMenuResponseModel {
 
   factory CreateMenuResponseModel.fromJson(Map<String, dynamic> json) =>
       CreateMenuResponseModel(
-        data: RestaurantMenuData.fromJson(json["data"]),
+        data: CreateMenuData.fromJson(json["data"]),
         isSuccess: json["isSuccess"],
         statusCode: json["statusCode"],
         errors: List<dynamic>.from(json["errors"].map((x) => x)),
@@ -26,5 +24,38 @@ class CreateMenuResponseModel {
         "isSuccess": isSuccess,
         "statusCode": statusCode,
         "errors": List<dynamic>.from(errors.map((x) => x)),
+      };
+}
+
+class CreateMenuData {
+  final String restaurantId;
+  final int templateId;
+  final String name;
+
+  final String coverImage;
+  final String id;
+
+  CreateMenuData({
+    required this.restaurantId,
+    required this.templateId,
+    required this.name,
+    required this.coverImage,
+    required this.id,
+  });
+
+  factory CreateMenuData.fromJson(Map<String, dynamic> json) => CreateMenuData(
+        restaurantId: json["restaurantId"],
+        templateId: json["templateId"],
+        name: json["name"],
+        coverImage: json["coverImage"],
+        id: json["_id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "restaurantId": restaurantId,
+        "templateId": templateId,
+        "name": name,
+        "_id": id,
+        "coverImage": coverImage,
       };
 }

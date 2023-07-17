@@ -31,7 +31,6 @@ import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/app_bar.dart';
 import '../../../../product/widget/url_app_router.dart';
 import '../../../auth/onboard/model/onboard_model.dart';
-import '../model/create_menu_request_model.dart';
 import '../model/create_menu_response_model.dart';
 import '../model/delete_menu_request_model.dart';
 import '../model/delete_restaurant_response_model.dart';

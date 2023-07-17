@@ -92,11 +92,16 @@ class _DasboardCenterCardState extends State<DasboardCenterCard>
                         borderRadius: PageBorderRadius.spesificTop(),
                         child: Stack(
                           children: [
-                            Image.network(
-                              "https://picsum.photos/1920/1080",
-                              width: context.width,
-                              fit: BoxFit.cover,
-                            ),
+                            widget.menu.coverImage == null
+                                ? ImageKeys.default_image.imageAsset(
+                                    width: context.width,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.network(
+                                    widget.menu.coverImage!,
+                                    width: context.width,
+                                    fit: BoxFit.cover,
+                                  ),
                             Positioned(
                               right: 20,
                               top: 20,

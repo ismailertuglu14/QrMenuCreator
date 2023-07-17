@@ -19,6 +19,7 @@ class TemplatesProvider extends ChangeNotifier {
   String? _selectedMenuId;
   final List<RestaurantMenuData> _menus = [
     RestaurantMenuData(
+        coverImage: "DEFAULT",
         id: "DEFAULT",
         name: "DEFAULT",
         templateId: 0,

@@ -35,6 +35,7 @@ class RestaurantMenuData {
   final String restaurantId;
   final int productCount;
   final int categoryCount;
+  final String? coverImage;
 
   RestaurantMenuData({
     required this.id,
@@ -43,6 +44,7 @@ class RestaurantMenuData {
     required this.restaurantId,
     required this.productCount,
     required this.categoryCount,
+    required this.coverImage,
   });
 
   factory RestaurantMenuData.fromJson(Map<String, dynamic> json) =>
@@ -53,6 +55,7 @@ class RestaurantMenuData {
         restaurantId: json["restaurantId"],
         productCount: json["productCount"],
         categoryCount: json["categoryCount"],
+        coverImage: json["coverImage"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -62,5 +65,6 @@ class RestaurantMenuData {
         "restaurantId": restaurantId,
         "productCount": productCount,
         "categoryCount": categoryCount,
+        "coverImage": coverImage,
       };
 }

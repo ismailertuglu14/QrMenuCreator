@@ -72,14 +72,23 @@ abstract class DashboardViewModel extends State<DashboardView>
   }
 
   Future<void> createMenu() async {
-    if (_menuNameController.text.isNotEmpty) {
+    if (_menuNameController.text.isNotEmpty &&
+        _dashboardProvider.menuImage != null) {
       try {
         _dashboardProvider.changeLoading();
         CreateMenuResponseModel response = await _dashboardService.createMenu(
-            resquestModel: CreateMenuResquestModel(
-                name: _menuNameController.text, templateId: 0));
+            name: _menuNameController.text,
+            templateId: _dashboardProvider.selectedTemplateKey.index,
+            imageFile: _dashboardProvider.menuImage!);
         if (response.isSuccess && response.errors.isEmpty) {
-          _dashboardProvider.addRestaurantMenu(response.data);
+          _dashboardProvider.addRestaurantMenu(RestaurantMenuData(
+              coverImage: response.data.coverImage,
+              id: response.data.id,
+              name: response.data.name,
+              templateId: response.data.templateId,
+              restaurantId: response.data.restaurantId,
+              productCount: 0,
+              categoryCount: 0));
           _menuNameController.clear();
 
           Fluttertoast.showToast(msg: "Create Menu Success");
