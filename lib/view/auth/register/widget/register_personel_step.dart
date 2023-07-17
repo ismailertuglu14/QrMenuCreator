@@ -38,24 +38,21 @@ class RegisterPersonelStep extends StatelessWidget {
         ),
         Padding(
           padding: const PagePadding.allDefault(),
-          child: Expanded(
-            flex: 6,
-            child: CommonTextFormField(
-              obscureText: false,
-              label: "Contact Number",
-              validator: nameRegex,
-              textController: contactNumberTextController,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              textInputAction: TextInputAction.done,
-              keyboardType: TextInputType.number,
-              prefixIcon: CountryCodePicker(
-                onChanged: (value) =>
-                    registerProvider.changeSelectedCountryCode(value),
-                initialSelection: 'IT',
-                showCountryOnly: false,
-                showOnlyCountryWhenClosed: false,
-                alignLeft: false,
-              ),
+          child: CommonTextFormField(
+            obscureText: false,
+            label: "Contact Number",
+            validator: nameRegex,
+            textController: contactNumberTextController,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            textInputAction: TextInputAction.done,
+            keyboardType: TextInputType.number,
+            prefixIcon: CountryCodePicker(
+              onChanged: (value) =>
+                  registerProvider.changeSelectedCountryCode(value),
+              initialSelection: 'IT',
+              showCountryOnly: false,
+              showOnlyCountryWhenClosed: false,
+              alignLeft: false,
             ),
           ),
         ),

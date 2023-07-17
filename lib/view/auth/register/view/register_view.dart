@@ -58,7 +58,7 @@ class _RegisterViewState extends RegisterViewModel {
           child: Stack(
             children: [
               Positioned(
-                child: Container(
+                child: SizedBox(
                   width: context.width,
                   height: context.height * 0.28,
                   child: CustomPaint(
@@ -77,7 +77,7 @@ class _RegisterViewState extends RegisterViewModel {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                         Icon(Icons.qr_code_rounded,
+                              Icon(Icons.qr_code_rounded,
                                   size: context.width * 0.2,
                                   color: Colors.white70),
                               Column(
