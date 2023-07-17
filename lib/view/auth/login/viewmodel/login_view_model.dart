@@ -65,6 +65,8 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
             LocaleKeys.WHATSAPP, response.data.socialMedias.whatsapp);
         LocaleStorage.instance.setStringValue(
             LocaleKeys.WEBSITE, response.data.socialMedias.website);
+      } else {
+        Fluttertoast.showToast(msg: "Failed to get business");
       }
     } catch (e) {
       Fluttertoast.showToast(msg: "Failed to get business");
@@ -82,7 +84,7 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
         if (response.isSuccess && response.errors.isEmpty) {
           LocaleStorage.instance.setStringValue(
               LocaleKeys.ACCESS_TOKEN, response.data.accessToken);
-
+          getBusiness();
           LocaleStorage.instance.setStringValue(
               LocaleKeys.REFRESH_TOKEN, response.data.refreshToken);
           LocaleStorage.instance.setStringValue(
@@ -92,7 +94,6 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
               .setStringValue(LocaleKeys.EMAIL, _emailController.text);
           LocaleStorage.instance
               .setStringValue(LocaleKeys.PASSWORD, _passwordController.text);
-          getBusiness();
 
           Fluttertoast.showToast(msg: "Login Success");
 

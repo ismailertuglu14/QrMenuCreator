@@ -162,10 +162,16 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                             icon: Icon(Icons.maps_home_work_outlined),
                             label: Consumer<EditBusinessProvider>(
                               builder: (context, provider, child) => Text(
-                                  (provider.currentLocation!.latitude
+                                  (LocaleStorage
+                                              .instance
+                                              .getDoubleValue(
+                                                  LocaleKeys.LOCATION_LATITUDE)
                                               .toString()
                                               .isNotEmpty &&
-                                          provider.currentLocation!.longitude
+                                          LocaleStorage
+                                              .instance
+                                              .getDoubleValue(
+                                                  LocaleKeys.LOCATION_LONGITUDE)
                                               .toString()
                                               .isNotEmpty)
                                       ? provider.currentLocationName ??
@@ -194,7 +200,7 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                       child: Padding(
                         padding: PagePadding.horizontalMedium(),
                         child: Text(
-                          "While applying logo and social media link changes instantly, you should click save to update your other information.",
+                          "While applying the logo changes instantly, you need to click the save button to update your other information.",
                           style: TextStyle(
                               fontSize: context.text.titleSmall?.fontSize),
                         ),

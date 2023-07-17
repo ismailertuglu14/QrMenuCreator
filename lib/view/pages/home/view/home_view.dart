@@ -26,6 +26,7 @@ import '../../../../core/constans/cache/locale_keys_enum.dart';
 import '../../../../core/constans/enum/route_keys.dart';
 import '../../../../core/constans/enum/theme_mode_keys.dart';
 import '../../../../core/init/cache/local_storage.dart';
+import '../../../../core/init/network/network_change_manager.dart';
 import '../../../../core/init/provider/theme_provider.dart';
 import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/durations.dart';
@@ -43,10 +44,32 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends HomeViewModels {
+class _HomeViewState extends HomeViewModels
+    with AutomaticKeepAliveClientMixin, StateMixin {
+  late final INetworkChangeManager _networkChange;
+  NetworkResult? _networkResult;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _networkChange = NetworkChangeManager();
+    waitForScreen(() =>
+        _networkChange.handleNetworkChange((result) => _updateView(result)));
+  }
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
+      bottomSheet: AnimatedContainer(
+        duration: const PageDurations.min(),
+        decoration: BoxDecoration(
+            borderRadius: const PageBorderRadius.spesificTop(),
+            color: context.colorScheme.primary),
+        height: _networkResult == NetworkResult.on ? 0 : context.height / 20,
+        child: const Center(child: Text("No Internet Connection")),
+      ),
       bottomNavigationBar: BottomNaviBar(),
       appBar: CommonAppBar(
         automaticallyImplyLeading: false,
@@ -66,5 +89,26 @@ class _HomeViewState extends HomeViewModels {
             itemBuilder: (context, index) => pageViewList[index]),
       ),
     );
+  }
+
+  Future<void> fetchFirstResult() async {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      final result = await _networkChange.checkNetworkFirstTime();
+      _updateView(result);
+    });
+  }
+
+  void _updateView(NetworkResult result) =>
+      setState(() => _networkResult = result);
+
+  @override
+  bool get wantKeepAlive => true;
+}
+
+mixin StateMixin<T extends StatefulWidget> on State<T> {
+  void waitForScreen(VoidCallback onComplete) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      onComplete.call();
+    });
   }
 }
