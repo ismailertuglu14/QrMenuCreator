@@ -30,7 +30,7 @@ class _OnboardViewState extends OnboardViewModel {
         padding: const PagePadding.verticalHight(),
         child: Column(children: [
           Expanded(
-              flex: 7,
+              flex: 8,
               child: PageView.builder(
                   controller: _pageController,
                   itemCount: OnboardModels.items.length,
