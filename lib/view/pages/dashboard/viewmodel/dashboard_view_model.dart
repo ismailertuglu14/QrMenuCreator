@@ -6,22 +6,28 @@ abstract class DashboardViewModel extends State<DashboardView>
   late final DashboardService _dashboardService;
   late final DashboardProvider _dashboardProvider;
   late final AnimationController _animationController;
- 
+  late final TextEditingController _menuNameController;
+  late final ImagePicker _imagePicker;
 
   @override
   void initState() {
     super.initState();
     _dashboardProvider = DashboardProvider.instance;
     _dashboardService = DashboardService(NetworkManager.instance.dio);
+
+    _menuNameController = TextEditingController();
+
+    _imagePicker = ImagePicker();
     _animationController =
         AnimationController(vsync: this, duration: PageDurations.low());
     _homeProvider = HomeProvider.instance;
- 
+
     WidgetsBinding.instance.addPostFrameCallback((_) => getRestaurantMenus());
   }
 
   @override
   void dispose() {
+    _menuNameController.dispose();
     _animationController.dispose();
     super.dispose();
   }
@@ -66,15 +72,15 @@ abstract class DashboardViewModel extends State<DashboardView>
   }
 
   Future<void> createMenu() async {
-    if (_dashboardProvider.menuNameController.text.isNotEmpty) {
+    if (_menuNameController.text.isNotEmpty) {
       try {
         _dashboardProvider.changeLoading();
         CreateMenuResponseModel response = await _dashboardService.createMenu(
             resquestModel: CreateMenuResquestModel(
-                name: _dashboardProvider.menuNameController.text, templateId: 0));
+                name: _menuNameController.text, templateId: 0));
         if (response.isSuccess && response.errors.isEmpty) {
           _dashboardProvider.addRestaurantMenu(response.data);
-          _dashboardProvider.menuNameController.clear();
+          _menuNameController.clear();
 
           Fluttertoast.showToast(msg: "Create Menu Success");
         } else {
@@ -87,6 +93,19 @@ abstract class DashboardViewModel extends State<DashboardView>
       }
     } else {
       Fluttertoast.showToast(msg: "Menu Name is Empty");
+    }
+  }
+
+  Future<void> uploadFile({required Object fileObject}) async {
+    try {
+      _dashboardProvider.changeLoading();
+      fileObject as XFile;
+
+      _dashboardProvider.setMenuImage = fileObject;
+    } catch (e) {
+      throw Exception(e);
+    } finally {
+      _dashboardProvider.changeLoading();
     }
   }
 }

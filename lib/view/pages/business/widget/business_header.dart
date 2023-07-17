@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_null_comparison
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -32,10 +30,12 @@ class BusinessHeader extends StatelessWidget {
           Consumer<EditBusinessProvider>(
             builder: (context, provider, child) => UserCircleAvatar(
               maxRadius: 40,
-              backgroundImage:
-                  (provider.coverImage == null || provider.coverImage!.isEmpty)
-                      ? ImageKeys.default_image.assetImage()
-                      : NetworkImage(provider.coverImage!) as ImageProvider,
+              backgroundImage: (LocaleStorage.instance
+                      .getStringValue(LocaleKeys.COVER_IMAGE)
+                      .isEmpty)
+                  ? ImageKeys.default_image.assetImage()
+                  : NetworkImage(LocaleStorage.instance
+                      .getStringValue(LocaleKeys.COVER_IMAGE)) as ImageProvider,
             ),
           ),
           Padding(
@@ -46,11 +46,8 @@ class BusinessHeader extends StatelessWidget {
               children: [
                 Text(
                   (LocaleStorage.instance
-                                  .getStringValue(LocaleKeys.BUSINESS_NAME) ==
-                              null ||
-                          LocaleStorage.instance
-                              .getStringValue(LocaleKeys.BUSINESS_NAME)
-                              .isEmpty)
+                          .getStringValue(LocaleKeys.BUSINESS_NAME)
+                          .isEmpty)
                       ? "Business Name"
                       : LocaleStorage.instance
                           .getStringValue(LocaleKeys.BUSINESS_NAME),
@@ -60,11 +57,8 @@ class BusinessHeader extends StatelessWidget {
                 ),
                 Text(
                   (LocaleStorage.instance
-                                  .getStringValue(LocaleKeys.BUSINESS_NAME) ==
-                              null ||
-                          LocaleStorage.instance
-                              .getStringValue(LocaleKeys.BUSINESS_NAME)
-                              .isEmpty)
+                          .getStringValue(LocaleKeys.BUSINESS_NAME)
+                          .isEmpty)
                       ? "businessname@gmail.com"
                       : LocaleStorage.instance
                           .getStringValue(LocaleKeys.BUSINESS_NAME),

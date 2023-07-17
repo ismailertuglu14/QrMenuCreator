@@ -25,7 +25,6 @@ class LocaleStorage {
 
   Future<void> clearAll() async {
     await _preferences!.clear();
-    
   }
 
   Future<void> clearAllSaveFirst() async {
@@ -33,6 +32,10 @@ class LocaleStorage {
       await _preferences!.clear();
       await setBoolValue(LocaleKeys.IS_FIRST, false);
     }
+  }
+
+  Future<void> setDoubleValue(LocaleKeys key, double value) async {
+    await _preferences!.setDouble(key.toString(), value);
   }
 
   Future<void> setIntValue(LocaleKeys key, int value) async {
@@ -55,6 +58,9 @@ class LocaleStorage {
 
   String getStringValue(LocaleKeys key) =>
       _preferences?.getString(key.toString()) ?? '';
+
+  double getDoubleValue(LocaleKeys key) =>
+      _preferences!.getDouble(key.toString()) ?? 0.0;
 
   bool getBoolValue(LocaleKeys key) =>
       _preferences!.getBool(key.toString()) ?? true;

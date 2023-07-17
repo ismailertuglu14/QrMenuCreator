@@ -4,13 +4,13 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:qrmenu/view/pages/editbusiness/model/change_social_media_request_model.dart';
+import 'package:qrmenu/view/pages/socialmedias/model/change_social_media_request_model.dart';
 
 import '../../../../core/constans/network/network_constants.dart';
 import '../model/change_cover_image_response_model.dart';
 import '../../createproduct/model/get_product_by_id_response_model.dart';
 
-import '../model/change_social_media_response_model.dart';
+import '../../socialmedias/model/change_social_media_response_model.dart';
 import '../model/remove_cover_image_response_model.dart';
 import '../model/update_business_response_model.dart';
 import 'IEditBusiness_service.dart';
@@ -37,22 +37,7 @@ class EditBusinessService extends IEditBusinessService {
     }
   }
 
-  @override
-  Future<ChangeSocialMediaResponseModel> addSocialMedia(
-      {required ChangeSocialMediaRequestModel requestModel}) async {
-    try {
-      Response<dynamic> response = await dio
-          .post(NetworkConstants.ADD_SOCIAL_MEDIA, data: requestModel.toJson());
 
-      if (response.statusCode == HttpStatus.ok) {
-        return ChangeSocialMediaResponseModel.fromJson(response.data);
-      } else {
-        throw Exception(response.statusMessage);
-      }
-    } catch (e) {
-      throw UnimplementedError(e.toString());
-    }
-  }
 
   @override
   Future<UpdateBusinessResponseModel> updateBusiness(

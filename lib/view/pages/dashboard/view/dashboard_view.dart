@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:qrmenu/core/constans/app/app_constants.dart';
@@ -57,6 +58,9 @@ class _DashboardViewState extends DashboardViewModel {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         floatingActionButton: DashboardCreateMenuButton(
+          menuNameController: _menuNameController,
+          imagePicker: _imagePicker,
+          uploadFile: uploadFile,
           createMenu: createMenu,
         ),
         body: RefreshIndicator(

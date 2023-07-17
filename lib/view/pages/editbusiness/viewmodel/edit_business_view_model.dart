@@ -9,109 +9,20 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
   late final TextEditingController _businessNameController;
   late final EditBusinessService _editBusinessService;
   late final TextEditingController _phoneNumberController;
-  late final TextEditingController _socialMediaLinkController;
+  late final LocationPickerService _locationPickerService;
 
   @override
   void initState() {
     super.initState();
-    
+
     _editBusinessService = EditBusinessService(NetworkManager.instance.dio);
+    _locationPickerService = LocationPickerService(NetworkManager.instance.dio);
     _editBusinessProvider = EditBusinessProvider.instance;
     _emailController = TextEditingController();
     _phoneNumberController = TextEditingController();
     _businessNameController = TextEditingController();
-    _socialMediaLinkController = TextEditingController();
-
+    WidgetsBinding.instance.addPostFrameCallback((_) => init());
     _imagePicker = ImagePicker();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _businessNameController.text =
-          LocaleStorage.instance.getStringValue(LocaleKeys.BUSINESS_NAME);
-      _emailController.text =
-          LocaleStorage.instance.getStringValue(LocaleKeys.EMAIL);
-
-      _phoneNumberController.text =
-          LocaleStorage.instance.getStringValue(LocaleKeys.PHONE_NUMBER);
-      _editBusinessProvider.changeCoverImage(
-          LocaleStorage.instance.getStringValue(LocaleKeys.COVER_IMAGE));
-      _editBusinessProvider.changeSocialMediaLinks([
-        AddSocialMediaLinkModel(
-            link: LocaleStorage.instance.getStringValue(LocaleKeys.INSTAGRAM),
-            imageKey: ImageKeys.instagram,
-            type: AddMediaLinkKeys.INSTAGRAM),
-        AddSocialMediaLinkModel(
-            link: LocaleStorage.instance.getStringValue(LocaleKeys.TWITTER),
-            imageKey: ImageKeys.twitter,
-            type: AddMediaLinkKeys.TWITTER),
-        AddSocialMediaLinkModel(
-            link: LocaleStorage.instance.getStringValue(LocaleKeys.WHATSAPP),
-            imageKey: ImageKeys.whatsapp,
-            type: AddMediaLinkKeys.WHATSAPP),
-        AddSocialMediaLinkModel(
-            link: LocaleStorage.instance.getStringValue(LocaleKeys.FACEBOOK),
-            imageKey: ImageKeys.facebook,
-            type: AddMediaLinkKeys.FACEBOOK),
-        AddSocialMediaLinkModel(
-            link: LocaleStorage.instance.getStringValue(LocaleKeys.WEBSITE),
-            imageKey: ImageKeys.website,
-            type: AddMediaLinkKeys.WEBSITE),
-      ]);
-    });
-  }
-
-  Future<void> addSocialMedia() async {
-    if (_socialMediaLinkController.text.isNotEmpty) {
-      try {
-        if (_editBusinessProvider.isLinkEditing) {
-          _editBusinessProvider.updateSocialMediaLinks(AddSocialMediaLinkModel(
-              link: _editBusinessProvider.editingItem?.link,
-              imageKey: _editBusinessProvider.editingItem!.imageKey,
-              type: _editBusinessProvider.editingItem!.type));
-        } else {
-          _editBusinessProvider.addSocialMediaLinks(AddSocialMediaLinkModel(
-              link: _socialMediaLinkController.text,
-              imageKey:
-                  selectImageKey(_editBusinessProvider.selectedAddMediaType),
-              type: _editBusinessProvider.selectedAddMediaType));
-        }
-
-        ChangeSocialMediaResponseModel response = await _editBusinessService.addSocialMedia(
-            requestModel: ChangeSocialMediaRequestModel(
-                whatsapp: _editBusinessProvider.selectedAddMediaType == AddMediaLinkKeys.WHATSAPP
-                    ? _socialMediaLinkController.text
-                    : LocaleStorage.instance
-                        .getStringValue(LocaleKeys.WHATSAPP),
-                instagram: _editBusinessProvider.selectedAddMediaType == AddMediaLinkKeys.INSTAGRAM
-                    ? _socialMediaLinkController.text
-                    : LocaleStorage.instance
-                        .getStringValue(LocaleKeys.INSTAGRAM),
-                twitter: _editBusinessProvider.selectedAddMediaType == AddMediaLinkKeys.TWITTER
-                    ? _socialMediaLinkController.text
-                    : LocaleStorage.instance.getStringValue(LocaleKeys.TWITTER),
-                threads: _editBusinessProvider.selectedAddMediaType == AddMediaLinkKeys.THREADS
-                    ? _socialMediaLinkController.text
-                    : LocaleStorage.instance.getStringValue(LocaleKeys.THREADS),
-                facebook: _editBusinessProvider.selectedAddMediaType == AddMediaLinkKeys.FACEBOOK
-                    ? _socialMediaLinkController.text
-                    : LocaleStorage.instance
-                        .getStringValue(LocaleKeys.FACEBOOK),
-                website: _editBusinessProvider.selectedAddMediaType == AddMediaLinkKeys.WEBSITE
-                    ? _socialMediaLinkController.text
-                    : LocaleStorage.instance.getStringValue(LocaleKeys.WEBSITE)));
-        if (response.isSuccess && response.errors.isEmpty) {
-          context.focusScope.unfocus();
-          _editBusinessProvider.changeIsLinkEditing(false);
-          _socialMediaLinkController.clear();
-        } else {
-          Fluttertoast.showToast(msg: response.errors.first);
-        }
-      } catch (e) {
-        throw UnimplementedError(e.toString());
-      }
-      _editBusinessProvider
-          .changeSelectedAddMediaType(AddMediaLinkKeys.WEBSITE);
-    } else {
-      Fluttertoast.showToast(msg: "Link can't be empty");
-    }
   }
 
   Future<void> updateBusiness() async {
@@ -138,11 +49,11 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
               LocaleKeys.PHONE_NUMBER, _phoneNumberController.text);
           LocaleStorage.instance.setStringValue(LocaleKeys.PHONE_COUNTRY_CODE,
               _editBusinessProvider.selectedCountryCode!.dialCode!);
-          LocaleStorage.instance.setStringValue(LocaleKeys.LOCATION_LATITUDE,
-              _editBusinessProvider.currentLocation!.latitude.toString());
+          LocaleStorage.instance.setDoubleValue(LocaleKeys.LOCATION_LATITUDE,
+              _editBusinessProvider.currentLocation!.latitude);
 
-          LocaleStorage.instance.setStringValue(LocaleKeys.LOCATION_LONGITUDE,
-              _editBusinessProvider.currentLocation!.longitude.toString());
+          LocaleStorage.instance.setDoubleValue(LocaleKeys.LOCATION_LONGITUDE,
+              _editBusinessProvider.currentLocation!.longitude);
           LocaleStorage.instance.setStringValue(LocaleKeys.CURRENCY, "TRY");
 
           Fluttertoast.showToast(msg: "Business updated successfully");
@@ -155,6 +66,23 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
     } else {
       Fluttertoast.showToast(msg: "Please fill all fields");
     }
+  }
+
+  void init() {
+    _emailController.text =
+        LocaleStorage.instance.getStringValue(LocaleKeys.EMAIL);
+    _phoneNumberController.text =
+        LocaleStorage.instance.getStringValue(LocaleKeys.PHONE_NUMBER);
+    _businessNameController.text =
+        LocaleStorage.instance.getStringValue(LocaleKeys.BUSINESS_NAME);
+    LatLng currentLocation = LatLng(
+        LocaleStorage.instance.getDoubleValue(LocaleKeys.LOCATION_LATITUDE),
+        LocaleStorage.instance.getDoubleValue(LocaleKeys.LOCATION_LONGITUDE));
+    _editBusinessProvider.changeCurrentLocation(currentLocation);
+    _locationPickerService
+        .getLocationName(currentLocation: currentLocation, lang: "en")
+        .then((value) => _editBusinessProvider.changeCurrentLocationName(
+            "${value.locality}, ${value.city}, ${value.countryName}"));
   }
 
   Future<void> changeCoverImage({required Object fileObject}) async {
@@ -177,25 +105,6 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
     super.dispose();
     _phoneNumberController.dispose();
     _emailController.dispose();
-    _socialMediaLinkController.dispose();
-
     _businessNameController.dispose();
-  }
-
-  ImageKeys selectImageKey(AddMediaLinkKeys value) {
-    switch (value) {
-      case AddMediaLinkKeys.INSTAGRAM:
-        return ImageKeys.instagram;
-      case AddMediaLinkKeys.TWITTER:
-        return ImageKeys.twitter;
-      case AddMediaLinkKeys.THREADS:
-        return ImageKeys.threads;
-      case AddMediaLinkKeys.FACEBOOK:
-        return ImageKeys.facebook;
-      case AddMediaLinkKeys.WEBSITE:
-        return ImageKeys.website;
-      case AddMediaLinkKeys.WHATSAPP:
-        return ImageKeys.whatsapp;
-    }
   }
 }

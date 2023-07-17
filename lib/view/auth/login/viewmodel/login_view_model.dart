@@ -38,10 +38,11 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
             .setStringValue(LocaleKeys.BUSINESS_NAME, response.data.name);
         LocaleStorage.instance
             .setStringValue(LocaleKeys.RESTAURANT_ID, response.data.id);
-        /*LocaleStorage.instance.setStringValue(
-            LocaleKeys.LOCATION_LATITUDE, response.data.address ?? "");
-        LocaleStorage.instance.setStringValue(
-            LocaleKeys.LOCATION_LATITUDE, response.data.address ?? "");*/
+
+        LocaleStorage.instance.setDoubleValue(
+            LocaleKeys.LOCATION_LATITUDE, response.data.location.latitude);
+        LocaleStorage.instance.setDoubleValue(
+            LocaleKeys.LOCATION_LONGITUDE, response.data.location.longitude);
 
         LocaleStorage.instance.setStringValue(
             LocaleKeys.COVER_IMAGE, response.data.profileImage ?? "");
@@ -52,17 +53,18 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
         LocaleStorage.instance.setStringValue(
             LocaleKeys.PHONE_NUMBER, response.data.phone.phoneNumber);
         LocaleStorage.instance.setStringValue(
-            LocaleKeys.INSTAGRAM, response.data.socialMedias.instagram ?? "");
+            LocaleKeys.INSTAGRAM, response.data.socialMedias.instagram);
+        LocaleStorage.instance.setStringValue(
+            LocaleKeys.THREADS, response.data.socialMedias.threads);
+        LocaleStorage.instance.setStringValue(
+            LocaleKeys.FACEBOOK, response.data.socialMedias.facebook);
 
         LocaleStorage.instance.setStringValue(
-            LocaleKeys.FACEBOOK, response.data.socialMedias.facebook ?? "");
-
+            LocaleKeys.TWITTER, response.data.socialMedias.twitter);
         LocaleStorage.instance.setStringValue(
-            LocaleKeys.TWITTER, response.data.socialMedias.twitter ?? "");
+            LocaleKeys.WHATSAPP, response.data.socialMedias.whatsapp);
         LocaleStorage.instance.setStringValue(
-            LocaleKeys.WHATSAPP, response.data.socialMedias.whatsapp ?? "");
-        LocaleStorage.instance.setStringValue(
-            LocaleKeys.WEBSITE, response.data.socialMedias.website ?? "");
+            LocaleKeys.WEBSITE, response.data.socialMedias.website);
       }
     } catch (e) {
       Fluttertoast.showToast(msg: "Failed to get business");
@@ -85,12 +87,12 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
               LocaleKeys.REFRESH_TOKEN, response.data.refreshToken);
           LocaleStorage.instance.setStringValue(
               LocaleKeys.EXPIRATION, response.data.expiration.toString());
-          getBusiness();
 
           LocaleStorage.instance
               .setStringValue(LocaleKeys.EMAIL, _emailController.text);
           LocaleStorage.instance
               .setStringValue(LocaleKeys.PASSWORD, _passwordController.text);
+          getBusiness();
 
           Fluttertoast.showToast(msg: "Login Success");
 

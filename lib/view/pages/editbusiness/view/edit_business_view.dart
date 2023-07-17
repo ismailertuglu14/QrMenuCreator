@@ -43,17 +43,15 @@ import '../../../../product/widget/countrycodepicker/country_code_picker.dart';
 import '../../../../product/widget/upload_file_dialog.dart';
 import '../../../../product/widget/user_circle_avatar.dart';
 
-import '../model/add_social_media_link_model.dart';
+import '../../locationpicker/service/LocationPicker_service.dart';
 import '../model/change_cover_image_response_model.dart';
-import '../model/change_social_media_request_model.dart';
-import '../model/change_social_media_response_model.dart';
+import '../../socialmedias/model/change_social_media_request_model.dart';
+import '../../socialmedias/model/change_social_media_response_model.dart';
 import '../model/remove_cover_image_response_model.dart';
 import '../model/update_business_response_model.dart';
 import '../service/EditBusiness_service.dart';
 
 import 'package:latlong2/spline.dart';
-
-import '../widget/add_social_media_link_sheet.dart';
 
 part '../viewmodel/edit_business_view_model.dart';
 
@@ -90,12 +88,21 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                           fit: StackFit.expand,
                           children: [
                             Positioned(
-                              child: (provider.coverImage == null ||
-                                      provider.coverImage!.isEmpty)
-                                  ? ImageKeys.default_image
-                                      .imageAsset(fit: BoxFit.cover)
-                                  : Image.network(provider.coverImage!,
-                                      fit: BoxFit.cover),
+                              child: Consumer<EditBusinessProvider>(
+                                builder: (context, provider, child) =>
+                                    UserCircleAvatar(
+                                  maxRadius: 40,
+                                  backgroundImage: (LocaleStorage.instance
+                                          .getStringValue(
+                                              LocaleKeys.COVER_IMAGE)
+                                          .isEmpty)
+                                      ? ImageKeys.default_image.assetImage()
+                                      : NetworkImage(LocaleStorage.instance
+                                              .getStringValue(
+                                                  LocaleKeys.COVER_IMAGE))
+                                          as ImageProvider,
+                                ),
+                              ),
                             ),
                             Align(
                               alignment: Alignment.bottomRight,
@@ -127,8 +134,7 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Expanded(
-                        flex: 3,
+                      Flexible(
                         child: TextButton.icon(
                             onPressed: () =>
                                 context.push(RouterKeys.CHANGE_CURRENCY.route),
@@ -136,94 +142,36 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                             label: Text("Curency: TRY",
                                 style: TextStyle(fontWeight: FontWeight.bold))),
                       ),
-                      Expanded(
-                        flex: 3,
+                      Flexible(
+                        child: Consumer<EditBusinessProvider>(
+                            builder: (context, provider, child) =>
+                                TextButton.icon(
+                                    onPressed: () => context
+                                        .push(RouterKeys.SOCIAL_MEDIAS.route),
+                                    icon: Icon(Icons.dataset_linked_outlined),
+                                    label: Text(
+                                      "Social Media Links",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ))),
+                      ),
+                      Flexible(
                         child: TextButton.icon(
                             onPressed: () =>
                                 context.push(RouterKeys.LOCATION_PICKER.route),
                             icon: Icon(Icons.maps_home_work_outlined),
-                            label: Text(
-                              (_editBusinessProvider.currentLocation != null &&
-                                      _editBusinessProvider
-                                              .currentLocationName !=
-                                          null)
-                                  ? "${_editBusinessProvider.currentLocationName}"
-                                  : "No Location Selected",
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                            label: Consumer<EditBusinessProvider>(
+                              builder: (context, provider, child) => Text(
+                                  (provider.currentLocation!.latitude
+                                              .toString()
+                                              .isNotEmpty &&
+                                          provider.currentLocation!.longitude
+                                              .toString()
+                                              .isNotEmpty)
+                                      ? provider.currentLocationName ??
+                                          "Unknown Location"
+                                      : "No Location Selected"),
                             )),
-                      ),
-                      Expanded(
-                        flex: 6,
-                        child: Consumer<EditBusinessProvider>(
-                            builder: (context, provider, child) => Column(
-                                  children: [
-                                    Expanded(
-                                      flex: 3,
-                                      child: Text(
-                                        "Social Media Links",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: context
-                                                .text.titleMedium?.fontSize),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 7,
-                                      child: Padding(
-                                        padding: PagePadding.verticalMedium(),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: List.generate(
-                                              provider.addedSocialMediaLinks
-                                                      .length +
-                                                  1,
-                                              (index) => GestureDetector(
-                                                    onTap: () => index ==
-                                                            provider
-                                                                .addedSocialMediaLinks
-                                                                .length
-                                                        ? showModalBottomSheet(
-                                                            showDragHandle:
-                                                                true,
-                                                            context: context,
-                                                            builder: (context) =>
-                                                                AddBusinessMediaLinkSheet(
-                                                                  addSocialMedia:
-                                                                      addSocialMedia,
-                                                                  controller:
-                                                                      _socialMediaLinkController,
-                                                                ))
-                                                        : null,
-                                                    child: Padding(
-                                                      padding: PagePadding
-                                                          .horizontalMin(),
-                                                      child: CircleAvatar(
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        foregroundColor: context
-                                                            .colorScheme
-                                                            .primary,
-                                                        maxRadius: 15,
-                                                        child: index ==
-                                                                provider
-                                                                    .addedSocialMediaLinks
-                                                                    .length
-                                                            ? Icon(Icons
-                                                                .add_rounded)
-                                                            : provider
-                                                                .addedSocialMediaLinks[
-                                                                    index]
-                                                                .imageKey
-                                                                .imageAsset(),
-                                                      ),
-                                                    ),
-                                                  )),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                )),
                       ),
                     ],
                   ),

@@ -100,7 +100,8 @@ class _QrViewState extends QrViewModel {
                       TemplateKeys.values.length,
                       (index) => DropdownMenuItem(
                             value: TemplateKeys.values[index],
-                            child: Text(TemplateKeys.values[index].name),
+                            child: Text(TemplateKeys.values[index].name,
+                                style: TextStyle(fontWeight: FontWeight.bold)),
                           )),
                   onChanged: (value) =>
                       provider.changeSelectedTemplate(value as TemplateKeys),

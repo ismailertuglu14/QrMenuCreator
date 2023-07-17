@@ -25,6 +25,7 @@ import '../../../view/pages/editbusiness/view/edit_business_view.dart';
 import '../../../view/pages/error/eror_view.dart';
 
 import '../../../view/pages/products/view/products_view.dart';
+import '../../../view/pages/socialmedias/view/social_medias_view.dart';
 import '../../constans/enum/route_keys.dart';
 
 class RouterManager with ChangeNotifier {
@@ -155,6 +156,11 @@ class RouterManager with ChangeNotifier {
           path: RouterKeys.CHANGE_CURRENCY.route,
           pageBuilder: (context, state) => buildPageWithSlideTransition(
               context: context, state: state, child: ChangeCurrencyView())),
+      GoRoute(
+          name: RouterKeys.SOCIAL_MEDIAS.name,
+          path: RouterKeys.SOCIAL_MEDIAS.route,
+          pageBuilder: (context, state) => buildPageWithSlideTransition(
+              context: context, state: state, child: SocialMediasView())),
     ],
   );
 }

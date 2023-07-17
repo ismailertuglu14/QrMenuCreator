@@ -28,63 +28,91 @@ class GetBusinessResponseModel {
 }
 
 class GetBusinessData {
+  final Location location;
+  final bool isVerified;
+  final String defaultCurrency;
   final String id;
   final String name;
   final dynamic address;
   final dynamic currentPlanId;
   final dynamic category;
-  final dynamic profileImage;
-  final bool isActive;
-  final bool isVerified;
-  final String defaultCurrency;
+  final String? profileImage;
+  final dynamic bannerImage;
   final SocialMedias socialMedias;
+  final bool isActive;
   final String email;
   final Phone phone;
 
   GetBusinessData({
+    required this.location,
+    required this.isVerified,
+    required this.defaultCurrency,
     required this.id,
     required this.name,
     this.address,
     this.currentPlanId,
     this.category,
-    this.profileImage,
-    required this.isActive,
-    required this.isVerified,
-    required this.defaultCurrency,
+    required this.profileImage,
+    this.bannerImage,
     required this.socialMedias,
+    required this.isActive,
     required this.email,
     required this.phone,
   });
 
   factory GetBusinessData.fromJson(Map<String, dynamic> json) =>
       GetBusinessData(
+        location: Location.fromJson(json["location"]),
+        isVerified: json["isVerified"],
+        defaultCurrency: json["defaultCurrency"],
         id: json["_id"],
         name: json["name"],
         address: json["address"],
         currentPlanId: json["currentPlanId"],
         category: json["category"],
         profileImage: json["profileImage"],
-        isActive: json["isActive"],
-        isVerified: json["isVerified"],
-        defaultCurrency: json["defaultCurrency"],
+        bannerImage: json["bannerImage"],
         socialMedias: SocialMedias.fromJson(json["socialMedias"]),
+        isActive: json["isActive"],
         email: json["email"],
         phone: Phone.fromJson(json["phone"]),
       );
 
   Map<String, dynamic> toJson() => {
+        "location": location.toJson(),
+        "isVerified": isVerified,
+        "defaultCurrency": defaultCurrency,
         "_id": id,
         "name": name,
         "address": address,
         "currentPlanId": currentPlanId,
         "category": category,
         "profileImage": profileImage,
-        "isActive": isActive,
-        "isVerified": isVerified,
-        "defaultCurrency": defaultCurrency,
+        "bannerImage": bannerImage,
         "socialMedias": socialMedias.toJson(),
+        "isActive": isActive,
         "email": email,
         "phone": phone.toJson(),
+      };
+}
+
+class Location {
+  final double latitude;
+  final double longitude;
+
+  Location({
+    required this.latitude,
+    required this.longitude,
+  });
+
+  factory Location.fromJson(Map<String, dynamic> json) => Location(
+        latitude: json["latitude"]?.toDouble(),
+        longitude: json["longitude"]?.toDouble(),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "latitude": latitude,
+        "longitude": longitude,
       };
 }
 
@@ -109,21 +137,21 @@ class Phone {
 }
 
 class SocialMedias {
-  final dynamic instagram;
-  final dynamic facebook;
-  final dynamic twitter;
-  final dynamic threads;
-  final dynamic whatsapp;
-  final dynamic website;
+  final String instagram;
+  final String facebook;
+  final String twitter;
+  final String threads;
+  final String whatsapp;
+  final String website;
   final String id;
 
   SocialMedias({
-    this.instagram,
-    this.facebook,
-    this.twitter,
-    this.threads,
-    this.whatsapp,
-    this.website,
+    required this.instagram,
+    required this.facebook,
+    required this.twitter,
+    required this.threads,
+    required this.whatsapp,
+    required this.website,
     required this.id,
   });
 

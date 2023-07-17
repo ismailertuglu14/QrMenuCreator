@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../view/pages/dashboard/model/get_restaurant_menus_response_model.dart';
 import '../../constans/enum/template_keys.dart';
@@ -11,17 +12,18 @@ class DashboardProvider extends ChangeNotifier {
     return _instance!;
   }
 
-  DashboardProvider._() {
-    _menuNameController = TextEditingController();
-  }
+  DashboardProvider._();
 
   List<RestaurantMenuData>? _restaurantMenus;
 
   String? _selectedMenuId;
   int _selectedMenuIndex = 0;
+  XFile? _menuImage;
 
   bool _isLoading = false;
   TemplateKeys _selectedTemplateKey = TemplateKeys.FULVOUS;
+
+  XFile? get menuImage => _menuImage;
 
   TemplateKeys get selectedTemplateKey => _selectedTemplateKey;
 
@@ -31,13 +33,18 @@ class DashboardProvider extends ChangeNotifier {
 
   List<RestaurantMenuData>? get menus => _menus;
 
-  TextEditingController get menuNameController => _menuNameController;
+ 
 
   int get selectedMenuIndex => _selectedMenuIndex;
 
   bool get isLoading => _isLoading;
 
   List<RestaurantMenuData>? get restaurantMenus => _restaurantMenus;
+
+  set setMenuImage(XFile? menuImage) {
+    _menuImage = menuImage;
+    notifyListeners();
+  }
 
   void changeTemplate(TemplateKeys templateKey) {
     _selectedTemplateKey = templateKey;
@@ -64,7 +71,7 @@ class DashboardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setSelectedMenuIndex(int index) {
+  set setSelectedMenuIndex(int index) {
     _selectedMenuIndex = index;
 
     notifyListeners();

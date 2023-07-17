@@ -1,18 +1,18 @@
 class ChangeSocialMediaRequestModel {
-  final String? instagram;
-  final String? twitter;
-  final String? threads;
-  final String? facebook;
-  final String? whatsapp;
-  final String? website;
+  final String instagram;
+  final String twitter;
+  final dynamic threads;
+  final String facebook;
+  final String website;
+  final String whatsapp;
 
   ChangeSocialMediaRequestModel({
-    this.instagram,
-    this.twitter,
+    required this.instagram,
+    required this.twitter,
     this.threads,
-    this.facebook,
-    this.website,
-    this.whatsapp,
+    required this.facebook,
+    required this.website,
+    required this.whatsapp,
   });
 
   factory ChangeSocialMediaRequestModel.fromJson(Map<String, dynamic> json) =>
