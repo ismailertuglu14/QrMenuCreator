@@ -7,7 +7,6 @@ enum LottieKeys {
   loading,
   empty_notification,
   premium,
-  click,
-  dashboard,
-  create_new_item
+
+  select_template
 }

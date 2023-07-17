@@ -53,7 +53,7 @@ import '../service/EditBusiness_service.dart';
 
 import 'package:latlong2/spline.dart';
 
-import '../widget/add_media_link_sheet.dart';
+import '../widget/add_social_media_link_sheet.dart';
 
 part '../viewmodel/edit_business_view_model.dart';
 

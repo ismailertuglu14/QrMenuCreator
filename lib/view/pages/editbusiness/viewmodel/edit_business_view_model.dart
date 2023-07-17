@@ -14,7 +14,7 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
   @override
   void initState() {
     super.initState();
-
+    
     _editBusinessService = EditBusinessService(NetworkManager.instance.dio);
     _editBusinessProvider = EditBusinessProvider.instance;
     _emailController = TextEditingController();
@@ -145,7 +145,7 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
               _editBusinessProvider.currentLocation!.longitude.toString());
           LocaleStorage.instance.setStringValue(LocaleKeys.CURRENCY, "TRY");
 
-           Fluttertoast.showToast(msg: "Business updated successfully");
+          Fluttertoast.showToast(msg: "Business updated successfully");
         } else {
           Fluttertoast.showToast(msg: response.errors.first);
         }

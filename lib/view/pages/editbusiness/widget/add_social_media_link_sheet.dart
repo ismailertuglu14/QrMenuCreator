@@ -98,13 +98,13 @@ class AddBusinessMediaLinkSheet extends StatelessWidget {
                           : Row(mainAxisSize: MainAxisSize.min, children: [
                               IconButton(
                                   onPressed: () {
+                                    provider.changeEditItem(
+                                        provider.addedSocialMediaLinks[index]);
                                     provider.changeIsLinkEditing(true);
                                     controller.text = provider
                                         .addedSocialMediaLinks[index].link!;
                                     provider.changeSelectedAddMediaType(provider
                                         .addedSocialMediaLinks[index].type);
-                                    provider.changeEditItem(
-                                        provider.addedSocialMediaLinks[index]);
                                   },
                                   icon: Icon(Icons.edit_outlined)),
                               IconButton(

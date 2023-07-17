@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../view/pages/dashboard/model/get_restaurant_menus_response_model.dart';
+import '../../constans/enum/template_keys.dart';
 
 class DashboardProvider extends ChangeNotifier {
   static DashboardProvider? _instance;
@@ -20,9 +21,15 @@ class DashboardProvider extends ChangeNotifier {
   int _selectedMenuIndex = 0;
 
   bool _isLoading = false;
+  TemplateKeys _selectedTemplateKey = TemplateKeys.FULVOUS;
 
+  TemplateKeys get selectedTemplateKey => _selectedTemplateKey;
+
+  List<RestaurantMenuData>? _menus;
   String? get selectedMenuId => _selectedMenuId;
   late final TextEditingController _menuNameController;
+
+  List<RestaurantMenuData>? get menus => _menus;
 
   TextEditingController get menuNameController => _menuNameController;
 
@@ -31,6 +38,31 @@ class DashboardProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
   List<RestaurantMenuData>? get restaurantMenus => _restaurantMenus;
+
+  void changeTemplate(TemplateKeys templateKey) {
+    _selectedTemplateKey = templateKey;
+    notifyListeners();
+  }
+
+  set setRestaurantMenus(List<RestaurantMenuData>? restaurantMenus) {
+    _restaurantMenus = restaurantMenus;
+    notifyListeners();
+  }
+
+  set setMenus(List<RestaurantMenuData>? menus) {
+    _menus = menus;
+    notifyListeners();
+  }
+
+  void changeLoading() {
+    _isLoading = !_isLoading;
+    notifyListeners();
+  }
+
+  void setSelectedMenuId(String? menuId) {
+    _selectedMenuId = menuId;
+    notifyListeners();
+  }
 
   void setSelectedMenuIndex(int index) {
     _selectedMenuIndex = index;
@@ -43,23 +75,8 @@ class DashboardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setSelectedMenuId(String? menuId) {
-    _selectedMenuId = menuId;
-    notifyListeners();
-  }
-
   void addRestaurantMenu(RestaurantMenuData restaurantMenu) {
     _restaurantMenus?.add(restaurantMenu);
-    notifyListeners();
-  }
-
-  void changeLoading() {
-    _isLoading = !_isLoading;
-    notifyListeners();
-  }
-
-  set setRestaurantMenus(List<RestaurantMenuData>? restaurantMenus) {
-    _restaurantMenus = restaurantMenus;
     notifyListeners();
   }
 }

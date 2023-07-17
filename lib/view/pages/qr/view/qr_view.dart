@@ -70,10 +70,14 @@ class _QrViewState extends QrViewModel {
                               children: [
                                 Text(
                                     provider.menus?[index].name.toUpperCase() ??
-                                        ""),
+                                        "",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
                                 Spacer(),
                                 Text(
-                                    "${provider.menus?[index].productCount ?? 0} Products"),
+                                    "${provider.menus?[index].productCount ?? 0} Products",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
                               ],
                             ),
                           )),

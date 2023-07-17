@@ -10,10 +10,6 @@ enum ImageKeys {
   onboard_4,
   onboard_5,
   onboard_6,
-  login,
-  register,
-  reset_password,
-
   premium,
   language,
   edit_business,
@@ -25,10 +21,8 @@ enum ImageKeys {
   empty_category,
   default_image,
   qr,
-
   notification,
   delete,
-
   edit,
   rate_app,
   info,
@@ -50,11 +44,11 @@ enum ImageKeys {
   sulphurdioxide,
   lupin,
   molluscs,
-  celadon,
   threads,
   twitter,
   instagram,
   website,
   whatsapp,
-  fulvous
+  fulvous_template,
+  celadon_template,
 }

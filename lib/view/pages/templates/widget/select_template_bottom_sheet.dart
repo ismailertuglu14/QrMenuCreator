@@ -47,7 +47,7 @@ class SelectTemplateBottomSheet extends StatelessWidget {
                         icon: Icon(Icons.arrow_drop_down_rounded),
                         isExpanded: true,
                         items: List.generate(
-                            provider.menus?.length ?? 0,
+                            provider.menus == null ? 1 : provider.menus!.length,
                             (index) => DropdownMenuItem(
                                   value: provider.menus?[index].id,
                                   child: Row(
@@ -58,10 +58,12 @@ class SelectTemplateBottomSheet extends StatelessWidget {
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       Spacer(),
-                                      Text(
-                                          "${provider.menus?[index].productCount ?? 0} Products",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
+                                      provider.menus![index].name == "DEFAULT"
+                                          ? SizedBox.shrink()
+                                          : Text(
+                                              "${provider.menus?[index].productCount ?? 0} Products",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold)),
                                     ],
                                   ),
                                 )),
@@ -100,9 +102,9 @@ class SelectTemplateBottomSheet extends StatelessWidget {
                             location: BannerLocation.topEnd,
                             message: index == 0 ? "FREE" : "PRO",
                             child: index == 0
-                                ? ImageKeys.fulvous
+                                ? ImageKeys.fulvous_template
                                     .imageAsset(fit: BoxFit.fitWidth)
-                                : ImageKeys.celadon
+                                : ImageKeys.celadon_template
                                     .imageAsset(fit: BoxFit.fitWidth),
                           ),
                         ),

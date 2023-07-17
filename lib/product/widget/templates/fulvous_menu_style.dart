@@ -14,7 +14,7 @@ import '../video_player.dart';
 
 class FulvousMenuStyle extends StatefulWidget {
   const FulvousMenuStyle({super.key, required this.model});
-  final BaseTemplateModel model;
+  final BaseTemplateModel? model;
 
   @override
   State<FulvousMenuStyle> createState() => _FulvousMenuStyleState();
@@ -66,7 +66,7 @@ class _FulvousMenuStyleState extends State<FulvousMenuStyle> {
           child: ListView.builder(
               controller: _scrollController,
               padding: PagePadding.allDefault(),
-              itemCount: widget.model.products.length,
+              itemCount: widget.model!.products.length,
               itemBuilder: (context, index) => GestureDetector(
                     onTap: () => showDialog(
                         context: context,
@@ -81,7 +81,7 @@ class _FulvousMenuStyleState extends State<FulvousMenuStyle> {
                                       flex: 6,
                                       child: TemplateFilePreview(
                                           files: widget
-                                              .model.products[index].images!),
+                                              .model!.products[index].images!),
                                     ),
                                     Expanded(
                                         flex: 5,
@@ -96,8 +96,8 @@ class _FulvousMenuStyleState extends State<FulvousMenuStyle> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    widget.model.products[index]
-                                                        .name
+                                                    widget.model!
+                                                        .products[index].name
                                                         .toUpperCase(),
                                                     style: TextStyle(
                                                         fontWeight:
@@ -107,7 +107,7 @@ class _FulvousMenuStyleState extends State<FulvousMenuStyle> {
                                                             .headlineSmall
                                                             ?.fontSize),
                                                   ),
-                                                  widget.model.products[index]
+                                                  widget.model!.products[index]
                                                           .isNew
                                                       ? Card(
                                                           color: context
@@ -129,7 +129,7 @@ class _FulvousMenuStyleState extends State<FulvousMenuStyle> {
                                                 ],
                                               ),
                                               Text(
-                                                widget.model.products[index]
+                                                widget.model!.products[index]
                                                     .description,
                                                 maxLines: 3,
                                                 overflow: TextOverflow.ellipsis,
@@ -139,7 +139,7 @@ class _FulvousMenuStyleState extends State<FulvousMenuStyle> {
                                                         .titleMedium?.fontSize),
                                               ),
                                               Text(
-                                                " ${widget.model.products[index].price.toString()} ₺",
+                                                " ${widget.model!.products[index].price.toString()} ₺",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: context.text
@@ -181,17 +181,18 @@ class _FulvousMenuStyleState extends State<FulvousMenuStyle> {
                               flex: 4,
                               child: Card(
                                   clipBehavior: Clip.antiAlias,
-                                  child: (widget.model.products[index].images ==
-                                              null ||
-                                          widget.model.products[index].images!
-                                              .isEmpty)
-                                      ? ImageKeys.default_image
-                                          .imageAsset(fit: BoxFit.cover)
-                                      : Image.network(
-                                          widget.model.products[index].images!
-                                              .first,
-                                          fit: BoxFit.cover,
-                                          height: context.height * 0.15)),
+                                  child:
+                                      (widget.model!.products[index].images ==
+                                                  null ||
+                                              widget.model!.products[index]
+                                                  .images!.isEmpty)
+                                          ? ImageKeys.default_image
+                                              .imageAsset(fit: BoxFit.cover)
+                                          : Image.network(
+                                              widget.model!.products[index]
+                                                  .images!.first,
+                                              fit: BoxFit.cover,
+                                              height: context.height * 0.15)),
                             ),
                             Expanded(
                               flex: 6,
@@ -205,7 +206,7 @@ class _FulvousMenuStyleState extends State<FulvousMenuStyle> {
                                     Padding(
                                       padding: PagePadding.verticalDefault(),
                                       child: Text(
-                                          widget.model.products[index].name,
+                                          widget.model!.products[index].name,
                                           style: TextStyle(
                                               color:
                                                   context.colorScheme.surface,
@@ -215,16 +216,19 @@ class _FulvousMenuStyleState extends State<FulvousMenuStyle> {
                                     ),
                                     Text(
                                         widget
-                                            .model.products[index].description,
-                                        style: TextStyle(
-                                            fontSize: context
-                                                .text.titleLarge?.fontSize,
-                                            color: context.colorScheme.surface,
-                                            overflow: TextOverflow.ellipsis)),
+                                            .model!.products[index].description,
+                                        style:
+                                            TextStyle(
+                                                fontSize: context
+                                                    .text.titleLarge?.fontSize,
+                                                color:
+                                                    context.colorScheme.surface,
+                                                overflow:
+                                                    TextOverflow.ellipsis)),
                                     Padding(
                                       padding: PagePadding.verticalDefault(),
                                       child: Text(
-                                          "${widget.model.products[index].price} ₺",
+                                          "${widget.model!.products[index].price} ₺",
                                           style: TextStyle(
                                               fontSize: context
                                                   .text.titleLarge?.fontSize,

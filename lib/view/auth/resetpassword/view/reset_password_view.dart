@@ -17,6 +17,7 @@ import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/durations.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/app_bar.dart';
+import '../../login/view/login_view.dart';
 import '../model/reset_password_check_email_request_model.dart';
 import '../model/reset_password_check_email_response_model.dart';
 import '../model/reset_password_check_otp_code_request_model.dart';
@@ -41,60 +42,81 @@ class _ResetPasswordViewState extends ResetPasswordViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBodyBehindAppBar: true,
         appBar: const CommonAppBar(),
         body: SingleChildScrollView(
           child: SizedBox(
             height: context.height,
             width: context.width,
-            child: Padding(
-              padding: const PagePadding.spesificAuth(),
-              child: Column(
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                      children: [
-                        Expanded(
-                          flex: 7,
-                          child: ImageKeys.reset_password
-                              .imageAsset(width: context.width / 2),
+            child: Stack(
+              children: [
+                Positioned(
+                  child: SizedBox(
+                    width: context.width,
+                    height: context.height * 0.28,
+                    child: CustomPaint(
+                      painter: AppBarPainter(),
+                      child: Padding(
+                        padding: PagePadding.allHeight(),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Icon(Icons.qr_code_rounded,
+                                size: context.width * 0.2,
+                                color: Colors.white70),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Reset Password",
+                                    style: context.text.headlineMedium!
+                                        .copyWith(fontWeight: FontWeight.bold)),
+                                Text("Reset your password",
+                                    style: TextStyle(color: Colors.white70))
+                              ],
+                            )
+                          ],
                         ),
-                        Expanded(
-                          flex: 3,
-                          child: Text(
-                            "Reset Password",
-                            style: context.text.headlineSmall,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
-                  Expanded(
-                      flex: 7,
-                      child: PageView.custom(
-                          controller: _pageController,
-                          physics: const NeverScrollableScrollPhysics(),
-                          childrenDelegate: SliverChildListDelegate.fixed([
-                            ResetPasswordTypeStep(
-                                resetTargetTextController:
-                                    _resetTargetTextController,
-                                checkEmail: checkEmail),
-                            ResetPasswordOtpStep(
-                                pageController: _pageController,
-                                resetTarget: _resetTargetTextController.text,
-                                otpCodeTextController: _otpCodeTextController,
-                                checkOtpCode: checkOtpCode,
-                                resetPasswordProvider: _resetPasswordProvider,
-                                checkEmail: checkEmail),
-                            ResetPasswordSubmitChangeStep(
-                              passwordConfirmTextController:
-                                  _passwordConfirmTextController,
-                              passwordTextController: _passwordTextController,
-                              resetPassword: resetPassword,
-                            )
-                          ]))),
-                ],
-              ),
+                ),
+                Padding(
+                  padding: const PagePadding.spesificAuth(),
+                  child: Column(
+                    children: [
+                      Spacer(flex: 3),
+                      Expanded(
+                          flex: 7,
+                          child: PageView.custom(
+                              controller: _pageController,
+                              physics: const NeverScrollableScrollPhysics(),
+                              childrenDelegate: SliverChildListDelegate.fixed([
+                                ResetPasswordTypeStep(
+                                    resetTargetTextController:
+                                        _resetTargetTextController,
+                                    checkEmail: checkEmail),
+                                ResetPasswordOtpStep(
+                                    pageController: _pageController,
+                                    resetTarget:
+                                        _resetTargetTextController.text,
+                                    otpCodeTextController:
+                                        _otpCodeTextController,
+                                    checkOtpCode: checkOtpCode,
+                                    resetPasswordProvider:
+                                        _resetPasswordProvider,
+                                    checkEmail: checkEmail),
+                                ResetPasswordSubmitChangeStep(
+                                  passwordConfirmTextController:
+                                      _passwordConfirmTextController,
+                                  passwordTextController:
+                                      _passwordTextController,
+                                  resetPassword: resetPassword,
+                                )
+                              ]))),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ));

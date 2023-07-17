@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
+import 'package:qrmenu/product/widget/templates/celadon_menu_style.dart';
 
+import '../../../../core/constans/enum/image_keys.dart';
 import '../../../../core/constans/enum/lottie_keys.dart';
+import '../../../../core/constans/enum/template_keys.dart';
 import '../../../../core/init/provider/dashboard_provider.dart';
+import '../../../../product/utility/border_radius.dart';
+import '../../../../product/utility/grid_delegates.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/elevation_button.dart';
 import '../../../../product/widget/text_field.dart';
+import '../../category/model/get_category_response_model.dart';
+import '../../products/model/get_products_by_category_id_response_model.dart';
+import '../../templates/model/base_template_model.dart';
+import '../../templates/widget/template_list.dart';
 
 class CreateMenuDialog extends StatelessWidget {
   const CreateMenuDialog({super.key, required this.createMenu});
@@ -43,8 +53,36 @@ class CreateMenuDialog extends StatelessWidget {
               hintText: "Menu Name",
               textController: provider.menuNameController,
             ),
+            SizedBox(
+              height: context.height / 8,
+              child: GridView.builder(
+                itemCount: TemplateKeys.values.length,
+                padding: PagePadding.allDefault(),
+                scrollDirection: Axis.horizontal,
+                gridDelegate: PageGridDelegates.medium(),
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () =>
+                      provider.changeTemplate(TemplateKeys.values[index]),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: context.colorScheme.surface.withOpacity(0.05),
+                        borderRadius: PageBorderRadius.allMedium(),
+                        border: Border.all(
+                          color: provider.selectedTemplateKey ==
+                                  TemplateKeys.values[index]
+                              ? context.colorScheme.primary
+                              : Colors.transparent,
+                          width: 2,
+                        )),
+                    clipBehavior: Clip.antiAlias,
+                    child:
+                        templateList()[index].imageAsset(fit: BoxFit.fitWidth),
+                  ),
+                ),
+              ),
+            ),
             Padding(
-              padding: PagePadding.verticalHight(),
+              padding: PagePadding.verticalMedium(),
               child: Row(
                 children: [
                   Consumer<DashboardProvider>(
@@ -68,7 +106,7 @@ class CreateMenuDialog extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
           ]),
         ),
       ),

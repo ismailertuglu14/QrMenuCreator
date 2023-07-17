@@ -26,7 +26,7 @@ import 'fulvous_menu_style.dart';
 
 class CeladonMenuStyle extends StatefulWidget {
   const CeladonMenuStyle({super.key, required this.model});
-  final BaseTemplateModel model;
+  final BaseTemplateModel? model;
 
   @override
   State<CeladonMenuStyle> createState() => _CeladonMenuStyleState();
@@ -66,7 +66,7 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
               flex: 2,
               child: GridView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: widget.model.categories.length,
+                  itemCount: widget.model!.categories.length,
                   padding: PagePadding.allLow(),
                   gridDelegate: PageGridDelegates.normal(),
                   itemBuilder: (context, index) => GestureDetector(
@@ -77,22 +77,23 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                 flex: 8,
                                 child: Card(
                                   clipBehavior: Clip.antiAlias,
-                                  child: (widget.model.categories[index]
-                                                  .image ==
-                                              null ||
-                                          widget.model.categories[index].image!
-                                              .isEmpty)
-                                      ? ImageKeys.default_image
-                                          .imageAsset(fit: BoxFit.cover)
-                                      : Image.network(
-                                          widget.model.categories[index].image!,
-                                          width: context.width * 0.2,
-                                          fit: BoxFit.cover),
+                                  child:
+                                      (widget.model!.categories[index].image ==
+                                                  null ||
+                                              widget.model!.categories[index]
+                                                  .image!.isEmpty)
+                                          ? ImageKeys.default_image
+                                              .imageAsset(fit: BoxFit.cover)
+                                          : Image.network(
+                                              widget.model!.categories[index]
+                                                  .image!,
+                                              width: context.width * 0.2,
+                                              fit: BoxFit.cover),
                                 )),
                             Expanded(
                               flex: 2,
                               child: Text(
-                                  widget.model.categories[index].name
+                                  widget.model!.categories[index].name
                                       .toUpperCase(),
                                   style: TextStyle(
                                       fontSize:
@@ -155,7 +156,7 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                           shrinkWrap: true,
                           controller: _scrollController,
                           padding: PagePadding.allDefault(),
-                          itemCount: widget.model.products.length,
+                          itemCount: widget.model!.products.length,
                           itemBuilder: (context, index) => GestureDetector(
                                 onTap: () => showDialog(
                                     context: context,
@@ -170,7 +171,7 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                                   flex: 6,
                                                   child: TemplateFilePreview(
                                                       files: widget
-                                                          .model
+                                                          .model!
                                                           .products[index]
                                                           .images!),
                                                 ),
@@ -191,7 +192,7 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                                             children: [
                                                               Text(
                                                                 widget
-                                                                    .model
+                                                                    .model!
                                                                     .products[
                                                                         index]
                                                                     .name
@@ -206,7 +207,7 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                                                         ?.fontSize),
                                                               ),
                                                               widget
-                                                                      .model
+                                                                      .model!
                                                                       .products[
                                                                           index]
                                                                       .isNew
@@ -234,7 +235,7 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                                           ),
                                                           Text(
                                                             widget
-                                                                .model
+                                                                .model!
                                                                 .products[index]
                                                                 .description,
                                                             maxLines: 3,
@@ -251,7 +252,7 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                                                     ?.fontSize),
                                                           ),
                                                           Text(
-                                                            " ${widget.model.products[index].price.toString()} ₺",
+                                                            " ${widget.model!.products[index].price.toString()} ₺",
                                                             style: TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
@@ -309,12 +310,12 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                           child: Card(
                                               clipBehavior: Clip.antiAlias,
                                               child: (widget
-                                                              .model
+                                                              .model!
                                                               .products[index]
                                                               .images ==
                                                           null ||
                                                       widget
-                                                          .model
+                                                          .model!
                                                           .products[index]
                                                           .images!
                                                           .isEmpty)
@@ -323,7 +324,7 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                                           fit: BoxFit.cover)
                                                   : Image.network(
                                                       widget
-                                                          .model
+                                                          .model!
                                                           .products[index]
                                                           .images!
                                                           .first,
@@ -345,7 +346,7 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                                   padding: PagePadding
                                                       .verticalDefault(),
                                                   child: Text(
-                                                      widget.model
+                                                      widget.model!
                                                           .products[index].name,
                                                       style: TextStyle(
                                                           color:
@@ -360,7 +361,9 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                                               FontWeight.bold)),
                                                 ),
                                                 Text(
-                                                    widget.model.products[index]
+                                                    widget
+                                                        .model!
+                                                        .products[index]
                                                         .description,
                                                     style: TextStyle(
                                                         fontSize: context
@@ -376,7 +379,7 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                                   padding: PagePadding
                                                       .verticalDefault(),
                                                   child: Text(
-                                                      "${widget.model.products[index].price} ₺",
+                                                      "${widget.model!.products[index].price} ₺",
                                                       style: TextStyle(
                                                           fontSize: context
                                                               .text
@@ -465,7 +468,7 @@ class DrawerMenu extends StatelessWidget {
                   flex: 9,
                   child: ListView.builder(
                       padding: PagePadding.horizontalHeight(),
-                      itemCount: widget.model.categories.length,
+                      itemCount: widget.model!.categories.length,
                       itemBuilder: (context, index) => Padding(
                             padding: PagePadding.verticalDefault(),
                             child: OutlinedButton(
@@ -475,7 +478,7 @@ class DrawerMenu extends StatelessWidget {
                                 child: Padding(
                                   padding: PagePadding.allHeight(),
                                   child: Text(widget
-                                      .model.categories[index].name
+                                      .model!.categories[index].name
                                       .toUpperCase()),
                                 )),
                           )),
