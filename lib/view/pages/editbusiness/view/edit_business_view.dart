@@ -139,8 +139,12 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                             onPressed: () =>
                                 context.push(RouterKeys.CHANGE_CURRENCY.route),
                             icon: Icon(Icons.monetization_on_outlined),
-                            label: Text("Curency: TRY",
-                                style: TextStyle(fontWeight: FontWeight.bold))),
+                            label: Consumer<EditBusinessProvider>(
+                              builder: (context, provider, child) => Text(
+                                  "Curency: ${provider.currentCurrency ?? "Unknown"}",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            )),
                       ),
                       Flexible(
                         child: Consumer<EditBusinessProvider>(

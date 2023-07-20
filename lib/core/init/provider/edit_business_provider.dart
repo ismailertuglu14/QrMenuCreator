@@ -24,9 +24,13 @@ class EditBusinessProvider extends ChangeNotifier {
   bool _isLoading = false;
   String? _currentLocationName;
 
+  String? _currentCurrency;
+
   LatLng? _currentLocation;
 
   String? get currentLocationName => _currentLocationName;
+
+  String? get currentCurrency => _currentCurrency;
 
   LatLng? get currentLocation => _currentLocation;
 
@@ -40,6 +44,11 @@ class EditBusinessProvider extends ChangeNotifier {
   String? get coverImage => _coverImage;
 
   AutovalidateMode get autoValidateMode => _autoValidateMode;
+
+  void changeCurrentCurrency(String value) {
+    _currentCurrency = value;
+    notifyListeners();
+  }
 
   void changeCurrentLocationName(String value) {
     _currentLocationName = value;

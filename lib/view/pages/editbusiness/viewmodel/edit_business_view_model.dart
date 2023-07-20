@@ -33,7 +33,7 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
         UpdateBusinessResponseModel response =
             await _editBusinessService.updateBusiness(
           email: _emailController.text,
-          currency: "TRY",
+          currency: _editBusinessProvider.currentCurrency!,
           countryCode: _editBusinessProvider.selectedCountryCode!.dialCode!,
           phoneNumber: _phoneNumberController.text,
           businessName: _businessNameController.text,
@@ -69,6 +69,8 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
   }
 
   void init() {
+    _editBusinessProvider.changeCurrentCurrency(
+        LocaleStorage.instance.getStringValue(LocaleKeys.CURRENCY));
     _emailController.text =
         LocaleStorage.instance.getStringValue(LocaleKeys.EMAIL);
     _phoneNumberController.text =

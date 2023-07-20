@@ -1,5 +1,6 @@
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+import 'package:qrmenu/core/init/provider/change_currency_provider.dart';
 import 'package:qrmenu/core/init/provider/dashboard_provider.dart';
 import 'package:qrmenu/core/init/provider/delete_business_provider.dart';
 import 'package:qrmenu/core/init/provider/home_provider.dart';
@@ -55,6 +56,8 @@ class Providers {
       ChangeNotifierProvider(create: (context) => QrProvider.instance),
       ChangeNotifierProvider(
           create: (context) => DeleteBusinessProvider.instance),
+      ChangeNotifierProvider(
+          create: (context) => ChangeCurrencyProvider.instance),
     ];
   }
 }
