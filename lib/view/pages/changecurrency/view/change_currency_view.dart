@@ -30,29 +30,33 @@ class _ChangeCurrencyViewState extends ChangeCurrencyViewModel {
         child: Column(children: [
           Flexible(
             flex: 1,
+            fit: FlexFit.tight,
             child: CommonTextField(
-                prefixIcon: Icon(Icons.search), hintText: "Search Currency"),
+                onChanged: _changeCurrencyProvider.searchCurrency,
+                prefixIcon: Icon(Icons.search),
+                hintText: "Search Currency"),
           ),
           Flexible(
             flex: 9,
+            fit: FlexFit.loose,
             child: Consumer2<ChangeCurrencyProvider, EditBusinessProvider>(
                 builder:
                     (context, currencyProvider, editBusinessProvider, child) =>
                         ListView.builder(
-                          itemCount: currencyProvider.currencyList.length,
+                          itemCount: currencyProvider.currencyListForSearch.length,
                           itemBuilder: (context, index) => ListTile(
                               onTap: () => editBusinessProvider
                                   .changeCurrentCurrency(currencyProvider
-                                      .currencyList[index].abbreviation),
+                                      .currencyListForSearch[index].abbreviation),
                               trailing: editBusinessProvider.currentCurrency ==
                                       currencyProvider
-                                          .currencyList[index].abbreviation
+                                          .currencyListForSearch[index].abbreviation
                                   ? Icon(Icons.check_rounded)
                                   : null,
                               title: Text(currencyProvider
-                                  .currencyList[index].currency),
+                                  .currencyListForSearch[index].currency),
                               leading: Text(
-                                  currencyProvider.currencyList[index].abbreviation)),
+                                  currencyProvider.currencyListForSearch[index].abbreviation)),
                         )),
           )
         ]),

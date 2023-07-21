@@ -12,13 +12,29 @@ class ChangeCurrencyProvider extends ChangeNotifier {
   ChangeCurrencyProvider._();
 
   final List<CurrencyModel> _currencyList = [];
+  List<CurrencyModel> _currencyListForSearch = [];
+  String _searchKeyword = '';
 
+  String get searchKeyword => _searchKeyword;
   List<CurrencyModel> get currencyList => _currencyList;
+  List<CurrencyModel> get currencyListForSearch => _currencyListForSearch;
 
   void addCurrency(CurrencyModel value) {
     _currencyList.add(value);
     notifyListeners();
   }
 
- 
+  void searchCurrency(String keyword) {
+    _searchKeyword = keyword;
+    if (keyword.isEmpty) {
+      _currencyListForSearch = _currencyList;
+    } else {
+      _currencyListForSearch = _currencyList
+          .where((item) =>
+              item.currency.toLowerCase().contains(keyword.toLowerCase()) ||
+              item.abbreviation.toLowerCase().contains(keyword.toLowerCase()))
+          .toList();
+    }
+    notifyListeners();
+  }
 }
