@@ -18,6 +18,8 @@ import 'package:qrmenu/product/widget/text_form_field.dart';
 import 'package:qrmenu/view/auth/login/widget/social_media_buttons.dart';
 import 'package:zxing_lib/grayscale.dart';
 import 'dart:math';
+import '../../../../../core/extension/try_exception_extension.dart';
+
 import '../../../../core/constans/cache/locale_keys_enum.dart';
 import '../../../../core/constans/enum/route_keys.dart';
 import '../../../../core/init/cache/local_storage.dart';

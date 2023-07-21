@@ -8,6 +8,7 @@ import 'package:qrmenu/core/constans/network/network_constants.dart';
 import 'package:qrmenu/view/auth/login/model/get_business_response_model.dart';
 import 'package:qrmenu/view/auth/login/model/login_request_model.dart';
 import 'package:qrmenu/view/auth/login/model/login_response_model.dart';
+import '../../../../../core/extension/try_exception_extension.dart';
 
 import '../../../../../product/mixin/login_log_mixin.dart';
 import 'ILogin_service.dart';
@@ -18,6 +19,8 @@ class LoginService extends ILoginService with LoginLogMixin {
   @override
   Future<LoginResponseModel> login(
       {required LoginRequestModel requestModel}) async {
+      Response<dynamic> response =
+        await dio.post(NetworkConstants.LOGIN, data: requestModel.toJson());
     try {
       Response<dynamic> response =
           await dio.post(NetworkConstants.LOGIN, data: requestModel.toJson());
@@ -30,6 +33,8 @@ class LoginService extends ILoginService with LoginLogMixin {
       throw Exception(e);
     }
   }
+  
+  
 
   @override
   Future<GetBusinessResponseModel> getBusiness() async {
