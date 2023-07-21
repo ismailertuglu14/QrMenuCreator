@@ -44,7 +44,6 @@ class CategoryCard extends StatelessWidget {
             "menuId": menuId,
           }),
           contentPadding: PagePadding.allMedium(),
-          
           tileColor: context.colorScheme.surface.withOpacity(0.05),
           title: Text(category.name),
           leading: UserCircleAvatar(

@@ -17,8 +17,10 @@ class NetworkManager {
 
   NetworkManager._();
 
-  static const String BASE_IOS_URL = "http://localhost:3333/api";
-  static const String BASE_ANDROID_URL = "http://10.0.2.2:3333/api/v1";
+  static const String BASE_IOS_URL =
+      "https://qrmenuapi.azurewebsites.net/api/v1";
+  static const String BASE_ANDROID_URL =
+      "https://qrmenuapi.azurewebsites.net/api/v1";
 
   static const int CONNECT_TIMEOUT = 20;
 

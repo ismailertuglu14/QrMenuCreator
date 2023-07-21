@@ -40,6 +40,7 @@ import '../../../../core/init/provider/edit_business_provider.dart';
 import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/app_bar.dart';
+import '../../../../product/widget/close_keyboard.dart';
 import '../../../../product/widget/countrycodepicker/country_code_picker.dart';
 import '../../../../product/widget/upload_file_dialog.dart';
 import '../../../../product/widget/user_circle_avatar.dart';
@@ -69,204 +70,210 @@ class _EditBusinessViewState extends EditBusinessViewModel {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: const CommonAppBar(title: Text("Edit Business")),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 2,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: 4,
-                  child: Consumer<EditBusinessProvider>(
-                    builder: (context, provider, child) => Container(
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(
-                            borderRadius: PageBorderRadius.allMedium()),
-                        width: context.width * 0.3,
-                        height: context.height * 0.15,
-                        child: Stack(
-                          fit: StackFit.expand,
-                          children: [
-                            Positioned(
-                              child: Consumer<EditBusinessProvider>(
-                                builder: (context, provider, child) =>
-                                    UserCircleAvatar(
-                                  maxRadius: 40,
-                                  backgroundImage: (LocaleStorage.instance
-                                          .getStringValue(
-                                              LocaleKeys.COVER_IMAGE)
-                                          .isEmpty)
-                                      ? ImageKeys.default_image.assetImage()
-                                      : NetworkImage(LocaleStorage.instance
-                                              .getStringValue(
-                                                  LocaleKeys.COVER_IMAGE))
-                                          as ImageProvider,
+      body: CloseKeyboard(
+        child: Column(
+          children: [
+            Expanded(
+              flex: 2,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 4,
+                    child: Consumer<EditBusinessProvider>(
+                      builder: (context, provider, child) => Container(
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                              borderRadius: PageBorderRadius.allMedium()),
+                          width: context.width * 0.3,
+                          height: context.height * 0.15,
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              Positioned(
+                                child: Consumer<EditBusinessProvider>(
+                                  builder: (context, provider, child) =>
+                                      UserCircleAvatar(
+                                    maxRadius: 40,
+                                    backgroundImage: (LocaleStorage.instance
+                                            .getStringValue(
+                                                LocaleKeys.COVER_IMAGE)
+                                            .isEmpty)
+                                        ? ImageKeys.default_image.assetImage()
+                                        : NetworkImage(LocaleStorage.instance
+                                                .getStringValue(
+                                                    LocaleKeys.COVER_IMAGE))
+                                            as ImageProvider,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: GestureDetector(
-                                onTap: () => uploadFileDialog(
-                                    context,
-                                    _imagePicker,
-                                    true,
-                                    UploadFileTypeKeys.SINGLE_IMAGE,
-                                    changeCoverImage),
-                                child: Container(
-                                    padding: PagePadding.allMin(),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color:
-                                                context.colorScheme.onSecondary,
-                                            width: 4),
-                                        shape: BoxShape.circle,
-                                        color: context.colorScheme.primary),
-                                    child: Icon(Icons.edit)),
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: GestureDetector(
+                                  onTap: () => uploadFileDialog(
+                                      context,
+                                      _imagePicker,
+                                      true,
+                                      UploadFileTypeKeys.SINGLE_IMAGE,
+                                      changeCoverImage),
+                                  child: Container(
+                                      padding: PagePadding.allMin(),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: context
+                                                  .colorScheme.onSecondary,
+                                              width: 4),
+                                          shape: BoxShape.circle,
+                                          color: context.colorScheme.primary),
+                                      child: Icon(Icons.edit)),
+                                ),
+                              ),
+                            ],
+                          )),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 6,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: TextButton.icon(
+                              onPressed: () => context
+                                  .push(RouterKeys.CHANGE_CURRENCY.route),
+                              icon: Icon(Icons.monetization_on_outlined),
+                              label: Consumer<EditBusinessProvider>(
+                                builder: (context, provider, child) => Text(
+                                    "Curency: ${provider.currentCurrency ?? "Unknown"}",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                              )),
+                        ),
+                        Flexible(
+                          child: Consumer<EditBusinessProvider>(
+                              builder: (context, provider, child) =>
+                                  TextButton.icon(
+                                      onPressed: () => context
+                                          .push(RouterKeys.SOCIAL_MEDIAS.route),
+                                      icon: Icon(Icons.dataset_linked_outlined),
+                                      label: Text(
+                                        "Social Media Links",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ))),
+                        ),
+                        Flexible(
+                          child: TextButton.icon(
+                              onPressed: () => context
+                                  .push(RouterKeys.LOCATION_PICKER.route),
+                              icon: Icon(Icons.maps_home_work_outlined),
+                              label: Consumer<EditBusinessProvider>(
+                                builder: (context, provider, child) => Text(
+                                    (LocaleStorage.instance
+                                                .getDoubleValue(LocaleKeys
+                                                    .LOCATION_LATITUDE)
+                                                .toString()
+                                                .isNotEmpty &&
+                                            LocaleStorage.instance
+                                                .getDoubleValue(LocaleKeys
+                                                    .LOCATION_LONGITUDE)
+                                                .toString()
+                                                .isNotEmpty)
+                                        ? provider.currentLocationName ??
+                                            "Unknown Location"
+                                        : "No Location Selected"),
+                              )),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 7,
+              child: Padding(
+                padding: PagePadding.allMedium(),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: PagePadding.verticalMedium(),
+                        child: Row(children: [
+                          Expanded(
+                              flex: 1, child: Icon(Icons.info_outline_rounded)),
+                          Expanded(
+                            flex: 9,
+                            child: Padding(
+                              padding: PagePadding.horizontalMedium(),
+                              child: Text(
+                                "While applying the logo changes instantly, you need to click the save button to update your other information.",
+                                style: TextStyle(
+                                    fontSize:
+                                        context.text.titleSmall?.fontSize),
                               ),
                             ),
-                          ],
-                        )),
-                  ),
-                ),
-                Expanded(
-                  flex: 6,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Flexible(
-                        child: TextButton.icon(
-                            onPressed: () =>
-                                context.push(RouterKeys.CHANGE_CURRENCY.route),
-                            icon: Icon(Icons.monetization_on_outlined),
-                            label: Consumer<EditBusinessProvider>(
-                              builder: (context, provider, child) => Text(
-                                  "Curency: ${provider.currentCurrency ?? "Unknown"}",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                            )),
+                          ),
+                        ]),
                       ),
-                      Flexible(
-                        child: Consumer<EditBusinessProvider>(
-                            builder: (context, provider, child) =>
-                                TextButton.icon(
-                                    onPressed: () => context
-                                        .push(RouterKeys.SOCIAL_MEDIAS.route),
-                                    icon: Icon(Icons.dataset_linked_outlined),
-                                    label: Text(
-                                      "Social Media Links",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ))),
-                      ),
-                      Flexible(
-                        child: TextButton.icon(
-                            onPressed: () =>
-                                context.push(RouterKeys.LOCATION_PICKER.route),
-                            icon: Icon(Icons.maps_home_work_outlined),
-                            label: Consumer<EditBusinessProvider>(
-                              builder: (context, provider, child) => Text(
-                                  (LocaleStorage
-                                              .instance
-                                              .getDoubleValue(
-                                                  LocaleKeys.LOCATION_LATITUDE)
-                                              .toString()
-                                              .isNotEmpty &&
-                                          LocaleStorage
-                                              .instance
-                                              .getDoubleValue(
-                                                  LocaleKeys.LOCATION_LONGITUDE)
-                                              .toString()
-                                              .isNotEmpty)
-                                      ? provider.currentLocationName ??
-                                          "Unknown Location"
-                                      : "No Location Selected"),
-                            )),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 7,
-            child: Padding(
-              padding: PagePadding.allMedium(),
-              child:
-                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                Padding(
-                  padding: PagePadding.verticalMedium(),
-                  child: Row(children: [
-                    Expanded(flex: 1, child: Icon(Icons.info_outline_rounded)),
-                    Expanded(
-                      flex: 9,
-                      child: Padding(
-                        padding: PagePadding.horizontalMedium(),
-                        child: Text(
-                          "While applying the logo changes instantly, you need to click the save button to update your other information.",
-                          style: TextStyle(
-                              fontSize: context.text.titleSmall?.fontSize),
+                      Padding(
+                        padding: PagePadding.verticalMedium(),
+                        child: CommonTextField(
+                          textController: _businessNameController,
+                          keyboardType: TextInputType.name,
+                          label: Text("Business Name"),
+                          textInputAction: TextInputAction.done,
+                          prefixIcon: Icon(Icons.business_outlined),
                         ),
                       ),
-                    ),
-                  ]),
-                ),
-                Padding(
-                  padding: PagePadding.verticalMedium(),
-                  child: CommonTextField(
-                    textController: _businessNameController,
-                    keyboardType: TextInputType.name,
-                    label: Text("Business Name"),
-                    textInputAction: TextInputAction.done,
-                    prefixIcon: Icon(Icons.business_outlined),
-                  ),
-                ),
-                Padding(
-                  padding: PagePadding.verticalMedium(),
-                  child: CommonTextField(
-                    textController: _emailController,
-                    label: Text("Email"),
-                    textInputAction: TextInputAction.done,
-                    prefixIcon: Icon(Icons.alternate_email_rounded),
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                ),
-                Padding(
-                  padding: PagePadding.verticalMedium(),
-                  child: CommonTextField(
-                      prefixIcon: CountryCodePicker(
-                        onChanged: (value) => _editBusinessProvider
-                            .changeSelectedCountryCode(value),
-                        initialSelection: LocaleStorage.instance
-                            .getStringValue(LocaleKeys.PHONE_COUNTRY_CODE),
-                        showCountryOnly: false,
-                        showOnlyCountryWhenClosed: false,
-                      ),
-                      label: Text("Phone Number"),
-                      keyboardType: TextInputType.phone,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      textInputAction: TextInputAction.done,
-                      textController: _phoneNumberController),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: CommonElevationButton(
-                        child: Padding(
-                          padding: PagePadding.allHeight(),
-                          child: Text("Save"),
+                      Padding(
+                        padding: PagePadding.verticalMedium(),
+                        child: CommonTextField(
+                          textController: _emailController,
+                          label: Text("Email"),
+                          textInputAction: TextInputAction.done,
+                          prefixIcon: Icon(Icons.alternate_email_rounded),
+                          keyboardType: TextInputType.emailAddress,
                         ),
-                        onPressed: () => updateBusiness(),
                       ),
-                    ),
-                  ],
-                ),
-              ]),
+                      Padding(
+                        padding: PagePadding.verticalMedium(),
+                        child: CommonTextField(
+                            prefixIcon: CountryCodePicker(
+                              onChanged: (value) => _editBusinessProvider
+                                  .changeSelectedCountryCode(value),
+                              initialSelection: LocaleStorage.instance
+                                  .getStringValue(
+                                      LocaleKeys.PHONE_COUNTRY_CODE),
+                              showCountryOnly: false,
+                              showOnlyCountryWhenClosed: false,
+                            ),
+                            label: Text("Phone Number"),
+                            keyboardType: TextInputType.phone,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            textInputAction: TextInputAction.done,
+                            textController: _phoneNumberController),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CommonElevationButton(
+                              child: Padding(
+                                padding: PagePadding.allHeight(),
+                                child: Text("Save"),
+                              ),
+                              onPressed: () => updateBusiness(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ]),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -14,6 +14,7 @@ import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/product/regex/email_regex.dart';
 import 'package:qrmenu/product/regex/password_regex.dart';
 import 'package:qrmenu/product/utility/page_padding.dart';
+import 'package:qrmenu/product/widget/close_keyboard.dart';
 import 'package:qrmenu/product/widget/text_form_field.dart';
 import 'package:qrmenu/view/auth/login/widget/social_media_buttons.dart';
 import 'package:zxing_lib/grayscale.dart';
@@ -50,65 +51,67 @@ class _LoginViewState extends LoginViewModels {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-          Positioned(
-            child: SizedBox(
-              width: context.width,
-              height: context.height * 0.28,
-              child: CustomPaint(
-                painter: AppBarPainter(),
-                child: Padding(
-                  padding: PagePadding.allHeight(),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Icon(Icons.qr_code_rounded,
-                          size: context.width * 0.2, color: Colors.white70),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Welcome Back",
-                              style: context.text.headlineMedium!
-                                  .copyWith(fontWeight: FontWeight.bold)),
-                          Text("Sign in to continue",
-                              style: TextStyle(color: Colors.white70))
-                        ],
-                      )
-                    ],
+      body: CloseKeyboard(
+        child: Stack(
+          children: [
+            Positioned(
+              child: SizedBox(
+                width: context.width,
+                height: context.height * 0.28,
+                child: CustomPaint(
+                  painter: AppBarPainter(),
+                  child: Padding(
+                    padding: PagePadding.allHeight(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Icon(Icons.qr_code_rounded,
+                            size: context.width * 0.2, color: Colors.white70),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Welcome Back",
+                                style: context.text.headlineMedium!
+                                    .copyWith(fontWeight: FontWeight.bold)),
+                            Text("Sign in to continue",
+                                style: TextStyle(color: Colors.white70))
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: PagePadding.spesificAuth(),
-            child: Column(children: [
-              Spacer(flex: 3),
-              Expanded(
-                  flex: 3,
-                  child: Form(
-                    key: _loginProvider.formKey,
-                    child: Column(
-                      children: [
-                        Expanded(
+            Padding(
+              padding: PagePadding.spesificAuth(),
+              child: Column(children: [
+                Spacer(flex: 3),
+                Expanded(
+                    flex: 3,
+                    child: Form(
+                      key: _loginProvider.formKey,
+                      child: Column(
+                        children: [
+                          Expanded(
+                              flex: 3,
+                              child: LoginEmailTextField(
+                                  emailController: _emailController)),
+                          Expanded(
                             flex: 3,
-                            child: LoginEmailTextField(
-                                emailController: _emailController)),
-                        Expanded(
-                          flex: 3,
-                          child: LoginPasswordTextField(
-                              passwordController: _passwordController),
-                        ),
-                        Expanded(flex: 2, child: LoginButton(login: login)),
-                        Expanded(flex: 2, child: DoYouNeedHelpButtons())
-                      ],
-                    ),
-                  )),
-              Expanded(flex: 3, child: LoginWithSocialMedia())
-            ]),
-          ),
-        ],
+                            child: LoginPasswordTextField(
+                                passwordController: _passwordController),
+                          ),
+                          Expanded(flex: 2, child: LoginButton(login: login)),
+                          Expanded(flex: 2, child: DoYouNeedHelpButtons())
+                        ],
+                      ),
+                    )),
+                Expanded(flex: 3, child: LoginWithSocialMedia())
+              ]),
+            ),
+          ],
+        ),
       ),
     );
   }

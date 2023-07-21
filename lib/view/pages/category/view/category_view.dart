@@ -23,6 +23,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/init/network/network_manager.dart';
 import '../../../../core/init/provider/category_provider.dart';
+import '../../../../product/widget/close_keyboard.dart';
 import '../../../../product/widget/item_count_circle.dart';
 import '../../dashboard/model/delete_menu_request_model.dart';
 import '../model/create_category_response_model.dart';
@@ -57,67 +58,70 @@ class _CategoryViewState extends CategoryViewModel {
       appBar: CommonAppBar(
         title: Text(widget.name ?? "Menu"),
       ),
-      body: Consumer<CategoryProvider>(
-        builder: (context, provider, child) => provider.categoryList!.isEmpty
-            ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ImageKeys.empty_category
-                        .imageAsset(width: context.width * 0.3),
-                    Padding(
-                      padding: PagePadding.verticalHight(),
-                      child: Text(
-                        "Not found any category",
-                        style: context.text.headlineSmall,
-                      ),
-                    )
-                  ],
-                ),
-              )
-            : RefreshIndicator(
-                onRefresh: () => getCategories(),
-                child: (provider.categoryList != null &&
-                        provider.categoryList!.isEmpty)
-                    ? emptyPageWidgetBuilder(context, ImageKeys.empty_category,
-                        "Not found any category")
-                    : Scrollbar(
-                        child: ReorderableListView.builder(
-                          padding: PagePadding.allHeight(),
-                          itemCount: provider.categoryList?.length ?? 10,
-                          header: Text("Add category in your menu",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize:
-                                      context.text.titleMedium?.fontSize)),
-                          onReorderStart: (index) =>
-                              provider.setSelectedCategoryId(
-                                  provider.categoryList![index].id),
-                          itemBuilder: (context, index) => (provider
-                                          .categoryList ==
-                                      null ||
-                                  provider.isLoading)
-                              ? getCategoryShimmer(context)
-                              : CategoryCard(
-                                  deleteCategory: deleteCategory,
-                                  menuId: widget.id ?? "",
-                                  category: provider.categoryList![index],
-                                  key: ValueKey(provider.categoryList![index]),
-                                  index: index),
-                          onReorder: (oldIndex, newIndex) {
-                            if (oldIndex < newIndex) {
-                              newIndex -= 1;
-                            }
-                            relocateCategory(
-                                categoryId: provider.selectedCategoryId ?? "",
-                                newPosition: newIndex);
-                            final item =
-                                provider.categoryList!.removeAt(oldIndex);
-                            provider.categoryList!.insert(newIndex, item);
-                          },
+      body: CloseKeyboard(
+        child: Consumer<CategoryProvider>(
+          builder: (context, provider, child) => provider.categoryList!.isEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ImageKeys.empty_category
+                          .imageAsset(width: context.width * 0.3),
+                      Padding(
+                        padding: PagePadding.verticalHight(),
+                        child: Text(
+                          "Not found any category",
+                          style: context.text.headlineSmall,
                         ),
-                      ),
-              ),
+                      )
+                    ],
+                  ),
+                )
+              : RefreshIndicator(
+                  onRefresh: () => getCategories(),
+                  child: (provider.categoryList != null &&
+                          provider.categoryList!.isEmpty)
+                      ? emptyPageWidgetBuilder(context,
+                          ImageKeys.empty_category, "Not found any category")
+                      : Scrollbar(
+                          child: ReorderableListView.builder(
+                            padding: PagePadding.allHeight(),
+                            itemCount: provider.categoryList?.length ?? 10,
+                            header: Text("Add category in your menu",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize:
+                                        context.text.titleMedium?.fontSize)),
+                            onReorderStart: (index) =>
+                                provider.setSelectedCategoryId(
+                                    provider.categoryList![index].id),
+                            itemBuilder: (context, index) => (provider
+                                            .categoryList ==
+                                        null ||
+                                    provider.isLoading)
+                                ? getCategoryShimmer(context)
+                                : CategoryCard(
+                                    deleteCategory: deleteCategory,
+                                    menuId: widget.id ?? "",
+                                    category: provider.categoryList![index],
+                                    key:
+                                        ValueKey(provider.categoryList![index]),
+                                    index: index),
+                            onReorder: (oldIndex, newIndex) {
+                              if (oldIndex < newIndex) {
+                                newIndex -= 1;
+                              }
+                              relocateCategory(
+                                  categoryId: provider.selectedCategoryId ?? "",
+                                  newPosition: newIndex);
+                              final item =
+                                  provider.categoryList!.removeAt(oldIndex);
+                              provider.categoryList!.insert(newIndex, item);
+                            },
+                          ),
+                        ),
+                ),
+        ),
       ),
     );
   }

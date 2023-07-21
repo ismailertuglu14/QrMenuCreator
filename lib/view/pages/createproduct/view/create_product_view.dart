@@ -23,6 +23,7 @@ import 'package:qrmenu/product/utility/border_radius.dart';
 import 'package:qrmenu/product/utility/box_decoration.dart';
 
 import 'package:qrmenu/product/utility/grid_delegates.dart';
+import 'package:qrmenu/product/widget/close_keyboard.dart';
 import 'package:qrmenu/product/widget/elevation_button.dart';
 import 'package:qrmenu/product/widget/text_field.dart';
 import 'package:qrmenu/product/widget/upload_file_dialog.dart';
@@ -70,194 +71,200 @@ class _CreateProductViewViewState extends CreateProductViewModel {
         appBar: CommonAppBar(
           title: Text("Create Product"),
         ),
-        body: SingleChildScrollView(
-            padding: PagePadding.allMedium(),
-            child: SizedBox(
-              height: context.height * 1.2,
-              width: context.width,
-              child: Column(children: [
-                Expanded(
-                    flex: 2,
-                    child: CreateItemPreviewFiles(
-                        imagePicker: _imagePicker, uploadObject: uploadObject)),
-                Consumer<CreateProductProvider>(
-                  builder: (context, provider, child) =>
-                      AnimatedSmoothIndicator(
-                          effect: WormEffect(
-                              dotHeight: 10,
-                              dotWidth: 10,
-                              activeDotColor: context.colorScheme.primary),
-                          activeIndex: provider.itemImageCurentIndex,
-                          count: provider.itemPreviewList.length + 1),
-                ),
-                Expanded(
-                  flex: 8,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      CommonTextField(
-                        hideInputDecoration: true,
-                        hintText: "Name",
-                        textController: _nameController,
-                        keyboardType: TextInputType.name,
-                        textInputAction: TextInputAction.done,
-                      ),
-                      CommonTextField(
-                        hintText: "Description",
-                        hideInputDecoration: true,
-                        textController: _descriptionController,
-                        keyboardType: TextInputType.name,
-                        textInputAction: TextInputAction.done,
-                      ),
-                      CreateItemListTileBuilder(
-                        onTap: () => addNutritionFactsDialog(context),
-                        trailing: Icon(Icons.add_circle_outline_rounded),
-                        title: Row(children: [
-                          Expanded(
-                              child: Text(
-                            "Nutrition Facts",
-                            style: context.text.titleMedium,
-                          )),
-                          Expanded(
-                              child: Consumer<CreateProductProvider>(
-                            builder: (context, provider, child) => Text(
-                              "${provider.calculateCalories()} KCal",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: context.text.titleMedium?.fontSize),
-                            ),
-                          )),
-                        ]),
-                      ),
-                      CreateItemListTileBuilder(
-                        onTap: () => context.push(RouterKeys.ADD_ONS.route),
-                        trailing: Icon(Icons.add_circle_outline_rounded),
-                        title: Row(
-                          children: [
-                            Text(
-                              "Add-Ons",
-                              style: context.text.titleMedium,
-                            ),
-                            Consumer<AddOnsProvider>(
-                                builder: (context, provider, child) =>
-                                    ItemCountCircle(
-                                        count: provider.onsPreviewList
-                                            .where((item) => item.isSelected)
-                                            .length)),
-                          ],
+        body: CloseKeyboard(
+          child: SingleChildScrollView(
+              padding: PagePadding.allMedium(),
+              child: SizedBox(
+                height: context.height * 1.2,
+                width: context.width,
+                child: Column(children: [
+                  Expanded(
+                      flex: 2,
+                      child: CreateItemPreviewFiles(
+                          imagePicker: _imagePicker,
+                          uploadObject: uploadObject)),
+                  Consumer<CreateProductProvider>(
+                    builder: (context, provider, child) =>
+                        AnimatedSmoothIndicator(
+                            effect: WormEffect(
+                                dotHeight: 10,
+                                dotWidth: 10,
+                                activeDotColor: context.colorScheme.primary),
+                            activeIndex: provider.itemImageCurentIndex,
+                            count: provider.itemPreviewList.length + 1),
+                  ),
+                  Expanded(
+                    flex: 8,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        CommonTextField(
+                          hintText: "Name",
+                          textController: _nameController,
+                          keyboardType: TextInputType.name,
+                          textInputAction: TextInputAction.done,
                         ),
-                      ),
-                      Flexible(
-                        child: SizedBox(
-                          height: context.height * 0.2,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                child: Text("Allergens",
-                                    style: context.text.titleMedium),
-                              ),
-                              Flexible(
+                        CommonTextField(
+                          hintText: "Description",
+                          textController: _descriptionController,
+                          keyboardType: TextInputType.name,
+                          textInputAction: TextInputAction.done,
+                        ),
+                        CreateItemListTileBuilder(
+                          onTap: () => addNutritionFactsDialog(context),
+                          trailing: Icon(Icons.add_circle_outline_rounded),
+                          title: Row(children: [
+                            Expanded(
+                                child: Text(
+                              "Nutrition Facts",
+                              style: context.text.titleMedium,
+                            )),
+                            Expanded(
                                 child: Consumer<CreateProductProvider>(
-                                  builder: (context, provider, child) =>
-                                      GridView.builder(
-                                    padding: PagePadding.allMedium(),
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: provider.allergens.length + 1,
-                                    gridDelegate: PageGridDelegates.normal(),
-                                    itemBuilder: (context, index) {
-                                      return GestureDetector(
-                                        onTap: () =>
-                                            index == provider.allergens.length
-                                                ? addAllergensDialog(context)
-                                                : null,
-                                        child: Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius: PageBorderRadius
-                                                    .allMedium(),
-                                                color: index !=
-                                                        provider
-                                                            .allergens.length
-                                                    ? context
-                                                        .colorScheme.primary
-                                                    : context
-                                                        .colorScheme.surface
-                                                        .withOpacity(0.2)),
-                                            child: index !=
-                                                    provider.allergens.length
-                                                ? provider
-                                                    .suggestionAllergens[index]
-                                                    .icon
-                                                    .imageAsset()
-                                                : Icon(Icons.add_rounded)),
-                                      );
-                                    },
-                                  ),
-                                ),
+                              builder: (context, provider, child) => Text(
+                                "${provider.calculateCalories()} KCal",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize:
+                                        context.text.titleMedium?.fontSize),
                               ),
+                            )),
+                          ]),
+                        ),
+                        CreateItemListTileBuilder(
+                          onTap: () => context.push(RouterKeys.ADD_ONS.route),
+                          trailing: Icon(Icons.add_circle_outline_rounded),
+                          title: Row(
+                            children: [
+                              Text(
+                                "Add-Ons",
+                                style: context.text.titleMedium,
+                              ),
+                              Consumer<AddOnsProvider>(
+                                  builder: (context, provider, child) =>
+                                      ItemCountCircle(
+                                          count: provider.onsPreviewList
+                                              .where((item) => item.isSelected)
+                                              .length)),
                             ],
                           ),
                         ),
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 2,
-                            child: Text(
-                              "USD",
-                              style: context.text.titleMedium,
-                            ),
-                          ),
-                          Expanded(
-                            flex: 8,
-                            child: CommonTextField(
-                              textController: _priceController,
-                              textAlign: TextAlign.center,
-                              hintText: "Price",
-                              textInputAction: TextInputAction.done,
-                              keyboardType: TextInputType.number,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly
+                        Flexible(
+                          child: SizedBox(
+                            height: context.height * 0.1,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  flex: 2,
+                                  child: Text("Allergens",
+                                      style: context.text.titleMedium),
+                                ),
+                                Expanded(
+                                  flex: 8,
+                                  child: Consumer<CreateProductProvider>(
+                                    builder: (context, provider, child) =>
+                                        GridView.builder(
+                                      padding: PagePadding.allDefault(),
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: provider.allergens.length + 1,
+                                      gridDelegate: PageGridDelegates.normal(),
+                                      itemBuilder: (context, index) {
+                                        return GestureDetector(
+                                          onTap: () =>
+                                              index == provider.allergens.length
+                                                  ? addAllergensDialog(context)
+                                                  : null,
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius: PageBorderRadius
+                                                      .allMedium(),
+                                                  color: index !=
+                                                          provider
+                                                              .allergens.length
+                                                      ? context
+                                                          .colorScheme.primary
+                                                      : context
+                                                          .colorScheme.surface
+                                                          .withOpacity(0.2)),
+                                              child: index !=
+                                                      provider.allergens.length
+                                                  ? provider
+                                                      .suggestionAllergens[
+                                                          index]
+                                                      .icon
+                                                      .imageAsset()
+                                                  : Icon(Icons.add_rounded)),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
-                          )
-                        ],
-                      ),
-                      Consumer<CreateProductProvider>(
-                        builder: (context, provider, child) => ListTileSwitch(
-                            value: provider.isActive,
-                            contentPadding: EdgeInsets.zero,
-                            switchActiveColor: context.colorScheme.primary,
-                            title:
-                                Text("Active", style: context.text.titleMedium),
-                            onChanged: provider.changeIsActive),
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Consumer<CreateProductProvider>(
-                              builder: (context, provider, child) => provider
-                                      .isLoading
-                                  ? LottieKeys.loading.path(
-                                      width: context.width * 0.1,
-                                      height: context.width * 0.1)
-                                  : CommonElevationButton(
-                                      child: Padding(
-                                        padding: PagePadding.allHeight(),
-                                        child: Text("Save"),
-                                      ),
-                                      onPressed: () => widget.productId != null
-                                          ? updateProduct()
-                                          : createProduct(),
-                                    ),
-                            ),
                           ),
-                        ],
-                      )
-                    ],
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                "USD",
+                                style: context.text.titleMedium,
+                              ),
+                            ),
+                            Expanded(
+                              flex: 8,
+                              child: CommonTextField(
+                                textController: _priceController,
+                                textAlign: TextAlign.center,
+                                hintText: "Price",
+                                textInputAction: TextInputAction.done,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                        Consumer<CreateProductProvider>(
+                          builder: (context, provider, child) => ListTileSwitch(
+                              value: provider.isActive,
+                              contentPadding: EdgeInsets.zero,
+                              switchActiveColor: context.colorScheme.primary,
+                              title: Text("Active",
+                                  style: context.text.titleMedium),
+                              onChanged: provider.changeIsActive),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Consumer<CreateProductProvider>(
+                                builder: (context, provider, child) =>
+                                    provider.isLoading
+                                        ? LottieKeys.loading.path(
+                                            width: context.width * 0.1,
+                                            height: context.width * 0.1)
+                                        : CommonElevationButton(
+                                            child: Padding(
+                                              padding: PagePadding.allHeight(),
+                                              child: Text("Save"),
+                                            ),
+                                            onPressed: () =>
+                                                widget.productId != null
+                                                    ? updateProduct()
+                                                    : createProduct(),
+                                          ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              ]),
-            )));
+                ]),
+              )),
+        ));
   }
 }

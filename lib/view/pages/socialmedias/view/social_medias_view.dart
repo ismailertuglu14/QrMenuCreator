@@ -12,6 +12,7 @@ import '../../../../core/constans/cache/locale_keys_enum.dart';
 import '../../../../core/init/cache/local_storage.dart';
 import '../../../../core/init/network/network_manager.dart';
 import '../../../../product/utility/page_padding.dart';
+import '../../../../product/widget/close_keyboard.dart';
 import '../model/change_social_media_request_model.dart';
 import '../model/change_social_media_response_model.dart';
 
@@ -32,51 +33,53 @@ class _SocialMediasViewState extends SocialMediasViewModel {
       appBar: const CommonAppBar(
         title: Text("Social Medias"),
       ),
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: context.height * 1.1,
-          width: context.width,
-          child: Padding(
-            padding: PagePadding.allMedium(),
-            child: Column(children: [
-              SocialMediaFieldBuilder(
-                  label: "Instagram",
-                  icon: ImageKeys.instagram,
-                  textController: _instagramController),
-              SocialMediaFieldBuilder(
-                  label: "Facebook",
-                  icon: ImageKeys.facebook,
-                  textController: _facebookController),
-              SocialMediaFieldBuilder(
-                  label: "Twitter",
-                  icon: ImageKeys.twitter,
-                  textController: _twitterController),
-              SocialMediaFieldBuilder(
-                  label: "Threads",
-                  icon: ImageKeys.threads,
-                  textController: _threadsController),
-              SocialMediaFieldBuilder(
-                  label: "Whatsapp",
-                  icon: ImageKeys.whatsapp,
-                  textController: _whatsappController),
-              SocialMediaFieldBuilder(
-                  label: "Website",
-                  icon: ImageKeys.website,
-                  textController: _websiteController),
-              Row(
-                children: [
-                  Expanded(
-                    child: CommonElevationButton(
-                      child: Padding(
-                        padding: PagePadding.allMedium(),
-                        child: Text("Save"),
+      body: CloseKeyboard(
+        child: SingleChildScrollView(
+          child: SizedBox(
+            height: context.height * 1.1,
+            width: context.width,
+            child: Padding(
+              padding: PagePadding.allMedium(),
+              child: Column(children: [
+                SocialMediaFieldBuilder(
+                    label: "Instagram",
+                    icon: ImageKeys.instagram,
+                    textController: _instagramController),
+                SocialMediaFieldBuilder(
+                    label: "Facebook",
+                    icon: ImageKeys.facebook,
+                    textController: _facebookController),
+                SocialMediaFieldBuilder(
+                    label: "Twitter",
+                    icon: ImageKeys.twitter,
+                    textController: _twitterController),
+                SocialMediaFieldBuilder(
+                    label: "Threads",
+                    icon: ImageKeys.threads,
+                    textController: _threadsController),
+                SocialMediaFieldBuilder(
+                    label: "Whatsapp",
+                    icon: ImageKeys.whatsapp,
+                    textController: _whatsappController),
+                SocialMediaFieldBuilder(
+                    label: "Website",
+                    icon: ImageKeys.website,
+                    textController: _websiteController),
+                Row(
+                  children: [
+                    Expanded(
+                      child: CommonElevationButton(
+                        child: Padding(
+                          padding: PagePadding.allMedium(),
+                          child: Text("Save"),
+                        ),
+                        onPressed: () => addSocialMedia(),
                       ),
-                      onPressed: () => addSocialMedia(),
                     ),
-                  ),
-                ],
-              )
-            ]),
+                  ],
+                )
+              ]),
+            ),
           ),
         ),
       ),

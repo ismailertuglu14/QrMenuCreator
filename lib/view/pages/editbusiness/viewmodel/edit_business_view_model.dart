@@ -28,7 +28,8 @@ abstract class EditBusinessViewModel extends State<EditBusinessView> {
   Future<void> updateBusiness() async {
     if (_businessNameController.text.isNotEmpty &&
         _emailController.text.isNotEmpty &&
-        _phoneNumberController.text.isNotEmpty) {
+        _phoneNumberController.text.isNotEmpty &&
+        _editBusinessProvider.currentLocation != null) {
       try {
         UpdateBusinessResponseModel response =
             await _editBusinessService.updateBusiness(

@@ -17,6 +17,7 @@ import '../../../../core/init/provider/dashboard_provider.dart';
 import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/grid_delegates.dart';
 import '../../../../product/utility/page_padding.dart';
+import '../../../../product/widget/close_keyboard.dart';
 import '../../../../product/widget/elevation_button.dart';
 import '../../../../product/widget/outline_button.dart';
 import '../../../../product/widget/text_field.dart';
@@ -37,121 +38,123 @@ Future<dynamic> createMenuDialog(
   return showDialog(
       context: context,
       builder: (context) => Dialog(
-            child: Padding(
-              padding: PagePadding.allMedium(),
-              child: Consumer<DashboardProvider>(
-                builder: (context, provider, child) => Wrap(children: [
-                  Padding(
-                    padding: PagePadding.allMedium(),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Create Menu",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: context.text.titleLarge?.fontSize),
-                          textAlign: TextAlign.center,
-                        ),
-                        IconButton(
-                            onPressed: () => context.pop(),
-                            icon: Icon(Icons.close)),
-                      ],
-                    ),
-                  ),
-                  CommonTextField(
-                    hintText: "Menu Name",
-                    textController: menuNameController,
-                    keyboardType: TextInputType.name,
-                    textInputAction: TextInputAction.done,
-                  ),
-                  Padding(
-                    padding: PagePadding.verticalDefault(),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            child: CloseKeyboard(
+              child: Padding(
+                padding: PagePadding.allMedium(),
+                child: Consumer<DashboardProvider>(
+                  builder: (context, provider, child) => Wrap(children: [
+                    Padding(
+                      padding: PagePadding.allMedium(),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Card(
-                              child: ClipRRect(
-                            borderRadius: PageBorderRadius.allMedium(),
-                            child: Consumer<DashboardProvider>(
-                                builder: (context, provider, child) =>
-                                    provider.menuImage == null
-                                        ? ImageKeys.default_image.imageAsset(
-                                            width: context.width / 4)
-                                        : Image.file(
-                                            File(provider.menuImage!.path),
-                                            height: context.height / 10,
-                                            width: context.width / 4,
-                                            fit: BoxFit.cover,
-                                          )),
-                          )),
-                          CommonOutlineButton(
-                              onPressed: () => uploadFileDialog(
-                                  context,
-                                  imagePicker,
-                                  false,
-                                  UploadFileTypeKeys.SINGLE_IMAGE,
-                                  uploadFile),
-                              child: Text("Choose Image"))
-                        ]),
-                  ),
-                  SizedBox(
-                    height: context.height / 8,
-                    child: GridView.builder(
-                      itemCount: TemplateKeys.values.length,
-                      padding: PagePadding.allDefault(),
-                      scrollDirection: Axis.horizontal,
-                      gridDelegate: PageGridDelegates.medium(),
-                      itemBuilder: (context, index) => GestureDetector(
-                        onTap: () =>
-                            provider.changeTemplate(TemplateKeys.values[index]),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color:
-                                  context.colorScheme.surface.withOpacity(0.05),
+                          Text(
+                            "Create Menu",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: context.text.titleLarge?.fontSize),
+                            textAlign: TextAlign.center,
+                          ),
+                          IconButton(
+                              onPressed: () => context.pop(),
+                              icon: Icon(Icons.close)),
+                        ],
+                      ),
+                    ),
+                    CommonTextField(
+                      hintText: "Menu Name",
+                      textController: menuNameController,
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.done,
+                    ),
+                    Padding(
+                      padding: PagePadding.verticalDefault(),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Card(
+                                child: ClipRRect(
                               borderRadius: PageBorderRadius.allMedium(),
-                              border: Border.all(
-                                color: provider.selectedTemplateKey ==
-                                        TemplateKeys.values[index]
-                                    ? context.colorScheme.primary
-                                    : Colors.transparent,
-                                width: 2,
-                              )),
-                          clipBehavior: Clip.antiAlias,
-                          child: templateList()[index]
-                              .imageAsset(fit: BoxFit.fitWidth),
+                              child: Consumer<DashboardProvider>(
+                                  builder: (context, provider, child) =>
+                                      provider.menuImage == null
+                                          ? ImageKeys.default_image.imageAsset(
+                                              width: context.width / 4)
+                                          : Image.file(
+                                              File(provider.menuImage!.path),
+                                              height: context.height / 10,
+                                              width: context.width / 4,
+                                              fit: BoxFit.cover,
+                                            )),
+                            )),
+                            CommonOutlineButton(
+                                onPressed: () => uploadFileDialog(
+                                    context,
+                                    imagePicker,
+                                    false,
+                                    UploadFileTypeKeys.SINGLE_IMAGE,
+                                    uploadFile),
+                                child: Text("Choose Image"))
+                          ]),
+                    ),
+                    SizedBox(
+                      height: context.height / 8,
+                      child: GridView.builder(
+                        itemCount: TemplateKeys.values.length,
+                        padding: PagePadding.allDefault(),
+                        scrollDirection: Axis.horizontal,
+                        gridDelegate: PageGridDelegates.medium(),
+                        itemBuilder: (context, index) => GestureDetector(
+                          onTap: () => provider
+                              .changeTemplate(TemplateKeys.values[index]),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: context.colorScheme.surface
+                                    .withOpacity(0.05),
+                                borderRadius: PageBorderRadius.allMedium(),
+                                border: Border.all(
+                                  color: provider.selectedTemplateKey ==
+                                          TemplateKeys.values[index]
+                                      ? context.colorScheme.primary
+                                      : Colors.transparent,
+                                  width: 2,
+                                )),
+                            clipBehavior: Clip.antiAlias,
+                            child: templateList()[index]
+                                .imageAsset(fit: BoxFit.fitWidth),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: PagePadding.verticalMedium(),
-                    child: Row(
-                      children: [
-                        Consumer<DashboardProvider>(
-                          builder: (context, provider, child) =>
-                              provider.isLoading
-                                  ? LottieKeys.loading.path(
-                                      width: context.width / 4,
-                                      height: context.height / 15)
-                                  : Expanded(
-                                      child: CommonElevationButton(
-                                          child: Padding(
-                                            padding: PagePadding.allMedium(),
-                                            child: Text("Create"),
-                                          ),
-                                          onPressed: () {
-                                            createMenu();
-                                            menuNameController.text.isNotEmpty
-                                                ? context.pop()
-                                                : null;
-                                          }),
-                                    ),
-                        ),
-                      ],
+                    Padding(
+                      padding: PagePadding.verticalMedium(),
+                      child: Row(
+                        children: [
+                          Consumer<DashboardProvider>(
+                            builder: (context, provider, child) =>
+                                provider.isLoading
+                                    ? LottieKeys.loading.path(
+                                        width: context.width / 4,
+                                        height: context.height / 15)
+                                    : Expanded(
+                                        child: CommonElevationButton(
+                                            child: Padding(
+                                              padding: PagePadding.allMedium(),
+                                              child: Text("Create"),
+                                            ),
+                                            onPressed: () {
+                                              createMenu();
+                                              menuNameController.text.isNotEmpty
+                                                  ? context.pop()
+                                                  : null;
+                                            }),
+                                      ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ]),
+                  ]),
+                ),
               ),
             ),
           ));

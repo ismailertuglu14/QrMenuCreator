@@ -17,6 +17,7 @@ import '../../../../core/init/network/network_manager.dart';
 import '../../../../core/init/provider/register_provider.dart';
 import '../../../../core/init/router/router_manager.dart';
 import '../../../../product/utility/page_padding.dart';
+import '../../../../product/widget/close_keyboard.dart';
 import '../../../../product/widget/text_form_field.dart';
 import '../../login/model/get_business_response_model.dart';
 import '../../login/service/email/Login_service.dart';
@@ -51,99 +52,104 @@ class _RegisterViewState extends RegisterViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: context.height,
-          width: context.width,
-          child: Stack(
-            children: [
-              Positioned(
-                child: SizedBox(
-                  width: context.width,
-                  height: context.height * 0.28,
-                  child: CustomPaint(
-                    painter: AppBarPainter(),
+      body: CloseKeyboard(
+        child: SingleChildScrollView(
+          child: SizedBox(
+            height: context.height,
+            width: context.width,
+            child: Stack(
+              children: [
+                Positioned(
+                  child: SizedBox(
+                    width: context.width,
+                    height: context.height * 0.28,
+                    child: CustomPaint(
+                      painter: AppBarPainter(),
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const PagePadding.spesificAuth(),
-                child: Column(
-                  children: [
-                    Expanded(
-                        flex: 3,
-                        child: Padding(
-                          padding: PagePadding.allHeight(),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(Icons.qr_code_rounded,
-                                  size: context.width * 0.2,
-                                  color: Colors.white70),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("Register",
-                                      style: context.text.headlineMedium!
-                                          .copyWith(
-                                              fontWeight: FontWeight.bold)),
-                                  Text("Create an account",
-                                      style: TextStyle(color: Colors.white70))
-                                ],
-                              )
-                            ],
-                          ),
-                        )),
-                    Expanded(
-                        flex: 7,
-                        child: Center(
-                          child: Consumer<RegisterProvider>(
-                            builder: (context, value, child) => Stepper(
-                                currentStep: value.currentStep,
-                                type: StepperType.horizontal,
-                                controlsBuilder: _controlsBuilder,
-                                onStepCancel: () => value.onStepCancel(),
-                                onStepContinue: () => value.onStepContinue(),
-                                onStepTapped: (_) => value.changeCurrentStep(_),
-                                physics: const NeverScrollableScrollPhysics(),
-                                steps: [
-                                  _registerStepBuilder(
-                                      _personel,
-                                      RegisterStepKeys.personel,
-                                      RegisterPersonelStep(
-                                          contactNumberTextController:
-                                              _contactNumberTextController,
-                                          businessTextController:
-                                              _businessTextController,
-                                          registerProvider: _registerProvider)),
-                                  _registerStepBuilder(
-                                      _account,
-                                      RegisterStepKeys.account,
-                                      RegisterAccountStep(
-                                          passwordConfirmTextController:
-                                              _passwordConfirmTextController,
-                                          emailTextController:
-                                              _emailTextController,
-                                          userName: _userName,
-                                          passwordTextController:
-                                              _passwordTextController,
-                                          registerProvider: _registerProvider)),
-                                  _registerStepBuilder(
-                                      _confirmation,
-                                      RegisterStepKeys.confirmation,
-                                      RegisterConfirmationStep(
-                                          registerProvider: _registerProvider,
-                                          register: register)),
-                                ]),
-                          ),
-                        )),
-                    SizedBox(
-                        height: context.height / 25,
-                        child: const RegisterBottomButton())
-                  ],
+                Padding(
+                  padding: const PagePadding.spesificAuth(),
+                  child: Column(
+                    children: [
+                      Expanded(
+                          flex: 3,
+                          child: Padding(
+                            padding: PagePadding.allHeight(),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(Icons.qr_code_rounded,
+                                    size: context.width * 0.2,
+                                    color: Colors.white70),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text("Register",
+                                        style: context.text.headlineMedium!
+                                            .copyWith(
+                                                fontWeight: FontWeight.bold)),
+                                    Text("Create an account",
+                                        style: TextStyle(color: Colors.white70))
+                                  ],
+                                )
+                              ],
+                            ),
+                          )),
+                      Expanded(
+                          flex: 7,
+                          child: Center(
+                            child: Consumer<RegisterProvider>(
+                              builder: (context, value, child) => Stepper(
+                                  currentStep: value.currentStep,
+                                  type: StepperType.horizontal,
+                                  controlsBuilder: _controlsBuilder,
+                                  onStepCancel: () => value.onStepCancel(),
+                                  onStepContinue: () => value.onStepContinue(),
+                                  onStepTapped: (_) =>
+                                      value.changeCurrentStep(_),
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  steps: [
+                                    _registerStepBuilder(
+                                        _personel,
+                                        RegisterStepKeys.personel,
+                                        RegisterPersonelStep(
+                                            contactNumberTextController:
+                                                _contactNumberTextController,
+                                            businessTextController:
+                                                _businessTextController,
+                                            registerProvider:
+                                                _registerProvider)),
+                                    _registerStepBuilder(
+                                        _account,
+                                        RegisterStepKeys.account,
+                                        RegisterAccountStep(
+                                            passwordConfirmTextController:
+                                                _passwordConfirmTextController,
+                                            emailTextController:
+                                                _emailTextController,
+                                            userName: _userName,
+                                            passwordTextController:
+                                                _passwordTextController,
+                                            registerProvider:
+                                                _registerProvider)),
+                                    _registerStepBuilder(
+                                        _confirmation,
+                                        RegisterStepKeys.confirmation,
+                                        RegisterConfirmationStep(
+                                            registerProvider: _registerProvider,
+                                            register: register)),
+                                  ]),
+                            ),
+                          )),
+                      SizedBox(
+                          height: context.height / 25,
+                          child: const RegisterBottomButton())
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

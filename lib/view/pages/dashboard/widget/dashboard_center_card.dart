@@ -184,7 +184,7 @@ class _DasboardCenterCardState extends State<DasboardCenterCard>
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text(
-                              "Category items",
+                              "Category count",
                               style: TextStyle(
                                 fontSize: context.text.titleMedium?.fontSize,
                               ),
@@ -203,7 +203,7 @@ class _DasboardCenterCardState extends State<DasboardCenterCard>
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text(
-                              "Total items",
+                              "Total count",
                               style: TextStyle(
                                 fontSize: context.text.titleMedium?.fontSize,
                               ),

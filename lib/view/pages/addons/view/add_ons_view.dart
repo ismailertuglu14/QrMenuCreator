@@ -10,6 +10,7 @@ import 'package:qrmenu/product/widget/elevation_button.dart';
 import 'package:qrmenu/product/widget/text_field.dart';
 
 import '../../../../product/utility/page_padding.dart';
+import '../../../../product/widget/close_keyboard.dart';
 import '../widget/add_ons_check_box_builder.dart';
 import '../widget/add_ons_dialog.dart';
 part '../viewmodel/add_ons_view_model.dart';
@@ -43,22 +44,24 @@ class _AddOnsViewState extends AddOnsViewModel {
           ),
         ),
       ),
-      body: Consumer<AddOnsProvider>(
-        builder: (context, provider, child) => ListView.builder(
-            itemCount: provider.onsPreviewList.length,
-            itemBuilder: (context, index) => AddOnsCheckBoxListTileBuilder(
-                  index: index,
-                  descriptionController: _subTitleController,
-                  priceController: _priceController,
-                  titleController:  _titleController,
-                  removeOnsPreviewList: provider.removeOnsPreviewList,
-                  title: provider.onsPreviewList[index].title,
-                  subTitle: provider.onsPreviewList[index].subTitle,
-                  value: provider.onsPreviewList[index].isSelected,
-                  price: provider.onsPreviewList[index].price,
-                  onChanged: (value) =>
-                      provider.changeIsSelected(index, value!),
-                )),
+      body: CloseKeyboard(
+        child: Consumer<AddOnsProvider>(
+          builder: (context, provider, child) => ListView.builder(
+              itemCount: provider.onsPreviewList.length,
+              itemBuilder: (context, index) => AddOnsCheckBoxListTileBuilder(
+                    index: index,
+                    descriptionController: _subTitleController,
+                    priceController: _priceController,
+                    titleController: _titleController,
+                    removeOnsPreviewList: provider.removeOnsPreviewList,
+                    title: provider.onsPreviewList[index].title,
+                    subTitle: provider.onsPreviewList[index].subTitle,
+                    value: provider.onsPreviewList[index].isSelected,
+                    price: provider.onsPreviewList[index].price,
+                    onChanged: (value) =>
+                        provider.changeIsSelected(index, value!),
+                  )),
+        ),
       ),
     );
   }
