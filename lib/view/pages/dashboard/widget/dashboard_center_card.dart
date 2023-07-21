@@ -84,6 +84,12 @@ class _DasboardCenterCardState extends State<DasboardCenterCard>
             onTap: () => context.pushNamed(RouterKeys.CATEGORY.name,
                 queryParams: {"id": widget.menu.id, "name": widget.menu.name}),
             child: Card(
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                      style: BorderStyle.solid,
+                      color: context.colorScheme.surface.withOpacity(0.5),
+                      width: 0.1),
+                  borderRadius: PageBorderRadius.allMedium()),
               child: Column(
                 children: [
                   Expanded(

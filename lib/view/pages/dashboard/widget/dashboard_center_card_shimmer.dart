@@ -69,6 +69,12 @@ class _DasboardCenterShimmerCardState extends State<DasboardCenterShimmerCard>
             child: InkWell(
               borderRadius: PageBorderRadius.allHeight(),
               child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: PageBorderRadius.allMedium(),
+                    side: BorderSide(
+                        style: BorderStyle.solid,
+                        color: context.colorScheme.surface.withOpacity(0.5),
+                        width: 0.1)),
                 child: Column(
                   children: [
                     Expanded(

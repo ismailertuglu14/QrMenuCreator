@@ -215,29 +215,27 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                 ),
                 Padding(
                   padding: PagePadding.verticalMedium(),
-                  child: CommonTextFormField(
-                    validator: firstNameRegex,
+                  child: CommonTextField(
                     textController: _businessNameController,
                     keyboardType: TextInputType.name,
-                    label: "Business Name",
-                    textInputAction: TextInputAction.next,
+                    label: Text("Business Name"),
+                    textInputAction: TextInputAction.done,
                     prefixIcon: Icon(Icons.business_outlined),
                   ),
                 ),
                 Padding(
                   padding: PagePadding.verticalMedium(),
-                  child: CommonTextFormField(
-                    validator: emailRegex,
+                  child: CommonTextField(
                     textController: _emailController,
-                    label: "Email",
-                    textInputAction: TextInputAction.next,
+                    label: Text("Email"),
+                    textInputAction: TextInputAction.done,
                     prefixIcon: Icon(Icons.alternate_email_rounded),
                     keyboardType: TextInputType.emailAddress,
                   ),
                 ),
                 Padding(
                   padding: PagePadding.verticalMedium(),
-                  child: CommonTextFormField(
+                  child: CommonTextField(
                       prefixIcon: CountryCodePicker(
                         onChanged: (value) => _editBusinessProvider
                             .changeSelectedCountryCode(value),
@@ -246,8 +244,7 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                         showCountryOnly: false,
                         showOnlyCountryWhenClosed: false,
                       ),
-                      label: "Phone Number",
-                      validator: phoneRegex,
+                      label: Text("Phone Number"),
                       keyboardType: TextInputType.phone,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       textInputAction: TextInputAction.done,
