@@ -94,14 +94,9 @@ class _DasboardCenterCardState extends State<DasboardCenterCard>
                           children: [
                             widget.menu.coverImage == null
                                 ? ImageKeys.default_image.imageAsset(
-                                    width: context.width,
-                                    fit: BoxFit.cover,
-                                  )
-                                : Image.network(
-                                    widget.menu.coverImage!,
-                                    width: context.width,
-                                    fit: BoxFit.cover,
-                                  ),
+                                    width: context.width, fit: BoxFit.cover)
+                                : Image.network(widget.menu.coverImage!,
+                                    width: context.width, fit: BoxFit.cover),
                             Positioned(
                               right: 20,
                               top: 20,

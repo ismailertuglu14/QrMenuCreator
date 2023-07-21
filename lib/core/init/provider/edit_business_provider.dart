@@ -37,6 +37,7 @@ class EditBusinessProvider extends ChangeNotifier {
   AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
 
   CountryCode? _selectedCountryCode;
+  
 
   CountryCode? get selectedCountryCode => _selectedCountryCode;
   bool get isLoading => _isLoading;

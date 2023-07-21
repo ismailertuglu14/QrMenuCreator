@@ -21,6 +21,7 @@ import 'package:qrmenu/core/extension/router_extension.dart';
 import 'package:qrmenu/product/regex/email_regex.dart';
 import 'package:qrmenu/product/regex/first_name_regex.dart';
 import 'package:qrmenu/product/regex/last_name_regex.dart';
+import 'package:qrmenu/product/regex/phone_regex.dart';
 import 'package:qrmenu/product/widget/elevation_button.dart';
 import 'package:qrmenu/product/widget/text_field.dart';
 import 'package:qrmenu/product/widget/text_form_field.dart';
@@ -75,7 +76,7 @@ class _EditBusinessViewState extends EditBusinessViewModel {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Flexible(
+                Expanded(
                   flex: 4,
                   child: Consumer<EditBusinessProvider>(
                     builder: (context, provider, child) => Container(
@@ -129,7 +130,7 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                         )),
                   ),
                 ),
-                Flexible(
+                Expanded(
                   flex: 6,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -246,19 +247,10 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                         showOnlyCountryWhenClosed: false,
                       ),
                       label: "Phone Number",
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please Enter a Phone Number";
-                        } else if (!RegExp(
-                                r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$')
-                            .hasMatch(value)) {
-                          return "Please Enter a Valid Phone Number";
-                        }
-                        return null;
-                      },
+                      validator: phoneRegex,
                       keyboardType: TextInputType.phone,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      textInputAction: TextInputAction.next,
+                      textInputAction: TextInputAction.done,
                       textController: _phoneNumberController),
                 ),
                 Row(
