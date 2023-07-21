@@ -10,7 +10,7 @@ import 'package:qrmenu/view/pages/addons/view/add_ons_view.dart';
 import 'package:qrmenu/view/pages/changelanguage/view/change_language_view.dart';
 import 'package:qrmenu/view/pages/createproduct/view/create_product_view.dart';
 import 'package:qrmenu/view/pages/deletebusiness/view/delete_business_view.dart';
-import 'package:qrmenu/view/pages/feedback/view/feed_back_view.dart';
+
 import 'package:qrmenu/view/pages/home/view/home_view.dart';
 import 'package:qrmenu/view/pages/locationpicker/view/location_picker_view.dart';
 import 'package:qrmenu/view/pages/qr/view/qr_view.dart';
@@ -66,11 +66,7 @@ class RouterManager with ChangeNotifier {
               context: context,
               state: state,
               child: const ResetPasswordView())),
-      GoRoute(
-          name: RouterKeys.FEED_BACK.name,
-          path: RouterKeys.FEED_BACK.route,
-          pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: const FeedBackView())),
+     
       GoRoute(
           name: RouterKeys.ERROR.name,
           path: RouterKeys.ERROR.route,

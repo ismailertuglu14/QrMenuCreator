@@ -17,8 +17,6 @@ extension RouteExtension on RouterKeys {
         return "/register";
       case RouterKeys.RESET_PASSWORD:
         return "/reset_password";
-      case RouterKeys.FEED_BACK:
-        return "/feed_back";
 
       case RouterKeys.EDIT_BUSINESS:
         return "/edit_business";

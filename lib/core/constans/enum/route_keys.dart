@@ -8,7 +8,7 @@ enum RouterKeys {
   LOGIN,
   REGISTER,
   RESET_PASSWORD,
-  FEED_BACK,
+
 
   EDIT_BUSINESS,
   QR,
