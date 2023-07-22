@@ -30,94 +30,87 @@ class ChangePasswordViewState extends ChangePasswordViewModel {
       body: CloseKeyboard(
         child: Padding(
           padding: PagePadding.allDefault(),
-          child: Card(
-            color: context.colorScheme.onSecondary.withOpacity(0.8),
-            child: Padding(
-              padding: PagePadding.allMedium(),
-              child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: PagePadding.allLow(),
+                  child: Text(
+                    "Reset your password",
+                    style: TextStyle(
+                        fontSize: context.text.titleLarge?.fontSize,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: PagePadding.allLow(),
+                  child: Text(
+                    "Your new password must be different from previous used password",
+                    style: TextStyle(
+                      fontSize: context.text.titleMedium?.fontSize,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: PagePadding.allLow(),
+                  child: CommonTextField(
+                    hintText: "Old Password",
+                    obscureText: true,
+                    textController: _oldPasswordController,
+                    prefixIcon: Icon(Icons.password_outlined),
+                    keyboardType: TextInputType.visiblePassword,
+                    suffixIcon: Icon(Icons.visibility_rounded),
+                    textInputAction: TextInputAction.next,
+                  ),
+                ),
+                Padding(
+                  padding: PagePadding.allLow(),
+                  child: CommonTextField(
+                    hintText: "New Password",
+                    obscureText: true,
+                    textController: _newPasswordController,
+                    suffixIcon: Icon(Icons.visibility_rounded),
+                    prefixIcon: Icon(Icons.password_outlined),
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
+                  ),
+                ),
+                Padding(
+                  padding: PagePadding.allLow(),
+                  child: CommonTextField(
+                    hintText: "Confirm Password",
+                    obscureText: true,
+                    textController: _confirmPasswordController,
+                    suffixIcon: Icon(Icons.visibility_rounded),
+                    prefixIcon: Icon(Icons.password_outlined),
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
+                  ),
+                ),
+                Row(
                   children: [
-                    Padding(
-                      padding: PagePadding.allLow(),
-                      child: Text(
-                        "Reset your password",
-                        style: TextStyle(
-                            fontSize: context.text.titleLarge?.fontSize,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Padding(
-                      padding: PagePadding.allLow(),
-                      child: Text(
-                        "Your new password must be different from previous used password",
-                        style: TextStyle(
-                          fontSize: context.text.titleMedium?.fontSize,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: PagePadding.allLow(),
-                      child: CommonTextField(
-                        hintText: "Old Password",
-                        obscureText: true,
-                        textController: _oldPasswordController,
-                        prefixIcon: Icon(Icons.password_outlined),
-                        keyboardType: TextInputType.visiblePassword,
-                        suffixIcon: Icon(Icons.visibility_rounded),
-                        textInputAction: TextInputAction.next,
-                      ),
-                    ),
-                    Padding(
-                      padding: PagePadding.allLow(),
-                      child: CommonTextField(
-                        hintText: "New Password",
-                        obscureText: true,
-                        textController: _newPasswordController,
-                        suffixIcon: Icon(Icons.visibility_rounded),
-                        prefixIcon: Icon(Icons.password_outlined),
-                        keyboardType: TextInputType.visiblePassword,
-                        textInputAction: TextInputAction.done,
-                      ),
-                    ),
-                    Padding(
-                      padding: PagePadding.allLow(),
-                      child: CommonTextField(
-                        hintText: "Confirm Password",
-                        obscureText: true,
-                        textController: _confirmPasswordController,
-                        suffixIcon: Icon(Icons.visibility_rounded),
-                        prefixIcon: Icon(Icons.password_outlined),
-                        keyboardType: TextInputType.visiblePassword,
-                        textInputAction: TextInputAction.done,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: PagePadding.allLow(),
-                            child: ZoomTapAnimation(
-                              child: CommonElevationButton(
-                                onPressed: () => changePassword(),
-                                child: Padding(
-                                  padding: PagePadding.allMedium(),
-                                  child: Text("Save",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: context
-                                              .text.titleMedium?.fontSize)),
-                                ),
-                              ),
+                    Expanded(
+                      child: Padding(
+                        padding: PagePadding.allLow(),
+                        child: ZoomTapAnimation(
+                          child: CommonElevationButton(
+                            onPressed: () => changePassword(),
+                            child: Padding(
+                              padding: PagePadding.allMedium(),
+                              child: Text("Save",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize:
+                                          context.text.titleMedium?.fontSize)),
                             ),
                           ),
                         ),
-                      ],
-                    )
-                  ]),
-            ),
-          ),
+                      ),
+                    ),
+                  ],
+                )
+              ]),
         ),
       ),
     );

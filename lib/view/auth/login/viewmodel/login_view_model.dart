@@ -65,11 +65,17 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
             LocaleKeys.WHATSAPP, response.data.socialMedias.whatsapp);
         LocaleStorage.instance.setStringValue(
             LocaleKeys.WEBSITE, response.data.socialMedias.website);
+        LocaleStorage.instance.setStringValue(
+            LocaleKeys.SUBSCRIPTION_NAME, response.data.purchase.plan.name);
+        LocaleStorage.instance.setStringValue(
+            LocaleKeys.SUBSCRIPTION_PERIOD, response.data.purchase.periodType);
+        LocaleStorage.instance.setIntValue(
+            LocaleKeys.SUBSCRIPTION_PRICE, response.data.purchase.price);
       } else {
         Fluttertoast.showToast(msg: "Failed to get business");
       }
     } catch (e) {
-      Fluttertoast.showToast(msg: "Failed to get business");
+      throw Exception("Failed to get business");
     }
   }
 
@@ -82,19 +88,20 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
                 email: _emailController.text,
                 password: _passwordController.text));
         if (response.isSuccess && response.errors.isEmpty) {
-          LocaleStorage.instance.setStringValue(
-              LocaleKeys.ACCESS_TOKEN, response.data.accessToken);
-
-          LocaleStorage.instance.setStringValue(
-              LocaleKeys.REFRESH_TOKEN, response.data.refreshToken);
-          LocaleStorage.instance.setStringValue(
-              LocaleKeys.EXPIRATION, response.data.expiration.toString());
-
-          LocaleStorage.instance
-              .setStringValue(LocaleKeys.EMAIL, _emailController.text);
-          LocaleStorage.instance
-              .setStringValue(LocaleKeys.PASSWORD, _passwordController.text);
-          getBusiness().whenComplete(() => context.go(RouterKeys.HOME.route));
+          _loginProvider.setAccessToken(response.data.accessToken);
+          Future.wait([
+            LocaleStorage.instance.setStringValue(
+                LocaleKeys.ACCESS_TOKEN, response.data.accessToken),
+            LocaleStorage.instance.setStringValue(
+                LocaleKeys.REFRESH_TOKEN, response.data.refreshToken),
+            LocaleStorage.instance.setStringValue(
+                LocaleKeys.EXPIRATION, response.data.expiration.toString()),
+            LocaleStorage.instance
+                .setStringValue(LocaleKeys.EMAIL, _emailController.text),
+            LocaleStorage.instance
+                .setStringValue(LocaleKeys.PASSWORD, _passwordController.text),
+            getBusiness()
+          ]).whenComplete(() => context.go(RouterKeys.HOME.route));
 
           Fluttertoast.showToast(msg: "Login Success");
         } else {

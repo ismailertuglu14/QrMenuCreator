@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../constans/enum/subscription_plan_keys.dart';
+import '../../../view/pages/subscription/model/get_plan_response_model.dart';
 
 class SubscriptionProvider extends ChangeNotifier {
   static SubscriptionProvider? _instance;
@@ -11,21 +11,56 @@ class SubscriptionProvider extends ChangeNotifier {
   }
 
   SubscriptionProvider._();
+  List<GetPlanData>? _planData;
 
-  SubscriptionPlanKeys _subscriptionPlanKeys = SubscriptionPlanKeys.Basic;
+  bool _isLoading = false;
+
+  double _customMenuLimit = 0;
+  double _customProductCount = 0;
+
+  int _selectedPlanIndex = 0;
+
+  List<GetPlanData>? get planData => _planData;
+
+  bool get isLoading => _isLoading;
+
+  int get selectedPlanIndex => _selectedPlanIndex;
+
+  double get customMenuLimit => _customMenuLimit;
+
+  double get customProductCount => _customProductCount;
+
   bool _isYearly = false;
-
-  SubscriptionPlanKeys get subscriptionPlanKeys => _subscriptionPlanKeys;
 
   bool get isYearly => _isYearly;
 
-  void changeSubscriptionType(bool value) {
-    _isYearly = value;
+  void setSelectedPlanIndex(int value) {
+    _selectedPlanIndex = value;
     notifyListeners();
   }
 
-  void changeSubscriptionPlan(SubscriptionPlanKeys planKey) {
-    _subscriptionPlanKeys = planKey;
+  void setCustomMenuLimit(double value) {
+    _customMenuLimit = value;
+    notifyListeners();
+  }
+
+  void setCustomProductCount(double value) {
+    _customProductCount = value;
+    notifyListeners();
+  }
+
+  void changeLoading() {
+    _isLoading = !_isLoading;
+    notifyListeners();
+  }
+
+  set setGetPlanData(List<GetPlanData>? value) {
+    _planData = value;
+    notifyListeners();
+  }
+
+  void changeSubscriptionType(bool value) {
+    _isYearly = value;
     notifyListeners();
   }
 }

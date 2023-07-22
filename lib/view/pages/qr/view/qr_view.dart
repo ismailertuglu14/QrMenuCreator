@@ -48,139 +48,194 @@ class _QrViewState extends QrViewModel {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(title: Text("QR Code")),
-      body: Column(
+      body: Stack(
         children: [
-          Expanded(
-              flex: 1,
-              child: Consumer<QrProvider>(
-                builder: (context, provider, child) => DropdownButton(
-                  isExpanded: true,
-                  value: provider.selectedMenu,
-                  hint: Text("Select Menu"),
-                  underline: SizedBox.shrink(),
-                  icon: Icon(Icons.arrow_drop_down_rounded),
-                  padding: PagePadding.allHeight(),
-                  menuMaxHeight: context.height * .5,
-                  borderRadius: PageBorderRadius.allMedium(),
-                  items: List.generate(
-                      provider.menus?.length ?? 0,
-                      (index) => DropdownMenuItem(
-                            value: provider.menus?[index].id,
-                            child: Row(
-                              children: [
-                                Text(
-                                    provider.menus?[index].name.toUpperCase() ??
-                                        "",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
-                                Spacer(),
-                                Text(
-                                    "${provider.menus?[index].productCount ?? 0} Products",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
-                              ],
-                            ),
-                          )),
-                  onChanged: (value) => provider.changeSelectedMenu(value!),
-                ),
-              )),
-          Expanded(
-              flex: 1,
-              child: Consumer<QrProvider>(
-                builder: (context, provider, child) => DropdownButton(
-                  isExpanded: true,
-                  value: provider.selectedTemplate,
-                  hint: Text("Select Template"),
-                  underline: SizedBox.shrink(),
-                  icon: Icon(Icons.arrow_drop_down_rounded),
-                  padding: PagePadding.allHeight(),
-                  menuMaxHeight: context.height * .5,
-                  borderRadius: PageBorderRadius.allMedium(),
-                  items: List.generate(
-                      TemplateKeys.values.length,
-                      (index) => DropdownMenuItem(
-                            value: TemplateKeys.values[index],
-                            child: Text(TemplateKeys.values[index].name,
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                          )),
-                  onChanged: (value) =>
-                      provider.changeSelectedTemplate(value as TemplateKeys),
-                ),
-              )),
-          Expanded(
-            flex: 6,
-            child: Screenshot(
-              controller: _screenshotController,
-              child: Center(
-                child: Container(
-                  alignment: Alignment.center,
-                  height: context.height,
-                  width: context.width,
-                  child: CustomPaint(
-                    isComplex: true,
-                    painter: QrPainter(
-                        data: "https://www.google.com",
-                        options: const QrOptions(
-                            ecl: ErrorCorrectionLevel.H,
-                            shapes: QrShapes(
-                                lightPixel: QrPixelShapeRoundCorners(
-                                    cornerFraction: .5),
-                                darkPixel: QrPixelShapeRoundCorners(
-                                    cornerFraction: .5),
-                                frame: QrFrameShapeRoundCorners(
-                                    cornerFraction: .25),
-                                ball: QrBallShapeRoundCorners(
-                                    cornerFraction: .25)),
-                            colors: QrColors(
-                                background: QrColorSolid(Colors.transparent),
-                                light: QrColorLinearGradient(
-                                    colors: [
-                                      Color(0xFFFF0000),
-                                      Color(0xFF0000FF)
-                                    ],
-                                    orientation:
-                                        GradientOrientation.leftDiagonal),
-                                dark: QrColorLinearGradient(
-                                    colors: [
-                                      Color(0xFFFF0000),
-                                      Color(0xFF0000FF)
-                                    ],
-                                    orientation:
-                                        GradientOrientation.leftDiagonal)))),
-                    size: const Size(350, 350),
+          Positioned(
+            top: 0,
+            width: context.width,
+            height: context.height * .5,
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 6,
+                  child: Screenshot(
+                    controller: _screenshotController,
+                    child: Center(
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: context.height,
+                        width: context.width,
+                        child: CustomPaint(
+                          isComplex: true,
+                          painter: QrPainter(
+                              data: "https://www.google.com",
+                              options: const QrOptions(
+                                  ecl: ErrorCorrectionLevel.H,
+                                  shapes: QrShapes(
+                                      lightPixel: QrPixelShapeRoundCorners(
+                                          cornerFraction: .5),
+                                      darkPixel: QrPixelShapeRoundCorners(
+                                          cornerFraction: .5),
+                                      frame: QrFrameShapeRoundCorners(
+                                          cornerFraction: .25),
+                                      ball: QrBallShapeRoundCorners(
+                                          cornerFraction: .25)),
+                                  colors: QrColors(
+                                      background:
+                                          QrColorSolid(Colors.transparent),
+                                      light: QrColorLinearGradient(
+                                          colors: [
+                                            Color(0xFFFF0000),
+                                            Color(0xFF0000FF)
+                                          ],
+                                          orientation:
+                                              GradientOrientation.leftDiagonal),
+                                      dark: QrColorLinearGradient(
+                                          colors: [
+                                            Color(0xFFFF0000),
+                                            Color(0xFF0000FF)
+                                          ],
+                                          orientation: GradientOrientation
+                                              .leftDiagonal)))),
+                          size: const Size(350, 350),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
           ),
-          Row(
-            children: [
-              Expanded(
-                  child: Padding(
-                padding: PagePadding.allMedium(),
-                child: CommonOutlineButton(
-                    child: Padding(
-                      padding: PagePadding.allMedium(),
-                      child: Text("Download"),
-                    ),
-                    onPressed: () => downloadTemplate()),
-              )),
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                  child: Padding(
-                padding: PagePadding.allMedium(),
-                child: CommonOutlineButton(
-                    child: Padding(
-                      padding: PagePadding.allMedium(),
-                      child: Text("Send email"),
-                    ),
-                    onPressed: () {}),
-              )),
-            ],
-          ),
+          Positioned(
+            child: DraggableScrollableSheet(
+                snap: true,
+                initialChildSize: .5,
+                minChildSize: .5,
+                maxChildSize: .9,
+                snapAnimationDuration: PageDurations.min(),
+                snapSizes: const [.5, .9],
+                builder: (context, scrollController) => SingleChildScrollView(
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
+                      controller: scrollController,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: context.colorScheme.background,
+                          border: Border.all(
+                              color:
+                                  context.colorScheme.surface.withOpacity(0.1)),
+                          borderRadius: PageBorderRadius.spesificTop(),
+                        ),
+                        child: SizedBox(
+                          height: context.height,
+                          width: context.width,
+                          child: Column(children: [
+                            Padding(
+                              padding: PagePadding.allMedium(),
+                              child: Container(
+                                height: context.height * .005,
+                                width: context.width * .1,
+                                decoration: BoxDecoration(
+                                  color: context.colorScheme.surface
+                                      .withOpacity(0.5),
+                                  borderRadius: PageBorderRadius.allMedium(),
+                                ),
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                    child: Padding(
+                                  padding: PagePadding.allMedium(),
+                                  child: OutlinedButton.icon(
+                                      icon: Icon(Icons.file_download_outlined),
+                                      label: Padding(
+                                        padding: PagePadding.allMedium(),
+                                        child: Text("Download"),
+                                      ),
+                                      onPressed: () => downloadTemplate()),
+                                )),
+                                Expanded(
+                                    child: Padding(
+                                  padding: PagePadding.allMedium(),
+                                  child: OutlinedButton.icon(
+                                      icon: Icon(
+                                          Icons.mark_email_unread_outlined),
+                                      label: Padding(
+                                        padding: PagePadding.allMedium(),
+                                        child: Text("Send email"),
+                                      ),
+                                      onPressed: () {}),
+                                )),
+                              ],
+                            ),
+                            Consumer<QrProvider>(
+                              builder: (context, provider, child) =>
+                                  DropdownButton(
+                                isExpanded: true,
+                                value: provider.selectedMenu,
+                                hint: Text("Select Menu"),
+                                underline: SizedBox.shrink(),
+                                icon: Icon(Icons.arrow_drop_down_rounded),
+                                padding: PagePadding.allHeight(),
+                                menuMaxHeight: context.height * .5,
+                                borderRadius: PageBorderRadius.allMedium(),
+                                items: List.generate(
+                                    provider.menus?.length ?? 0,
+                                    (index) => DropdownMenuItem(
+                                          value: provider.menus?[index].id,
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                  provider.menus?[index].name
+                                                          .toUpperCase() ??
+                                                      "",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                              Spacer(),
+                                              Text(
+                                                  "${provider.menus?[index].productCount ?? 0} Products",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ],
+                                          ),
+                                        )),
+                                onChanged: (value) =>
+                                    provider.changeSelectedMenu(value!),
+                              ),
+                            ),
+                            Consumer<QrProvider>(
+                              builder: (context, provider, child) =>
+                                  DropdownButton(
+                                isExpanded: true,
+                                value: provider.selectedTemplate,
+                                hint: Text("Select Template"),
+                                underline: SizedBox.shrink(),
+                                icon: Icon(Icons.arrow_drop_down_rounded),
+                                padding: PagePadding.allHeight(),
+                                menuMaxHeight: context.height * .5,
+                                borderRadius: PageBorderRadius.allMedium(),
+                                items: List.generate(
+                                    TemplateKeys.values.length,
+                                    (index) => DropdownMenuItem(
+                                          value: TemplateKeys.values[index],
+                                          child: Text(
+                                              TemplateKeys.values[index].name,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold)),
+                                        )),
+                                onChanged: (value) =>
+                                    provider.changeSelectedTemplate(
+                                        value as TemplateKeys),
+                              ),
+                            ),
+                          ]),
+                        ),
+                      ),
+                    )),
+          )
         ],
       ),
     );

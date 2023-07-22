@@ -52,15 +52,11 @@ class ListTileSwitch extends StatelessWidget {
     this.isThreeLine = false,
     this.switchType = SwitchType.custom,
     this.contentPadding,
-    this.onLongPress,
     this.visualDensity,
     this.dense = false,
-    this.focusNode,
-    this.autoFocus = false,
     this.selected = false,
     this.focusColor,
     this.hoverColor,
-    this.mouseCursor,
     this.toggleSelectedOnValueChange = false,
     this.listTileStyle = ListTileStyle.list,
   })  : assert(switchScale <= 1.0),
@@ -97,16 +93,14 @@ class ListTileSwitch extends StatelessWidget {
   final Widget? subtitle;
   final bool isThreeLine;
   final EdgeInsetsGeometry? contentPadding;
-  final VoidCallback? onLongPress;
+
   final VisualDensity? visualDensity;
   final bool? dense;
   final bool enabled;
-  final FocusNode? focusNode;
-  final bool autoFocus;
+
   final bool selected;
   final Color? focusColor;
   final Color? hoverColor;
-  final MouseCursor? mouseCursor;
 
   /// Sets the [ListTileStyle] for the inherited [ListTileTheme].
   final ListTileStyle listTileStyle;
@@ -117,10 +111,8 @@ class ListTileSwitch extends StatelessWidget {
       selectedColor: switchActiveColor,
       style: listTileStyle,
       child: ListTile(
-        
         enabled: enabled,
         onTap: () => onChanged(!value),
-        onLongPress: onLongPress,
         leading: leading,
         title: title,
         subtitle: subtitle,
@@ -139,14 +131,11 @@ class ListTileSwitch extends StatelessWidget {
         ),
         contentPadding: contentPadding,
         visualDensity: visualDensity,
-        autofocus: autoFocus,
-        focusNode: focusNode,
         selected: toggleSelectedOnValueChange == true ? value : selected,
         isThreeLine: isThreeLine,
         dense: dense,
         focusColor: focusColor,
         hoverColor: hoverColor,
-        mouseCursor: mouseCursor,
       ),
     );
   }

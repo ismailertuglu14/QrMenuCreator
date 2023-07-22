@@ -57,11 +57,10 @@ class BusinessHeader extends StatelessWidget {
                 ),
                 Text(
                   (LocaleStorage.instance
-                          .getStringValue(LocaleKeys.BUSINESS_NAME)
+                          .getStringValue(LocaleKeys.EMAIL)
                           .isEmpty)
                       ? "businessname@gmail.com"
-                      : LocaleStorage.instance
-                          .getStringValue(LocaleKeys.BUSINESS_NAME),
+                      : LocaleStorage.instance.getStringValue(LocaleKeys.EMAIL),
                   style:
                       TextStyle(fontSize: context.text.titleMedium?.fontSize),
                 ),

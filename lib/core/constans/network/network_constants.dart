@@ -44,4 +44,8 @@ class NetworkConstants {
   static const String GET_RESTAURANT_MENUS = "/menu/all";
   static const String CREATE_MENU = "/menu/create";
   static const String MENU_DELETE = "/menu/delete";
+
+  //Subscription Endpoints
+
+  static const String GET_PLAN = "/plan";
 }

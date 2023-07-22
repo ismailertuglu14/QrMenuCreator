@@ -61,14 +61,14 @@ class _HomeViewState extends HomeViewModels
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      bottomSheet: AnimatedContainer(
+      /*bottomSheet: AnimatedContainer(
         duration: const PageDurations.min(),
         decoration: BoxDecoration(
             borderRadius: const PageBorderRadius.spesificTop(),
             color: context.colorScheme.primary),
         height: _networkResult == NetworkResult.on ? 0 : context.height / 20,
         child: const Center(child: Text("No Internet Connection")),
-      ),
+      ),*/
       bottomNavigationBar: BottomNaviBar(),
       appBar: CommonAppBar(
         automaticallyImplyLeading: false,

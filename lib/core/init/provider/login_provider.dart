@@ -16,10 +16,14 @@ class LoginProvider extends ChangeNotifier {
   LoginProvider._() {
     formKey = GlobalKey<FormState>();
   }
+
+  late final GlobalKey<FormState> formKey;
   bool _obscureText = true;
   bool _isLoading = false;
-  late final GlobalKey<FormState> formKey;
 
+  String? _accessToken;
+
+  String? get accessToken => _accessToken;
   bool _isAuthenticated = false;
   bool get isAuthenticated => _isAuthenticated;
 
@@ -57,6 +61,11 @@ class LoginProvider extends ChangeNotifier {
     } catch (e) {
       return false;
     }
+  }
+
+  void setAccessToken(String token) {
+    _accessToken = token;
+    notifyListeners();
   }
 
   void setAuthenticated(bool value) {

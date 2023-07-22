@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:qrmenu/core/init/provider/login_provider.dart';
 
 import '../../constans/cache/locale_keys_enum.dart';
 import '../cache/local_storage.dart';
@@ -17,6 +18,8 @@ class NetworkManager {
 
   NetworkManager._();
 
+  static final LoginProvider _loginProvider = LoginProvider.instance;
+
   static const String BASE_IOS_URL =
       "https://qrmenuapi.azurewebsites.net/api/v1";
   static const String BASE_ANDROID_URL =
@@ -27,7 +30,7 @@ class NetworkManager {
   Dio dio = Dio(BaseOptions(
       headers: {
         'Authorization':
-            'Bearer ${LocaleStorage.instance.getStringValue(LocaleKeys.ACCESS_TOKEN)}'
+            'Bearer ${_loginProvider.accessToken ?? LocaleStorage.instance.getStringValue(LocaleKeys.ACCESS_TOKEN)}}'
       },
       baseUrl: Platform.isIOS ? BASE_IOS_URL : BASE_ANDROID_URL,
       sendTimeout: const Duration(seconds: CONNECT_TIMEOUT),

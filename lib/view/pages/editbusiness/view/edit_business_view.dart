@@ -144,7 +144,7 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                               icon: Icon(Icons.monetization_on_outlined),
                               label: Consumer<EditBusinessProvider>(
                                 builder: (context, provider, child) => Text(
-                                    "Curency: ${provider.currentCurrency ?? "Unknown"}",
+                                    "Curency: ${provider.currentCurrency == null || provider.currentCurrency!.isEmpty ? "Not selected" : provider.currentCurrency}",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
                               )),
@@ -169,19 +169,10 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                               icon: Icon(Icons.maps_home_work_outlined),
                               label: Consumer<EditBusinessProvider>(
                                 builder: (context, provider, child) => Text(
-                                    (LocaleStorage.instance
-                                                .getDoubleValue(LocaleKeys
-                                                    .LOCATION_LATITUDE)
-                                                .toString()
-                                                .isNotEmpty &&
-                                            LocaleStorage.instance
-                                                .getDoubleValue(LocaleKeys
-                                                    .LOCATION_LONGITUDE)
-                                                .toString()
-                                                .isNotEmpty)
-                                        ? provider.currentLocationName ??
-                                            "Unknown Location"
-                                        : "No Location Selected",
+                                    provider.currentLocationName == null
+                                        ? "Location: Not selected"
+                                        : provider.currentLocationName ??
+                                            "Unknown",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
                               )),

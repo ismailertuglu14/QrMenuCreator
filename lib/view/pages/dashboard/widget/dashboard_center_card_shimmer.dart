@@ -69,6 +69,7 @@ class _DasboardCenterShimmerCardState extends State<DasboardCenterShimmerCard>
             child: InkWell(
               borderRadius: PageBorderRadius.allHeight(),
               child: Card(
+                color: context.colorScheme.surface.withOpacity(0.5),
                 shape: RoundedRectangleBorder(
                     borderRadius: PageBorderRadius.allMedium(),
                     side: BorderSide(
@@ -125,9 +126,8 @@ class _DasboardCenterShimmerCardState extends State<DasboardCenterShimmerCard>
                     Expanded(
                         flex: 2,
                         child: Padding(
-                          padding: PagePadding.horizontalHeight(),
+                          padding: PagePadding.horizontalMedium(),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
                                 flex: 9,
@@ -135,7 +135,7 @@ class _DasboardCenterShimmerCardState extends State<DasboardCenterShimmerCard>
                                   decoration: BoxDecoration(
                                       color: Colors.grey[300],
                                       borderRadius:
-                                          PageBorderRadius.allHeight()),
+                                          PageBorderRadius.allMedium()),
                                   child: Text(
                                     "widget.menu.name.toUpperCase",
                                     style: TextStyle(
