@@ -30,7 +30,6 @@ class GetBusinessResponseModel {
 class GetBusinessData {
   final Location location;
   final bool isVerified;
-  final String defaultCurrency;
   final String id;
   final String name;
   final dynamic address;
@@ -40,13 +39,13 @@ class GetBusinessData {
   final dynamic bannerImage;
   final SocialMedias socialMedias;
   final bool isActive;
+  final String defaultCurrency;
   final String email;
   final Phone phone;
 
   GetBusinessData({
     required this.location,
     required this.isVerified,
-    required this.defaultCurrency,
     required this.id,
     required this.name,
     this.address,
@@ -56,6 +55,7 @@ class GetBusinessData {
     this.bannerImage,
     required this.socialMedias,
     required this.isActive,
+    required this.defaultCurrency,
     required this.email,
     required this.phone,
   });
@@ -64,7 +64,6 @@ class GetBusinessData {
       GetBusinessData(
         location: Location.fromJson(json["location"]),
         isVerified: json["isVerified"],
-        defaultCurrency: json["defaultCurrency"],
         id: json["_id"],
         name: json["name"],
         address: json["address"],
@@ -74,6 +73,7 @@ class GetBusinessData {
         bannerImage: json["bannerImage"],
         socialMedias: SocialMedias.fromJson(json["socialMedias"]),
         isActive: json["isActive"],
+        defaultCurrency: json["defaultCurrency"],
         email: json["email"],
         phone: Phone.fromJson(json["phone"]),
       );
@@ -81,7 +81,6 @@ class GetBusinessData {
   Map<String, dynamic> toJson() => {
         "location": location.toJson(),
         "isVerified": isVerified,
-        "defaultCurrency": defaultCurrency,
         "_id": id,
         "name": name,
         "address": address,
@@ -91,6 +90,7 @@ class GetBusinessData {
         "bannerImage": bannerImage,
         "socialMedias": socialMedias.toJson(),
         "isActive": isActive,
+        "defaultCurrency": defaultCurrency,
         "email": email,
         "phone": phone.toJson(),
       };
@@ -106,8 +106,8 @@ class Location {
   });
 
   factory Location.fromJson(Map<String, dynamic> json) => Location(
-        latitude: json["latitude"]?.toDouble(),
-        longitude: json["longitude"]?.toDouble(),
+        latitude: json["latitude"],
+        longitude: json["longitude"],
       );
 
   Map<String, dynamic> toJson() => {

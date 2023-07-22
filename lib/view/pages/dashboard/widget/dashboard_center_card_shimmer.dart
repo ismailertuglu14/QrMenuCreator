@@ -135,7 +135,7 @@ class _DasboardCenterShimmerCardState extends State<DasboardCenterShimmerCard>
                                   decoration: BoxDecoration(
                                       color: Colors.grey[300],
                                       borderRadius:
-                                          PageBorderRadius.allMedium()),
+                                          PageBorderRadius.allHeight()),
                                   child: Text(
                                     "widget.menu.name.toUpperCase",
                                     style: TextStyle(

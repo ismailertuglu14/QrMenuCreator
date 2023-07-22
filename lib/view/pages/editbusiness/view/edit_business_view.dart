@@ -181,7 +181,9 @@ class _EditBusinessViewState extends EditBusinessViewModel {
                                                 .isNotEmpty)
                                         ? provider.currentLocationName ??
                                             "Unknown Location"
-                                        : "No Location Selected"),
+                                        : "No Location Selected",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
                               )),
                         ),
                       ],
