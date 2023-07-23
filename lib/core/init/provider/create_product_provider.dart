@@ -3,8 +3,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:qrmenu/core/constans/enum/image_keys.dart';
 import 'package:qrmenu/view/pages/createproduct/model/create_product_response_model.dart';
 
-import '../../../view/pages/createproduct/model/allergens_model.dart';
-
 class CreateProductProvider extends ChangeNotifier {
   static CreateProductProvider? _instance;
 
@@ -43,7 +41,7 @@ class CreateProductProvider extends ChangeNotifier {
     Allergens(name: "Sulphites", isAllergen: false),
     Allergens(name: "Crutaceans", isAllergen: false),
   ];
-  List<AllergensModel> _allergens = [];
+  List<int> _allergens = [];
   final List<ImageKeys> _allergensSuggesitonIcons = [
     ImageKeys.molluscs,
     ImageKeys.egg,
@@ -78,7 +76,7 @@ class CreateProductProvider extends ChangeNotifier {
 
   bool get isActive => _isActive;
 
-  List<AllergensModel> get allergens => _allergens;
+  List<int> get allergens => _allergens;
 
   int _itemImageCurentIndex = 0;
 
@@ -147,17 +145,17 @@ class CreateProductProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void changeAllergens(List<AllergensModel> value) {
+  void changeAllergens(List<int> value) {
     _allergens = value;
     notifyListeners();
   }
 
-  void addAllergens(AllergensModel value) {
+  void addAllergens(int value) {
     _allergens.add(value);
     notifyListeners();
   }
 
-  void removeAllergens(AllergensModel value) {
+  void removeAllergens(int value) {
     _allergens.remove(value);
     notifyListeners();
   }

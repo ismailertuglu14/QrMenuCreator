@@ -192,7 +192,7 @@ class _CreateProductViewViewState extends CreateProductViewModel {
                                                       .allergensSuggesitonIcons[
                                                           index]
                                                       .imageAsset()
-                                                  : Icon(Icons.add_rounded)),
+                                                  : Icon(Icons.edit_rounded)),
                                         );
                                       },
                                     ),

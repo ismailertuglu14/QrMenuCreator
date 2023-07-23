@@ -9,7 +9,6 @@ import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/grid_delegates.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/elevation_button.dart';
-import '../model/allergens_model.dart';
 
 Future<dynamic> addAllergensDialog(BuildContext context) {
   return showDialog(
@@ -42,9 +41,9 @@ Future<dynamic> addAllergensDialog(BuildContext context) {
                       itemBuilder: (context, index) => GestureDetector(
                             onTap: () {
                               provider.changeAllergenState(index);
-                              /* provider.allergenSuggestions[index].isAllergen
-                                  ? provider.removeAllergens()
-                                  : provider.addAllergens();*/
+                              provider.allergenSuggestions[index].isAllergen
+                                  ? provider.allergens.add(index)
+                                  : provider.allergens.remove(index);
                             },
                             child: Container(
                                 width: context.width * 0.2,

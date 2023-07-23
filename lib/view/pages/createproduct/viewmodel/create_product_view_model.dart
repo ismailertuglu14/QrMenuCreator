@@ -48,7 +48,7 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
           name: _nameController.text,
           description: _descriptionController.text,
           price: int.parse(_priceController.text),
-          currency: "TL",
+          currency: LocaleStorage.instance.getStringValue(LocaleKeys.CURRENCY),
           isActive: _createProductProvider.isActive,
           files: _createProductProvider.itemPreviewList,
           nutritions: [
@@ -100,7 +100,7 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
           name: _nameController.text,
           description: _descriptionController.text,
           price: int.parse(_priceController.text),
-          currency: "TL",
+          currency: LocaleStorage.instance.getStringValue(LocaleKeys.CURRENCY),
           isActive: _createProductProvider.isActive,
           files: _createProductProvider.itemPreviewList,
           nutritions: [
