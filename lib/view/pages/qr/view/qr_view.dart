@@ -115,6 +115,7 @@ class _QrViewState extends QrViewModel {
                 snapAnimationDuration: PageDurations.min(),
                 snapSizes: const [.5, .9],
                 builder: (context, scrollController) => SingleChildScrollView(
+                      physics: NeverScrollableScrollPhysics(),
                       keyboardDismissBehavior:
                           ScrollViewKeyboardDismissBehavior.onDrag,
                       controller: scrollController,

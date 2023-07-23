@@ -146,7 +146,7 @@ Future<XFile> singleCropImage({required XFile pickedFile}) async {
     uiSettings: [
       AndroidUiSettings(
           toolbarTitle: 'Cropper',
-          toolbarColor: Colors.orange,
+          toolbarColor: Color(0xFF3AB86F),
           toolbarWidgetColor: Colors.white,
           initAspectRatio: CropAspectRatioPreset.original,
           lockAspectRatio: false),
