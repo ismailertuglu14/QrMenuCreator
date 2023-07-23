@@ -2,6 +2,7 @@ part of '../view/qr_view.dart';
 
 abstract class QrViewModel extends State<QrView>
     with SingleTickerProviderStateMixin {
+  late final QrService _qrService;
   late final AnimationController _animationController;
   late final ScreenshotController _screenshotController;
   late final DashboardService _dashboardService;
@@ -13,7 +14,7 @@ abstract class QrViewModel extends State<QrView>
   @override
   void initState() {
     super.initState();
-
+    _qrService = QrService(NetworkManager.instance.dio);
     _dashboardService = DashboardService(NetworkManager.instance.dio);
     _qrProvider = QrProvider.instance;
 
@@ -29,6 +30,26 @@ abstract class QrViewModel extends State<QrView>
   void dispose() {
     _animationController.dispose();
     super.dispose();
+  }
+
+  Future<void> publishUnpublishMenu() async {
+    if (_qrProvider.selectedMenu != null) {
+      try {
+        PublishUnpublishMenuResponseModel response = await _qrService
+            .publishUnpublishMenu(menuId: _qrProvider.selectedMenu ?? "");
+        if (response.isSuccess && response.errors.isEmpty) {
+          _qrProvider.changeIsPublished(response.data);
+          Fluttertoast.showToast(
+              msg: _qrProvider.isPublished != null && _qrProvider.isPublished!
+                  ? "Menu published"
+                  : "Menu unpublished");
+        }
+      } catch (e) {
+        throw Exception(e.toString());
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Please select menu");
+    }
   }
 
   Future<void> createDownloadsDirectory() async {

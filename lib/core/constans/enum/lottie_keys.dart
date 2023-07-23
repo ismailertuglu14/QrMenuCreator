@@ -1,5 +1,4 @@
-// ignore: constant_identifier_names
-// ignore_for_file: constant_identifier_names, duplicate_ignore
+// ignore_for_file: constant_identifier_names
 
 enum LottieKeys {
   splash,
@@ -7,6 +6,6 @@ enum LottieKeys {
   loading,
   empty_notification,
   premium,
-
-  select_template
+  select_template,
+  sub
 }

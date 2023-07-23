@@ -30,7 +30,7 @@ class NetworkManager {
   Dio dio = Dio(BaseOptions(
       headers: {
         'Authorization':
-            'Bearer ${_loginProvider.accessToken ?? LocaleStorage.instance.getStringValue(LocaleKeys.ACCESS_TOKEN)}}'
+            'Bearer ${LocaleStorage.instance.getStringValue(LocaleKeys.ACCESS_TOKEN)}'
       },
       baseUrl: Platform.isIOS ? BASE_IOS_URL : BASE_ANDROID_URL,
       sendTimeout: const Duration(seconds: CONNECT_TIMEOUT),

@@ -101,8 +101,8 @@ class GetBusinessData {
 }
 
 class Location {
-  final double latitude;
-  final double longitude;
+  final int latitude;
+  final int longitude;
 
   Location({
     required this.latitude,

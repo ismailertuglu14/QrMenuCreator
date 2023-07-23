@@ -37,7 +37,6 @@ dependencies:
   screenshot: ^2.1.0
   video_player: ^2.7.0
   permission_handler: ^10.3.0
-  flutter_secure_storage: ^8.0.0
   chewie: ^1.7.0
   camera: ^0.10.5+2
   #DeepLink

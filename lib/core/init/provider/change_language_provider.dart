@@ -16,36 +16,18 @@ class ChangeLanguageProvider extends ChangeNotifier {
   ChangeLanguageProvider._();
 
   String? _selectedCountryName;
-  List<CountryCode>? _allCountryCodes;
-  List<CountryCode>? get allCountryCodes => _allCountryCodes;
+
   String? get selectedCountryName => _selectedCountryName;
-  List<Map<String, String>> _localCountryCodes = [];
-  List<Map<String, String>> get localCountryCodes => _localCountryCodes;
 
-  set setAllCountryCodes(List<CountryCode> countryCodes) {
-    _allCountryCodes = countryCodes;
-    _localCountryCodes = List.from(countryCodes
-        .map((e) => {
-              'name': e.name,
-              'dial_code': e.dialCode,
-              'flagUri': e.flagUri,
-            })
-        .toList());
-    notifyListeners();
-  }
-
-  void selectCountry(String? countryName, int index) {
+  void selectCountry(String? countryName) {
     _selectedCountryName = countryName;
-    LocaleStorage.instance.setStringValue(
-        LocaleKeys.LANGUAGE, localCountryCodes[index][countryName] ?? '');
+    LocaleStorage.instance
+        .setStringValue(LocaleKeys.LANGUAGE, countryName ?? "");
     notifyListeners();
   }
 
-  void searchCountry(String searchTerm) {
-    searchTerm.isEmpty
-        ? _localCountryCodes = countryCodes
-        : _localCountryCodes = List.from(countryCodes.where((element) =>
-            element['name']!.toLowerCase().contains(searchTerm.toLowerCase())));
+  void changeCountry(String? countryName) {
+    _selectedCountryName = countryName;
     notifyListeners();
   }
 }

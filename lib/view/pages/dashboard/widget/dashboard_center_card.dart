@@ -6,6 +6,7 @@ import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/image_icon_extenison.dart';
 import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
+import 'package:qrmenu/core/extension/string_extension.dart';
 import 'package:qrmenu/core/init/provider/dashboard_provider.dart';
 
 import '../../../../core/constans/enum/lottie_keys.dart';
@@ -140,39 +141,47 @@ class _DasboardCenterCardState extends State<DasboardCenterCard>
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              widget.menu.name.toUpperCase(),
-                              style: TextStyle(
-                                  fontSize: context.text.titleLarge?.fontSize,
-                                  fontWeight: FontWeight.bold),
+                            Expanded(
+                              flex: 8,
+                              child: Text(
+                                widget.menu.name.toUpperCase().constrict(),
+                                style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                    fontSize: context.text.titleLarge?.fontSize,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
-                            PopupMenuButton(
-                                onOpened: () => widget.provider
-                                    .setSelectedMenuId(widget.menu.id),
-                                onCanceled: () =>
-                                    widget.provider.setSelectedMenuId(null),
-                                itemBuilder: (context) => [
-                                      PopupMenuItem(
-                                          onTap: () =>
-                                              widget.deleteRestaurantMenu(),
-                                          child: ListTile(
-                                            textColor:
-                                                context.colorScheme.error,
-                                            title: Text("Delete Menu"),
-                                            leading: ImageKeys.delete.imageIcon(
-                                              color: context.colorScheme.error,
-                                            ),
-                                          )),
-                                      PopupMenuItem(
-                                          onTap: () => context
-                                              .pushNamed(RouterKeys.QR.name),
-                                          child: ListTile(
-                                            leading: ImageKeys.qr.imageIcon(
-                                                color: context
-                                                    .colorScheme.surface),
-                                            title: Text("QR Code"),
-                                          )),
-                                    ])
+                            Expanded(
+                              child: PopupMenuButton(
+                                  onOpened: () => widget.provider
+                                      .setSelectedMenuId(widget.menu.id),
+                                  onCanceled: () =>
+                                      widget.provider.setSelectedMenuId(null),
+                                  itemBuilder: (context) => [
+                                        PopupMenuItem(
+                                            onTap: () =>
+                                                widget.deleteRestaurantMenu(),
+                                            child: ListTile(
+                                              textColor:
+                                                  context.colorScheme.error,
+                                              title: Text("Delete Menu"),
+                                              leading:
+                                                  ImageKeys.delete.imageIcon(
+                                                color:
+                                                    context.colorScheme.error,
+                                              ),
+                                            )),
+                                        PopupMenuItem(
+                                            onTap: () => context
+                                                .pushNamed(RouterKeys.QR.name),
+                                            child: ListTile(
+                                              leading: ImageKeys.qr.imageIcon(
+                                                  color: context
+                                                      .colorScheme.surface),
+                                              title: Text("QR Code"),
+                                            )),
+                                      ]),
+                            )
                           ],
                         ),
                       )),
@@ -203,7 +212,7 @@ class _DasboardCenterCardState extends State<DasboardCenterCard>
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text(
-                              "Total count",
+                              "Product count",
                               style: TextStyle(
                                 fontSize: context.text.titleMedium?.fontSize,
                               ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qrmenu/core/constans/enum/image_keys.dart';
+import 'package:qrmenu/view/pages/createproduct/model/create_product_response_model.dart';
 
 import '../../../view/pages/createproduct/model/allergens_model.dart';
 
@@ -26,28 +27,48 @@ class CreateProductProvider extends ChangeNotifier {
   int _kcal = 0;
   int _fibre = 0;
 
+  final List<Allergens> _allergenSuggestions = [
+    Allergens(name: "Molluscs", isAllergen: false),
+    Allergens(name: "Egg", isAllergen: false),
+    Allergens(name: "Fish", isAllergen: false),
+    Allergens(name: "Lupin", isAllergen: false),
+    Allergens(name: "Soya", isAllergen: false),
+    Allergens(name: "Milk", isAllergen: false),
+    Allergens(name: "Peanuts", isAllergen: false),
+    Allergens(name: "Gluten", isAllergen: false),
+    Allergens(name: "Mustard", isAllergen: false),
+    Allergens(name: "Nut", isAllergen: false),
+    Allergens(name: "Sesame", isAllergen: false),
+    Allergens(name: "Celery", isAllergen: false),
+    Allergens(name: "Sulphites", isAllergen: false),
+    Allergens(name: "Crutaceans", isAllergen: false),
+  ];
+  List<AllergensModel> _allergens = [];
+  final List<ImageKeys> _allergensSuggesitonIcons = [
+    ImageKeys.molluscs,
+    ImageKeys.egg,
+    ImageKeys.fish,
+    ImageKeys.lupin,
+    ImageKeys.soybean,
+    ImageKeys.milk,
+    ImageKeys.peanut,
+    ImageKeys.gluten,
+    ImageKeys.mustard,
+    ImageKeys.nut,
+    ImageKeys.sesame,
+    ImageKeys.celery,
+    ImageKeys.sulphurdioxide,
+    ImageKeys.crustaceans,
+  ];
+
   bool get isLoading => _isLoading;
   bool get isAddeedFibre => _isAddeedFibre;
 
-  int get fibre => _fibre;
+  List<ImageKeys> get allergensSuggesitonIcons => _allergensSuggesitonIcons;
 
-  List<AllergensModel> _allergens = [];
-  final List<AllergensModel> _suggestionAllergens = [
-    AllergensModel("Molluscs", ImageKeys.molluscs),
-    AllergensModel("Egg", ImageKeys.egg),
-    AllergensModel("Fish", ImageKeys.fish),
-    AllergensModel("Lupin", ImageKeys.lupin),
-    AllergensModel("Soya", ImageKeys.soybean),
-    AllergensModel("Milk", ImageKeys.milk),
-    AllergensModel("Peanuts", ImageKeys.peanut),
-    AllergensModel("Gluten", ImageKeys.gluten),
-    AllergensModel("Mustard", ImageKeys.mustard),
-    AllergensModel("Nut", ImageKeys.nut),
-    AllergensModel("Sesame", ImageKeys.sesame),
-    AllergensModel("Celery", ImageKeys.celery),
-    AllergensModel("Sulphites", ImageKeys.sulphurdioxide),
-    AllergensModel("Crutaceans", ImageKeys.crustaceans),
-  ];
+  List<Allergens> get allergenSuggestions => _allergenSuggestions;
+
+  int get fibre => _fibre;
 
   bool get kcalCalculate => _kcalCalculate;
   int get protein => _protein;
@@ -56,8 +77,6 @@ class CreateProductProvider extends ChangeNotifier {
   int get kcal => _kcal;
 
   bool get isActive => _isActive;
-
-  List<AllergensModel> get suggestionAllergens => _suggestionAllergens;
 
   List<AllergensModel> get allergens => _allergens;
 
@@ -80,6 +99,12 @@ class CreateProductProvider extends ChangeNotifier {
     _allergens = [];
     _itemImageCurentIndex = 0;
     _itemPreviewList = [];
+  }
+
+  void changeAllergenState(int index) {
+    _allergenSuggestions[index].isAllergen =
+        !_allergenSuggestions[index].isAllergen;
+    notifyListeners();
   }
 
   void changeIsAddeedFibre(bool value) {

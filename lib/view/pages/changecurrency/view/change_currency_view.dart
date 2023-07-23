@@ -25,42 +25,41 @@ class _ChangeCurrencyViewState extends ChangeCurrencyViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: CommonAppBar(title: Text('Change Currency')),
       body: CloseKeyboard(
         child: Padding(
           padding: PagePadding.allDefault(),
           child: Column(children: [
-            Flexible(
+            Expanded(
               flex: 1,
-              fit: FlexFit.tight,
               child: CommonTextField(
                   onChanged: _changeCurrencyProvider.searchCurrency,
                   prefixIcon: Icon(Icons.search),
                   hintText: "Search Currency"),
             ),
-            Flexible(
+            Expanded(
               flex: 9,
-              fit: FlexFit.loose,
               child: Consumer2<ChangeCurrencyProvider, EditBusinessProvider>(
                   builder: (context, currencyProvider, editBusinessProvider,
                           child) =>
                       ListView.builder(
                         itemCount:
-                            currencyProvider.currencyListForSearch.length,
+                            currencyProvider.currencyList.length,
                         itemBuilder: (context, index) => ListTile(
                             onTap: () => editBusinessProvider.changeCurrentCurrency(
                                 currencyProvider
-                                    .currencyListForSearch[index].abbreviation),
+                                    .currencyList[index].abbreviation),
                             trailing: editBusinessProvider.currentCurrency ==
                                     currencyProvider
-                                        .currencyListForSearch[index]
+                                        .currencyList[index]
                                         .abbreviation
                                 ? Icon(Icons.check_rounded)
                                 : null,
                             title: Text(currencyProvider
-                                .currencyListForSearch[index].currency),
+                                .currencyList[index].currency),
                             leading: Text(currencyProvider
-                                .currencyListForSearch[index].abbreviation)),
+                                .currencyList[index].abbreviation)),
                       )),
             )
           ]),

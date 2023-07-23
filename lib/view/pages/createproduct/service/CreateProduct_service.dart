@@ -24,6 +24,7 @@ class CreateProductService extends ICreateProductService {
       required String currency,
       required List<XFile> files,
       required bool isActive,
+      required List<Allergens> allergens,
       required List<Ingredient> ingredients,
       required List<Nutrition> nutritions}) async {
     try {
@@ -83,6 +84,7 @@ class CreateProductService extends ICreateProductService {
       required String currency,
       required List<XFile> files,
       required List<Ingredient> ingredients,
+      required List<Allergens> allergens,
       required List<Nutrition> nutritions,
       required bool isActive}) async {
     try {

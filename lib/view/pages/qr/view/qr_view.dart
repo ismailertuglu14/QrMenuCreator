@@ -8,14 +8,18 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:qrmenu/core/constans/enum/template_keys.dart';
+import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/init/provider/dashboard_provider.dart';
 import 'package:qrmenu/product/utility/border_radius.dart';
 import 'package:qrmenu/product/utility/durations.dart';
 import 'package:qrmenu/product/utility/grid_delegates.dart';
 import 'package:qrmenu/product/widget/app_bar.dart';
+import 'package:qrmenu/product/widget/custom_switch_list_tile.dart';
+import 'package:qrmenu/product/widget/elevation_button.dart';
 import 'package:qrmenu/product/widget/outline_button.dart';
 import 'package:qrmenu/view/pages/dashboard/service/Dashboard_service.dart';
+import 'package:qrmenu/view/pages/qr/service/Qr_service.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:zxing_lib/qrcode.dart';
 
@@ -33,6 +37,8 @@ import '../../../../product/widget/customqrgenerator/shapes/frame_shape.dart';
 import '../../../../product/widget/customqrgenerator/shapes/pixel_shape.dart';
 import '../../../../product/widget/item_count_circle.dart';
 import '../../dashboard/model/get_restaurant_menus_response_model.dart';
+import '../../templates/widget/template_list.dart';
+import '../model/publish_unpublish_menu_response_model.dart';
 import '../widget/qr_border_painter.dart';
 part '../viewmodel/qr_view_model.dart';
 
@@ -121,7 +127,7 @@ class _QrViewState extends QrViewModel {
                       controller: scrollController,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: context.colorScheme.background,
+                          color: context.colorScheme.onSecondary,
                           border: Border.all(
                               color:
                                   context.colorScheme.surface.withOpacity(0.1)),
@@ -203,8 +209,17 @@ class _QrViewState extends QrViewModel {
                                             ],
                                           ),
                                         )),
-                                onChanged: (value) =>
-                                    provider.changeSelectedMenu(value!),
+                                onChanged: (value) {
+                                  int clickedMenuIndex = provider.menus
+                                          ?.indexWhere(
+                                              (menu) => menu.id == value) ??
+                                      -1;
+
+                                  provider.changeSelectedMenu(
+                                      value!,
+                                      provider.menus![clickedMenuIndex]
+                                          .isPublished);
+                                },
                               ),
                             ),
                             Consumer<QrProvider>(
@@ -232,6 +247,64 @@ class _QrViewState extends QrViewModel {
                                         value as TemplateKeys),
                               ),
                             ),
+                            SizedBox(
+                              height: context.height / 8,
+                              child: Consumer<QrProvider>(
+                                builder: (context, provider, child) =>
+                                    GridView.builder(
+                                  itemCount: TemplateKeys.values.length,
+                                  padding: PagePadding.allDefault(),
+                                  scrollDirection: Axis.horizontal,
+                                  gridDelegate: PageGridDelegates.medium(),
+                                  itemBuilder: (context, index) =>
+                                      GestureDetector(
+                                    onTap: () =>
+                                        provider.changeSelectedTemplate(
+                                            TemplateKeys.values[index]),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: context.colorScheme.surface
+                                              .withOpacity(0.05),
+                                          borderRadius:
+                                              PageBorderRadius.allMedium(),
+                                          border: Border.all(
+                                            color: provider.selectedTemplate ==
+                                                    TemplateKeys.values[index]
+                                                ? context.colorScheme.primary
+                                                : Colors.transparent,
+                                            width: 2,
+                                          )),
+                                      clipBehavior: Clip.antiAlias,
+                                      child: templateList()[index]
+                                          .imageAsset(fit: BoxFit.fitWidth),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: PagePadding.allMedium(),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: CommonElevationButton(
+                                      onPressed: publishUnpublishMenu,
+                                      child: Padding(
+                                        padding: PagePadding.allMedium(),
+                                        child: Consumer<QrProvider>(
+                                            builder: (context, provider,
+                                                    child) =>
+                                                Text(provider.isPublished !=
+                                                            null &&
+                                                        provider.isPublished!
+                                                    ? "Unpublish"
+                                                    : "Publish")),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
                           ]),
                         ),
                       ),

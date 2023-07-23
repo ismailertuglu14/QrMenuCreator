@@ -21,11 +21,11 @@ class DashboardProvider extends ChangeNotifier {
   XFile? _menuImage;
 
   bool _isLoading = false;
-  TemplateKeys _selectedTemplateKey = TemplateKeys.FULVOUS;
+ 
 
   XFile? get menuImage => _menuImage;
 
-  TemplateKeys get selectedTemplateKey => _selectedTemplateKey;
+ 
 
   List<RestaurantMenuData>? _menus;
   String? get selectedMenuId => _selectedMenuId;
@@ -44,10 +44,7 @@ class DashboardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void changeTemplate(TemplateKeys templateKey) {
-    _selectedTemplateKey = templateKey;
-    notifyListeners();
-  }
+  
 
   set setRestaurantMenus(List<RestaurantMenuData>? restaurantMenus) {
     _restaurantMenus = restaurantMenus;

@@ -44,6 +44,8 @@ extension RouteExtension on RouterKeys {
         return "/change_currency";
       case RouterKeys.SOCIAL_MEDIAS:
         return "/social_medias";
+      case RouterKeys.SUB_NOTIFICATION:
+        return "/sub_notification";
     }
   }
 }

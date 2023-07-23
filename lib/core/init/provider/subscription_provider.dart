@@ -15,12 +15,16 @@ class SubscriptionProvider extends ChangeNotifier {
 
   bool _isLoading = false;
 
+  int? _currentMenuCount;
+  int? _currentProductCount;
   double _customMenuLimit = 0;
   double _customProductCount = 0;
 
   int _selectedPlanIndex = 0;
 
   List<GetPlanData>? get planData => _planData;
+  int? get currentMenuCount => _currentMenuCount;
+  int? get currentProductCount => _currentProductCount;
 
   bool get isLoading => _isLoading;
 
@@ -33,6 +37,16 @@ class SubscriptionProvider extends ChangeNotifier {
   bool _isYearly = false;
 
   bool get isYearly => _isYearly;
+
+  void setCurrentMenuCount(int value) {
+    _currentMenuCount = value;
+    notifyListeners();
+  }
+
+  void setCurrentProductCount(int value) {
+    _currentProductCount = value;
+    notifyListeners();
+  }
 
   void setSelectedPlanIndex(int value) {
     _selectedPlanIndex = value;

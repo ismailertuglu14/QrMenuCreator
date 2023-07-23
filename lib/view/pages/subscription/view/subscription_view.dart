@@ -15,6 +15,9 @@ import '../../../../core/init/provider/subscription_provider.dart';
 import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../auth/onboard/model/onboard_model.dart';
+import '../../dashboard/model/get_restaurant_menus_response_model.dart';
+import '../../dashboard/service/Dashboard_service.dart';
+import '../../products/service/Product_service.dart';
 import '../model/get_plan_response_model.dart';
 import '../widget/custom_subscription_card.dart';
 import '../widget/subscription_card.dart';
@@ -35,91 +38,99 @@ class _SubscriptionState extends SubscriptionViewModel {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Consumer<SubscriptionProvider>(
-        builder: (context, provider, child) =>
-            (provider.planData == null || provider.isLoading)
-                ? Center(child: LottieKeys.loading.path())
-                : Column(children: [
-                    Expanded(flex: 2, child: LottieKeys.premium.path()),
-                    Expanded(
-                      flex: 5,
-                      child: PageView.builder(
-                          itemCount: provider.planData!.length + 1,
-                          onPageChanged: (value) =>
-                              provider.setSelectedPlanIndex(value),
-                          itemBuilder: (context, index) =>
-                              index == provider.planData!.length
-                                  ? CustomSubscriptionCard()
-                                  : SubscriptionCard(
-                                      planData: provider.planData![index],
-                                      title: provider.planData![index].name,
-                                      isSelected: false,
-                                      onTap: () {},
-                                    )),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Padding(
-                        padding: PagePadding.horizontalHeight(),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: AnimatedSmoothIndicator(
-                                    effect: WormEffect(
-                                        dotHeight: 10,
-                                        dotWidth: 10,
-                                        activeDotColor:
-                                            context.colorScheme.primary),
-                                    activeIndex: provider.selectedPlanIndex,
-                                    count: provider.planData!.length + 1)),
-                            Expanded(
-                              flex: 3,
-                              child: ListTile(
-                                leading: Icon(Icons.info_outline_rounded),
-                                onTap: () => showModalBottomSheet(
-                                  showDragHandle: true,
-                                  context: context,
-                                  builder: (context) =>
-                                      SubscriptionPlanDetailDialog(),
+        builder: (context, provider, child) => (provider.planData == null ||
+                provider.isLoading)
+            ? Center(child: LottieKeys.loading.path())
+            : Column(children: [
+                Expanded(flex: 2, child: LottieKeys.premium.path()),
+                Expanded(
+                  flex: 5,
+                  child: PageView.builder(
+                      itemCount: provider.planData!.length + 1,
+                      onPageChanged: (value) =>
+                          provider.setSelectedPlanIndex(value),
+                      itemBuilder: (context, index) =>
+                          index == provider.planData!.length
+                              ? CustomSubscriptionCard()
+                              : SubscriptionCard(
+                                  planData: provider.planData![index],
+                                  title: provider.planData![index].name,
+                                  isSelected: false,
+                                  onTap: () {},
+                                )),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Padding(
+                    padding: PagePadding.horizontalHeight(),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: AnimatedSmoothIndicator(
+                                effect: WormEffect(
+                                    dotHeight: 10,
+                                    dotWidth: 10,
+                                    activeDotColor:
+                                        context.colorScheme.primary),
+                                activeIndex: provider.selectedPlanIndex,
+                                count: provider.planData!.length + 1)),
+                        Expanded(
+                          flex: 3,
+                          child: GestureDetector(
+                            onTap: () => showModalBottomSheet(
+                                showDragHandle: true,
+                                context: context,
+                                builder: (context) =>
+                                    SubscriptionPlanDetailDialog()),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    flex: 2,
+                                    child: Icon(Icons.info_outline_rounded)),
+                                Expanded(
+                                  flex: 8,
+                                  child: Text(
+                                    "Current Plan Details",
+                                    style: context.text.titleMedium!
+                                        .copyWith(fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                                title: Text(
-                                  "Current Plan Details",
-                                  style: context.text.titleMedium!
-                                      .copyWith(fontWeight: FontWeight.bold),
-                                ),
-                              ),
+                              ],
                             ),
-                            Expanded(
-                              flex: 6,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                      child: CommonElevationButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          provider.selectedPlanIndex == 0
-                                              ? context.colorScheme.surface
-                                                  .withOpacity(0.5)
-                                              : context.colorScheme.primary,
-                                    ),
-                                    onPressed: () {},
-                                    child: Padding(
-                                      padding: PagePadding.allHeight(),
-                                      child: Text(provider.selectedPlanIndex ==
-                                              provider.planData!.length
-                                          ? "Create"
-                                          : "Buy Now"),
-                                    ),
-                                  )),
-                                ],
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                    )
-                  ]),
+                        Expanded(
+                          flex: 6,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child: CommonElevationButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      provider.selectedPlanIndex == 0
+                                          ? context.colorScheme.surface
+                                              .withOpacity(0.5)
+                                          : context.colorScheme.primary,
+                                ),
+                                onPressed: () {},
+                                child: Padding(
+                                  padding: PagePadding.allHeight(),
+                                  child: Text(provider.selectedPlanIndex ==
+                                          provider.planData!.length
+                                      ? "Create"
+                                      : "Buy Now"),
+                                ),
+                              )),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ]),
       ),
     );
   }

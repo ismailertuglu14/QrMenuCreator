@@ -43,7 +43,8 @@ class SubscriptonStatItemBuilder extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: PageBorderRadius.allMedium(),
                 child: LinearProgressIndicator(
-                  color: currentMenuCount == maxMenuCount
+                  color: (currentMenuCount == maxMenuCount ||
+                          currentMenuCount > maxMenuCount)
                       ? context.colorScheme.error
                       : color,
                   backgroundColor: context.colorScheme.surface.withOpacity(0.5),

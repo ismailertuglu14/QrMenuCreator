@@ -36,12 +36,12 @@ class DashboardService extends IDashboardService {
   @override
   Future<CreateMenuResponseModel> createMenu(
       {required String name,
-      required int templateId,
+      
       required XFile imageFile}) async {
     try {
       FormData formData = FormData.fromMap({
         "name": name,
-        "templateId": templateId,
+       
         "image": await MultipartFile.fromFile(imageFile.path,
             filename: imageFile.name)
       });

@@ -78,10 +78,10 @@ abstract class DashboardViewModel extends State<DashboardView>
         _dashboardProvider.changeLoading();
         CreateMenuResponseModel response = await _dashboardService.createMenu(
             name: _menuNameController.text,
-            templateId: _dashboardProvider.selectedTemplateKey.index,
             imageFile: _dashboardProvider.menuImage!);
         if (response.isSuccess && response.errors.isEmpty) {
           _dashboardProvider.addRestaurantMenu(RestaurantMenuData(
+              isPublished: false,
               coverImage: response.data.coverImage,
               id: response.data.id,
               name: response.data.name,

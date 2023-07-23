@@ -21,62 +21,8 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
   @override
   void dispose() {
     super.dispose();
-
     _emailController.dispose();
     _passwordController.dispose();
-  }
-
-  Future<void> getBusiness() async {
-    try {
-      GetBusinessResponseModel response = await _loginService.getBusiness();
-
-      if (response.isSuccess && response.errors.isEmpty) {
-        LocaleStorage.instance
-            .setStringValue(LocaleKeys.CURRENCY, response.data.defaultCurrency);
-
-        LocaleStorage.instance
-            .setStringValue(LocaleKeys.BUSINESS_NAME, response.data.name);
-        LocaleStorage.instance
-            .setStringValue(LocaleKeys.RESTAURANT_ID, response.data.id);
-
-        LocaleStorage.instance.setDoubleValue(
-            LocaleKeys.LOCATION_LATITUDE, response.data.location.latitude);
-        LocaleStorage.instance.setDoubleValue(
-            LocaleKeys.LOCATION_LONGITUDE, response.data.location.longitude);
-
-        LocaleStorage.instance.setStringValue(
-            LocaleKeys.COVER_IMAGE, response.data.profileImage ?? "");
-
-        LocaleStorage.instance.setStringValue(
-            LocaleKeys.PHONE_COUNTRY_CODE, response.data.phone.countryCode);
-
-        LocaleStorage.instance.setStringValue(
-            LocaleKeys.PHONE_NUMBER, response.data.phone.phoneNumber);
-        LocaleStorage.instance.setStringValue(
-            LocaleKeys.INSTAGRAM, response.data.socialMedias.instagram);
-        LocaleStorage.instance.setStringValue(
-            LocaleKeys.THREADS, response.data.socialMedias.threads);
-        LocaleStorage.instance.setStringValue(
-            LocaleKeys.FACEBOOK, response.data.socialMedias.facebook);
-
-        LocaleStorage.instance.setStringValue(
-            LocaleKeys.TWITTER, response.data.socialMedias.twitter);
-        LocaleStorage.instance.setStringValue(
-            LocaleKeys.WHATSAPP, response.data.socialMedias.whatsapp);
-        LocaleStorage.instance.setStringValue(
-            LocaleKeys.WEBSITE, response.data.socialMedias.website);
-        LocaleStorage.instance.setStringValue(
-            LocaleKeys.SUBSCRIPTION_NAME, response.data.purchase.plan.name);
-        LocaleStorage.instance.setStringValue(
-            LocaleKeys.SUBSCRIPTION_PERIOD, response.data.purchase.periodType);
-        LocaleStorage.instance.setIntValue(
-            LocaleKeys.SUBSCRIPTION_PRICE, response.data.purchase.price);
-      } else {
-        Fluttertoast.showToast(msg: "Failed to get business");
-      }
-    } catch (e) {
-      throw Exception("Failed to get business");
-    }
   }
 
   Future<void> login() async {
@@ -88,21 +34,7 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
                 email: _emailController.text,
                 password: _passwordController.text));
         if (response.isSuccess && response.errors.isEmpty) {
-          _loginProvider.setAccessToken(response.data.accessToken);
-          Future.wait([
-            LocaleStorage.instance.setStringValue(
-                LocaleKeys.ACCESS_TOKEN, response.data.accessToken),
-            LocaleStorage.instance.setStringValue(
-                LocaleKeys.REFRESH_TOKEN, response.data.refreshToken),
-            LocaleStorage.instance.setStringValue(
-                LocaleKeys.EXPIRATION, response.data.expiration.toString()),
-            LocaleStorage.instance
-                .setStringValue(LocaleKeys.EMAIL, _emailController.text),
-            LocaleStorage.instance
-                .setStringValue(LocaleKeys.PASSWORD, _passwordController.text),
-            getBusiness()
-          ]).whenComplete(() => context.go(RouterKeys.HOME.route));
-
+          context.go(RouterKeys.HOME.route);
           Fluttertoast.showToast(msg: "Login Success");
         } else {
           Fluttertoast.showToast(msg: "Failed to login");

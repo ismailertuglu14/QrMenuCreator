@@ -4,12 +4,15 @@ import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/init/provider/change_language_provider.dart';
 import 'package:qrmenu/product/widget/app_bar.dart';
 
+import '../../../../core/constans/cache/locale_keys_enum.dart';
+import '../../../../core/init/cache/local_storage.dart';
 import '../../../../product/utility/border_radius.dart';
 import '../../../../product/utility/page_padding.dart';
 import '../../../../product/widget/close_keyboard.dart';
 import '../../../../product/widget/countrycodepicker/country_code.dart';
 import '../../../../product/widget/countrycodepicker/country_codes.dart';
 import '../../../../product/widget/text_field.dart';
+import '../widget/language_tile_builder.dart';
 
 part '../viewmodel/change_language_view_model.dart';
 
@@ -28,55 +31,24 @@ class _ChangeLanguageViewState extends ChangeLanguageViewModel {
         appBar: CommonAppBar(title: Text("Change Language")),
         body: CloseKeyboard(
           child: Padding(
-            padding: PagePadding.allLow(),
-            child: Column(mainAxisSize: MainAxisSize.min, children: [
-              Expanded(
-                  flex: 1,
-                  child: Consumer<ChangeLanguageProvider>(
-                    builder: (context, provider, child) => CommonTextField(
-                      prefixIcon: Icon(Icons.search),
-                      hintText: "Search Language",
-                      keyboardType: TextInputType.text,
-                      textInputAction: TextInputAction.search,
-                      onChanged: provider.searchCountry,
-                    ),
-                  )),
-              Expanded(
-                flex: 9,
-                child: Container(
-                  constraints: BoxConstraints(maxHeight: context.height / 2),
-                  child: Scrollbar(
-                    child: Consumer<ChangeLanguageProvider>(
-                      builder: (context, provider, child) => ListView.builder(
-                          itemCount: provider.localCountryCodes.length,
-                          itemBuilder: (context, index) => ListTile(
-                                leading: ClipRRect(
-                                  clipBehavior: Clip.hardEdge,
-                                  borderRadius: PageBorderRadius.allMin(),
-                                  child: Image.asset(
-                                    provider.allCountryCodes![index].flagUri!,
-                                    width: context.width / 10,
-                                  ),
-                                ),
-                                trailing: provider.selectedCountryName ==
-                                        provider.allCountryCodes![index].name
-                                    ? Icon(
-                                        Icons.check,
-                                        color: context.colorScheme.primary,
-                                      )
-                                    : null,
-                                title: Text(
-                                    provider.allCountryCodes![index].name!),
-                                onTap: () => provider.selectCountry(
-                                  provider.allCountryCodes![index].name,
-                                  index,
-                                ),
-                              )),
-                    ),
-                  ),
-                ),
-              )
-            ]),
+            padding: PagePadding.allDefault(),
+            child: Consumer<ChangeLanguageProvider>(
+                builder: (context, provider, child) => ListView.custom(
+                      childrenDelegate: SliverChildListDelegate([
+                        LanguageTileBuilder(
+                            flagUri: "us", countryName: "English"),
+                        LanguageTileBuilder(
+                            flagUri: "es", countryName: "Spanish"),
+                        LanguageTileBuilder(
+                            flagUri: "cn", countryName: "Chinese"),
+                        LanguageTileBuilder(
+                            flagUri: "ru", countryName: "Russian"),
+                        LanguageTileBuilder(
+                            flagUri: "in", countryName: "Hindi"),
+                        LanguageTileBuilder(
+                            flagUri: "tr", countryName: "Turkish"),
+                      ]),
+                    )),
           ),
         ));
   }

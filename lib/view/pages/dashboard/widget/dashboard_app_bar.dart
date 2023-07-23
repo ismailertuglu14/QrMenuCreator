@@ -57,12 +57,9 @@ class DashboardAppBar extends StatelessWidget {
                           color: context.colorScheme.surface,
                           fontWeight: FontWeight.bold)),
                   TextSpan(
-                      text: (LocaleStorage.instance.getStringValue(
-                                      LocaleKeys.BUSINESS_NAME) ==
-                                  null ||
-                              LocaleStorage.instance
-                                  .getStringValue(LocaleKeys.BUSINESS_NAME)
-                                  .isEmpty)
+                      text: (LocaleStorage.instance
+                              .getStringValue(LocaleKeys.BUSINESS_NAME)
+                              .isEmpty)
                           ? "Business Name"
                           : LocaleStorage.instance
                               .getStringValue(LocaleKeys.BUSINESS_NAME),

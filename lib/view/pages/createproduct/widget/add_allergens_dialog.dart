@@ -17,7 +17,7 @@ Future<dynamic> addAllergensDialog(BuildContext context) {
       builder: (context) => Consumer<CreateProductProvider>(
             builder: (context, provider, child) => Dialog(
               child: Padding(
-                padding: PagePadding.allMedium(),
+                padding: PagePadding.allDefault(),
                 child: Wrap(children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,55 +36,50 @@ Future<dynamic> addAllergensDialog(BuildContext context) {
                   ),
                   GridView.builder(
                       shrinkWrap: true,
-                      itemCount: provider.suggestionAllergens.length,
+                      itemCount: provider.allergenSuggestions.length,
                       padding: PagePadding.allHeight(),
                       gridDelegate: PageGridDelegates.ultra(),
                       itemBuilder: (context, index) => GestureDetector(
                             onTap: () {
-                              provider.allergens.contains(
-                                      provider.suggestionAllergens[index])
-                                  ? provider.removeAllergens(
-                                      provider.suggestionAllergens[index])
-                                  : provider.addAllergens(
-                                      provider.suggestionAllergens[index]);
+                              provider.changeAllergenState(index);
+                              /* provider.allergenSuggestions[index].isAllergen
+                                  ? provider.removeAllergens()
+                                  : provider.addAllergens();*/
                             },
                             child: Container(
                                 width: context.width * 0.2,
                                 height: context.height * 0.1,
                                 decoration: BoxDecoration(
                                     borderRadius: PageBorderRadius.allMedium(),
-                                    color: context.colorScheme.primary),
+                                    color: provider.allergenSuggestions[index]
+                                            .isAllergen
+                                        ? context.colorScheme.primary
+                                        : context.colorScheme.surface
+                                            .withOpacity(0.1)),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    provider.suggestionAllergens[index].icon
-                                        .imageAsset(width: context.width * 0.1),
-                                    Padding(
-                                      padding: PagePadding.horizontalMin(),
-                                      child: Text(provider
-                                          .suggestionAllergens[index].name),
+                                    Expanded(
+                                      flex: 4,
+                                      child: Padding(
+                                        padding: PagePadding.allMin(),
+                                        child: provider
+                                            .allergensSuggesitonIcons[index]
+                                            .imageAsset(
+                                                height: context.height * 0.1,
+                                                width: context.width * 0.1),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 6,
+                                      child: Padding(
+                                        padding: PagePadding.horizontalMin(),
+                                        child: Text(provider
+                                            .allergenSuggestions[index].name),
+                                      ),
                                     )
                                   ],
                                 )),
                           )),
-                  Padding(
-                    padding: PagePadding.allMin(),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: CommonElevationButton(
-                            child: Padding(
-                              padding: PagePadding.allMedium(),
-                              child: Text("Add"),
-                            ),
-                            onPressed: () {
-                              context.pop();
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                 ]),
               ),
             ),

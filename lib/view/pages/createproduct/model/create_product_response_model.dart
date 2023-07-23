@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class CreateProductResponseModel {
   final CreateProductData data;
   final bool isSuccess;
@@ -35,6 +36,7 @@ class CreateProductData {
   final String description;
   final List<Ingredient> ingredients;
   final List<Nutrition> nutritions;
+  final List<Allergens> allergens;
   final int price;
   final String currency;
   final List<dynamic> images;
@@ -51,6 +53,7 @@ class CreateProductData {
     required this.description,
     required this.ingredients,
     required this.nutritions,
+    required this.allergens,
     required this.price,
     required this.currency,
     required this.images,
@@ -78,6 +81,8 @@ class CreateProductData {
         createdDate: DateTime.parse(json["createdDate"]),
         id: json["_id"],
         v: json["__v"],
+        allergens: List<Allergens>.from(
+            json["allergens"].map((x) => Allergens.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -93,8 +98,28 @@ class CreateProductData {
         "images": List<dynamic>.from(images.map((x) => x)),
         "isActive": isActive,
         "createdDate": createdDate.toIso8601String(),
+        "allergens": List<dynamic>.from(allergens.map((x) => x.toJson())),
         "_id": id,
         "__v": v,
+      };
+}
+
+class Allergens {
+  String name;
+  bool isAllergen;
+  Allergens({
+    required this.name,
+    required this.isAllergen,
+  });
+
+  factory Allergens.fromJson(Map<String, dynamic> json) => Allergens(
+        name: json["name"],
+        isAllergen: json["isAllergen"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "isAllergen": isAllergen,
       };
 }
 

@@ -19,21 +19,25 @@ abstract class ICreateProductService {
     required String currency,
     required List<XFile> files,
     required List<Ingredient> ingredients,
+    required List<Allergens> allergens,
     required List<Nutrition> nutritions,
     required bool isActive,
   });
 
   Future<GetProductByIdResponseModel> getProductById(
       {required String productId});
-  Future<UpdateProductResponseModel> updateProduct ( {required String productId,
+  Future<UpdateProductResponseModel> updateProduct({
+    required String productId,
     required String menuId,
     required String categoryId,
     required String name,
     required String description,
     required int price,
     required String currency,
+    required List<Allergens> allergens,
     required List<XFile> files,
     required List<Ingredient> ingredients,
     required List<Nutrition> nutritions,
-    required bool isActive,}) ;
+    required bool isActive,
+  });
 }

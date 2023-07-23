@@ -13,9 +13,7 @@ class ChangeCurrencyProvider extends ChangeNotifier {
 
   final List<CurrencyModel> _currencyList = [];
   List<CurrencyModel> _currencyListForSearch = [];
-  String _searchKeyword = '';
 
-  String get searchKeyword => _searchKeyword;
   List<CurrencyModel> get currencyList => _currencyList;
   List<CurrencyModel> get currencyListForSearch => _currencyListForSearch;
 
@@ -25,7 +23,6 @@ class ChangeCurrencyProvider extends ChangeNotifier {
   }
 
   void searchCurrency(String keyword) {
-    _searchKeyword = keyword;
     if (keyword.isEmpty) {
       _currencyListForSearch = _currencyList;
     } else {

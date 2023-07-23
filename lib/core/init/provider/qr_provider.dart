@@ -14,19 +14,28 @@ class QrProvider extends ChangeNotifier {
   QrProvider._init();
   List<RestaurantMenuData>? menus;
   TemplateKeys? _selectedTemplate;
+  bool? _isPublished;
+
   String? _selectedMenu;
 
   String? get selectedMenu => _selectedMenu;
+  bool? get isPublished => _isPublished;
   TemplateKeys? get selectedTemplate => _selectedTemplate;
   List<RestaurantMenuData>? get getMenus => menus;
+
+  void changeIsPublished(bool value) {
+    _isPublished = value;
+    notifyListeners();
+  }
 
   void changeSelectedTemplate(TemplateKeys value) {
     _selectedTemplate = value;
     notifyListeners();
   }
 
-  void changeSelectedMenu(String value) {
+  void changeSelectedMenu(String value, bool isPublished) {
     _selectedMenu = value;
+    _isPublished = isPublished;
     notifyListeners();
   }
 
@@ -34,6 +43,4 @@ class QrProvider extends ChangeNotifier {
     menus = value;
     notifyListeners();
   }
-
- 
 }

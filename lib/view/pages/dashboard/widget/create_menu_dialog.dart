@@ -97,35 +97,7 @@ Future<dynamic> createMenuDialog(
                                 child: Text("Choose Image"))
                           ]),
                     ),
-                    SizedBox(
-                      height: context.height / 8,
-                      child: GridView.builder(
-                        itemCount: TemplateKeys.values.length,
-                        padding: PagePadding.allDefault(),
-                        scrollDirection: Axis.horizontal,
-                        gridDelegate: PageGridDelegates.medium(),
-                        itemBuilder: (context, index) => GestureDetector(
-                          onTap: () => provider
-                              .changeTemplate(TemplateKeys.values[index]),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: context.colorScheme.surface
-                                    .withOpacity(0.05),
-                                borderRadius: PageBorderRadius.allMedium(),
-                                border: Border.all(
-                                  color: provider.selectedTemplateKey ==
-                                          TemplateKeys.values[index]
-                                      ? context.colorScheme.primary
-                                      : Colors.transparent,
-                                  width: 2,
-                                )),
-                            clipBehavior: Clip.antiAlias,
-                            child: templateList()[index]
-                                .imageAsset(fit: BoxFit.fitWidth),
-                          ),
-                        ),
-                      ),
-                    ),
+                 
                     Padding(
                       padding: PagePadding.verticalMedium(),
                       child: Row(

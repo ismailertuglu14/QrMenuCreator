@@ -18,13 +18,13 @@ class CustomSubscriptionLimitBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: PagePadding.horizontalMedium(),
+      padding: PagePadding.horizontalLow(),
       child: Row(
         children: [
           Expanded(
               flex: 2, child: Text(title, style: context.text.titleMedium)),
           Expanded(
-            flex: 8,
+            flex: 7,
             child: Slider(
               min: 0,
               max: maxvalue,

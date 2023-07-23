@@ -42,6 +42,7 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
         _createProductProvider.changeLoading();
         CreateProductResponseModel response =
             await _createProductService.createProduct(
+          allergens: _createProductProvider.allergenSuggestions,
           menuId: widget.menuId ?? "",
           categoryId: widget.categoryId ?? "",
           name: _nameController.text,
@@ -92,6 +93,7 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
 
         UpdateProductResponseModel response =
             await _createProductService.updateProduct(
+          allergens: _createProductProvider.allergenSuggestions,
           productId: widget.productId ?? "",
           menuId: widget.menuId ?? "",
           categoryId: widget.categoryId ?? "",

@@ -35,6 +35,7 @@ class RestaurantMenuData {
   final String restaurantId;
   final int productCount;
   final int categoryCount;
+  final bool isPublished;
   final String? coverImage;
 
   RestaurantMenuData({
@@ -44,6 +45,7 @@ class RestaurantMenuData {
     required this.restaurantId,
     required this.productCount,
     required this.categoryCount,
+    required this.isPublished,
     required this.coverImage,
   });
 
@@ -56,6 +58,7 @@ class RestaurantMenuData {
         productCount: json["productCount"],
         categoryCount: json["categoryCount"],
         coverImage: json["coverImage"],
+        isPublished: json["isPublished"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -66,5 +69,6 @@ class RestaurantMenuData {
         "productCount": productCount,
         "categoryCount": categoryCount,
         "coverImage": coverImage,
+        "isPublished": isPublished,
       };
 }

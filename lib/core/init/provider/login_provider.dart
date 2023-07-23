@@ -21,9 +21,9 @@ class LoginProvider extends ChangeNotifier {
   bool _obscureText = true;
   bool _isLoading = false;
 
-  String? _accessToken;
+  
 
-  String? get accessToken => _accessToken;
+  
   bool _isAuthenticated = false;
   bool get isAuthenticated => _isAuthenticated;
 
@@ -63,10 +63,7 @@ class LoginProvider extends ChangeNotifier {
     }
   }
 
-  void setAccessToken(String token) {
-    _accessToken = token;
-    notifyListeners();
-  }
+  
 
   void setAuthenticated(bool value) {
     _isAuthenticated = value;

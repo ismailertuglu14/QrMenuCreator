@@ -40,7 +40,6 @@ import '../../../../product/widget/custom_switch_list_tile.dart';
 import '../../category/model/get_category_response_model.dart';
 import '../model/get_product_by_id_response_model.dart';
 import '../../products/model/get_products_by_category_id_response_model.dart';
-import '../model/allergens_model.dart';
 import '../../../../product/widget/item_count_circle.dart';
 import '../model/create_product_response_model.dart';
 import '../model/update_product_response_model.dart';
@@ -190,9 +189,8 @@ class _CreateProductViewViewState extends CreateProductViewModel {
                                               child: index !=
                                                       provider.allergens.length
                                                   ? provider
-                                                      .suggestionAllergens[
+                                                      .allergensSuggesitonIcons[
                                                           index]
-                                                      .icon
                                                       .imageAsset()
                                                   : Icon(Icons.add_rounded)),
                                         );

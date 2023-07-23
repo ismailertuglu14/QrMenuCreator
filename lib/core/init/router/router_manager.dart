@@ -14,6 +14,7 @@ import 'package:qrmenu/view/pages/deletebusiness/view/delete_business_view.dart'
 import 'package:qrmenu/view/pages/home/view/home_view.dart';
 import 'package:qrmenu/view/pages/locationpicker/view/location_picker_view.dart';
 import 'package:qrmenu/view/pages/qr/view/qr_view.dart';
+import 'package:qrmenu/view/pages/subnotification/view/sub_notification_view.dart';
 
 import '../../../view/auth/login/view/login_view.dart';
 import '../../../view/auth/onboard/view/onboard_view.dart';
@@ -66,7 +67,6 @@ class RouterManager with ChangeNotifier {
               context: context,
               state: state,
               child: const ResetPasswordView())),
-     
       GoRoute(
           name: RouterKeys.ERROR.name,
           path: RouterKeys.ERROR.route,
@@ -157,6 +157,11 @@ class RouterManager with ChangeNotifier {
           path: RouterKeys.SOCIAL_MEDIAS.route,
           pageBuilder: (context, state) => buildPageWithSlideTransition(
               context: context, state: state, child: SocialMediasView())),
+      GoRoute(
+          name: RouterKeys.SUB_NOTIFICATION.name,
+          path: RouterKeys.SUB_NOTIFICATION.route,
+          pageBuilder: (context, state) => buildPageWithSlideTransition(
+              context: context, state: state, child: SubNotificationView())),
     ],
   );
 }
