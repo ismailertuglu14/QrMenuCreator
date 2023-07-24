@@ -105,9 +105,11 @@ Future<dynamic> createMenuDialog(
                           Consumer<DashboardProvider>(
                             builder: (context, provider, child) =>
                                 provider.isLoading
-                                    ? LottieKeys.loading.path(
-                                        width: context.width / 4,
-                                        height: context.height / 15)
+                                    ? Center(
+                                      child: LottieKeys.loading.path(
+                                          width: context.width / 4,
+                                          height: context.height / 15),
+                                    )
                                     : Expanded(
                                         child: CommonElevationButton(
                                             child: Padding(

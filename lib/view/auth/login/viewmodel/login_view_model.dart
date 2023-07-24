@@ -34,7 +34,14 @@ abstract class LoginViewModels extends State<LoginView> with CacheInit {
                 email: _emailController.text,
                 password: _passwordController.text));
         if (response.isSuccess && response.errors.isEmpty) {
-          context.go(RouterKeys.HOME.route);
+          if (LocaleStorage.instance
+              .getStringValue(LocaleKeys.ACCESS_TOKEN)
+              .isNotEmpty) {
+            context.go(RouterKeys.HOME.route);
+          } else {
+            Fluttertoast.showToast(msg: "Failed to get access token");
+          }
+
           Fluttertoast.showToast(msg: "Login Success");
         } else {
           Fluttertoast.showToast(msg: "Failed to login");

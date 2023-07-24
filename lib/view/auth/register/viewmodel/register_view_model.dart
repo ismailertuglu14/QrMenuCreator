@@ -71,7 +71,13 @@ abstract class RegisterViewModel extends State<RegisterView> {
               LocaleKeys.PASSWORD, _passwordTextController.text);
           _loginService.getBusiness();
           Fluttertoast.showToast(msg: "Register Success");
-          context.go(RouterKeys.HOME.route);
+          if (LocaleStorage.instance
+              .getStringValue(LocaleKeys.ACCESS_TOKEN)
+              .isNotEmpty) {
+            context.go(RouterKeys.HOME.route);
+          } else {
+            Fluttertoast.showToast(msg: "Failed to get access token");
+          }
         } else {
           Fluttertoast.showToast(msg: response.errors.first.message);
         }
