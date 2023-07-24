@@ -17,10 +17,10 @@ abstract class ICreateProductService {
     required String description,
     required int price,
     required String currency,
+    required List allergens,
+    required List nutritions,
     required List<XFile> files,
-    required List<Ingredient> ingredients,
-    required List<Allergens> allergens,
-    required List<Nutrition> nutritions,
+    required List<AddOns> addOns,
     required bool isActive,
   });
 
@@ -34,9 +34,9 @@ abstract class ICreateProductService {
     required String description,
     required int price,
     required String currency,
-    required List<Allergens> allergens,
+    required List<Allergen> allergens,
     required List<XFile> files,
-    required List<Ingredient> ingredients,
+    required List<AddOns> addOns,
     required List<Nutrition> nutritions,
     required bool isActive,
   });

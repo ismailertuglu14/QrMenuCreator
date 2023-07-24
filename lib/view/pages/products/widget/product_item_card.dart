@@ -56,17 +56,16 @@ class ProductItemCard extends StatelessWidget {
                           child: Padding(
                         padding: PagePadding.verticalMin(),
                         child: Text(
-                          "${product.price} TL",
+                          "${product.price} ${product.currency}",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ))),
                 ),
                 leading: UserCircleAvatar(
-                    backgroundImage: (product.images == null ||
-                            product.images!.isEmpty ||
-                            product.images!.first.isEmpty)
+                    backgroundImage: (product.image.isEmpty ||
+                            product.image.first.isEmpty)
                         ? ImageKeys.default_image.assetImage()
-                        : NetworkImage(product.images!.first) as ImageProvider),
+                        : NetworkImage(product.image.first) as ImageProvider),
                 trailing: PopupMenuButton(
                   onOpened: () => provider.setSelectedProductId = product.id,
                   onCanceled: () => provider.setSelectedProductId = null,

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qrmenu/core/constans/network/network_constants.dart';
 import 'package:qrmenu/view/pages/createproduct/model/create_product_response_model.dart';
@@ -23,31 +24,44 @@ class CreateProductService extends ICreateProductService {
       required int price,
       required String currency,
       required List<XFile> files,
+      required List<AddOns> addOns,
       required bool isActive,
-      required List<Allergens> allergens,
-      required List<Ingredient> ingredients,
-      required List<Nutrition> nutritions}) async {
+      required List allergens,
+      required List nutritions}) async {
     try {
       final List<MultipartFile> images = files
-          .map((img) => MultipartFile.fromFileSync(img.path,
-              filename: img.path.split('/').last))
+          .map(
+              (img) => MultipartFile.fromFileSync(img.path, filename: img.path))
           .toList();
-      FormData formData = FormData.fromMap({
+      final FormData formData = FormData.fromMap({
         "menuId": menuId,
         "categoryId": categoryId,
-        "name": name,
-        "description": description,
-        "price": price,
-        "currency": currency,
-        "images": images,
-        "allergens": allergens,
-        "isActive": isActive,
-        "ingredients": ingredients,
-        "nutritions": nutritions,
+        "name": "name",
+        "description": "description",
+        "price": 50,
+        "currency": "TL",
+        "images": [],
+        "isActive": true,
+        "addOns": [
+          {"name": "Protein", "description": "1", "price": 10},
+          {"name": "Carbs", "description": "2", "price": 20},
+          {"name": "Fats", "description": "3", "price": 30},
+          {"name": "Fibre", "description": "4", "price": 40}
+        ],
+        "allergens": [
+          {"name": "Molluscs", "isAllergen": true}
+        ],
+        "nutritions": [
+          {"name": "Protein", "value": 10},
+          {"name": "Carbs", "value": 20},
+          {"name": "Fats", "value": 30},
+          {"name": "Fibre", "value": 40}
+        ],
       });
 
       Response<dynamic> response =
           await dio.post(NetworkConstants.CREATE_PRODUCT, data: formData);
+
       if (response.statusCode == HttpStatus.ok) {
         return CreateProductResponseModel.fromJson(response.data);
       } else {
@@ -67,10 +81,10 @@ class CreateProductService extends ICreateProductService {
       if (response.statusCode == HttpStatus.ok) {
         return GetProductByIdResponseModel.fromJson(response.data);
       } else {
-        throw Exception(response.statusMessage);
+        throw Exception("Failed to load data");
       }
     } catch (e) {
-      throw UnimplementedError(e.toString());
+      throw Exception(e);
     }
   }
 
@@ -83,10 +97,10 @@ class CreateProductService extends ICreateProductService {
       required String description,
       required int price,
       required String currency,
+      required List<AddOns> addOns,
       required List<XFile> files,
-      required List<Ingredient> ingredients,
-      required List<Allergens> allergens,
-      required List<Nutrition> nutritions,
+      required List allergens,
+      required List nutritions,
       required bool isActive}) async {
     try {
       final List<MultipartFile> images = files
@@ -100,10 +114,10 @@ class CreateProductService extends ICreateProductService {
         "description": description,
         "price": price,
         "currency": currency,
-        "allergens": allergens,
         "images": images,
         "isActive": isActive,
-        "ingredients": ingredients,
+        "addOns": addOns,
+        "allergens": allergens,
         "nutritions": nutritions,
       });
 

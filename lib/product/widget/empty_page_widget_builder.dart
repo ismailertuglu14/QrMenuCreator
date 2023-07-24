@@ -35,3 +35,4 @@ emptyPageWidgetBuilder(BuildContext context, ImageKeys image, String text) {
     ),
   );
 }
+

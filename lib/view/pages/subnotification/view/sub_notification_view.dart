@@ -60,7 +60,7 @@ class _SubNotificationViewState extends SubNotificationViewModel {
                         onPressed: () {},
                         child: Text(
                           "Restore purchase",
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: context.colorScheme.surface),
                         )),
                   ],
                 ),

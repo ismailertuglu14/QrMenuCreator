@@ -1,3 +1,5 @@
+
+
 class GetProductsByMenuIdResponseModel {
   final List<GetProductsByMenuIdData> data;
   final bool isSuccess;
@@ -14,8 +16,7 @@ class GetProductsByMenuIdResponseModel {
   factory GetProductsByMenuIdResponseModel.fromJson(
           Map<String, dynamic> json) =>
       GetProductsByMenuIdResponseModel(
-        data: List<GetProductsByMenuIdData>.from(
-            json["data"].map((x) => GetProductsByMenuIdData.fromJson(x))),
+        data: List<GetProductsByMenuIdData>.from(json["data"].map((x) => GetProductsByMenuIdData.fromJson(x))),
         isSuccess: json["isSuccess"],
         statusCode: json["statusCode"],
         errors: List<dynamic>.from(json["errors"].map((x) => x)),
@@ -33,39 +34,38 @@ class GetProductsByMenuIdData {
   final String id;
   final String name;
   final String description;
+  final List<String> image;
   final int price;
   final String currency;
-  final List<String>? images;
   final bool isNew;
 
   GetProductsByMenuIdData({
     required this.id,
     required this.name,
     required this.description,
+    required this.image,
     required this.price,
     required this.currency,
-    required this.images,
     required this.isNew,
   });
 
-  factory GetProductsByMenuIdData.fromJson(Map<String, dynamic> json) =>
-      GetProductsByMenuIdData(
-        id: json["_id"],
+  factory GetProductsByMenuIdData.fromJson(Map<String, dynamic> json) => GetProductsByMenuIdData(
+        id: json["id"],
         name: json["name"],
         description: json["description"],
+        image: List<String>.from(json["image"].map((x) => x)),
         price: json["price"],
         currency: json["currency"],
-        images: List<String>.from(json["images"].map((x) => x)),
         isNew: json["isNew"],
       );
 
   Map<String, dynamic> toJson() => {
-        "_id": id,
+        "id": id,
         "name": name,
         "description": description,
+        "image": List<dynamic>.from(image.map((x) => x)),
         "price": price,
         "currency": currency,
-        "images": List<dynamic>.from(images?.map((x) => x) ?? []),
         "isNew": isNew,
       };
 }

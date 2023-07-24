@@ -1,5 +1,7 @@
 import 'package:qrmenu/view/pages/createproduct/model/create_product_response_model.dart';
 
+import 'get_product_by_id_response_model.dart';
+
 class UpdateProductResponseModel {
   final UpdateProductData data;
   final bool isSuccess;
@@ -36,7 +38,7 @@ class UpdateProductData {
   final String categoryId;
   final String name;
   final String description;
-  final List<Ingredient> ingredients;
+
   final List<Nutrition> nutritions;
   final int price;
   final String currency;
@@ -53,7 +55,6 @@ class UpdateProductData {
     required this.categoryId,
     required this.name,
     required this.description,
-    required this.ingredients,
     required this.nutritions,
     required this.price,
     required this.currency,
@@ -72,8 +73,6 @@ class UpdateProductData {
         categoryId: json["categoryId"],
         name: json["name"],
         description: json["description"],
-        ingredients: List<Ingredient>.from(
-            json["ingredients"].map((x) => Ingredient.fromJson(x))),
         nutritions: List<Nutrition>.from(
             json["nutritions"].map((x) => Nutrition.fromJson(x))),
         price: json["price"],
@@ -92,7 +91,6 @@ class UpdateProductData {
         "categoryId": categoryId,
         "name": name,
         "description": description,
-        "ingredients": List<dynamic>.from(ingredients.map((x) => x.toJson())),
         "nutritions": List<dynamic>.from(nutritions.map((x) => x.toJson())),
         "price": price,
         "currency": currency,

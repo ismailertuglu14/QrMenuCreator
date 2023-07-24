@@ -173,7 +173,7 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                                       files: widget
                                                           .model!
                                                           .products[index]
-                                                          .images!),
+                                                          .image),
                                                 ),
                                                 Expanded(
                                                     flex: 5,
@@ -310,15 +310,10 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                           child: Card(
                                               clipBehavior: Clip.antiAlias,
                                               child: (widget
-                                                              .model!
-                                                              .products[index]
-                                                              .images ==
-                                                          null ||
-                                                      widget
-                                                          .model!
-                                                          .products[index]
-                                                          .images!
-                                                          .isEmpty)
+                                                      .model!
+                                                      .products[index]
+                                                      .image
+                                                      .isEmpty)
                                                   ? ImageKeys.default_image
                                                       .imageAsset(
                                                           fit: BoxFit.cover)
@@ -326,7 +321,7 @@ class _CeladonMenuStyleState extends State<CeladonMenuStyle> {
                                                       widget
                                                           .model!
                                                           .products[index]
-                                                          .images!
+                                                          .image
                                                           .first,
                                                       fit: BoxFit.cover,
                                                       height: context.height *

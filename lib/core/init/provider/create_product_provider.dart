@@ -3,6 +3,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:qrmenu/core/constans/enum/image_keys.dart';
 import 'package:qrmenu/view/pages/createproduct/model/create_product_response_model.dart';
 
+import '../../../view/pages/createproduct/model/get_product_by_id_response_model.dart';
+
 class CreateProductProvider extends ChangeNotifier {
   static CreateProductProvider? _instance;
 
@@ -25,21 +27,28 @@ class CreateProductProvider extends ChangeNotifier {
   int _kcal = 0;
   int _fibre = 0;
 
-  final List<Allergens> _allergenSuggestions = [
-    Allergens(name: "Molluscs", isAllergen: false),
-    Allergens(name: "Egg", isAllergen: false),
-    Allergens(name: "Fish", isAllergen: false),
-    Allergens(name: "Lupin", isAllergen: false),
-    Allergens(name: "Soya", isAllergen: false),
-    Allergens(name: "Milk", isAllergen: false),
-    Allergens(name: "Peanuts", isAllergen: false),
-    Allergens(name: "Gluten", isAllergen: false),
-    Allergens(name: "Mustard", isAllergen: false),
-    Allergens(name: "Nut", isAllergen: false),
-    Allergens(name: "Sesame", isAllergen: false),
-    Allergens(name: "Celery", isAllergen: false),
-    Allergens(name: "Sulphites", isAllergen: false),
-    Allergens(name: "Crutaceans", isAllergen: false),
+  List<Allergen> _allergenSuggestions = [
+    Allergen(name: "Molluscs", isAllergen: false),
+    Allergen(name: "Egg", isAllergen: false),
+    Allergen(name: "Fish", isAllergen: false),
+    Allergen(name: "Lupin", isAllergen: false),
+    Allergen(name: "Soya", isAllergen: false),
+    Allergen(name: "Milk", isAllergen: false),
+    Allergen(name: "Peanuts", isAllergen: false),
+    Allergen(name: "Gluten", isAllergen: false),
+    Allergen(name: "Mustard", isAllergen: false),
+    Allergen(name: "Nut", isAllergen: false),
+    Allergen(name: "Sesame", isAllergen: false),
+    Allergen(name: "Celery", isAllergen: false),
+    Allergen(name: "Sulphites", isAllergen: false),
+    Allergen(name: "Crutaceans", isAllergen: false),
+  ];
+
+  List<Nutrition> _nutritions = [
+    Nutrition(name: "Protein", value: 0),
+    Nutrition(name: "Carbs", value: 0),
+    Nutrition(name: "Fats", value: 0),
+    Nutrition(name: "Fibre", value: 0),
   ];
   List<int> _allergens = [];
   final List<ImageKeys> _allergensSuggesitonIcons = [
@@ -60,11 +69,12 @@ class CreateProductProvider extends ChangeNotifier {
   ];
 
   bool get isLoading => _isLoading;
+  List<Nutrition> get nutritions => _nutritions;
   bool get isAddeedFibre => _isAddeedFibre;
 
   List<ImageKeys> get allergensSuggesitonIcons => _allergensSuggesitonIcons;
 
-  List<Allergens> get allergenSuggestions => _allergenSuggestions;
+  List<Allergen> get allergenSuggestions => _allergenSuggestions;
 
   int get fibre => _fibre;
 
@@ -99,9 +109,23 @@ class CreateProductProvider extends ChangeNotifier {
     _itemPreviewList = [];
   }
 
+  void changeNutritions(int index, int value) {
+    _nutritions = _nutritions
+        .map((e) => e.name == _nutritions[index].name
+            ? Nutrition(name: e.name, value: value)
+            : e)
+        .toList();
+    notifyListeners();
+  }
+
   void changeAllergenState(int index) {
     _allergenSuggestions[index].isAllergen =
         !_allergenSuggestions[index].isAllergen;
+    notifyListeners();
+  }
+
+  void changeAllergenSuggestions(List<Allergen> value) {
+    _allergenSuggestions = value;
     notifyListeners();
   }
 
@@ -112,26 +136,6 @@ class CreateProductProvider extends ChangeNotifier {
 
   void changeLoading() {
     _isLoading = !_isLoading;
-    notifyListeners();
-  }
-
-  void changeProtein(int value) {
-    _protein = value;
-    notifyListeners();
-  }
-
-  void changeFibre(int value) {
-    _fibre = value;
-    notifyListeners();
-  }
-
-  void changeCarbohydrate(int value) {
-    _carbohydrate = value;
-    notifyListeners();
-  }
-
-  void changeFat(int value) {
-    _fat = value;
     notifyListeners();
   }
 

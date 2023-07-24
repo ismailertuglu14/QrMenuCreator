@@ -93,7 +93,7 @@ class _FulvousMenuStyleState extends State<FulvousMenuStyle> {
                                         flex: 6,
                                         child: TemplateFilePreview(
                                             files: widget.model!.products[index]
-                                                .images!),
+                                                .image),
                                       ),
                                       Expanded(
                                           flex: 5,
@@ -207,15 +207,14 @@ class _FulvousMenuStyleState extends State<FulvousMenuStyle> {
                                 child: Card(
                                     clipBehavior: Clip.antiAlias,
                                     child:
-                                        (widget.model!.products[index].images ==
-                                                    null ||
+                                        (
                                                 widget.model!.products[index]
-                                                    .images!.isEmpty)
+                                                    .image.isEmpty)
                                             ? ImageKeys.default_image
                                                 .imageAsset(fit: BoxFit.cover)
                                             : Image.network(
                                                 widget.model!.products[index]
-                                                    .images!.first,
+                                                    .image.first,
                                                 fit: BoxFit.cover,
                                                 height: context.height * 0.15)),
                               ),

@@ -25,29 +25,23 @@ class CreateItemPreviewFiles extends StatelessWidget {
           itemBuilder: (context, index) {
             return (index != provider.itemPreviewList.length &&
                     provider.itemPreviewList.isNotEmpty)
-                ? Padding(
-                    padding: PagePadding.allMedium(),
-                    child: ClipRRect(
-                      borderRadius: PageBorderRadius.allDefault(),
-                      child: Image.file(
-                        File(provider.itemPreviewList[index].path),
-                        fit: BoxFit.cover,
-                      ),
+                ? ClipRRect(
+                    borderRadius: PageBorderRadius.allDefault(),
+                    child: Image.file(
+                      File(provider.itemPreviewList[index].path),
+                      fit: BoxFit.cover,
                     ),
                   )
                 : GestureDetector(
                     onTap: () => uploadFileDialog(context, imagePicker, false,
                         UploadFileTypeKeys.MULTIPLE_IMAGE, uploadObject),
-                    child: Padding(
-                      padding: PagePadding.allDefault(),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: context.colorScheme.surface.withOpacity(0.2),
-                            borderRadius: PageBorderRadius
-                                .allDefault()), //color: Colors.red),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: context.colorScheme.surface.withOpacity(0.2),
+                          borderRadius: PageBorderRadius
+                              .allDefault()), //color: Colors.red),
 
-                        child: Icon(Icons.camera_enhance_outlined),
-                      ),
+                      child: Icon(Icons.camera_enhance_outlined),
                     ),
                   );
           }),

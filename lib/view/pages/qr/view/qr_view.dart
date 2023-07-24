@@ -134,7 +134,7 @@ class _QrViewState extends QrViewModel {
                           borderRadius: PageBorderRadius.spesificTop(),
                         ),
                         child: SizedBox(
-                          height: context.height,
+                          height: context.height * .8,
                           width: context.width,
                           child: Column(children: [
                             Padding(
@@ -144,7 +144,7 @@ class _QrViewState extends QrViewModel {
                                 width: context.width * .1,
                                 decoration: BoxDecoration(
                                   color: context.colorScheme.surface
-                                      .withOpacity(0.5),
+                                      .withOpacity(.5),
                                   borderRadius: PageBorderRadius.allMedium(),
                                 ),
                               ),

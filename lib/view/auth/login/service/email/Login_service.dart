@@ -56,7 +56,6 @@ class LoginService extends ILoginService with LoginLogMixin {
     try {
       Response<dynamic> response = await dio.get(NetworkConstants.GET_BUSINESS);
       if (response.statusCode == HttpStatus.ok) {
-        
         GetBusinessResponseModel businessResponse =
             GetBusinessResponseModel.fromJson(response.data);
 
@@ -119,10 +118,10 @@ class LoginService extends ILoginService with LoginLogMixin {
     LocaleStorage.instance
         .setStringValue(LocaleKeys.WEBSITE, response.data.socialMedias.website);
     LocaleStorage.instance.setStringValue(
-        LocaleKeys.SUBSCRIPTION_NAME, response.data.purchase.plan.name);
-    LocaleStorage.instance.setStringValue(
-        LocaleKeys.SUBSCRIPTION_PERIOD, response.data.purchase.periodType);
+        LocaleKeys.SUBSCRIPTION_NAME, response.data.purchase?.plan.name ?? "");
+    LocaleStorage.instance.setStringValue(LocaleKeys.SUBSCRIPTION_PERIOD,
+        response.data.purchase?.periodType ?? "");
     LocaleStorage.instance.setIntValue(
-        LocaleKeys.SUBSCRIPTION_PRICE, response.data.purchase.price);
+        LocaleKeys.SUBSCRIPTION_PRICE, response.data.purchase?.price ?? 0);
   }
 }

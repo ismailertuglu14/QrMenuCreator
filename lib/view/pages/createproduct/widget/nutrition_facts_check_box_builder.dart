@@ -8,21 +8,15 @@ class NutritionFactsCheckBoxBuilder extends StatelessWidget {
   const NutritionFactsCheckBoxBuilder({
     super.key,
     required this.title,
-   
-   
     this.hintText,
- 
-  
     this.onChangedField,
+    required this.textController,
   });
   final String title;
 
-
   final String? hintText;
+  final TextEditingController textController;
   final void Function(String)? onChangedField;
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +28,7 @@ class NutritionFactsCheckBoxBuilder extends StatelessWidget {
         trailing: SizedBox(
             width: context.width / 5,
             child: CommonTextField(
-          
-             
+              textController: textController,
               hintText: hintText ?? "0",
               onChanged: onChangedField,
               textAlign: TextAlign.center,

@@ -1,5 +1,4 @@
-import 'package:qrmenu/view/pages/createproduct/model/create_product_response_model.dart';
-
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class GetProductByIdResponseModel {
   final GetProductByIdData data;
   final bool isSuccess;
@@ -36,13 +35,13 @@ class GetProductByIdData {
   final String categoryId;
   final String name;
   final String description;
-  final List<Ingredient> ingredients;
   final List<Nutrition> nutritions;
+  final List<Allergen> allergens;
   final int price;
   final String currency;
-  final List<String> images;
+  final List<dynamic> images;
   final DateTime createdDate;
-  final DateTime updatedDate;
+  final bool isActive;
 
   GetProductByIdData({
     required this.id,
@@ -51,13 +50,13 @@ class GetProductByIdData {
     required this.categoryId,
     required this.name,
     required this.description,
-    required this.ingredients,
     required this.nutritions,
+    required this.allergens,
     required this.price,
     required this.currency,
     required this.images,
     required this.createdDate,
-    required this.updatedDate,
+    required this.isActive,
   });
 
   factory GetProductByIdData.fromJson(Map<String, dynamic> json) =>
@@ -68,15 +67,15 @@ class GetProductByIdData {
         categoryId: json["categoryId"],
         name: json["name"],
         description: json["description"],
-        ingredients: List<Ingredient>.from(
-            json["ingredients"].map((x) => Ingredient.fromJson(x))),
         nutritions: List<Nutrition>.from(
             json["nutritions"].map((x) => Nutrition.fromJson(x))),
+        allergens: List<Allergen>.from(
+            json["allergens"].map((x) => Allergen.fromJson(x))),
         price: json["price"],
         currency: json["currency"],
-        images: List<String>.from(json["images"].map((x) => x)),
+        images: List<dynamic>.from(json["images"].map((x) => x)),
         createdDate: DateTime.parse(json["createdDate"]),
-        updatedDate: DateTime.parse(json["updatedDate"]),
+        isActive: json["isActive"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -86,12 +85,63 @@ class GetProductByIdData {
         "categoryId": categoryId,
         "name": name,
         "description": description,
-        "ingredients": List<dynamic>.from(ingredients.map((x) => x.toJson())),
         "nutritions": List<dynamic>.from(nutritions.map((x) => x.toJson())),
+        "allergens": List<dynamic>.from(allergens.map((x) => x.toJson())),
         "price": price,
         "currency": currency,
         "images": List<dynamic>.from(images.map((x) => x)),
         "createdDate": createdDate.toIso8601String(),
-        "updatedDate": updatedDate.toIso8601String(),
+        "isActive": isActive,
+      };
+}
+
+class Allergen {
+  String name;
+  bool isAllergen;
+
+  Allergen({
+    required this.name,
+    required this.isAllergen,
+  });
+
+  factory Allergen.fromJson(Map<String, dynamic> json) => Allergen(
+        name: json["name"],
+        isAllergen: json["isAllergen"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "isAllergen": isAllergen,
+      };
+}
+
+class AddOns {
+  String name;
+  int price;
+  String description;
+  AddOns({
+    required this.name,
+    required this.price,
+    required this.description,
+  });
+}
+
+class Nutrition {
+  final String name;
+  final int value;
+
+  Nutrition({
+    required this.name,
+    required this.value,
+  });
+
+  factory Nutrition.fromJson(Map<String, dynamic> json) => Nutrition(
+        name: json["name"],
+        value: json["value"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "value": value,
       };
 }

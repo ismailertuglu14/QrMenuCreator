@@ -10,6 +10,10 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
   late final TextEditingController _priceController;
   late final ProductsProvider _productsProvider;
   late final TextEditingController _descriptionController;
+  late final TextEditingController _proteinController;
+  late final TextEditingController _carbohydrateController;
+  late final TextEditingController _fatController;
+  late final TextEditingController _fibreController;
 
   @override
   void initState() {
@@ -20,6 +24,10 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
     _nameController = TextEditingController();
     _priceController = TextEditingController();
     _descriptionController = TextEditingController();
+    _proteinController = TextEditingController();
+    _carbohydrateController = TextEditingController();
+    _fatController = TextEditingController();
+    _fibreController = TextEditingController();
 
     _imagePicker = ImagePicker();
     WidgetsBinding.instance.addPostFrameCallback((_) => getProductById());
@@ -42,23 +50,17 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
         _createProductProvider.changeLoading();
         CreateProductResponseModel response =
             await _createProductService.createProduct(
+          addOns: [],
           allergens: _createProductProvider.allergenSuggestions,
           menuId: widget.menuId ?? "",
           categoryId: widget.categoryId ?? "",
           name: _nameController.text,
           description: _descriptionController.text,
           price: int.parse(_priceController.text),
-          currency: LocaleStorage.instance.getStringValue(LocaleKeys.CURRENCY),
           isActive: _createProductProvider.isActive,
           files: _createProductProvider.itemPreviewList,
-          nutritions: [
-            Nutrition(name: "Protein", value: _createProductProvider.protein),
-            Nutrition(
-                name: "Carbs", value: _createProductProvider.carbohydrate),
-            Nutrition(name: "Fats", value: _createProductProvider.fat),
-            Nutrition(name: "Fibre", value: _createProductProvider.fibre),
-          ],
-          ingredients: [],
+          nutritions: _createProductProvider.nutritions,
+          currency: LocaleStorage.instance.getStringValue(LocaleKeys.CURRENCY),
         );
         if (response.isSuccess && response.errors.isEmpty) {
           _productsProvider.addProductItem(GetProductsByMenuIdData(
@@ -68,7 +70,7 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
               description: response.data.description,
               price: response.data.price,
               currency: response.data.currency,
-              images: response.data.images.first));
+              image: response.data.images));
           context.pop();
           _nameController.clear();
           _priceController.clear();
@@ -93,6 +95,7 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
 
         UpdateProductResponseModel response =
             await _createProductService.updateProduct(
+          addOns: [],
           allergens: _createProductProvider.allergenSuggestions,
           productId: widget.productId ?? "",
           menuId: widget.menuId ?? "",
@@ -100,17 +103,10 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
           name: _nameController.text,
           description: _descriptionController.text,
           price: int.parse(_priceController.text),
-          currency: LocaleStorage.instance.getStringValue(LocaleKeys.CURRENCY),
           isActive: _createProductProvider.isActive,
           files: _createProductProvider.itemPreviewList,
-          nutritions: [
-            Nutrition(name: "Protein", value: _createProductProvider.protein),
-            Nutrition(
-                name: "Carbs", value: _createProductProvider.carbohydrate),
-            Nutrition(name: "Fats", value: _createProductProvider.fat),
-            Nutrition(name: "Fibre", value: _createProductProvider.fibre),
-          ],
-          ingredients: [],
+          nutritions: _createProductProvider.nutritions,
+          currency: LocaleStorage.instance.getStringValue(LocaleKeys.CURRENCY),
         );
 
         if (response.isSuccess && response.errors.isEmpty) {
@@ -121,7 +117,7 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
               description: response.data.description,
               price: response.data.price,
               currency: response.data.currency,
-              images: response.data.images));
+              image: response.data.images));
 
           context.pop();
           _nameController.clear();
@@ -145,12 +141,15 @@ abstract class CreateProductViewModel extends State<CreateProductView> {
             .getProductById(productId: widget.productId ?? "");
 
         if (response.isSuccess && response.errors.isEmpty) {
+          _createProductProvider.changeIsActive(response.data.isActive);
+          _proteinController.text =
+              response.data.nutritions[0].value.toString();
+          _carbohydrateController.text =
+              response.data.nutritions[1].value.toString();
+          _fatController.text = response.data.nutritions[2].value.toString();
+          _fibreController.text = response.data.nutritions[3].value.toString();
           _createProductProvider
-              .changeCarbohydrate(response.data.nutritions[1].value);
-          _createProductProvider.changeFat(response.data.nutritions[2].value);
-          _createProductProvider.changeFibre(response.data.nutritions[3].value);
-          _createProductProvider
-              .changeProtein(response.data.nutritions[0].value);
+              .changeAllergenSuggestions(response.data.allergens);
 
           _nameController.text = response.data.name;
           _priceController.text = response.data.price.toString();

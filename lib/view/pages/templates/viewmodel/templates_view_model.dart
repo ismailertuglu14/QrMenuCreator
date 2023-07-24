@@ -52,7 +52,7 @@ abstract class TemplatesViewModel extends State<TemplatesView>
                           "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",
                       price: 256,
                       currency: "currency",
-                      images: [
+                      image: [
                         "https://img.jacca.com/pixlogo/product/46774f5c-fe01-4363-9e1b-76e4ac78caa5.jpg",
                         "https://img.jacca.com/pixlogo/product/273aad3f-4400-4f02-a0d6-0bebcc38fe71.jpg",
                         "https://img.jacca.com/pixlogo/product/b23915fa-4de0-40b6-b920-54dc6c5d3971.jpg"

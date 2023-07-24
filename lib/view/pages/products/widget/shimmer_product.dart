@@ -28,21 +28,24 @@ Widget getProductShimmer(BuildContext context) {
               height: 20,
               width: 50,
             ),
-            subtitle: Container(
-                decoration: BoxDecoration(
-                  borderRadius: PageBorderRadius.allMedium(),
-                  color: context.colorScheme.primary,
-                ),
-                constraints: BoxConstraints(maxHeight: context.height * 0.03),
-                child: Center(
-                    child: Container(
+            subtitle: Padding(
+              padding: PagePadding.verticalMin(),
+              child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: PageBorderRadius.allMedium(),
+                    color: context.colorScheme.primary,
                   ),
-                  height: 10,
-                  width: 100,
-                ))),
+                  constraints: BoxConstraints(maxHeight: context.height * 0.03),
+                  child: Center(
+                      child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    height: 10,
+                    width: 100,
+                  ))),
+            ),
             trailing: PopupMenuButton(
               itemBuilder: (context) => [],
             )),

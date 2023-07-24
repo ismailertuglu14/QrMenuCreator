@@ -72,28 +72,31 @@ class _CreateProductViewViewState extends CreateProductViewModel {
         ),
         body: CloseKeyboard(
           child: SingleChildScrollView(
-              padding: PagePadding.allMedium(),
+              padding: PagePadding.allHeight(),
               child: SizedBox(
                 height: context.height * 1.2,
                 width: context.width,
                 child: Column(children: [
                   Expanded(
-                      flex: 2,
+                      flex: 20,
                       child: CreateItemPreviewFiles(
                           imagePicker: _imagePicker,
                           uploadObject: uploadObject)),
-                  Consumer<CreateProductProvider>(
-                    builder: (context, provider, child) =>
-                        AnimatedSmoothIndicator(
-                            effect: WormEffect(
-                                dotHeight: 10,
-                                dotWidth: 10,
-                                activeDotColor: context.colorScheme.primary),
-                            activeIndex: provider.itemImageCurentIndex,
-                            count: provider.itemPreviewList.length + 1),
+                  Expanded(
+                    flex: 5,
+                    child: Consumer<CreateProductProvider>(
+                      builder: (context, provider, child) =>
+                          AnimatedSmoothIndicator(
+                              effect: WormEffect(
+                                  dotHeight: 10,
+                                  dotWidth: 10,
+                                  activeDotColor: context.colorScheme.primary),
+                              activeIndex: provider.itemImageCurentIndex,
+                              count: provider.itemPreviewList.length + 1),
+                    ),
                   ),
                   Expanded(
-                    flex: 8,
+                    flex: 80,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -110,7 +113,13 @@ class _CreateProductViewViewState extends CreateProductViewModel {
                           textInputAction: TextInputAction.done,
                         ),
                         CreateItemListTileBuilder(
-                          onTap: () => addNutritionFactsDialog(context),
+                          onTap: () => addNutritionFactsDialog(
+                            context,
+                            _proteinController,
+                            _carbohydrateController,
+                            _fatController,
+                            _fibreController,
+                          ),
                           trailing: Icon(Icons.add_circle_outline_rounded),
                           title: Row(children: [
                             Expanded(

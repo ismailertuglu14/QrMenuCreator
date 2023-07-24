@@ -12,6 +12,10 @@ import 'nutrition_facts_check_box_builder.dart';
 late final TextEditingController _fibreController;
 Future<dynamic> addNutritionFactsDialog(
   BuildContext context,
+  TextEditingController proteinController,
+  TextEditingController carbohydrateController,
+  TextEditingController fatController,
+  TextEditingController fibreController,
 ) {
   return showDialog(
       context: context,
@@ -37,25 +41,26 @@ Future<dynamic> addNutritionFactsDialog(
                 Consumer<CreateProductProvider>(
                   builder: (context, provider, child) => Column(children: [
                     NutritionFactsCheckBoxBuilder(
+                      textController: proteinController,
                       title: "Protein",
                       onChangedField: (value) =>
-                          provider.changeProtein(int.parse(value)),
+                          provider.changeNutritions(0, int.parse(value)),
                     ),
                     NutritionFactsCheckBoxBuilder(
-                      title: "Carbs",
-                      onChangedField: (value) =>
-                          provider.changeCarbohydrate(int.parse(value)),
-                    ),
+                        textController: carbohydrateController,
+                        title: "Carbs",
+                        onChangedField: (value) =>
+                            provider.changeNutritions(1, int.parse(value))),
                     NutritionFactsCheckBoxBuilder(
-                      title: "Fats",
-                      onChangedField: (value) =>
-                          provider.changeFat(int.parse(value)),
-                    ),
+                        textController: fatController,
+                        title: "Fats",
+                        onChangedField: (value) =>
+                            provider.changeNutritions(2, int.parse(value))),
                     NutritionFactsCheckBoxBuilder(
-                      title: "Fibre",
-                      onChangedField: (value) =>
-                          provider.changeFibre(int.parse(value)),
-                    ),
+                        textController: fibreController,
+                        title: "Fibre",
+                        onChangedField: (value) =>
+                            provider.changeNutritions(3, int.parse(value))),
                     Padding(
                       padding: PagePadding.allMedium(),
                       child: Consumer<CreateProductProvider>(
