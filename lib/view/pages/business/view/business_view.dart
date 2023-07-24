@@ -9,6 +9,7 @@ import 'package:qrmenu/core/extension/asset_image_extension.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/image_icon_extenison.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
+import 'package:qrmenu/core/init/provider/dashboard_provider.dart';
 import 'package:qrmenu/product/widget/user_circle_avatar.dart';
 import 'package:wiredash/wiredash.dart';
 

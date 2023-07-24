@@ -7,12 +7,8 @@ abstract class BusinessViewModel extends State<BusinessView> {
   @override
   void initState() {
     super.initState();
+
     _homeProvider = HomeProvider.instance;
     _loginProvider = LoginProvider.instance;
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }

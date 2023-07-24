@@ -21,9 +21,6 @@ class LoginProvider extends ChangeNotifier {
   bool _obscureText = true;
   bool _isLoading = false;
 
-  
-
-  
   bool _isAuthenticated = false;
   bool get isAuthenticated => _isAuthenticated;
 
@@ -62,8 +59,6 @@ class LoginProvider extends ChangeNotifier {
       return false;
     }
   }
-
-  
 
   void setAuthenticated(bool value) {
     _isAuthenticated = value;

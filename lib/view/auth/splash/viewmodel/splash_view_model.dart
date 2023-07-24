@@ -2,7 +2,8 @@
 
 part of '../view/splash_view.dart';
 
-abstract class SplashViewModels extends State<SplashView> with CacheInit {
+abstract class SplashViewModels extends State<SplashView>
+    with CacheInit, SaveBusinessMixin {
   bool _isFirstInit = false;
   late final UpdateService _updateService;
   late final LoginService _loginService;
@@ -61,13 +62,20 @@ abstract class SplashViewModels extends State<SplashView> with CacheInit {
               await _loginService.login(requestModel: request);
           if (response.isSuccess && response.errors.isEmpty) {
             context.read<LoginProvider>().setAuthenticated(true);
-            context.go(RouterKeys.HOME.route);
+            GetBusinessResponseModel getBusinessResponse =
+                await _loginService.getBusiness();
+            if (getBusinessResponse.isSuccess &&
+                getBusinessResponse.errors.isEmpty) {
+              Future.microtask(() => saveBusinessInfo(getBusinessResponse))
+                  .whenComplete(() => context.go(RouterKeys.HOME.route));
+            }
           }
         } catch (e) {
           context.read<LoginProvider>().setAuthenticated(false);
         }
       } else {
         context.read<LoginProvider>().setAuthenticated(false);
+        Fluttertoast.showToast(msg: "Please login again");
         context.go(RouterKeys.LOGIN.route);
       }
     }

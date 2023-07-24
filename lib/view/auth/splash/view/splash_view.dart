@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'package:app_version_update/app_version_update.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:qrmenu/core/extension/context_extension.dart';
 import 'package:qrmenu/core/extension/lottie_builder_extenson.dart';
 import 'package:qrmenu/core/extension/router_extension.dart';
+import 'package:qrmenu/product/mixin/save_business_mixin.dart';
 import 'package:qrmenu/product/utility/page_padding.dart';
 import 'package:qrmenu/view/auth/login/service/email/Login_service.dart';
 
@@ -21,6 +23,7 @@ import '../../../../core/init/provider/login_provider.dart';
 import '../../../../core/init/update/Update_service.dart';
 import '../../../../product/mixin/cache_init_mixin.dart';
 import '../../../../product/utility/durations.dart';
+import '../../login/model/get_business_response_model.dart';
 import '../../login/model/login_request_model.dart';
 import '../../login/model/login_response_model.dart';
 part '../viewmodel/splash_view_model.dart';
