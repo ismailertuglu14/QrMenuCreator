@@ -59,8 +59,18 @@ abstract class RegisterViewModel extends State<RegisterView> {
                     phoneNumber: _contactNumberTextController.text)));
 
         if (response.isSuccess && response.errors.isEmpty) {
-          Fluttertoast.showToast(msg: "Register Success");
+          LocaleStorage.instance.setStringValue(
+              LocaleKeys.ACCESS_TOKEN, response.data.accessToken);
+          LocaleStorage.instance.setStringValue(
+              LocaleKeys.REFRESH_TOKEN, response.data.refreshToken);
+          LocaleStorage.instance.setStringValue(
+              LocaleKeys.EXPIRATION, response.data.expiration.toString());
+          LocaleStorage.instance
+              .setStringValue(LocaleKeys.EMAIL, _emailTextController.text);
+          LocaleStorage.instance.setStringValue(
+              LocaleKeys.PASSWORD, _passwordTextController.text);
           _loginService.getBusiness();
+          Fluttertoast.showToast(msg: "Register Success");
           context.go(RouterKeys.HOME.route);
         } else {
           Fluttertoast.showToast(msg: response.errors.first.message);
