@@ -9,8 +9,6 @@ import 'package:qrmenu/main.dart';
 import 'dart:convert';
 import 'dart:io';
 
-
-
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(context) {
@@ -22,43 +20,44 @@ class MyHttpOverrides extends HttpOverrides {
 
 void main() {
   HttpOverrides.global = MyHttpOverrides();
+
   test('Register Test', () async {
     Dio dio = Dio();
 
     final FormData formData = FormData.fromMap({
       "menuId": "64baedd3c514cad78c3aa10a",
       "categoryId": "64baf13c867e43598ffd6ba6",
-      "name": "name",
+      "name": "Flutter Deneme",
       "description": "description",
       "price": 50,
       "currency": "TL",
       "images": [],
       "isActive": true,
-      "addOns": [
+      "addOns": jsonEncode([
         {"name": "Protein", "description": "1", "price": 10},
         {"name": "Carbs", "description": "2", "price": 20},
         {"name": "Fats", "description": "3", "price": 30},
         {"name": "Fibre", "description": "4", "price": 40}
-      ],
-      "allergens": [
+      ]),
+      "allergens": jsonEncode([
         {"name": "Molluscs", "isAllergen": true}
-      ],
-      "nutritions": [
+      ]),
+      "nutritions": jsonEncode([
         {"name": "Protein", "value": 10},
         {"name": "Carbs", "value": 20},
         {"name": "Fats", "value": 30},
         {"name": "Fibre", "value": 40}
-      ],
+      ]),
     });
-    Response response = await dio.post(
-        "https://qrmenuapi.azurewebsites.net/api/v1/product/create",
-        data: formData,
-        options: Options(
-          headers: {
-            'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBkNjUzMzU2LWVmNGMtNDVkMC04NmU0LWYxN2NjZDlkM2E2OSIsInJvbGUiOjAsImlhdCI6MTY5MDAzODY0OCwiZXhwIjoxNjkyNjMwNjQ4fQ.sKk1A89Ug8-0qcHtdATxaTom5me6fYyPorST811QZYY'
-          },
-        ));
+    Response response =
+        await dio.post("http://localhost:3333/api/v1/product/create",
+            data: formData,
+            options: Options(
+              headers: {
+                'Authorization':
+                    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBkNjUzMzU2LWVmNGMtNDVkMC04NmU0LWYxN2NjZDlkM2E2OSIsInJvbGUiOjAsImlhdCI6MTY5MDAzODY0OCwiZXhwIjoxNjkyNjMwNjQ4fQ.sKk1A89Ug8-0qcHtdATxaTom5me6fYyPorST811QZYY'
+              },
+            ));
 
     print(response.statusCode);
 
