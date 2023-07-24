@@ -29,84 +29,80 @@ class GetBusinessResponseModel {
 
 class GetBusinessData {
   final Location location;
-  final bool isVerified;
   final String id;
   final String name;
   final dynamic address;
-  final String currentPlanId;
+  final dynamic currentPlanId;
   final dynamic category;
-  final String? profileImage;
-  final dynamic bannerImage;
-  final SocialMedias socialMedias;
+  final dynamic profileImage;
   final bool isActive;
+  final bool isVerified;
   final String defaultCurrency;
+  final SocialMedias socialMedias;
   final String email;
   final Phone phone;
-  final Purchase purchase;
+  final dynamic purchase;
 
   GetBusinessData({
     required this.location,
-    required this.isVerified,
     required this.id,
     required this.name,
     this.address,
-    required this.currentPlanId,
+    this.currentPlanId,
     this.category,
-    required this.profileImage,
-    this.bannerImage,
-    required this.socialMedias,
+    this.profileImage,
     required this.isActive,
+    required this.isVerified,
     required this.defaultCurrency,
+    required this.socialMedias,
     required this.email,
     required this.phone,
-    required this.purchase,
+    this.purchase,
   });
 
   factory GetBusinessData.fromJson(Map<String, dynamic> json) =>
       GetBusinessData(
         location: Location.fromJson(json["location"]),
-        isVerified: json["isVerified"],
         id: json["_id"],
         name: json["name"],
         address: json["address"],
         currentPlanId: json["currentPlanId"],
         category: json["category"],
         profileImage: json["profileImage"],
-        bannerImage: json["bannerImage"],
-        socialMedias: SocialMedias.fromJson(json["socialMedias"]),
         isActive: json["isActive"],
+        isVerified: json["isVerified"],
         defaultCurrency: json["defaultCurrency"],
+        socialMedias: SocialMedias.fromJson(json["socialMedias"]),
         email: json["email"],
         phone: Phone.fromJson(json["phone"]),
-        purchase: Purchase.fromJson(json["purchase"]),
+        purchase: json["purchase"],
       );
 
   Map<String, dynamic> toJson() => {
         "location": location.toJson(),
-        "isVerified": isVerified,
         "_id": id,
         "name": name,
         "address": address,
         "currentPlanId": currentPlanId,
         "category": category,
         "profileImage": profileImage,
-        "bannerImage": bannerImage,
-        "socialMedias": socialMedias.toJson(),
         "isActive": isActive,
+        "isVerified": isVerified,
         "defaultCurrency": defaultCurrency,
+        "socialMedias": socialMedias.toJson(),
         "email": email,
         "phone": phone.toJson(),
-        "purchase": purchase.toJson(),
+        "purchase": purchase,
       };
 }
 
 class Location {
-  final int latitude;
-  final int longitude;
+  final dynamic latitude;
+  final dynamic longitude;
 
   Location({
-    required this.latitude,
-    required this.longitude,
+    this.latitude,
+    this.longitude,
   });
 
   factory Location.fromJson(Map<String, dynamic> json) => Location(
@@ -140,127 +136,22 @@ class Phone {
       };
 }
 
-class Purchase {
-  final Plan plan;
-  final String periodType;
-  final int price;
-  final DateTime purchaseDate;
-  final DateTime expirationDate;
-  final bool isActive;
-
-  Purchase({
-    required this.plan,
-    required this.periodType,
-    required this.price,
-    required this.purchaseDate,
-    required this.expirationDate,
-    required this.isActive,
-  });
-
-  factory Purchase.fromJson(Map<String, dynamic> json) => Purchase(
-        plan: Plan.fromJson(json["plan"]),
-        periodType: json["periodType"],
-        price: json["price"],
-        purchaseDate: DateTime.parse(json["purchaseDate"]),
-        expirationDate: DateTime.parse(json["expirationDate"]),
-        isActive: json["isActive"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "plan": plan.toJson(),
-        "periodType": periodType,
-        "price": price,
-        "purchaseDate": purchaseDate.toIso8601String(),
-        "expirationDate": expirationDate.toIso8601String(),
-        "isActive": isActive,
-      };
-}
-
-class Plan {
-  final String id;
-  final String name;
-  final List<Feature> features;
-  final int monthlyPrice;
-  final int annuallyPrice;
-  final int monthlyDiscount;
-  final int annuallyDiscount;
-  final int maxMenuCount;
-  final int maxProductCount;
-
-  Plan({
-    required this.id,
-    required this.name,
-    required this.features,
-    required this.monthlyPrice,
-    required this.annuallyPrice,
-    required this.monthlyDiscount,
-    required this.annuallyDiscount,
-    required this.maxMenuCount,
-    required this.maxProductCount,
-  });
-
-  factory Plan.fromJson(Map<String, dynamic> json) => Plan(
-        id: json["_id"],
-        name: json["name"],
-        features: List<Feature>.from(
-            json["features"].map((x) => Feature.fromJson(x))),
-        monthlyPrice: json["monthlyPrice"],
-        annuallyPrice: json["annuallyPrice"],
-        monthlyDiscount: json["monthlyDiscount"],
-        annuallyDiscount: json["annuallyDiscount"],
-        maxMenuCount: json["maxMenuCount"],
-        maxProductCount: json["maxProductCount"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "_id": id,
-        "name": name,
-        "features": List<dynamic>.from(features.map((x) => x.toJson())),
-        "monthlyPrice": monthlyPrice,
-        "annuallyPrice": annuallyPrice,
-        "monthlyDiscount": monthlyDiscount,
-        "annuallyDiscount": annuallyDiscount,
-        "maxMenuCount": maxMenuCount,
-        "maxProductCount": maxProductCount,
-      };
-}
-
-class Feature {
-  final String description;
-  final bool isAvailable;
-
-  Feature({
-    required this.description,
-    required this.isAvailable,
-  });
-
-  factory Feature.fromJson(Map<String, dynamic> json) => Feature(
-        description: json["description"],
-        isAvailable: json["isAvailable"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "description": description,
-        "isAvailable": isAvailable,
-      };
-}
-
 class SocialMedias {
-  final String instagram;
-  final String facebook;
-  final String twitter;
-  final String threads;
-  final String whatsapp;
-  final String website;
+  final dynamic instagram;
+  final dynamic facebook;
+  final dynamic twitter;
+  final dynamic threads;
+  final dynamic whatsapp;
+  final dynamic website;
   final String id;
 
   SocialMedias({
-    required this.instagram,
-    required this.facebook,
-    required this.twitter,
-    required this.threads,
-    required this.whatsapp,
-    required this.website,
+    this.instagram,
+    this.facebook,
+    this.twitter,
+    this.threads,
+    this.whatsapp,
+    this.website,
     required this.id,
   });
 
